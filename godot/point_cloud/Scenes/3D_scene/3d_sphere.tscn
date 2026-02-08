@@ -1,0 +1,184 @@
+[gd_scene load_steps=25 format=3 uid="uid://cjja8lmq85du7"]
+
+[ext_resource type="PackedScene" uid="uid://cba7lek3lpmcx" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_object.tscn" id="1_8hq1n"]
+[ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="2_qmuc6"]
+[ext_resource type="Texture2D" uid="uid://cjppttgjsijox" path="res://Assets/CroppedSpecies/d9ee60ea8c95063e6163cb8989c0ea8b-removebg-preview.png" id="3_fnhe2"]
+[ext_resource type="Texture2D" uid="uid://b0aya7v7ss0r2" path="res://Assets/CroppedSpecies/5feb8e8bb4e1713623e27ce8c13d4ce6-removebg-preview.png" id="4_1rjrg"]
+[ext_resource type="Texture2D" uid="uid://dwwl473tiekep" path="res://Assets/CroppedSpecies/c13c9eacf5e11939780489d3526975b5-removebg-preview.png" id="4_e4ryn"]
+[ext_resource type="Texture2D" uid="uid://ckipgylm26ckq" path="res://Assets/CroppedSpecies/flower-removebg-preview.png" id="5_1rjrg"]
+[ext_resource type="Texture2D" uid="uid://b7mraapvvuhse" path="res://Assets/CroppedSpecies/db25543389d1f22a09e3d0f41d206ab4-removebg-preview.png" id="6_aik4r"]
+[ext_resource type="Script" uid="uid://7m0ekawqrbcw" path="res://addons/godot360/src/camera360.gd" id="6_fnhe2"]
+[ext_resource type="Texture2D" uid="uid://glpo3r2l8jpq" path="res://Assets/CroppedSpecies/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="7_8mqsq"]
+[ext_resource type="PackedScene" uid="uid://lwg43ywqhjsc" path="res://Scenes/3D_scene/particles_from_image/particles_test.tscn" id="10_fnhe2"]
+[ext_resource type="Texture2D" uid="uid://damsr2qe5p5im" path="res://Assets/CroppedSpecies/Venn/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="11_e4ryn"]
+
+[sub_resource type="Environment" id="Environment_1owrv"]
+glow_enabled = true
+glow_strength = 2.0
+glow_bloom = 0.47
+
+[sub_resource type="QuadMesh" id="QuadMesh_2mgj3"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1qcga"]
+render_priority = 0
+shader = ExtResource("2_qmuc6")
+shader_parameter/point_density = 724.236011505127
+shader_parameter/point_size = 0.60000000894072
+shader_parameter/edge_threshold = 0.0999999977648
+shader_parameter/edge_width = 0.249999994412
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("3_fnhe2")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gssn6"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nfe7i"]
+render_priority = 0
+shader = ExtResource("2_qmuc6")
+shader_parameter/point_density = 660.3211164474487
+shader_parameter/point_size = 0.60000000894072
+shader_parameter/edge_threshold = 0.0999999977648
+shader_parameter/edge_width = 0.249999994412
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("4_e4ryn")
+
+[sub_resource type="QuadMesh" id="QuadMesh_bu0f5"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6tvtr"]
+render_priority = 0
+shader = ExtResource("2_qmuc6")
+shader_parameter/point_density = 672.3918914794922
+shader_parameter/point_size = 0.60000000894072
+shader_parameter/edge_threshold = 0.0999999977648
+shader_parameter/edge_width = 0.249999994412
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("5_1rjrg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_shl1w"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1uqpr"]
+render_priority = 0
+shader = ExtResource("2_qmuc6")
+shader_parameter/point_density = 684.6022605895996
+shader_parameter/point_size = 0.60000000894072
+shader_parameter/edge_threshold = 0.0999999977648
+shader_parameter/edge_width = 0.249999994412
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("6_aik4r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_wuhb8"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gaqhf"]
+render_priority = 0
+shader = ExtResource("2_qmuc6")
+shader_parameter/point_density = 604.0513515472412
+shader_parameter/point_size = 0.60000000894072
+shader_parameter/edge_threshold = 0.0999999977648
+shader_parameter/edge_width = 0.249999994412
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("6_aik4r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jdrkj"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iomie"]
+render_priority = 0
+shader = ExtResource("2_qmuc6")
+shader_parameter/point_density = 662.5600457191467
+shader_parameter/point_size = 0.5000000074506
+shader_parameter/edge_threshold = 0.0
+shader_parameter/edge_width = 0.07999999821184
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("7_8mqsq")
+
+[node name="3DSphere" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1owrv")
+
+[node name="WithParticles" type="Node3D" parent="."]
+
+[node name="ParticlesTest2" parent="WithParticles" node_paths=PackedStringArray("target_3D") instance=ExtResource("10_fnhe2")]
+transform = Transform3D(0.95879775, 0.073683105, -0.27436775, 0, 0.9657792, 0.2593658, 0.28408954, -0.24867934, 0.9259869, 25.741081, -24.333601, -86.87574)
+target_3D = NodePath("../../Camera360/Node3D")
+
+[node name="ParticlesTest3" parent="WithParticles" node_paths=PackedStringArray("target_3D") instance=ExtResource("10_fnhe2")]
+transform = Transform3D(0.49826783, 0.51477426, 0.69766504, 0, 0.80466723, -0.59372604, -0.867023, 0.29583466, 0.4009398, -80.934395, 68.876686, -46.512028)
+texture = ExtResource("11_e4ryn")
+target_3D = NodePath("../../Camera360/Node3D")
+
+[node name="ParticlesTest4" parent="WithParticles" node_paths=PackedStringArray("target_3D") instance=ExtResource("10_fnhe2")]
+transform = Transform3D(0.1711743, 0.18348126, -0.968005, 0, 0.9825062, 0.18622984, 0.9852406, -0.031877775, 0.16817981, 118.36144, -22.770987, -20.563938)
+texture = ExtResource("3_fnhe2")
+target_3D = NodePath("../../Camera360/Node3D")
+
+[node name="ParticlesTest5" parent="WithParticles" node_paths=PackedStringArray("target_3D") instance=ExtResource("10_fnhe2")]
+transform = Transform3D(-0.7229109, -0.5126635, 0.46322322, 0, 0.6704237, 0.74197835, -0.69094104, 0.5363844, -0.48465657, -49.58042, -79.41655, 51.874508)
+texture = ExtResource("4_1rjrg")
+target_3D = NodePath("../../Camera360/Node3D")
+
+[node name="ParticlesTest6" parent="WithParticles" node_paths=PackedStringArray("target_3D") instance=ExtResource("10_fnhe2")]
+transform = Transform3D(-0.54617184, -0.61352473, -0.5703363, 0, 0.68085796, -0.7324153, 0.8376729, -0.4000248, -0.37186545, 74.03344, 95.07237, 48.27061)
+texture = ExtResource("5_1rjrg")
+target_3D = NodePath("../../Camera360/Node3D")
+
+[node name="Camera360" type="Camera3D" parent="." node_paths=PackedStringArray("subviewport")]
+script = ExtResource("6_fnhe2")
+fovx = 360.0
+lens = 5
+subviewport = NodePath("SubViewport")
+metadata/_custom_type_script = "uid://7m0ekawqrbcw"
+
+[node name="SubViewport" type="SubViewport" parent="Camera360"]
+size = Vector2i(1024, 1024)
+
+[node name="Node3D" type="Node3D" parent="Camera360"]
+
+[node name="Flat" type="Node3D" parent="."]
+visible = false
+
+[node name="PointCloudObject" parent="Flat" instance=ExtResource("1_8hq1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.822094)
+mesh = SubResource("QuadMesh_2mgj3")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_1qcga")
+
+[node name="PointCloudObject2" parent="Flat" instance=ExtResource("1_8hq1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.652107, 0, -1.79111)
+mesh = SubResource("QuadMesh_gssn6")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_nfe7i")
+
+[node name="PointCloudObject3" parent="Flat" instance=ExtResource("1_8hq1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.922264, 0, -1.6694689)
+mesh = SubResource("QuadMesh_bu0f5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_6tvtr")
+
+[node name="PointCloudObject4" parent="Flat" instance=ExtResource("1_8hq1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.024445, 13.831482, 12.412716)
+mesh = SubResource("QuadMesh_shl1w")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_1uqpr")
+
+[node name="PointCloudObject5" parent="Flat" instance=ExtResource("1_8hq1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.039234, -4.393073, 21.067955)
+mesh = SubResource("QuadMesh_wuhb8")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_gaqhf")
+
+[node name="PointCloudObject6" parent="Flat" instance=ExtResource("1_8hq1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7147026, -4.393073, 21.067955)
+mesh = SubResource("QuadMesh_jdrkj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_iomie")
