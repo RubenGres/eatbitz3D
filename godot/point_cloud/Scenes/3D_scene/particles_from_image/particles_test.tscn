@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://lwg43ywqhjsc"]
+
+[ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_4yhel"]
+[ext_resource type="Shader" uid="uid://7r2nnaeaalh8" path="res://Scenes/3D_scene/particles_from_image/particles_spawn.gdshader" id="1_6rf3o"]
+[ext_resource type="Script" uid="uid://dx77855njh316" path="res://Scenes/3D_scene/particles_from_image/billboard.gd" id="1_dpbjc"]
+[ext_resource type="Texture2D" uid="uid://ckipgylm26ckq" path="res://Assets/CroppedSpecies/flower-removebg-preview.png" id="2_dpbjc"]
+[ext_resource type="Script" uid="uid://v4pl76e10a4" path="res://Scenes/3D_scene/particles_from_image/FakePointClouds.gd" id="4_73xyk"]
+[ext_resource type="Shader" uid="uid://d16e76ivnxhu1" path="res://Scenes/3D_scene/particles_from_image/particles_albedo.gdshader" id="4_dpjeb"]
+[ext_resource type="Script" uid="uid://dwvlxgfpjqty6" path="res://Scenes/3D_scene/PointCloudObject/PointCloiudObject3D.gd" id="8_ie16o"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dpjeb"]
+frequency = 0.0029
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4yhel"]
+noise = SubResource("FastNoiseLite_dpjeb")
+
+[sub_resource type="Curve" id="Curve_4yhel"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.20888889, 1), 0.0, 0.0, 0, 0, Vector2(0.86666673, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_dpbjc"]
+curve = SubResource("Curve_4yhel")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpbjc"]
+shader = ExtResource("1_6rf3o")
+shader_parameter/input_texture = ExtResource("2_dpbjc")
+shader_parameter/height_texture = ExtResource("2_dpbjc")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_4yhel")
+shader_parameter/scale_curve = SubResource("CurveTexture_dpbjc")
+shader_parameter/emission_shape = Vector2(43.3, 57.7)
+shader_parameter/height_min = 0.06274509803921569
+shader_parameter/height_max = 0.9686274509803922
+shader_parameter/z_multiplier = 10.0
+shader_parameter/jitter_strength = 1.0
+shader_parameter/jitter_speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4yhel"]
+render_priority = 0
+shader = ExtResource("4_dpjeb")
+
+[sub_resource type="QuadMesh" id="QuadMesh_a7anj"]
+material = SubResource("ShaderMaterial_4yhel")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0axbc"]
+size = Vector2(43.3, 57.7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_25qum"]
+render_priority = 0
+shader = ExtResource("1_4yhel")
+shader_parameter/point_density = 1000.0
+shader_parameter/point_size = 0.5000000074506
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("2_dpbjc")
+shader_parameter/use_edge_detection = true
+shader_parameter/edge_threshold = 0.0
+shader_parameter/edge_width = 0.07999999821184
+
+[sub_resource type="Curve" id="Curve_xxm2l"]
+_data = [Vector2(0, 1), 0.0, -0.92456895, 0, 1, Vector2(1, 0.07543099), -0.13483143, 0.0, 0, 0]
+point_count = 2
+
+[node name="ParticlesTest" type="Node3D" unique_id=1420749202]
+script = ExtResource("1_dpbjc")
+orbit_distance = 0.0
+texture = ExtResource("2_dpbjc")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1555643873]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+amount = 30000
+lifetime = 2.0
+preprocess = 3.0
+local_coords = true
+process_material = SubResource("ShaderMaterial_dpbjc")
+draw_pass_1 = SubResource("QuadMesh_a7anj")
+script = ExtResource("4_73xyk")
+texture = ExtResource("2_dpbjc")
+
+[node name="PointCloudObject" type="MeshInstance3D" parent="." unique_id=1657964455]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = SubResource("QuadMesh_0axbc")
+surface_material_override/0 = SubResource("ShaderMaterial_25qum")
+script = ExtResource("8_ie16o")
+texture = ExtResource("2_dpbjc")
+point_size = 300.0
+density_curve = SubResource("Curve_xxm2l")
+max_distance = 600.0

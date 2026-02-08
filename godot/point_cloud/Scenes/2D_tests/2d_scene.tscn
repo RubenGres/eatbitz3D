@@ -1,0 +1,141 @@
+[gd_scene load_steps=17 format=3 uid="uid://devnq4lglvjgi"]
+
+[ext_resource type="Shader" uid="uid://btqm1lovpyd3p" path="res://Shaders/point_cloud_canvas.gdshader" id="1_nrxip"]
+[ext_resource type="Texture2D" uid="uid://glpo3r2l8jpq" path="res://Assets/CroppedSpecies/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="2_dlhar"]
+[ext_resource type="Texture2D" uid="uid://cjppttgjsijox" path="res://Assets/CroppedSpecies/d9ee60ea8c95063e6163cb8989c0ea8b-removebg-preview.png" id="2_g5m7m"]
+[ext_resource type="Script" uid="uid://u2sa0bnj7i6a" path="res://Scenes/2D_tests/PointCloiudObject2D.gd" id="3_dlhar"]
+[ext_resource type="Texture2D" uid="uid://b0aya7v7ss0r2" path="res://Assets/CroppedSpecies/5feb8e8bb4e1713623e27ce8c13d4ce6-removebg-preview.png" id="4_0lldo"]
+[ext_resource type="Texture2D" uid="uid://dwwl473tiekep" path="res://Assets/CroppedSpecies/c13c9eacf5e11939780489d3526975b5-removebg-preview.png" id="5_xbos8"]
+[ext_resource type="Texture2D" uid="uid://b7mraapvvuhse" path="res://Assets/CroppedSpecies/db25543389d1f22a09e3d0f41d206ab4-removebg-preview.png" id="7_ojyqv"]
+[ext_resource type="Texture2D" uid="uid://ckipgylm26ckq" path="res://Assets/CroppedSpecies/flower-removebg-preview.png" id="8_0mq1n"]
+[ext_resource type="Script" uid="uid://cvqjbs0y6fmb3" path="res://Scenes/2D_tests/zooming_panning.gd" id="9_ojyqv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ojyqv"]
+shader = ExtResource("1_nrxip")
+shader_parameter/point_density = 282.14999198913574
+shader_parameter/point_size = 0.30000000447036
+shader_parameter/edge_threshold = 0.13999999687072
+shader_parameter/edge_width = 0.15000000223518
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("2_dlhar")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0mq1n"]
+shader = ExtResource("1_nrxip")
+shader_parameter/point_density = 282.14999198913574
+shader_parameter/point_size = 0.30000000447036
+shader_parameter/edge_threshold = 0.13999999687072
+shader_parameter/edge_width = 0.10000000149012
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("4_0lldo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vcpu"]
+shader = ExtResource("1_nrxip")
+shader_parameter/point_density = 282.14999198913574
+shader_parameter/point_size = 0.30000000447036
+shader_parameter/edge_threshold = 0.13999999687072
+shader_parameter/edge_width = 0.15000000223518
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("5_xbos8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ochr"]
+shader = ExtResource("1_nrxip")
+shader_parameter/point_density = 282.14999198913574
+shader_parameter/point_size = 0.30000000447036
+shader_parameter/edge_threshold = 0.13999999687072
+shader_parameter/edge_width = 0.15000000223518
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("2_g5m7m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3l0d"]
+shader = ExtResource("1_nrxip")
+shader_parameter/point_density = 282.14999198913574
+shader_parameter/point_size = 0.30000000447036
+shader_parameter/edge_threshold = 0.0
+shader_parameter/edge_width = 0.15000000223518
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("7_ojyqv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpcir"]
+shader = ExtResource("1_nrxip")
+shader_parameter/point_density = 282.14999198913574
+shader_parameter/point_size = 0.30000000447036
+shader_parameter/edge_threshold = 0.0
+shader_parameter/edge_width = 0.15000000223518
+shader_parameter/movement_speed = 1.30000001937156
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("8_0mq1n")
+
+[sub_resource type="Environment" id="Environment_dlhar"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.13
+glow_blend_mode = 1
+
+[node name="2dScene" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+material = SubResource("ShaderMaterial_ojyqv")
+position = Vector2(-118.58188, -144.16943)
+scale = Vector2(0.48691913, 0.4846813)
+texture = ExtResource("2_dlhar")
+script = ExtResource("3_dlhar")
+my_texture = ExtResource("2_dlhar")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+material = SubResource("ShaderMaterial_0mq1n")
+position = Vector2(171.41812, -144.16943)
+scale = Vector2(0.48691913, 0.4846813)
+texture = ExtResource("4_0lldo")
+script = ExtResource("3_dlhar")
+my_texture = ExtResource("4_0lldo")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+material = SubResource("ShaderMaterial_8vcpu")
+position = Vector2(342.41812, 124.83057)
+scale = Vector2(0.48691913, 0.4846813)
+texture = ExtResource("5_xbos8")
+script = ExtResource("3_dlhar")
+my_texture = ExtResource("5_xbos8")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+material = SubResource("ShaderMaterial_6ochr")
+position = Vector2(-357.58206, 63.830566)
+scale = Vector2(0.48691913, 0.4846813)
+texture = ExtResource("2_g5m7m")
+script = ExtResource("3_dlhar")
+my_texture = ExtResource("2_g5m7m")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+material = SubResource("ShaderMaterial_d3l0d")
+position = Vector2(-188.58188, 111.8306)
+scale = Vector2(0.48691913, 0.4846813)
+texture = ExtResource("7_ojyqv")
+script = ExtResource("3_dlhar")
+my_texture = ExtResource("7_ojyqv")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+material = SubResource("ShaderMaterial_tpcir")
+position = Vector2(30.418152, 111.8306)
+scale = Vector2(0.48691913, 0.4846813)
+texture = ExtResource("8_0mq1n")
+script = ExtResource("3_dlhar")
+my_texture = ExtResource("8_0mq1n")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dlhar")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+zoom = Vector2(9.405, 9.405)
+script = ExtResource("9_ojyqv")

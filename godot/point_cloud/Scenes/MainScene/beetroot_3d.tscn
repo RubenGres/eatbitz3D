@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://b41k7k8jb3div"]
+
+[ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_cjpyj"]
+[ext_resource type="Texture2D" uid="uid://cejfdgej0mu4u" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.png" id="2_rwkad"]
+[ext_resource type="ArrayMesh" uid="uid://bal7e6edxoqef" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.obj" id="3_yn8hq"]
+[ext_resource type="Script" uid="uid://hvfoctb2rosi" path="res://mesh_instance_3d.gd" id="4_s8xy7"]
+[ext_resource type="Shader" uid="uid://dnobl87qxs7ps" path="res://Scenes/MainScene/particles_albedo_from_texture.gdshader" id="5_cjpyj"]
+[ext_resource type="PackedScene" uid="uid://lwg43ywqhjsc" path="res://Scenes/3D_scene/particles_from_image/particles_test.tscn" id="6_kjdk3"]
+[ext_resource type="Texture2D" uid="uid://b0aya7v7ss0r2" path="res://Assets/CroppedSpecies/5feb8e8bb4e1713623e27ce8c13d4ce6-removebg-preview.png" id="7_bx1ys"]
+[ext_resource type="Texture2D" uid="uid://damsr2qe5p5im" path="res://Assets/CroppedSpecies/Venn/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="8_is142"]
+[ext_resource type="Texture2D" uid="uid://cjppttgjsijox" path="res://Assets/CroppedSpecies/d9ee60ea8c95063e6163cb8989c0ea8b-removebg-preview.png" id="9_k21do"]
+[ext_resource type="Script" uid="uid://ex5au68xgqur" path="res://label.gd" id="10_fktv4"]
+[ext_resource type="Script" uid="uid://8vyuhyx0xogt" path="res://addons/freecam_3D/freecam.gd" id="11_rwkad"]
+
+[sub_resource type="Environment" id="Environment_ealrb"]
+glow_enabled = true
+glow_intensity = 1.12
+glow_bloom = 0.44
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0g27"]
+render_priority = 0
+shader = ExtResource("1_cjpyj")
+shader_parameter/point_density = 400.0
+shader_parameter/point_size = 0.20000000298024
+shader_parameter/movement_speed = 1.0
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("2_rwkad")
+shader_parameter/use_edge_detection = false
+shader_parameter/edge_threshold = 0.03
+shader_parameter/edge_width = 0.3
+
+[sub_resource type="Curve" id="Curve_rdwmb"]
+_data = [Vector2(0.019493178, 0), 0.0, 0.0, 0, 0, Vector2(0.49317735, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fam18"]
+curve = SubResource("Curve_rdwmb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fam18"]
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0.3, 0)
+damping_max = 0.2
+scale_curve = SubResource("CurveTexture_fam18")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fam18"]
+render_priority = 0
+shader = ExtResource("5_cjpyj")
+shader_parameter/color_texture = ExtResource("2_rwkad")
+
+[sub_resource type="QuadMesh" id="QuadMesh_04dpp"]
+material = SubResource("ShaderMaterial_fam18")
+size = Vector2(0.05, 0.05)
+
+[node name="Beetroot3D" type="Node3D" unique_id=1556465291]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=460286302]
+environment = SubResource("Environment_ealrb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1384645439]
+
+[node name="FlowContainer" type="HFlowContainer" parent="CanvasLayer" unique_id=1738997478]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 269.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/FlowContainer" unique_id=92909277]
+layout_mode = 2
+text = "FPS: 30"
+script = ExtResource("10_fktv4")
+
+[node name="Label2" type="Label" parent="CanvasLayer/FlowContainer" unique_id=1451743873]
+layout_mode = 2
+text = "Press <TAB> to move move around"
+
+[node name="BeetRootDisplay" type="Node3D" parent="." unique_id=1747748449]
+
+[node name="BeetRoot" type="MeshInstance3D" parent="BeetRootDisplay" unique_id=21969482]
+transform = Transform3D(0.13369294, 0, 0.9910222, 0, 1, 0, -0.9910222, 0, 0.13369294, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_i0g27")
+mesh = ExtResource("3_yn8hq")
+skeleton = NodePath("../..")
+script = ExtResource("4_s8xy7")
+rotation_speed = 1.04
+
+[node name="BeetRoot" type="GPUParticles3D" parent="BeetRootDisplay/BeetRoot" unique_id=1664843651]
+transform = Transform3D(-0.1299895, 0, -0.9915153, 0, 1, 0, 0.9915153, 0, -0.1299895, 0, -0.8793138, 0)
+amount = 15
+lifetime = 5.0
+preprocess = 4.0
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_fam18")
+draw_pass_1 = SubResource("QuadMesh_04dpp")
+
+[node name="GravitatingSpecies" type="Node3D" parent="BeetRootDisplay" unique_id=1070553328]
+
+[node name="Species" parent="BeetRootDisplay/GravitatingSpecies" unique_id=1811081541 node_paths=PackedStringArray("target_3D") instance=ExtResource("6_kjdk3")]
+transform = Transform3D(0.926079, -0.08334735, 0.3680092, 0, 0.9752993, 0.22088742, -0.3773295, -0.2045592, 0.90320426, -1.0365542, -0.54243046, 0.08476189)
+orbit_distance = 1.0
+rotation_speed = 0.5
+texture = ExtResource("7_bx1ys")
+target_3D = NodePath("../../../Freecam3D/BillboardTarget")
+
+[node name="Species2" parent="BeetRootDisplay/GravitatingSpecies" unique_id=86444400 node_paths=PackedStringArray("target_3D") instance=ExtResource("6_kjdk3")]
+transform = Transform3D(0.94571656, 0.09399159, 0.3111041, 0, 0.9572652, -0.28921148, -0.3249926, 0.2735121, 0.9053016, -1.0974009, 0.89668536, -0.5040921)
+orbit_distance = 1.0
+rotation_speed = 0.5
+target_3D = NodePath("../../../Freecam3D/BillboardTarget")
+
+[node name="Species3" parent="BeetRootDisplay/GravitatingSpecies" unique_id=1387044212 node_paths=PackedStringArray("target_3D") instance=ExtResource("6_kjdk3")]
+transform = Transform3D(0.9935711, -0.01949491, -0.11151863, 0, 0.98506165, -0.17220162, 0.1132098, 0.17109455, 0.9787288, 0.20737267, 0.52533734, -0.6830697)
+orbit_distance = 1.0
+rotation_speed = 0.5
+texture = ExtResource("8_is142")
+target_3D = NodePath("../../../Freecam3D/BillboardTarget")
+
+[node name="Species4" parent="BeetRootDisplay/GravitatingSpecies" unique_id=148121539 node_paths=PackedStringArray("target_3D") instance=ExtResource("6_kjdk3")]
+transform = Transform3D(0.9286409, 0.08261418, -0.36166424, 0, 0.9748889, 0.22269177, 0.37097993, -0.20680068, 0.9053217, 1.0040016, -0.7, -0.543001)
+orbit_distance = 1.0
+rotation_speed = 0.5
+texture = ExtResource("9_k21do")
+target_3D = NodePath("../../../Freecam3D/BillboardTarget")
+
+[node name="Freecam3D" type="Camera3D" parent="." unique_id=1707438099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2192345)
+script = ExtResource("11_rwkad")
+metadata/_custom_type_script = "uid://8vyuhyx0xogt"
+
+[node name="BillboardTarget" type="Node3D" parent="Freecam3D" unique_id=649762118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13283849, 0, 0.08351469)
