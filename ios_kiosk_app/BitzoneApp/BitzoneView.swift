@@ -320,30 +320,28 @@ class BitzoneViewController: UIViewController {
         motionManager.startDeviceMotionUpdates(using: .xArbitraryCorrectedZVertical, to: .main) { [weak self] (motion, _) in
             guard let motion = motion, let self = self else { return }
 
-            let rawRoll  = Float(motion.attitude.roll)
             let rawYaw   = Float(motion.attitude.yaw)
+            let gravity  = motion.gravity
 
-            // Capture the initial yaw on the first update so that
-            // wherever the user is pointing at launch becomes "forward"
+            // --- Capture Initial Yaw ---
             if self.initialYaw == nil {
                 self.initialYaw = rawYaw
             }
 
-            // --- Horizontal: full 360° yaw, zeroed to launch direction ---
-            let relativeYaw = rawYaw - (self.initialYaw ?? 0)
-
-            // --- Vertical: use roll directly from gravity reference ---
-            // With .xArbitraryCorrectedZVertical, roll is gravity-referenced:
-            //   - Phone upright at eye level (landscape) → roll ≈ 0 → horizon
-            //   - Phone flat on table → roll ≈ ±π/2 → clamped to ±60°
-            // No offset needed — gravity always gives the correct absolute angle.
-            // Negate to match expected tilt direction (tilt up → look up).
-            let verticalAngle = max(-self.maxPitchAngle, min(self.maxPitchAngle, -rawRoll))
+            // --- Vertical: use absolute gravity for 1:1 mapping ---
+            // As requested:
+            //   Flat on Table (z ≈ -1.0) -> -60° (Lower / bottom )
+            //   Handheld Upright (z ≈ 0.0) -> 0° (Horizon)
+            //   Tilted Backwards (z ≈ +1.0) -> +60° (Upper / sky)
+            // Mapping: asin(gravity.z) directly gives the latitude sign.
+            let verticalAngle = Float(asin(gravity.z))
+            
+            let clampedVertical = max(-self.maxPitchAngle, min(self.maxPitchAngle, verticalAngle))
 
             self.cameraNode.eulerAngles = SCNVector3(
-                verticalAngle,   // Up/down look (tilt device), clamped to ±60°
-                relativeYaw,     // Left/right look, full 360°
-                0                // No camera roll
+                clampedVertical, 
+                rawYaw - (self.initialYaw ?? 0), 
+                0
             )
         }
     }
