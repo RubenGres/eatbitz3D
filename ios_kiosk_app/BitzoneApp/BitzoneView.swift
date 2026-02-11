@@ -5,7 +5,8 @@ import AVFoundation
 import CoreMotion
 
 struct BitzoneView: View {
-    @State private var fov: Double = 80
+    @State private var fov: Double = 45
+    @ObservedObject var videoUpdater: VideoUpdater
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -37,6 +38,58 @@ struct BitzoneView: View {
                 .padding(.horizontal)
                 .padding(.bottom, 20)
             }
+
+            // Download progress overlay
+            if videoUpdater.isDownloading {
+                ZStack {
+                    Color.black.opacity(0.85)
+                        .edgesIgnoringSafeArea(.all)
+
+                    VStack(spacing: 20) {
+                        Image(systemName: "arrow.down.circle")
+                            .font(.system(size: 44, weight: .light))
+                            .foregroundStyle(.white)
+
+                        Text(videoUpdater.statusMessage)
+                            .font(.system(size: 16, weight: .medium, design: .monospaced))
+                            .foregroundStyle(.white)
+
+                        // Progress bar
+                        GeometryReader { geo in
+                            ZStack(alignment: .leading) {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(Color.white.opacity(0.15))
+                                    .frame(height: 10)
+
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [.blue, .cyan],
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        )
+                                    )
+                                    .frame(
+                                        width: max(0, geo.size.width * CGFloat(videoUpdater.progress)),
+                                        height: 10
+                                    )
+                                    .animation(.easeOut(duration: 0.3), value: videoUpdater.progress)
+                            }
+                        }
+                        .frame(height: 10)
+                        .frame(maxWidth: 300)
+
+                        Text("\(Int(videoUpdater.progress * 100))%")
+                            .font(.system(size: 14, weight: .regular, design: .monospaced))
+                            .foregroundStyle(.white.opacity(0.7))
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.4), value: videoUpdater.isDownloading)
+        .onReceive(videoUpdater.$remoteFOV) { newFOV in
+            fov = newFOV
         }
     }
 }
@@ -59,10 +112,15 @@ class BitzoneViewController: UIViewController {
     private var sceneView: SCNView!
     private var cameraNode: SCNNode!
     private var videoNode: SCNNode!
-    private var player: AVPlayer!  // Changed from AVQueuePlayer to reduce memory
+    private var player: AVPlayer!
     private var motionManager: CMMotionManager!
     private var healthCheckTimer: Timer?
     private var playerObserver: Any?
+    private var videoUpdateObserver: Any?
+
+    // Gyroscope tracking state
+    private var initialYaw: Float?
+    private let maxPitchAngle: Float = 60.0 * (.pi / 180.0)  // ±60° vertical clamp
 
     // Force landscape orientation
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -74,7 +132,7 @@ class BitzoneViewController: UIViewController {
     }
 
     override var shouldAutorotate: Bool {
-        return false  // Lock rotation
+        return false
     }
 
     override func viewDidLoad() {
@@ -97,6 +155,16 @@ class BitzoneViewController: UIViewController {
             self?.setupVideoSphere()
             self?.setupMotionTracking()
             self?.startHealthCheck()
+        }
+
+        // Listen for video update notifications to hot-reload the video
+        videoUpdateObserver = NotificationCenter.default.addObserver(
+            forName: .videoDidUpdate,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            print("[BitzoneViewController] 🔄 Video updated notification received – reloading video")
+            self?.recreateVideoPlayer()
         }
 
         // Add lifecycle observers
@@ -122,10 +190,7 @@ class BitzoneViewController: UIViewController {
 
     @objc private func handleMemoryWarning() {
         print("⚠️ Memory warning received")
-        // Force garbage collection
         autoreleasepool {
-            // Don't recreate player on memory warning - that uses MORE memory
-            // Just ensure current playback continues
             if player?.rate == 0 {
                 player?.play()
             }
@@ -166,7 +231,7 @@ class BitzoneViewController: UIViewController {
         sceneView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         sceneView.backgroundColor = .black
         sceneView.allowsCameraControl = false
-        sceneView.antialiasingMode = .none  // Reduce memory
+        sceneView.antialiasingMode = .none
         
         let scene = SCNScene()
         sceneView.scene = scene
@@ -178,7 +243,7 @@ class BitzoneViewController: UIViewController {
 
         cameraNode = SCNNode()
         cameraNode.camera = camera
-        setFOV(Float(80))
+        setFOV(Float(45))
 
         sceneView.scene?.rootNode.addChildNode(cameraNode)
         sceneView.pointOfView = cameraNode
@@ -196,9 +261,8 @@ class BitzoneViewController: UIViewController {
     }
 
     private func setupVideoSphere() {
-        // Use lower segment count to reduce memory
         let sphere = SCNSphere(radius: 10)
-        sphere.segmentCount = 96  // Reduced from 300 to save memory
+        sphere.segmentCount = 96
 
         videoNode = SCNNode(geometry: sphere)
         videoNode.position = SCNVector3(0, 0, 0)
@@ -215,18 +279,14 @@ class BitzoneViewController: UIViewController {
             return
         }
 
-        // Create player with memory-efficient settings
         let asset = AVAsset(url: candidateURL)
         let playerItem = AVPlayerItem(asset: asset)
-        
-        // Reduce buffer size to save memory
         playerItem.preferredForwardBufferDuration = 2.0
         
         player = AVPlayer(playerItem: playerItem)
-        player.automaticallyWaitsToMinimizeStalling = false  // Reduce memory buffering
+        player.automaticallyWaitsToMinimizeStalling = false
         player.preventsDisplaySleepDuringVideoPlayback = true
 
-        // Loop video using notification instead of AVPlayerLooper (uses less memory)
         playerObserver = NotificationCenter.default.addObserver(
             forName: .AVPlayerItemDidPlayToEndTime,
             object: playerItem,
@@ -243,7 +303,6 @@ class BitzoneViewController: UIViewController {
 
         sceneView.scene?.rootNode.addChildNode(videoNode)
 
-        // Start playback
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.player?.play()
         }
@@ -251,25 +310,39 @@ class BitzoneViewController: UIViewController {
 
     private func setupMotionTracking() {
         motionManager = CMMotionManager()
-        motionManager.deviceMotionUpdateInterval = 1.0 / 30.0  // 30fps instead of 60 to reduce CPU
+        motionManager.deviceMotionUpdateInterval = 1.0 / 30.0
 
         guard motionManager.isDeviceMotionAvailable else { return }
 
-        // Use xArbitraryCorrectedZVertical for gravity reference with yaw tracking
+        // Reset initial yaw so forward direction is calibrated on start
+        initialYaw = nil
+
         motionManager.startDeviceMotionUpdates(using: .xArbitraryCorrectedZVertical, to: .main) { [weak self] (motion, _) in
             guard let motion = motion, let self = self else { return }
 
-            let pitch = Float(motion.attitude.pitch)
-            let roll = Float(motion.attitude.roll)
-            let yaw = Float(motion.attitude.yaw)
+            let rawRoll  = Float(motion.attitude.roll)
+            let rawYaw   = Float(motion.attitude.yaw)
 
-            // For landscape phone held upright:
-            // - yaw: user turns body left/right -> look left/right (main rotation)
-            // - pitch: tilt phone up/down -> look up/down
-            // - roll: minor adjustment
+            // Capture the initial yaw on the first update so that
+            // wherever the user is pointing at launch becomes "forward"
+            if self.initialYaw == nil {
+                self.initialYaw = rawYaw
+            }
+
+            // --- Horizontal: full 360° yaw, zeroed to launch direction ---
+            let relativeYaw = rawYaw - (self.initialYaw ?? 0)
+
+            // --- Vertical: use roll directly from gravity reference ---
+            // With .xArbitraryCorrectedZVertical, roll is gravity-referenced:
+            //   - Phone upright at eye level (landscape) → roll ≈ 0 → horizon
+            //   - Phone flat on table → roll ≈ ±π/2 → clamped to ±60°
+            // No offset needed — gravity always gives the correct absolute angle.
+            // Negate to match expected tilt direction (tilt up → look up).
+            let verticalAngle = max(-self.maxPitchAngle, min(self.maxPitchAngle, -rawRoll))
+
             self.cameraNode.eulerAngles = SCNVector3(
-                pitch,           // Up/down look (tilt phone)
-                yaw,             // Left/right look (turn body)
+                verticalAngle,   // Up/down look (tilt device), clamped to ±60°
+                relativeYaw,     // Left/right look, full 360°
                 0                // No camera roll
             )
         }
@@ -277,6 +350,8 @@ class BitzoneViewController: UIViewController {
 
     @objc private func appWillEnterForeground() {
         UIApplication.shared.isIdleTimerDisabled = true
+        // Re-calibrate yaw on foreground return
+        initialYaw = nil
         if player?.rate == 0 {
             player?.play()
         }
@@ -289,6 +364,7 @@ class BitzoneViewController: UIViewController {
     deinit {
         healthCheckTimer?.invalidate()
         playerObserver.map { NotificationCenter.default.removeObserver($0) }
+        videoUpdateObserver.map { NotificationCenter.default.removeObserver($0) }
         motionManager?.stopDeviceMotionUpdates()
         NotificationCenter.default.removeObserver(self)
     }
@@ -296,4 +372,3 @@ class BitzoneViewController: UIViewController {
     override var prefersStatusBarHidden: Bool { true }
     override var prefersHomeIndicatorAutoHidden: Bool { true }
 }
-

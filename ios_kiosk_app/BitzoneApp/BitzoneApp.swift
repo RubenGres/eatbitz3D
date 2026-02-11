@@ -2,13 +2,14 @@ import SwiftUI
 
 @main
 struct BitzoneApp: App {
-    init() {
-        Task { await VideoUpdater.checkAndUpdateIfNeeded() }
-    }
+    @StateObject private var videoUpdater = VideoUpdater()
+
     var body: some Scene {
         WindowGroup {
-            BitzoneView()
+            BitzoneView(videoUpdater: videoUpdater)
+                .task {
+                    await videoUpdater.checkAndUpdateIfNeeded()
+                }
         }
     }
 }
-
