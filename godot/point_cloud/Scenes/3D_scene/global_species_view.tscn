@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://dpw33ptrilm7r"]
+
+[ext_resource type="PackedScene" uid="uid://b41k7k8jb3div" path="res://Scenes/MainScene/IngredientPlanet.tscn" id="1_lurwc"]
+[ext_resource type="ArrayMesh" uid="uid://cfwyapxx1b16m" path="res://Assets/3D/Acorn/Meshy_AI_Acorn_0210153654_texture_decimated.obj" id="2_f221m"]
+[ext_resource type="ArrayMesh" uid="uid://cqo7fxt2wrvuf" path="res://Assets/3D/Beetroot/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_decimated.obj" id="3_r4ri1"]
+[ext_resource type="ArrayMesh" uid="uid://bickx1nyfb8rw" path="res://Assets/3D/Chantarelle/Meshy_AI_Chantarelle_0210153845_texture_decimated.obj" id="4_w6870"]
+[ext_resource type="ArrayMesh" uid="uid://ckhyf6ojtxxcu" path="res://Assets/3D/Dandelion/Meshy_AI_Dandelion_0210154014_texture_decimated.obj" id="5_bneni"]
+[ext_resource type="ArrayMesh" uid="uid://dn0uagjqqal5u" path="res://Assets/3D/Elderflower/Meshy_AI_Elderflower_0210154048_texture_decimated.obj" id="6_njbcq"]
+[ext_resource type="ArrayMesh" uid="uid://65v0nahpvmgy" path="res://Assets/3D/Fava_bean/Meshy_AI_Fava_bean_0210153636_texture_decimated.obj" id="7_q0w6e"]
+[ext_resource type="ArrayMesh" uid="uid://bytu0auqqv4i2" path="res://Assets/3D/Purple_Basil/Meshy_AI_Purple_Basil_0210153601_texture_decimated.obj" id="9_6vmuk"]
+[ext_resource type="ArrayMesh" uid="uid://jtxgmd5n72yp" path="res://Assets/3D/Pennywort/Meshy_AI_Pennywort_0210153648_texture_decimated.obj" id="10_whepr"]
+[ext_resource type="Script" uid="uid://7m0ekawqrbcw" path="res://addons/godot360/src/camera360.gd" id="11_f221m"]
+
+[sub_resource type="Environment" id="Environment_bc0oj"]
+ssao_intensity = 11.76
+glow_enabled = true
+glow_intensity = 2.41
+glow_bloom = 0.02
+glow_hdr_threshold = 0.0
+glow_hdr_luminance_cap = 99.3
+
+[node name="GlobalSpeciesView" type="Node3D" unique_id=1836985689]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=129807161]
+environment = SubResource("Environment_bc0oj")
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=1596802368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2082996, 0, -2.6835632)
+
+[node name="OakAcorn" parent="Node3D2" unique_id=114462614 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("2_f221m")
+
+[node name="Node3D3" type="Node3D" parent="." unique_id=274066767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4820642, 0, 2.7147582)
+
+[node name="Mushroom" parent="Node3D3" unique_id=218090739 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("4_w6870")
+
+[node name="Marcelo" type="Node3D" parent="." unique_id=1650134456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4895011, 0, 2.6619446)
+
+[node name="Fava" parent="Marcelo" unique_id=991339661 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.314639, 0.7797467, 0.33607224, -0.8489243, 1.1949035, 0.5484141, 0.016645433, -0.6429817, 1.4267173, -0.94328463, 1.7053823, -0.8770398)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("7_q0w6e")
+
+[node name="Elder" parent="Marcelo" unique_id=1556465291 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0.7015363, 0.27685487, 0.29099464)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("6_njbcq")
+
+[node name="Beetroot" parent="Marcelo" unique_id=741763768 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(2, 0, 0, 0, 1.344837, -1.4803424, 0, 1.4803424, 1.344837, -0.92335033, -1.6976274, -1.4509784)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("3_r4ri1")
+
+[node name="H2Douro" type="Node3D" parent="." unique_id=359356265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4432516, 0, 0.3409704)
+
+[node name="Fig" parent="H2Douro" unique_id=1323484318 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, -0.4615698, -0.88218737, 0.69185483)
+target = NodePath("../../Camera360/BillboardTarget")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=414965709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1891775, 0, -0.6819413)
+
+[node name="PurpleBasil" parent="Node3D" unique_id=1893066930 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("9_6vmuk")
+
+[node name="FormigaGloriosa" type="Node3D" parent="." unique_id=1299884123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30507848, 0, -3.278907)
+
+[node name="Pennyworth" parent="FormigaGloriosa" unique_id=497746263 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(0.29532456, 0, 0.955397, 0, 1, 0, -0.955397, 0, 0.29532456, 0, 0.52795637, 1)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("10_whepr")
+
+[node name="Dandelion" parent="FormigaGloriosa" unique_id=404686697 node_paths=PackedStringArray("target") instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.5649999, 0, 0, 0, 1.2241694, 0.9750047, 0, -0.9750047, 1.2241694, 0, -1.5254183, 1.5203525)
+target = NodePath("../../Camera360/BillboardTarget")
+mesh = ExtResource("5_bneni")
+
+[node name="Camera360" type="Camera3D" parent="." unique_id=1318756498 node_paths=PackedStringArray("subviewport")]
+script = ExtResource("11_f221m")
+fovx = 360.0
+lens = 5
+subviewport = NodePath("SubViewport")
+metadata/_custom_type_script = "uid://7m0ekawqrbcw"
+
+[node name="BillboardTarget" type="Node3D" parent="Camera360" unique_id=1866764115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13283849, 0, 0.30274916)
+
+[node name="SubViewport" type="SubViewport" parent="Camera360" unique_id=514395491]
+size = Vector2i(1024, 1024)

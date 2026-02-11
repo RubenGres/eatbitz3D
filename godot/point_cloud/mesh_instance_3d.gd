@@ -10,4 +10,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	rotation.y += rotation_speed * delta
+	if not Engine.is_editor_hint():
+		rotation.y += rotation_speed * delta

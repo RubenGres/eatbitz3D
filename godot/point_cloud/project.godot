@@ -15,9 +15,21 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="BITZ"
-run/main_scene="uid://b41k7k8jb3div"
+run/main_scene="uid://dpw33ptrilm7r"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=6144
+window/size/viewport_height=3140
+window/size/mode=2
+window/stretch/mode="viewport"
+
+[editor]
+
+movie_writer/ogv/encoding_speed=2
+movie_writer/movie_file="/home/ruben/Desktop/bitzone.ogv"
 
 [editor_plugins]
 
@@ -25,4 +37,5 @@ enabled=PackedStringArray("res://addons/freecam_3D/plugin.cfg")
 
 [rendering]
 
+scaling_3d/scale=2.0
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
