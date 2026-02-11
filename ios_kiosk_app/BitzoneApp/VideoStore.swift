@@ -6,6 +6,10 @@ public enum VideoStore {
     /// You can change this to match your actual asset name.
     private static let defaultFileName = "bitzone.mp4"
 
+    /// The version of the video currently bundled inside the app.
+    /// Increment this whenever you manually replace the video in the Xcode project.
+    public static let bundledVersion: Int = 1
+
     /// URL in the app's Documents/videos directory where the updated video is stored.
     public static var localVideoURL: URL {
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
