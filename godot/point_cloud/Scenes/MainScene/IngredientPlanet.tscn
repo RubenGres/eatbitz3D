@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://b41k7k8jb3div"]
+
+[ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_cjpyj"]
+[ext_resource type="Script" uid="uid://bi5rghypmvqsy" path="res://Scenes/MainScene/3d_ingredients.gd" id="1_rwkad"]
+[ext_resource type="ArrayMesh" uid="uid://b7qjmu16417q5" path="res://Assets/3D/Fig/Meshy_AI_Fig_0210153622_texture_decimated.obj" id="2_8doav"]
+[ext_resource type="Texture2D" uid="uid://r4dv6y70qk4h" path="res://Assets/3D/Beetroot/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.png" id="2_rwkad"]
+[ext_resource type="Script" uid="uid://hvfoctb2rosi" path="res://mesh_instance_3d.gd" id="4_s8xy7"]
+[ext_resource type="Texture2D" uid="uid://i2xf5xchjbe0" path="res://Assets/3D/Pennywort/Meshy_AI_Pennywort_0210153648_texture.png" id="5_8doav"]
+[ext_resource type="Shader" uid="uid://dnobl87qxs7ps" path="res://Scenes/MainScene/particles_albedo_from_texture.gdshader" id="5_cjpyj"]
+[ext_resource type="ArrayMesh" uid="uid://cfwyapxx1b16m" path="res://Assets/3D/Acorn/Meshy_AI_Acorn_0210153654_texture_decimated.obj" id="6_xxtnh"]
+[ext_resource type="Script" uid="uid://ex5au68xgqur" path="res://label.gd" id="10_fktv4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8doav"]
+render_priority = 0
+shader = ExtResource("1_cjpyj")
+shader_parameter/point_density = 448.0
+shader_parameter/point_size = 0.60000000894072
+shader_parameter/movement_speed = 1.0
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("5_8doav")
+shader_parameter/use_edge_detection = false
+shader_parameter/edge_threshold = 0.03
+shader_parameter/edge_width = 0.3
+
+[sub_resource type="Curve" id="Curve_rdwmb"]
+_data = [Vector2(0.019493178, 0), 0.0, 0.0, 0, 0, Vector2(0.49317735, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fam18"]
+curve = SubResource("Curve_rdwmb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fam18"]
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0.3, 0)
+damping_max = 0.2
+scale_curve = SubResource("CurveTexture_fam18")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fam18"]
+render_priority = 0
+shader = ExtResource("5_cjpyj")
+shader_parameter/color_texture = ExtResource("2_rwkad")
+
+[sub_resource type="QuadMesh" id="QuadMesh_04dpp"]
+material = SubResource("ShaderMaterial_fam18")
+size = Vector2(0.05, 0.05)
+
+[node name="IngredientPlanet" type="Node3D" unique_id=1556465291]
+script = ExtResource("1_rwkad")
+sphere_radius = 1.0
+mesh = ExtResource("2_8doav")
+rotating = null
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1384645439]
+visible = false
+
+[node name="FlowContainer" type="HFlowContainer" parent="CanvasLayer" unique_id=1738997478]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 269.0
+grow_vertical = 0
+
+[node name="Label2" type="Label" parent="CanvasLayer/FlowContainer" unique_id=1451743873]
+layout_mode = 2
+text = "Press <TAB> to move move around"
+
+[node name="BeetRootDisplay" type="Node3D" parent="." unique_id=1747748449]
+
+[node name="Model3d" type="MeshInstance3D" parent="BeetRootDisplay" unique_id=21969482]
+transform = Transform3D(-0.21082, 0, -0.9775241, 0, 1, 0, 0.9775241, 0, -0.21082, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_8doav")
+mesh = ExtResource("6_xxtnh")
+script = ExtResource("4_s8xy7")
+rotation_speed = 1.04
+
+[node name="Particles" type="GPUParticles3D" parent="BeetRootDisplay/Model3d" unique_id=1664843651]
+transform = Transform3D(-0.1299895, 0, -0.9915153, 0, 1, 0, 0.9915153, 0, -0.1299895, 0, -0.8793138, 0)
+amount = 15
+lifetime = 5.0
+preprocess = 4.0
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_fam18")
+draw_pass_1 = SubResource("QuadMesh_04dpp")
+
+[node name="GravitatingSpecies" type="Node3D" parent="BeetRootDisplay" unique_id=1070553328]
+
+[node name="Label" type="Label" parent="." unique_id=92909277]
+offset_top = 3090.0
+offset_right = 55.0
+offset_bottom = 3113.0
+text = "FPS: 30"
+script = ExtResource("10_fktv4")

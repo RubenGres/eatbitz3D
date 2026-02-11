@@ -48,7 +48,7 @@ size = Vector2(43.3, 57.7)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_25qum"]
 render_priority = 0
 shader = ExtResource("1_4yhel")
-shader_parameter/point_density = 1000.0
+shader_parameter/point_density = 221.0
 shader_parameter/point_size = 0.5000000074506
 shader_parameter/movement_speed = 1.30000001937156
 shader_parameter/movement_range = 3.0
@@ -63,7 +63,6 @@ point_count = 2
 
 [node name="ParticlesTest" type="Node3D" unique_id=1420749202]
 script = ExtResource("1_dpbjc")
-orbit_distance = 0.0
 texture = ExtResource("2_dpbjc")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1555643873]

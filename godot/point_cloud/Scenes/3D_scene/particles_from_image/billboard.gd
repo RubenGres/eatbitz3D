@@ -4,14 +4,14 @@ extends Node3D
 @onready var particles = $GPUParticles3D
 @onready var point_cloud = $PointCloudObject
 
-@export_range(0.0, 2, 0.001) var orbit_distance: float = 1.0
+@export_range(0.0, 20, 0.001) var sphere_radius: float = 1.0
 @export_range(0.0, 1.0, 0.001) var orbit_multiplier: float = 1.0
 @export var rotation_speed: float = 1.0
 
 var accumulated_time: float = 0.0
 var rotation_seed: float = RandomNumberGenerator.new().randf()
 var orbital_inclination: float = 0.0  # Angle in radians to tilt the orbit
-var orbital_shift_rate : float = 0.01
+var orbital_shift_rate : float = PI / 100
 var initial_offset: Vector3
 var initial_scale: Vector3
 var time_offset: float
@@ -32,8 +32,8 @@ func _ready() -> void:
 	initial_scale = self.scale
 	
 	# Set orbit distance from initial distance if not manually set
-	if orbit_distance == 0.0:
-		orbit_distance = initial_offset.length()
+	if sphere_radius == 0.0:
+		sphere_radius = initial_offset.length()
 	
 	# Use seed to create time offset for orbit variation
 	var rng = RandomNumberGenerator.new()
@@ -43,7 +43,9 @@ func _ready() -> void:
 	_update_material_texture()
 	_update_target_3D()
 	
+#	self.rotation_speed = rotation_speed + 
 	self.orbital_inclination = rotation_seed * 2 * PI
+	
 
 func _point_towards_target():
 	if not target_3D:
@@ -63,19 +65,19 @@ func _process(delta: float) -> void:
 	accumulated_time += delta
 	var angle = (accumulated_time + time_offset) * rotation_speed + rotation_seed
 	
-	self.orbital_inclination += orbital_shift_rate * delta
-	self.orbital_inclination = fmod(orbital_inclination, 2.0 * PI)
+	#self.orbital_inclination += orbital_shift_rate * delta
+	#self.orbital_inclination = fmod(orbital_inclination, 2.0 * PI)
 	
 	self.scale = initial_scale * orbit_multiplier
 	
-	if orbit_distance == 0.0:
+	if sphere_radius == 0.0:
 		position = Vector3.ZERO
 	else:
 		# Start with flat orbit
 		var orbit_pos = Vector3(
-			cos(angle) * orbit_distance * orbit_multiplier,
+			cos(angle) * sphere_radius * orbit_multiplier,
 			0.0,
-			sin(angle) * orbit_distance * orbit_multiplier
+			sin(angle) * sphere_radius * orbit_multiplier
 		)
 		
 		# Apply orbital inclination (rotate around X axis)
