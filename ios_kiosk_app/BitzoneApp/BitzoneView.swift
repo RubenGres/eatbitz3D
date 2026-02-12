@@ -114,9 +114,27 @@ class BitzoneViewController: UIViewController {
     private var videoNode: SCNNode!
     private var player: AVPlayer!
     private var motionManager: CMMotionManager!
+    private let motionQueue = OperationQueue()
     private var healthCheckTimer: Timer?
     private var playerObserver: Any?
     private var videoUpdateObserver: Any?
+    
+    // Energy management
+    private var lastMotionTime: Date = Date()
+    private var isIdle: Bool = false
+    private var _isSleeping: Bool = false
+    private let stateLock = NSLock()
+    private var isSleeping: Bool {
+        get { stateLock.lock(); defer { stateLock.unlock() }; return _isSleeping }
+        set { stateLock.lock(); defer { stateLock.unlock() }; _isSleeping = newValue }
+    }
+    // Track start of motion for "pick up" detection
+    private var motionStartDate: Date?
+    private let idleThreshold: TimeInterval = 30.0  // 30 seconds to idle (10 FPS)
+    private let sleepThreshold: TimeInterval = 60.0 // 1 minute to FULL SLEEP (Brightness 0)
+    private let normalFPS: Int = 30
+    private let idleFPS: Int = 10
+    private let motionSensitivity: Double = 0.15 // Increased from 0.05 to prevent noise resets
 
     // Gyroscope tracking state
     private var initialYaw: Float?
@@ -185,19 +203,24 @@ class BitzoneViewController: UIViewController {
     private func startHealthCheck() {
         healthCheckTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
             self?.checkVideoHealth()
+            self?.checkEnergyStatus()
         }
     }
 
     @objc private func handleMemoryWarning() {
         print("⚠️ Memory warning received")
         autoreleasepool {
-            if player?.rate == 0 {
+            // Only try to recover playback if we are NOT sleeping
+            if !isSleeping && player?.rate == 0 {
                 player?.play()
             }
         }
     }
 
     private func checkVideoHealth() {
+        // Energy Check: Don't wake up the video if we are sleeping!
+        if isSleeping { return }
+
         guard let player = player else {
             setupVideoSphere()
             return
@@ -233,6 +256,9 @@ class BitzoneViewController: UIViewController {
         sceneView.allowsCameraControl = false
         sceneView.antialiasingMode = .none
         
+        // Energy optimization: cap frame rate
+        sceneView.preferredFramesPerSecond = normalFPS
+        
         let scene = SCNScene()
         sceneView.scene = scene
         view.addSubview(sceneView)
@@ -262,7 +288,8 @@ class BitzoneViewController: UIViewController {
 
     private func setupVideoSphere() {
         let sphere = SCNSphere(radius: 10)
-        sphere.segmentCount = 96
+        // Reduced complexity for energy savings (was 96)
+        sphere.segmentCount = 64
 
         videoNode = SCNNode(geometry: sphere)
         videoNode.position = SCNVector3(0, 0, 0)
@@ -309,6 +336,7 @@ class BitzoneViewController: UIViewController {
     }
 
     private func setupMotionTracking() {
+        // Re-enabled motion tracking with safety guards for testing
         motionManager = CMMotionManager()
         motionManager.deviceMotionUpdateInterval = 1.0 / 30.0
 
@@ -316,38 +344,78 @@ class BitzoneViewController: UIViewController {
 
         // Reset initial yaw so forward direction is calibrated on start
         initialYaw = nil
+        motionStartDate = nil
 
-        motionManager.startDeviceMotionUpdates(using: .xArbitraryCorrectedZVertical, to: .main) { [weak self] (motion, _) in
+        motionQueue.maxConcurrentOperationCount = 1
+        motionQueue.name = "com.bitzone.motionUpdates"
+
+        motionManager.startDeviceMotionUpdates(using: .xArbitraryCorrectedZVertical, to: motionQueue) { [weak self] (motion, _) in
             guard let motion = motion, let self = self else { return }
 
             let rawYaw   = Float(motion.attitude.yaw)
             let gravity  = motion.gravity
+            let accel    = motion.userAcceleration
+
+            // Safety check for NaN or Infinity in any input
+            guard gravity.z.isFinite, rawYaw.isFinite else { return }
 
             // --- Capture Initial Yaw ---
             if self.initialYaw == nil {
                 self.initialYaw = rawYaw
             }
 
-            // --- Vertical: use absolute gravity for 1:1 mapping ---
-            // As requested:
-            //   Flat on Table (z ≈ -1.0) -> -60° (Lower / bottom )
-            //   Handheld Upright (z ≈ 0.0) -> 0° (Horizon)
-            //   Tilted Backwards (z ≈ +1.0) -> +60° (Upper / sky)
-            // Mapping: asin(gravity.z) directly gives the latitude sign.
-            let verticalAngle = Float(asin(gravity.z))
-            
-            let clampedVertical = max(-self.maxPitchAngle, min(self.maxPitchAngle, verticalAngle))
+            // --- Energy & Wake Up Logic ---
+            let totalAccel = abs(accel.x) + abs(accel.y) + abs(accel.z)
+            let currentlySleeping = self.isSleeping // Thread-safe read
 
-            self.cameraNode.eulerAngles = SCNVector3(
-                clampedVertical, 
-                rawYaw - (self.initialYaw ?? 0), 
-                0
-            )
+            if currentlySleeping {
+                // Wake Up Logic: Require 0.5s of continuous movement to avoid accidental wakes
+                if totalAccel > self.motionSensitivity {
+                    if let start = self.motionStartDate {
+                        if Date().timeIntervalSince(start) >= 0.5 {
+                            // Valid sustained movement -> Wake up!
+                            DispatchQueue.main.async { self.handleUserActivity() }
+                            self.motionStartDate = nil // Reset
+                        }
+                    } else {
+                        // Start tracking movement
+                        self.motionStartDate = Date()
+                    }
+                } else {
+                    // Movement stopped before threshold -> Reset
+                    self.motionStartDate = nil
+                }
+                
+                // If sleeping, do NOT update camera (save energy)
+                return
+            } else {
+                // Not sleeping: Reset wake-up timer
+                self.motionStartDate = nil
+                
+                // Reset idle timer on significant movement
+                if totalAccel > self.motionSensitivity {
+                    DispatchQueue.main.async { self.handleUserActivity() }
+                }
+            }
+
+            // Mapping: asin(gravity.z) directly gives the latitude sign.
+            // Safety: clamp gravity.z to [-1, 1] to avoid NaN from asin() during sudden impacts
+            let verticalAngle = Float(asin(max(-1.0, min(1.0, gravity.z))))
+            let clampedVertical = max(-self.maxPitchAngle, min(self.maxPitchAngle, verticalAngle))
+            let currentYaw = rawYaw - (self.initialYaw ?? 0)
+
+            // Update camera on main thread
+            DispatchQueue.main.async {
+                self.cameraNode.eulerAngles = SCNVector3(clampedVertical, currentYaw, 0)
+            }
         }
+        print("🛠 DEBUG: Motion tracking RE-ENABLED with safety guards.")
     }
 
     @objc private func appWillEnterForeground() {
         UIApplication.shared.isIdleTimerDisabled = true
+        handleUserActivity()
+        
         // Re-calibrate yaw on foreground return
         initialYaw = nil
         if player?.rate == 0 {
@@ -357,6 +425,64 @@ class BitzoneViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+
+    // MARK: - Energy Management
+
+    private func handleUserActivity() {
+        let now = Date()
+        
+        if isSleeping {
+            print("[Energy] 🌅 Waking up from Deep Sleep")
+            isSleeping = false
+            isIdle = false
+            UIScreen.main.brightness = 0.6
+            sceneView.isHidden = false
+            sceneView.isPlaying = true
+            sceneView.preferredFramesPerSecond = normalFPS
+            player?.play()
+            lastMotionTime = now
+            return
+        }
+
+        // Only log if it's been more than 5 seconds since last reset to avoid spam
+        if now.timeIntervalSince(lastMotionTime) > 5.0 {
+            print("[Energy] ⚡️ Activity detected (timer reset)")
+        }
+        lastMotionTime = now
+        
+        if isIdle {
+            print("[Energy] 🔋 Restoring normal performance (30 FPS)")
+            isIdle = false
+            sceneView.preferredFramesPerSecond = normalFPS
+        }
+    }
+
+    private func checkEnergyStatus() {
+        let elapsed = Date().timeIntervalSince(lastMotionTime)
+        
+        if !isSleeping && elapsed > sleepThreshold {
+            print("[Energy] 💤 Entering Deep Sleep (Display OFF)")
+            isSleeping = true
+            isIdle = false
+            
+            // 1. Kill brightness to save screen/battery
+            UIScreen.main.brightness = 0.0
+            
+            // 2. Hide content and stop all processing
+            sceneView.isHidden = true
+            player?.pause()
+            sceneView.isPlaying = false
+            
+            sceneView.preferredFramesPerSecond = 1
+            return
+        }
+        
+        if !isIdle && !isSleeping && elapsed > idleThreshold {
+            print("[Energy] 🌙 Entering Low Energy Mode (10 FPS)")
+            isIdle = true
+            sceneView.preferredFramesPerSecond = idleFPS
+        }
     }
 
     deinit {

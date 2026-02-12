@@ -7,9 +7,6 @@ struct BitzoneApp: App {
     var body: some Scene {
         WindowGroup {
             BitzoneView(videoUpdater: videoUpdater)
-                .task {
-                    await videoUpdater.checkAndUpdateIfNeeded()
-                }
         }
     }
 }

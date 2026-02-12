@@ -17,8 +17,8 @@ class VideoUpdater: NSObject, ObservableObject, URLSessionDownloadDelegate {
 
     // MARK: - Configuration
 
-    private static let manifestURL = URL(string: "https://venn.bitz.tools/eatbitz.json")!
-    private static let versionKey = "com.bitzone.lastVideoVersion"
+    private static let manifestURL = URL(string: "http://193.70.74.54:8000/eatbitz.json")!
+    private static let versionKey = "com.bitzone.lastVideoHash"
     private static let fovKey = "com.bitzone.remoteFOV"
     private static let defaultFOV: Double = 45.0
 
@@ -26,6 +26,7 @@ class VideoUpdater: NSObject, ObservableObject, URLSessionDownloadDelegate {
 
     private var downloadSession: URLSession?
     private var downloadCompletion: ((URL?, Error?) -> Void)?
+    private var updateTimer: Timer?
 
     // MARK: - Init
 
@@ -36,11 +37,39 @@ class VideoUpdater: NSObject, ObservableObject, URLSessionDownloadDelegate {
         if stored > 0 {
             remoteFOV = stored
         }
+        
+        // Start periodic checks
+        startMonitoring()
+    }
+    
+    private func startMonitoring() {
+        // Run immediately
+        Task {
+            await checkAndUpdateIfNeeded()
+        }
+        
+        // Schedule recurring check every hour (3600 seconds)
+        // Note: Timer runs on the main run loop.
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 3600, repeats: true) { [weak self] _ in
+            Task { [weak self] in
+                await self?.checkAndUpdateIfNeeded()
+            }
+        }
+    }
+    
+    deinit {
+        updateTimer?.invalidate()
     }
 
     // MARK: - Public API
 
     func checkAndUpdateIfNeeded() async {
+        let currentlyDownloading = await MainActor.run { self.isDownloading }
+        if currentlyDownloading {
+            print("[VideoUpdater] ⚠️ Update already in progress – skipping check")
+            return
+        }
+
         print("[VideoUpdater] Checking for video update…")
 
         do {
@@ -48,10 +77,22 @@ class VideoUpdater: NSObject, ObservableObject, URLSessionDownloadDelegate {
             let (data, _) = try await URLSession.shared.data(from: Self.manifestURL)
 
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let remoteVersion = (json["version"] as? Int) ?? (json["hash"] as? NSString)?.integerValue,
                   let videoURLString = json["video_url"] as? String,
                   let videoURL = URL(string: videoURLString) else {
-                print("[VideoUpdater] ⚠️ Invalid manifest format (missing version or video_url) – using stored video")
+                print("[VideoUpdater] ⚠️ Invalid manifest format (missing video_url) – using stored video")
+                return
+            }
+
+            // Extract remote version/hash as a string
+            let remoteHash: String
+            if let hash = json["hash"] as? String {
+                remoteHash = hash
+            } else if let version = json["version"] as? Int {
+                remoteHash = String(version)
+            } else if let version = json["version"] as? String {
+                remoteHash = version
+            } else {
+                print("[VideoUpdater] ⚠️ Missing hash or version in manifest")
                 return
             }
 
@@ -67,18 +108,18 @@ class VideoUpdater: NSObject, ObservableObject, URLSessionDownloadDelegate {
                 self.remoteFOV = manifestFOV
             }
 
-            print("[VideoUpdater] Remote version: \(remoteVersion)")
+            print("[VideoUpdater] Remote hash: \(remoteHash)")
             
-            // 2. Compare version
-            // If no version is stored, we assume the baseline is the bundled version
-            let storedVersion = UserDefaults.standard.integer(forKey: Self.versionKey)
-            let currentVersion = max(storedVersion, VideoStore.bundledVersion)
+            // 2. Compare hash
+            // If no hash is stored, we assume the baseline is the bundled version
+            let storedHash = UserDefaults.standard.string(forKey: Self.versionKey) ?? ""
+            let currentHash = storedHash.isEmpty ? VideoStore.bundledVersion : storedHash
             
-            print("[VideoUpdater] Stored version: \(storedVersion)")
-            print("[VideoUpdater] Current effective version: \(currentVersion)")
+            print("[VideoUpdater] Stored hash: \(storedHash)")
+            print("[VideoUpdater] Current effective hash: \(currentHash)")
 
-            guard remoteVersion > currentVersion else {
-                print("[VideoUpdater] ✅ No update needed (Remote: \(remoteVersion) <= Current: \(currentVersion))")
+            guard remoteHash != currentHash else {
+                print("[VideoUpdater] ✅ No update needed (Remote: \(remoteHash) matches Current: \(currentHash))")
                 return
             }
 
@@ -106,8 +147,8 @@ class VideoUpdater: NSObject, ObservableObject, URLSessionDownloadDelegate {
             }
             try FileManager.default.moveItem(at: tempFileURL, to: destination)
 
-            // 5. Persist the new version
-            UserDefaults.standard.set(remoteVersion, forKey: Self.versionKey)
+            // 5. Persist the new hash
+            UserDefaults.standard.set(remoteHash, forKey: Self.versionKey)
 
             await MainActor.run {
                 self.progress = 1.0

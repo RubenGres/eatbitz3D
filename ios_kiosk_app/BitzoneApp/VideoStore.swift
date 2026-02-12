@@ -8,7 +8,7 @@ public enum VideoStore {
 
     /// The version of the video currently bundled inside the app.
     /// Increment this whenever you manually replace the video in the Xcode project.
-    public static let bundledVersion: Int = 1
+    public static let bundledVersion: String = "1"
 
     /// URL in the app's Documents/videos directory where the updated video is stored.
     public static var localVideoURL: URL {

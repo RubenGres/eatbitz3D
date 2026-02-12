@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>App</key>
+			<dict>
+				<key>Identifier</key>
+				<string>com.bitzone.app</string>
+				<key>Options</key>
+				<dict>
+					<key>DisableAutoLock</key>
+					<true/>
+					<key>DisableDeviceRotation</key>
+					<false/>
+					<key>DisableRingerSwitch</key>
+					<true/>
+					<key>DisableSleepWakeButton</key>
+					<true/>
+					<key>DisableTouch</key>
+					<false/>
+					<key>DisableVolumeButtons</key>
+					<false/>
+				</dict>
+			</dict>
+			<key>PayloadDescription</key>
+			<string>Configures Single App Mode for Bitzone App</string>
+			<key>PayloadDisplayName</key>
+			<string>Single App Mode (Bitzone)</string>
+			<key>PayloadIdentifier</key>
+			<string>com.bitzone.app.lock</string>
+			<key>PayloadType</key>
+			<string>com.apple.app.lock</string>
+			<key>PayloadUUID</key>
+			<string>B238CAB3-6A1F-4F23-BB4B-DEC47D9CC003</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>PayloadDisplayName</key>
+	<string>Bitzone Kiosk Profile</string>
+	<key>PayloadIdentifier</key>
+	<string>com.bitzone.app.profile</string>
+	<key>PayloadOrganization</key>
+	<string>Bitzone</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>74F31267-110F-495D-9477-833B42D5E573</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>
