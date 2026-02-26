@@ -1,5 +1,4 @@
 @tool
-
 extends Node3D
 
 @export var target: Node3D:
@@ -26,6 +25,10 @@ func _ready() -> void:
 	_set_mesh()
 	
 	model_3d.material_override = model_3d.material_override.duplicate()
+	
+	if not Engine.is_editor_hint():
+		await get_tree().process_frame
+		get_tree().quit()
 
 func _set_target_3d():
 	if species:
