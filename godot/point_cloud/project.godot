@@ -21,15 +21,15 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=6144
-window/size/viewport_height=3140
+window/size/viewport_width=2362
+window/size/viewport_height=1732
 window/size/mode=2
 window/stretch/mode="viewport"
 
 [editor]
 
 movie_writer/ogv/encoding_speed=2
-movie_writer/movie_file="/home/ruben/Desktop/bitzone.ogv"
+movie_writer/movie_file="/home/ruben/Desktop/Screenshots/bitzone.png"
 
 [editor_plugins]
 

@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bx85bisf2ax1x"]
+
+[ext_resource type="Texture2D" uid="uid://tm2otalitp70" path="res://Assets/bitz_images/04_borage.jpg" id="1_ooyup"]
+
+[node name="InfoPanel" type="Control" unique_id=1394758193]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=646199263]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=324885442]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=923301670]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer" unique_id=482828297]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
+text = "INFO"
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/HBoxContainer" unique_id=2018630079]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "X"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer" unique_id=1966960355]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=863805455]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=1770350686]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=138446914]
+layout_mode = 2
+texture = ExtResource("1_ooyup")
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1401527907]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1936028696]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/ScrollContainer/VBoxContainer/GridContainer" unique_id=395933080]
+layout_mode = 2
+text = "Name"
