@@ -63,11 +63,6 @@ point_size = 1000.0
 density_curve = SubResource("Curve_xxm2l")
 max_distance = 60.0
 
-[node name="Label3D" type="Label3D" parent="." unique_id=1589568491]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.0820765, 0)
-text = "Crown Daisy"
-font_size = 150
-
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1479139549]
 rotation_edit_mode = 1
 material_override = SubResource("ShaderMaterial_ssmsj")
