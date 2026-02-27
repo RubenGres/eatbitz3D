@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://lwg43ywqhjsc"]
 
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_4yhel"]
-[ext_resource type="Shader" uid="uid://7r2nnaeaalh8" path="res://Scenes/3D_scene/particles_from_image/particles_spawn.gdshader" id="1_6rf3o"]
-[ext_resource type="Script" uid="uid://dx77855njh316" path="res://Scenes/3D_scene/particles_from_image/billboard.gd" id="1_dpbjc"]
+[ext_resource type="Shader" uid="uid://7r2nnaeaalh8" path="res://Shaders/particles_spawn.gdshader" id="1_6rf3o"]
+[ext_resource type="Script" uid="uid://dx77855njh316" path="res://Scripts/billboard.gd" id="1_dpbjc"]
 [ext_resource type="Texture2D" uid="uid://ckipgylm26ckq" path="res://Assets/CroppedSpecies/flower-removebg-preview.png" id="2_dpbjc"]
-[ext_resource type="Script" uid="uid://v4pl76e10a4" path="res://Scenes/3D_scene/particles_from_image/FakePointClouds.gd" id="4_73xyk"]
-[ext_resource type="Shader" uid="uid://d16e76ivnxhu1" path="res://Scenes/3D_scene/particles_from_image/particles_albedo.gdshader" id="4_dpjeb"]
-[ext_resource type="Script" uid="uid://dwvlxgfpjqty6" path="res://Scenes/3D_scene/PointCloudObject/PointCloiudObject3D.gd" id="8_ie16o"]
+[ext_resource type="Script" uid="uid://v4pl76e10a4" path="res://Scripts/FakePointClouds.gd" id="4_73xyk"]
+[ext_resource type="Shader" uid="uid://d16e76ivnxhu1" path="res://Shaders/particles_albedo.gdshader" id="4_dpjeb"]
+[ext_resource type="Script" uid="uid://dwvlxgfpjqty6" path="res://Scripts/PointCloiudObject3D.gd" id="8_ie16o"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dpjeb"]
 frequency = 0.0029

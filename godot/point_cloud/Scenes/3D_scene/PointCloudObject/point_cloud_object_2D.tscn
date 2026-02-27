@@ -1,23 +1,24 @@
-[gd_scene load_steps=13 format=3 uid="uid://cba7lek3lpmcx"]
+[gd_scene format=3 uid="uid://cba7lek3lpmcx"]
 
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_mgguj"]
 [ext_resource type="Texture2D" uid="uid://glpo3r2l8jpq" path="res://Assets/CroppedSpecies/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="2_mgguj"]
-[ext_resource type="Script" uid="uid://dwvlxgfpjqty6" path="res://Scenes/3D_scene/PointCloudObject/PointCloiudObject3D.gd" id="3_6e8xl"]
+[ext_resource type="Script" uid="uid://dwvlxgfpjqty6" path="res://Scripts/PointCloiudObject3D.gd" id="3_6e8xl"]
 [ext_resource type="Shader" uid="uid://dxeyo5i2s6wlc" path="res://Shaders/avg_color_spatial.gdshader" id="4_6e8xl"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_ulbt7"]
+[sub_resource type="QuadMesh" id="QuadMesh_gcm7f"]
 size = Vector2(10, 10)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyj2b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0vanp"]
 render_priority = 0
 shader = ExtResource("1_mgguj")
 shader_parameter/point_density = 859.2373132705688
 shader_parameter/point_size = 0.5000000074506
-shader_parameter/edge_threshold = 0.0
-shader_parameter/edge_width = 0.07999999821184
 shader_parameter/movement_speed = 1.30000001937156
 shader_parameter/movement_range = 3.0
 shader_parameter/input_texture = ExtResource("2_mgguj")
+shader_parameter/use_edge_detection = true
+shader_parameter/edge_threshold = 0.0
+shader_parameter/edge_width = 0.07999999821184
 
 [sub_resource type="Curve" id="Curve_xxm2l"]
 _data = [Vector2(0.016304344, 1), 0.0, -0.982308, 0, 1, Vector2(1, 0.033707857), -0.982308, 0.0, 1, 0]
@@ -54,21 +55,20 @@ turbulence_influence_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_6e8xl"]
 size = Vector2(0.1, 0.1)
 
-[node name="PointCloudObject" type="MeshInstance3D"]
-mesh = SubResource("QuadMesh_ulbt7")
-surface_material_override/0 = SubResource("ShaderMaterial_qyj2b")
+[node name="PointCloudObject" type="MeshInstance3D" unique_id=1882900184]
+mesh = SubResource("QuadMesh_gcm7f")
+surface_material_override/0 = SubResource("ShaderMaterial_0vanp")
 script = ExtResource("3_6e8xl")
 point_size = 1000.0
 density_curve = SubResource("Curve_xxm2l")
 max_distance = 60.0
-my_texture = ExtResource("2_mgguj")
 
-[node name="Label3D" type="Label3D" parent="."]
+[node name="Label3D" type="Label3D" parent="." unique_id=1589568491]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.0820765, 0)
 text = "Crown Daisy"
 font_size = 150
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1479139549]
 rotation_edit_mode = 1
 material_override = SubResource("ShaderMaterial_ssmsj")
 amount = 20
@@ -77,4 +77,4 @@ transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_mgguj")
 draw_pass_1 = SubResource("QuadMesh_6e8xl")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D" parent="." unique_id=1737235493]
