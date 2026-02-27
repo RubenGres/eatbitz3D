@@ -9,6 +9,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dn0uagjqqal5u" path="res://Assets/3D/Elderflower/Meshy_AI_Elderflower_0210154048_texture_decimated.obj" id="6_njbcq"]
 [ext_resource type="ArrayMesh" uid="uid://65v0nahpvmgy" path="res://Assets/3D/Fava_bean/Meshy_AI_Fava_bean_0210153636_texture_decimated.obj" id="7_q0w6e"]
 [ext_resource type="ArrayMesh" uid="uid://jtxgmd5n72yp" path="res://Assets/3D/Pennywort/Meshy_AI_Pennywort_0210153648_texture_decimated.obj" id="10_whepr"]
+[ext_resource type="PackedScene" uid="uid://b8gpktu4prpfl" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_from_bitz.tscn" id="11_f221m"]
 
 [sub_resource type="Environment" id="Environment_bc0oj"]
 ssao_intensity = 11.76
@@ -75,3 +76,24 @@ mesh = ExtResource("10_whepr")
 [node name="Dandelion" parent="FormigaGloriosa" unique_id=404686697 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.5649999, 0, 0, 0, 1.2241694, 0.9750047, 0, -0.9750047, 1.2241694, 0, -1.5254183, 1.5203525)
 mesh = ExtResource("5_bneni")
+
+[node name="Companions" type="Node3D" parent="." unique_id=664059679]
+
+[node name="PointCloudFromBitz" parent="Companions" unique_id=1051864477 instance=ExtResource("11_f221m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6634047, -1.4822025, 0)
+
+[node name="PointCloudFromBitz2" parent="Companions" unique_id=1437011823 instance=ExtResource("11_f221m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.086515, 2.675027, 0)
+species_id = 1
+
+[node name="PointCloudFromBitz3" parent="Companions" unique_id=974570942 instance=ExtResource("11_f221m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7577634, 2.675027, 0)
+species_id = 2
+
+[node name="PointCloudFromBitz4" parent="Companions" unique_id=1351690729 instance=ExtResource("11_f221m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6404862, 2.675027, 0)
+species_id = 3
+
+[node name="PointCloudFromBitz5" parent="Companions" unique_id=1432574809 instance=ExtResource("11_f221m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5949254, 2.675027, 0)
+species_id = 4

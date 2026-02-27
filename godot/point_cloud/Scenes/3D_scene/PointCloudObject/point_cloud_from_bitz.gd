@@ -1,21 +1,35 @@
 @tool
 extends Node3D
+class_name BitzCompanion
 
-@onready var point_cloud_object = $PointCloudObject
+@onready var point_cloud_object = $ParticlesTest
 
 @export var modal_url: String = "https://ruben-g-gres--grounded-sam2-api-segment.modal.run"
 
 @export var quest_id: String = "":
 	set(value):
 		quest_id = value
-		if quest_id != "" and species_id >= 0:
-			_fetch()
+		if is_node_ready():
+			if quest_id != "" and species_id >= 0:
+				_fetch()
 
 @export var species_id: int = 0:
 	set(value):
 		species_id = value
-		if quest_id != "" and species_id >= 0:
-			_fetch()
+		if is_node_ready():
+			if quest_id != "" and species_id >= 0:
+				_fetch()
+
+@export var target_3D: Node3D:
+	set(value):
+		target_3D = value
+		if is_node_ready():
+			point_cloud_object.target_3D = self.target_3D
+
+@export var is_highlighted: bool = false:
+	set(value):
+		is_highlighted = value
+		_set_highlighted()
 
 var _api: BitzAPI
 var _http_modal: HTTPRequest
@@ -35,6 +49,10 @@ func _ready():
 	_http_modal = HTTPRequest.new()
 	add_child(_http_modal)
 	_http_modal.request_completed.connect(_on_modal_received)
+	
+	point_cloud_object.target_3D = self.target_3D
+
+	_fetch()
 
 func _fetch():
 	print("[PointCloud] _fetch - quest_id: %s, species_id: %d" % [quest_id, species_id])
@@ -43,7 +61,10 @@ func _fetch():
 	_pending_species_name = ""
 	_pending_image = null
 	_api.fetch_history(quest_id, species_id)
-	_api.fetch_species_image(quest_id, species_id)
+	_api.fetch_species_image(quest_id, species_id, "thumb")
+
+func _set_highlighted():
+	$ParticlesTest/HighlightSprite.visible = is_highlighted
 
 func _on_species_data(qid: String, sid: int, species_info: Dictionary):
 	print("[PointCloud] _on_species_data - qid: %s, sid: %d, info: %s" % [qid, sid, species_info])

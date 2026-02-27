@@ -1,31 +1,41 @@
 @tool
 extends Control
+class_name InfoPanel
 
 @export var quest_id: String = "":
 	set(value):
 		quest_id = value
-		_request_data()
+		if is_node_ready():
+			_request_data()
+
 @export var species_id: int = 0:
 	set(value):
 		species_id = value
-		_request_data()
+		if is_node_ready():
+			_request_data()
+			
 @export var slide_duration: float = 0.4
 
+var _api: BitzAPI
 var _tween: Tween
 
 signal opened
 signal closed
 
 func _ready():
+	_api = BitzAPI.new()
+	add_child(_api)
 	position.x = get_viewport_rect().size.x
-	BitzAPI.species_data_loaded.connect(_on_species_data)
-	BitzAPI.image_loaded.connect(_on_image)
+	_api.species_data_loaded.connect(_on_species_data)
+	_api.image_loaded.connect(_on_image)
+	
+	_request_data()
 
 func _request_data():
 	if quest_id.is_empty():
 		return
-	BitzAPI.fetch_history(quest_id, species_id)
-	BitzAPI.fetch_species_image(quest_id, species_id)
+	_api.fetch_history(quest_id, species_id)
+	_api.fetch_species_image(quest_id, species_id)
 	slide_in()
 
 func _on_species_data(qid: String, sid: int, species_info: Dictionary):

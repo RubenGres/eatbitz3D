@@ -1,7 +1,7 @@
 extends Node
 class_name BitzAPI
 
-@export var api_url: String = "https://api.bitz.tools"
+var api_url: String = "https://api.bitz.tools"
 
 signal image_loaded(quest_id: String, species_id: int, texture: ImageTexture)
 signal species_data_loaded(quest_id: String, species_id: int, data: Dictionary)
@@ -9,7 +9,7 @@ signal request_failed(url: String, response_code: int)
 
 var _pending_requests: Dictionary = {}
 
-func fetch_species_image(quest_id: String, species_id: int) -> void:
+func fetch_species_image(quest_id: String, species_id: int, quality: String = "thumb") -> void:
 	var url = api_url + "/explore/images/" + quest_id + "/" + str(species_id) + "_image.jpg?res=medium"
 	var http = HTTPRequest.new()
 	add_child(http)
@@ -31,7 +31,7 @@ func _on_image_received(result: int, response_code: int, headers: PackedStringAr
 	var info = _pending_requests.get(key, {})
 	_cleanup_request(key)
 	if response_code != 200:
-		request_failed.emit(info.get("quest_id", ""), response_code)
+		request_failed.emit(api_url + ":" + info.get("quest_id", ""), response_code)
 		return
 	var image = Image.new()
 	var err = image.load_jpg_from_buffer(body)

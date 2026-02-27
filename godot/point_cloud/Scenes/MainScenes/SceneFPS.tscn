@@ -13,9 +13,11 @@
 [node name="InfoPanel" parent="CanvasLayer" unique_id=1394758193 instance=ExtResource("1_88v5a")]
 offset_left = 1132.0
 offset_right = 1132.0
-slide_duration = 0.4
+quest_id = ""
+species_id = 0
 
-[node name="GlobalSpeciesView" parent="." unique_id=1836985689 instance=ExtResource("1_hwu0x")]
+[node name="GlobalSpeciesView" parent="." unique_id=1836985689 node_paths=PackedStringArray("target") instance=ExtResource("1_hwu0x")]
+target = NodePath("../Basic FPS Player/Head")
 
 [node name="Basic FPS Player" type="CharacterBody3D" parent="." unique_id=1376736277]
 script = ExtResource("2_dvg24")

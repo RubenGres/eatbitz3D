@@ -61,29 +61,6 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	# Accumulate time using delta (respects Engine.time_scale)
-	accumulated_time += delta
-	var angle = (accumulated_time + time_offset) * rotation_speed + rotation_seed
-	
-	#self.orbital_inclination += orbital_shift_rate * delta
-	#self.orbital_inclination = fmod(orbital_inclination, 2.0 * PI)
-	
-	self.scale = initial_scale * orbit_multiplier
-	
-	if sphere_radius == 0.0:
-		position = Vector3.ZERO
-	else:
-		# Start with flat orbit
-		var orbit_pos = Vector3(
-			cos(angle) * sphere_radius * orbit_multiplier,
-			0.0,
-			sin(angle) * sphere_radius * orbit_multiplier
-		)
-		
-		# Apply orbital inclination (rotate around X axis)
-		orbit_pos = orbit_pos.rotated(Vector3.RIGHT, orbital_inclination)
-		
-		position = orbit_pos
 	
 func _update_material_texture():
 	if particles and point_cloud:

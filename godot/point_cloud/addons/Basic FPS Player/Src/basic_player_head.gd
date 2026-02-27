@@ -1,9 +1,9 @@
 extends Node3D
 
 @onready var raycast = $RayCast3D
-@onready var info_panel = $"../../CanvasLayer/InfoPanel"
+@onready var info_panel: InfoPanel = $"../../CanvasLayer/InfoPanel"
 
-var _hovered_ingredient: Ingredient3D = null
+var _hovered_ingredient = null
 
 func _ready() -> void:
 	info_panel.opened.connect(_on_info_panel_opened)
@@ -26,16 +26,20 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if _hovered_ingredient:
 			info_panel.slide_in()
+			
+			if _hovered_ingredient is BitzCompanion:
+				info_panel.quest_id = _hovered_ingredient.quest_id
+				info_panel.species_id = _hovered_ingredient.species_id
 
 func _clear_highlight() -> void:
 	if _hovered_ingredient:
 		_hovered_ingredient.is_highlighted = false
 		_hovered_ingredient = null
 
-func _get_ingredient(collider: Node) -> Ingredient3D:
+func _get_ingredient(collider: Node):
 	var node = collider
 	while node:
-		if node is Ingredient3D:
+		if node is Ingredient3D or node is BitzCompanion:
 			return node
 		node = node.get_parent()
 	return null

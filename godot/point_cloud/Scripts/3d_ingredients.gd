@@ -65,7 +65,7 @@ func _set_mesh():
 
 		# Remove old outline mesh if it exists
 		var old_outline = model_3d.get_node_or_null("OutlineMesh")
-		print(old_outline)
+		
 		if old_outline:
 			old_outline.queue_free()
 
