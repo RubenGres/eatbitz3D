@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b706tei6c7ce6"]
+
+[ext_resource type="PackedScene" uid="uid://bx85bisf2ax1x" path="res://Scenes/UI/InfoPanel.tscn" id="1_88v5a"]
+[ext_resource type="PackedScene" uid="uid://dpw33ptrilm7r" path="res://Scenes/3D_scene/global_species_view.tscn" id="1_hwu0x"]
+[ext_resource type="Script" uid="uid://dhj6ffyjtg1lv" path="res://addons/Basic FPS Player/Src/basic_player_startup.gd" id="2_dvg24"]
+[ext_resource type="PackedScene" uid="uid://kmyakts4l64t" path="res://addons/Basic FPS Player/Src/basic_player_head.tscn" id="3_88v5a"]
+[ext_resource type="Script" uid="uid://cx83q0vgxsspr" path="res://addons/Basic FPS Player/Src/basic_player_head.gd" id="5_e7ecd"]
+
+[node name="Scene360" type="Node3D" unique_id=1100453811]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=768111001]
+
+[node name="InfoPanel" parent="CanvasLayer" unique_id=1394758193 instance=ExtResource("1_88v5a")]
+offset_left = 1132.0
+offset_right = 1132.0
+slide_duration = 0.4
+
+[node name="GlobalSpeciesView" parent="." unique_id=1836985689 instance=ExtResource("1_hwu0x")]
+
+[node name="Basic FPS Player" type="CharacterBody3D" parent="." unique_id=1376736277]
+script = ExtResource("2_dvg24")
+metadata/_custom_type_script = "uid://dhj6ffyjtg1lv"
+
+[node name="Head" parent="Basic FPS Player" unique_id=1320691815 instance=ExtResource("3_88v5a")]
+script = ExtResource("5_e7ecd")
+
+[node name="RayCast3D" type="RayCast3D" parent="Basic FPS Player/Head" unique_id=273513507]
+target_position = Vector3(0, 0, -10)
