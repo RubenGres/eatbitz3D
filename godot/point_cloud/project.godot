@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/mode=2
 window/stretch/mode="viewport"
 
 [editor]
@@ -31,7 +30,7 @@ movie_writer/movie_file="/home/ruben/Desktop/Screenshots/bitzone.png"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/freecam_3D/plugin.cfg")
+enabled=PackedStringArray("res://addons/Basic FPS Player/plugin.cfg", "res://addons/freecam_3D/plugin.cfg")
 
 [rendering]
 
