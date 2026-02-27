@@ -1,105 +1,101 @@
 @tool
-extends Control
+extends Node3D
 
-@export var api_url = "https://api.bitz.tools"
-		
-@export var quest_id = "":
+@onready var point_cloud_object = $PointCloudObject
+
+@export var modal_url: String = "https://ruben-g-gres--grounded-sam2-api-segment.modal.run"
+
+@export var quest_id: String = "":
 	set(value):
 		quest_id = value
-		_on_field_updated()
-		
+		if quest_id != "" and species_id >= 0:
+			_fetch()
+
 @export var species_id: int = 0:
 	set(value):
 		species_id = value
-		_on_field_updated()
+		if quest_id != "" and species_id >= 0:
+			_fetch()
 
-var http_image: HTTPRequest
-var http_json: HTTPRequest
-var history_data: Array = []
+var _api: BitzAPI
+var _http_modal: HTTPRequest
+var _pending_species_name: String = ""
+var _pending_image: Image
+var _got_name := false
+var _got_image := false
 
 func _ready():
-	http_image = HTTPRequest.new()
-	http_json = HTTPRequest.new()
-	add_child(http_image)
-	add_child(http_json)
-	http_image.request_completed.connect(_on_image_received)
-	http_json.request_completed.connect(_on_json_received)
+	_api = BitzAPI.new()
+	add_child(_api)
+	_api.species_data_loaded.connect(_on_species_data)
+	_api.image_loaded.connect(_on_image)
 
-func _on_field_updated():
-	var image_url = api_url + "/explore/images/" + quest_id + "/" + str(species_id) + "_image.jpg?res=medium"
-	var json_url = api_url + "/explore/data/" + quest_id + "/history.json"
-	
-	print(image_url)
-	print(json_url)
-	
-	http_json.request(json_url)
-	http_image.request(image_url)
+	_http_modal = HTTPRequest.new()
+	add_child(_http_modal)
+	_http_modal.request_completed.connect(_on_modal_received)
 
-func _fixup_string(assistant_data: String) -> Variant:
-	var fixed = ""
-	for i in assistant_data.length():
-		var c = assistant_data[i]
-		if c == "'":
-			var prev_is_letter = i > 0 and assistant_data[i - 1].to_lower() != assistant_data[i - 1].to_upper()
-			var next_is_letter = i < assistant_data.length() - 1 and assistant_data[i + 1].to_lower() != assistant_data[i + 1].to_upper()
-			if prev_is_letter and next_is_letter:
-				fixed += "'"
-			else:
-				fixed += "\""
-		else:
-			fixed += c
-	var inner = JSON.new()
-	var parse_err = inner.parse(fixed)
-	if parse_err != OK:
-		push_error("Failed to parse: %s" % inner.get_error_message())
-		return null
-	return inner.data
+func _fetch():
+	_got_name = false
+	_got_image = false
+	_pending_species_name = ""
+	_pending_image = null
+	_api.fetch_history(quest_id, species_id)
+	_api.fetch_species_image(quest_id, species_id)
 
-func _on_json_received(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
-	if response_code != 200:
-		push_error("Failed to fetch JSON: %d" % response_code)
+func _on_species_data(qid: String, sid: int, species_info: Dictionary):
+	if qid != quest_id or sid != species_id:
 		return
-	
+	_pending_species_name = species_info.get("name", "Unknown")
+	_got_name = true
+	_try_remove_bg()
+
+func _on_image(qid: String, sid: int, texture: ImageTexture):
+	if qid != quest_id or sid != species_id:
+		return
+	_pending_image = texture.get_image()
+	_got_image = true
+	_try_remove_bg()
+
+func _try_remove_bg():
+	if not _got_name or not _got_image:
+		return
+	_remove_bg(_pending_image, _pending_species_name)
+
+func _remove_bg(image: Image, prompt: String):
+	var buf = image.save_jpg_to_buffer(0.9)
+	var base64_image = Marshalls.raw_to_base64(buf)
+	var payload = JSON.stringify({
+		"image_base64": base64_image,
+		"prompt": prompt
+	})
+	print("Sending to Modal with prompt: ", prompt)
+	_http_modal.request(modal_url, ["Content-Type: application/json"], HTTPClient.METHOD_POST, payload)
+
+func _on_modal_received(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+	if response_code != 200:
+		push_error("Modal request failed: %d" % response_code)
+		return
 	var json = JSON.new()
-	var err = json.parse(body.get_string_from_utf8())
-	if err != OK:
-		push_error("Failed to parse JSON: %s" % json.get_error_message())
+	if json.parse(body.get_string_from_utf8()) != OK:
+		push_error("Failed to parse Modal response: %s" % json.get_error_message())
 		return
-	
 	var data = json.data
-	history_data = data.get("history", [])
-	
-	if species_id >= history_data.size():
-		push_error("species_id %d out of range (history has %d entries)" % [species_id, history_data.size()])
-		return
-	
-	var entry = history_data[species_id]
-	var assistant_data = entry.get("assistant", {})
-	
-	assistant_data = _fixup_string(assistant_data)
-	
-	var species_info = assistant_data.get("species_identification", {})
-	
-	var species_name = species_info.get("name", "Unknown")
-	var description = species_info.get("what_is_it", "")
-	var additional_info = species_info.get("information", "")
-	
-	%SpeciesName.text = species_name
-	%Description.text = description
-	%AdditionalInfo.text = additional_info
+	print("Modal found %d objects" % data.get("num_objects", 0))
 
-func _on_image_received(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
-	if response_code != 200:
-		push_error("Failed to fetch image: %d" % response_code)
+	var masked_b64: String = data.get("masked_image_base64", "")
+	if masked_b64.is_empty():
+		push_error("No masked_image_base64 in Modal response")
 		return
-	
+
+	var masked_bytes = Marshalls.base64_to_raw(masked_b64)
 	var image = Image.new()
-	var err = image.load_jpg_from_buffer(body)
+	var err = image.load_png_from_buffer(masked_bytes)
 	if err != OK:
-		err = image.load_png_from_buffer(body)
+		err = image.load_jpg_from_buffer(masked_bytes)
 	if err != OK:
-		push_error("Failed to load image from buffer")
+		push_error("Failed to load masked image")
 		return
-	
+
 	var texture = ImageTexture.create_from_image(image)
-	%TextureRect.texture = texture
+	point_cloud_object.texture = texture
+	print("Applied masked texture (%dx%d)" % [image.get_width(), image.get_height()])

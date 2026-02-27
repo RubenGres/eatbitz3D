@@ -30,9 +30,14 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = 2.0
+offset_right = -26.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x7mhu")
+slide_duration = 0.4
 
 [node name="Panel" type="Panel" parent="." unique_id=646199263]
 custom_minimum_size = Vector2(200, 0)
@@ -72,7 +77,7 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Strawberry (Fragaria × ananassa)"
+text = "Skink (Scincidae)"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
@@ -135,7 +140,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "A popular cultivated fruit known for its red, juicy berries and sweet flavor. Strawberries are often enjoyed fresh or used in desserts."
+text = "Skinks are smooth-scaled lizards that often have elongated bodies and short legs."
 autowrap_mode = 3
 
 [node name="AdditonalInfoTitle" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1990317152]
@@ -150,5 +155,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "In Roman mythology, strawberries were believed to be the tears of Venus, the goddess of love, and were often associated with love and fertility. During the Middle Ages, they were used to create medicinal remedies, believed to treat ailments ranging from fevers to digestive issues. The first cultivated strawberries in Europe date back to the 18th century, specifically in France, where they were hybridized to create the large, sweet varieties we enjoy today."
+text = "These reptiles are primarily found in warm habitats and are known for their burrowing habits. Skinks can often be identified by their shiny appearance and may display varying colors, depending on the species. Some skinks are excellent diggers, helping aerate the soil and control insect populations in their environments."
 autowrap_mode = 3
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/Button" to="." method="slide_out"]
