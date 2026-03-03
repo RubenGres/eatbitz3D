@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bn0u8e16h6xij"]
+
+[ext_resource type="PackedScene" uid="uid://dpw33ptrilm7r" path="res://Scenes/3D_scene/global_species_view.tscn" id="1_epmoh"]
+[ext_resource type="Script" uid="uid://7m0ekawqrbcw" path="res://addons/godot360/src/camera360.gd" id="2_twx2e"]
+
+[node name="Scene360" type="Node3D" unique_id=1100453811]
+
+[node name="GlobalSpeciesView" parent="." unique_id=1836985689 node_paths=PackedStringArray("target") instance=ExtResource("1_epmoh")]
+target = NodePath("../Camera360/BillboardTarget")
+
+[node name="Camera360" type="Camera3D" parent="." unique_id=1282553276 node_paths=PackedStringArray("subviewport")]
+script = ExtResource("2_twx2e")
+fovx = 360.0
+lens = 5
+subviewport = NodePath("SubViewport")
+metadata/_custom_type_script = "uid://7m0ekawqrbcw"
+
+[node name="BillboardTarget" type="Node3D" parent="Camera360" unique_id=744852682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13283849, 0, 0.30274916)
+
+[node name="SubViewport" type="SubViewport" parent="Camera360" unique_id=799379863]
+size = Vector2i(1024, 1024)

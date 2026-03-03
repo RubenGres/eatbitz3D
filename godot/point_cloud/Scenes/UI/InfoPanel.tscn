@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://bx85bisf2ax1x"]
+
+[ext_resource type="Script" uid="uid://bjrxtbsrmes47" path="res://Scenes/UI/info_panel.gd" id="1_x7mhu"]
+[ext_resource type="Shader" uid="uid://mnx5jmlkkq2d" path="res://Shaders/round_corners.gdshader" id="2_n1fx6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ngnp"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_n1fx6"]
+color = Color(1, 1, 1, 1)
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x7mhu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1fx6"]
+bg_color = Color(0.6, 0.6, 0.6, 0.25882354)
+corner_detail = 18
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1ngnp"]
+color = Color(1, 1, 1, 1)
+thickness = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ngnp"]
+shader = ExtResource("2_n1fx6")
+shader_parameter/radius = 0.0750000035625
+
+[node name="InfoPanel" type="Control" unique_id=1394758193]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 2.0
+offset_right = -20.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x7mhu")
+quest_id = "3c91ae94-8fe2-40cc-86e9-774ce67bf05d"
+species_id = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=646199263]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -290.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ngnp")
+
+[node name="VSeparator" type="VSeparator" parent="Panel" unique_id=455891700]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_vertical = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_n1fx6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=324885442]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=923301670]
+layout_mode = 2
+
+[node name="SpeciesName" type="Label" parent="Panel/VBoxContainer/HBoxContainer" unique_id=482828297]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Quercus species (Oak tree)"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 6
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/HBoxContainer" unique_id=2018630079]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7mhu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n1fx6")
+text = "X"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer" unique_id=1966960355]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_1ngnp")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=863805455]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer2" type="CenterContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=456791582]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2" unique_id=1770350686]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer" unique_id=2045554819]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 25
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer" unique_id=138446914]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_1ngnp")
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer" unique_id=560934621]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2" unique_id=1917023442]
+layout_mode = 2
+
+[node name="DescriptionTitle" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1401527907]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Description"
+
+[node name="Description" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=395933080]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Oaks are large, stately trees known for their strength and longevity."
+autowrap_mode = 3
+
+[node name="AdditonalInfoTitle" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1990317152]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Additional Info"
+vertical_alignment = 2
+
+[node name="AdditionalInfo" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=170705557]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Oaks belong to the genus Quercus and are found across the Northern Hemisphere. They provide habitat and food for numerous species, including birds and mammals. Their acorns are a critical food source for various animals. The diverse arrangements of leaves and the impressive size are key characteristics of oaks, and some species can live for hundreds of years."
+autowrap_mode = 3
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/Button" to="." method="slide_out"]

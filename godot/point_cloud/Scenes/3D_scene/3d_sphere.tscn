@@ -1,6 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://cjja8lmq85du7"]
+[gd_scene format=3 uid="uid://cjja8lmq85du7"]
 
-[ext_resource type="PackedScene" uid="uid://cba7lek3lpmcx" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_object.tscn" id="1_8hq1n"]
+[ext_resource type="PackedScene" uid="uid://cba7lek3lpmcx" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_object_2D.tscn" id="1_8hq1n"]
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="2_qmuc6"]
 [ext_resource type="Texture2D" uid="uid://cjppttgjsijox" path="res://Assets/CroppedSpecies/d9ee60ea8c95063e6163cb8989c0ea8b-removebg-preview.png" id="3_fnhe2"]
 [ext_resource type="Texture2D" uid="uid://b0aya7v7ss0r2" path="res://Assets/CroppedSpecies/5feb8e8bb4e1713623e27ce8c13d4ce6-removebg-preview.png" id="4_1rjrg"]

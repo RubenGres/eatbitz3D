@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/build/
+/ios_kiosk_app/BitzoneApp/Resources/
+/ios_kiosk_app/build
+/ios_kiosk_app/local_stuff

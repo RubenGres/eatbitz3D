@@ -29,7 +29,7 @@ const ACCELERATION := 0.1
 const MOUSE_SENSITIVITY := 0.002
 
 ## Whether or not the camera can move.
-var movement_active := false:
+var movement_active := true:
 	set(val):
 		movement_active = val
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if movement_active else Input.MOUSE_MODE_VISIBLE)
