@@ -9,7 +9,7 @@ extends MeshInstance3D
 @export var point_size: float = 1
 @export var density_curve: Curve ## Controls point density based on distance
 @export var max_distance: float = 100.0 ## Maximum distance for curve normalization
-@export var target_3D: Node3D
+@export var target: Node3D
 
 var material: Material
 
@@ -28,10 +28,10 @@ func _ready() -> void:
 	material = get_surface_override_material(0)
 
 func _process(delta: float) -> void:
-	if not target_3D:
+	if not target:
 		return
 	
-	var distance = target_3D.global_position.distance_to(self.global_position)
+	var distance = target.global_position.distance_to(self.global_position)
 	var normalized_distance = clamp(distance / max_distance, 0.0, 1.0)
 	var curve_value = density_curve.sample(normalized_distance)
 	var point_density = curve_value * point_size

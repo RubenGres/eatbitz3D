@@ -17,4 +17,4 @@ func set_target():
 			node.target = self.target
 
 	for node: BitzCompanion in $Companions.get_children():
-		node.target_3D = self.target
+		node.target = self.target

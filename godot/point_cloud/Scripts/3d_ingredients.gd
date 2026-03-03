@@ -5,7 +5,7 @@ class_name Ingredient3D
 @export var target: Node3D:
 	set(value):
 		target = value
-		_set_target_3d()
+		_set_target()
 
 @export var sphere_radius: float:
 	set(value):
@@ -31,15 +31,15 @@ class_name Ingredient3D
 
 func _ready() -> void:
 	add_to_group("ingredients")
-	_set_target_3d()
+	_set_target()
 	_set_mesh()
 
 	model_3d.material_override = model_3d.material_override.duplicate()
 
-func _set_target_3d():
+func _set_target():
 	if species:
 		for s in species.get_children():
-			s.target_3D = target
+			s.target = target
 
 func _set_sphere_radius():
 	if species:

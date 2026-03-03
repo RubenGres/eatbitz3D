@@ -21,6 +21,7 @@ var _tween: Tween
 
 signal opened
 signal closed
+signal focused(object: Node3D)
 
 func _ready():
 	_api = BitzAPI.new()
@@ -49,6 +50,13 @@ func _on_image(qid: String, sid: int, texture: ImageTexture):
 	if qid != quest_id or sid != species_id:
 		return
 	%TextureRect.texture = texture
+
+func focus_on(object: Node3D):
+	if object is BitzCompanion:
+		quest_id = object.quest_id
+		species_id = object.species_id
+		
+	focused.emit(object)
 
 func slide_in():
 	_kill_tween()

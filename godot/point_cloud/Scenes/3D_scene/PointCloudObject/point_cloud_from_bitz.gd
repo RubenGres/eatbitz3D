@@ -20,16 +20,17 @@ class_name BitzCompanion
 			if quest_id != "" and species_id >= 0:
 				_fetch()
 
-@export var target_3D: Node3D:
+@export var target: Node3D:
 	set(value):
-		target_3D = value
+		target = value
 		if is_node_ready():
-			point_cloud_object.target_3D = self.target_3D
+			point_cloud_object.target = self.target
 
 @export var is_highlighted: bool = false:
 	set(value):
 		is_highlighted = value
-		_set_highlighted()
+		if is_node_ready():
+			_set_highlighted()
 
 var _api: BitzAPI
 var _http_modal: HTTPRequest
@@ -50,7 +51,7 @@ func _ready():
 	add_child(_http_modal)
 	_http_modal.request_completed.connect(_on_modal_received)
 	
-	point_cloud_object.target_3D = self.target_3D
+	point_cloud_object.target = self.target
 
 	_fetch()
 

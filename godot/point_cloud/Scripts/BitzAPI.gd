@@ -41,7 +41,7 @@ func _on_image_received(result: int, response_code: int, headers: PackedStringAr
 		push_error("BitzAPI: Failed to load image from buffer")
 		return
 	var texture = ImageTexture.create_from_image(image)
-	image_loaded.emit(info.quest_id, info.species_id, texture)
+	image_loaded.emit(info.get("quest_id", ""), info.get("species_id", ""), texture)
 
 func _on_json_received(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, key: String) -> void:
 	var info = _pending_requests.get(key, {})
@@ -55,7 +55,7 @@ func _on_json_received(result: int, response_code: int, headers: PackedStringArr
 		push_error("BitzAPI: Failed to parse JSON: %s" % json.get_error_message())
 		return
 	var history: Array = json.data.get("history", [])
-	var sid: int = info.species_id
+	var sid: int = info.get("species_id", 0)
 	if sid >= history.size():
 		push_error("BitzAPI: species_id %d out of range (%d entries)" % [sid, history.size()])
 		return
@@ -65,7 +65,7 @@ func _on_json_received(result: int, response_code: int, headers: PackedStringArr
 	if parsed == null:
 		parsed = {}
 	var species_info = parsed.get("species_identification", {})
-	species_data_loaded.emit(info.quest_id, info.species_id, species_info)
+	species_data_loaded.emit(info.get("quest_id", {}), info.get("species_id", {}), species_info)
 
 func _cleanup_request(key: String) -> void:
 	if _pending_requests.has(key):
