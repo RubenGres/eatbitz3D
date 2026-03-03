@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://b41k7k8jb3div"]
+
+[ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_mp6lv"]
+[ext_resource type="Texture2D" uid="uid://cejfdgej0mu4u" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.png" id="2_l6vb3"]
+[ext_resource type="ArrayMesh" uid="uid://bal7e6edxoqef" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.obj" id="3_rdwmb"]
+[ext_resource type="Script" uid="uid://hvfoctb2rosi" path="res://mesh_instance_3d.gd" id="4_fam18"]
+[ext_resource type="PackedScene" uid="uid://lwg43ywqhjsc" path="res://Scenes/3D_scene/particles_from_image/particles_test.tscn" id="5_32k4b"]
+[ext_resource type="Texture2D" uid="uid://b0aya7v7ss0r2" path="res://Assets/CroppedSpecies/5feb8e8bb4e1713623e27ce8c13d4ce6-removebg-preview.png" id="6_04dpp"]
+[ext_resource type="Texture2D" uid="uid://damsr2qe5p5im" path="res://Assets/CroppedSpecies/Venn/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="7_1ay01"]
+[ext_resource type="Texture2D" uid="uid://cjppttgjsijox" path="res://Assets/CroppedSpecies/d9ee60ea8c95063e6163cb8989c0ea8b-removebg-preview.png" id="8_7n2qv"]
+[ext_resource type="Script" uid="uid://ex5au68xgqur" path="res://label.gd" id="9_l6vb3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0g27"]
+render_priority = 0
+shader = ExtResource("1_mp6lv")
+shader_parameter/point_density = 400.0
+shader_parameter/point_size = 0.20000000298024
+shader_parameter/movement_speed = 1.0
+shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("2_l6vb3")
+shader_parameter/use_edge_detection = false
+shader_parameter/edge_threshold = 0.03
+shader_parameter/edge_width = 0.3
+
+[sub_resource type="Environment" id="Environment_ealrb"]
+glow_enabled = true
+glow_intensity = 7.34
+glow_bloom = 0.44
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Beetroot" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.539304, 0, -0.8421107, 0, 1, 0, 0.8421107, 0, 0.539304, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_i0g27")
+mesh = ExtResource("3_rdwmb")
+script = ExtResource("4_fam18")
+rotation_speed = 0.072
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ealrb")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54887605, -0.29014271, 0)
+light_energy = 0.0
+
+[node name="ParticlesTest" parent="." node_paths=PackedStringArray("target_3D") instance=ExtResource("5_32k4b")]
+transform = Transform3D(0.008688187, -0.0014031904, 0.0047483095, 0, 0.009590023, 0.002833983, -0.004951301, -0.0024622178, 0.008331993, -1.113, -0.585, 0.092)
+wiggle_speed = 2.5
+wiggle_range = 0.01
+texture = ExtResource("6_04dpp")
+target_3D = NodePath("../Node3D")
+
+[node name="ParticlesTest2" parent="." node_paths=PackedStringArray("target_3D") instance=ExtResource("5_32k4b")]
+transform = Transform3D(0.009231394, 0.0012939562, 0.0036203635, 0, 0.00941662, -0.0033655989, -0.003844653, 0.0031069175, 0.008692853, -1.0974002, 0.89668536, -0.5040913)
+wiggle_speed = 2.5
+wiggle_range = 0.01
+target_3D = NodePath("../Node3D")
+
+[node name="ParticlesTest3" parent="." node_paths=PackedStringArray("target_3D") instance=ExtResource("5_32k4b")]
+transform = Transform3D(0.008739539, -0.0013990322, -0.0046543693, 0, 0.009576717, -0.0028786163, 0.004860087, 0.0025157775, 0.0083696125, 1.442, 0.974, -1.02)
+wiggle_speed = 2.5
+wiggle_range = 0.01
+texture = ExtResource("7_1ay01")
+target_3D = NodePath("../Node3D")
+
+[node name="ParticlesTest4" parent="." node_paths=PackedStringArray("target_3D") instance=ExtResource("5_32k4b")]
+transform = Transform3D(0.009005544, 0.0011241835, -0.004199571, 0, 0.009659883, 0.0025858553, 0.0043474343, -0.0023287032, 0.00869925, 1.004, -0.7, -0.543)
+wiggle_speed = 2.5
+wiggle_range = 0.01
+texture = ExtResource("8_7n2qv")
+target_3D = NodePath("../Node3D")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13283849, 0, 1.8119171)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.9977888, 0, 0.066465475, 0, 1, 0, -0.066465475, 0, 0.9977888, -0.02733326, 0, 1.8131213)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS: 30"
+script = ExtResource("9_l6vb3")
