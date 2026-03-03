@@ -3,11 +3,18 @@ extends MeshInstance3D
 
 @export_range(0, 2) var rotation_speed: float = 0.1
 
-# Called when the node enters the scene tree for the first time.
+signal rotation_completed
+
+var _total_rotation: float = 0.0
+
 func _ready() -> void:
-	pass # Replace with function body.
+	_total_rotation = 0.0
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	rotation.y += rotation_speed * delta * 10
+	var step = rotation_speed * delta * 10
+	rotation.y += step
+	_total_rotation += step
+
+	if _total_rotation >= TAU:
+		_total_rotation -= TAU
+		rotation_completed.emit()

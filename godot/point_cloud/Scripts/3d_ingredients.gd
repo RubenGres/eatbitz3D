@@ -2,6 +2,8 @@
 extends Node3D
 class_name Ingredient3D
 
+signal rotation_completed
+
 @export var target: Node3D:
 	set(value):
 		target = value
@@ -84,3 +86,7 @@ func _set_highlighted():
 	var outline = model_3d.get_node_or_null("OutlineMesh") if model_3d else null
 	if outline:
 		outline.visible = is_highlighted
+
+
+func _on_model_3d_rotation_completed() -> void:
+	rotation_completed.emit()

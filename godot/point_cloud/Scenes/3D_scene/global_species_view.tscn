@@ -81,17 +81,24 @@ mesh = ExtResource("5_bneni")
 
 [node name="PointCloudFromBitz" parent="Companions" unique_id=1051864477 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6634047, -1.4822025, 0)
+visible = false
 
 [node name="PointCloudFromBitz2" parent="Companions" unique_id=1437011823 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.086515, 2.675027, 0)
+visible = false
 
 [node name="PointCloudFromBitz3" parent="Companions" unique_id=974570942 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7577634, 2.675027, 0)
+visible = false
 
 [node name="PointCloudFromBitz4" parent="Companions" unique_id=1351690729 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6404862, 2.675027, 0)
+visible = false
 species_id = 3
 
 [node name="PointCloudFromBitz5" parent="Companions" unique_id=1432574809 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5949254, 2.675027, 0)
+visible = false
 species_id = 4
+
+[connection signal="rotation_completed" from="Marcelo/Fava" to="." method="_on_fava_rotation_completed"]
