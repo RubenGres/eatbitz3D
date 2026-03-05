@@ -26,10 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if _hovered_ingredient:
 			info_panel.slide_in()
-			
-			if _hovered_ingredient is BitzCompanion:
-				info_panel.quest_id = _hovered_ingredient.quest_id
-				info_panel.species_id = _hovered_ingredient.species_id
+			info_panel.focus_on(_hovered_ingredient)
 
 func _clear_highlight() -> void:
 	if _hovered_ingredient:

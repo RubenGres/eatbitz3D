@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b41k7k8jb3div"]
+[gd_scene format=3 uid="uid://vdmn0smipudv"]
 
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_mp6lv"]
 [ext_resource type="Texture2D" uid="uid://cejfdgej0mu4u" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.png" id="2_l6vb3"]

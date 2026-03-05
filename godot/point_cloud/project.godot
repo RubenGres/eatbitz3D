@@ -15,12 +15,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="BITZ"
-run/main_scene="uid://dpw33ptrilm7r"
+run/main_scene="uid://b706tei6c7ce6"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/borderless=true
 window/stretch/mode="viewport"
 
 [editor]

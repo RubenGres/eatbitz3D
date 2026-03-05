@@ -2,10 +2,12 @@
 extends Node3D
 class_name Ingredient3D
 
+signal rotation_completed
+
 @export var target: Node3D:
 	set(value):
 		target = value
-		_set_target_3d()
+		_set_target()
 
 @export var sphere_radius: float:
 	set(value):
@@ -31,15 +33,15 @@ class_name Ingredient3D
 
 func _ready() -> void:
 	add_to_group("ingredients")
-	_set_target_3d()
+	_set_target()
 	_set_mesh()
 
 	model_3d.material_override = model_3d.material_override.duplicate()
 
-func _set_target_3d():
+func _set_target():
 	if species:
 		for s in species.get_children():
-			s.target_3D = target
+			s.target = target
 
 func _set_sphere_radius():
 	if species:
@@ -84,3 +86,7 @@ func _set_highlighted():
 	var outline = model_3d.get_node_or_null("OutlineMesh") if model_3d else null
 	if outline:
 		outline.visible = is_highlighted
+
+
+func _on_model_3d_rotation_completed() -> void:
+	rotation_completed.emit()

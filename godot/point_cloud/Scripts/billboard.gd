@@ -21,10 +21,10 @@ var time_offset: float
 		texture = value
 		_update_material_texture()
 
-@export var target_3D: Node3D:
+@export var target: Node3D:
 	set(value):
-		target_3D = value
-		_update_target_3D()
+		target = value
+		_update_target()
 
 func _ready() -> void:
 	# Store initial offset from parent
@@ -41,17 +41,17 @@ func _ready() -> void:
 	time_offset = rng.randf_range(0.0, TAU)
 	
 	_update_material_texture()
-	_update_target_3D()
+	_update_target()
 	
 #	self.rotation_speed = rotation_speed + 
 	self.orbital_inclination = rotation_seed * 2 * PI
 	
 
 func _point_towards_target():
-	if not target_3D:
+	if not target:
 		return
 	
-	var direction = global_position - target_3D.global_position
+	var direction = global_position - target.global_position
 	if direction.length() > 0.001:
 		look_at(global_position + direction, Vector3.UP)
 
@@ -67,6 +67,6 @@ func _update_material_texture():
 		particles.texture = texture
 		point_cloud.texture = texture
 
-func _update_target_3D():
+func _update_target():
 	if point_cloud:
-		point_cloud.target_3D = target_3D
+		point_cloud.target = target

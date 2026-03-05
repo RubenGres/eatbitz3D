@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cba7lek3lpmcx"]
+[gd_scene format=3 uid="uid://lp4t5tq041mm"]
 
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_mgguj"]
 [ext_resource type="Texture2D" uid="uid://glpo3r2l8jpq" path="res://Assets/CroppedSpecies/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="2_mgguj"]

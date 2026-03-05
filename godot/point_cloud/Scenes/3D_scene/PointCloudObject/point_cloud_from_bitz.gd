@@ -20,16 +20,17 @@ class_name BitzCompanion
 			if quest_id != "" and species_id >= 0:
 				_fetch()
 
-@export var target_3D: Node3D:
+@export var target: Node3D:
 	set(value):
-		target_3D = value
+		target = value
 		if is_node_ready():
-			point_cloud_object.target_3D = self.target_3D
+			point_cloud_object.target = self.target
 
 @export var is_highlighted: bool = false:
 	set(value):
 		is_highlighted = value
-		_set_highlighted()
+		if is_node_ready():
+			_set_highlighted()
 
 var _api: BitzAPI
 var _http_modal: HTTPRequest
@@ -43,14 +44,17 @@ func _ready():
 	_api = BitzAPI.new()
 	add_child(_api)
 	_api.species_data_loaded.connect(_on_species_data)
-	_api.image_loaded.connect(_on_image)
+	_api.image_loaded.connect(_on_image_loaded)
 	_api.request_failed.connect(func(url, code): print("[PointCloud] BitzAPI request failed - url: %s, code: %d" % [url, code]))
 
 	_http_modal = HTTPRequest.new()
 	add_child(_http_modal)
 	_http_modal.request_completed.connect(_on_modal_received)
 	
-	point_cloud_object.target_3D = self.target_3D
+	point_cloud_object.target = self.target
+
+	# hide while not loaded
+	self.hide()
 
 	_fetch()
 
@@ -76,8 +80,8 @@ func _on_species_data(qid: String, sid: int, species_info: Dictionary):
 	print("[PointCloud] Got species name: %s" % _pending_species_name)
 	_try_remove_bg()
 
-func _on_image(qid: String, sid: int, texture: ImageTexture):
-	print("[PointCloud] _on_image - qid: %s, sid: %d, texture size: %dx%d" % [qid, sid, texture.get_width(), texture.get_height()])
+func _on_image_loaded(qid: String, sid: int, texture: ImageTexture):
+	print("[PointCloud] _on_image_loaded - qid: %s, sid: %d, texture size: %dx%d" % [qid, sid, texture.get_width(), texture.get_height()])
 	if qid != quest_id or sid != species_id:
 		print("[PointCloud] Ignoring stale image (expected %s/%d)" % [quest_id, species_id])
 		return
@@ -140,3 +144,6 @@ func _on_modal_received(result: int, response_code: int, headers: PackedStringAr
 	var texture = ImageTexture.create_from_image(image)
 	point_cloud_object.texture = texture
 	print("[PointCloud] Applied masked texture (%dx%d) to point_cloud_object" % [image.get_width(), image.get_height()])
+	
+	# show node back
+	self.show()
