@@ -1,8 +1,47 @@
 services:
-  godot-webgl:
-    build:
-      context: ./build
-      dockerfile: Dockerfile
+  gateway:
+    container_name: eatbitz_gateway
+    image: nginx:alpine
+    depends_on:
+      - eatbitz3d
+      - rembg
+      - venn_static
     ports:
-      - "8080:80"
-    restart: unless-stopped
+      - "${EATBITZ_GATEWAY_PORT:-8080}:80"
+    volumes:
+      - ./deploy/gateway.nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: always
+
+  eatbitz3d:
+    container_name: godot_web_export
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+    expose:
+      - "80"
+    restart: always
+
+  rembg:
+    container_name: bitz_rembg_service
+    build:
+      context: ./remove_bg_pipeline
+      dockerfile: Dockerfile
+    environment:
+      - BITZ_CACHE_DB_PATH=/var/lib/bitz-cache/bitz_cache.db
+    expose:
+      - "8787"
+    volumes:
+      - rembg_cache:/var/lib/bitz-cache
+    restart: always
+
+  venn_static:
+    container_name: venn_static_server
+    image: nginx:alpine
+    expose:
+      - "80"
+    volumes:
+      - ${VENN_STATIC_DIR:-./server/venn/video}:/usr/share/nginx/html:ro
+    restart: always
+
+volumes:
+  rembg_cache:

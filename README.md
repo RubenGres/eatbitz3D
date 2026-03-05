@@ -19,9 +19,17 @@ A visual experience that brings the farm to your plate. EatBitz 3D showcases the
 
 ## Getting Started
 
+Build the project for WEBGL using godot and use ddocker to deploy the server:
 ```bash
 docker-compose up
 ```
+
+If another reverse proxy already runs on this host, change the gateway bind port:
+```bash
+EATBITZ_GATEWAY_PORT=8888 docker compose up --build
+```
+
+The background-removal SQLite cache is persisted in the Docker named volume `rembg_cache`.
 
 The application will be available at `http://localhost`
 
@@ -31,4 +39,4 @@ The application will be available at `http://localhost`
 - `godot/point_cloud/Scenes/` - 3D scenes and visualizations
 - `godot/point_cloud/Shaders/` - Custom GDShaders for effects
 - `godot/point_cloud/Assets/` - 3D models and textures
-- `build/webgl/` - WebGL export for browser deployment
+- `deploy/webgl/` - WebGL export for browser deployment
