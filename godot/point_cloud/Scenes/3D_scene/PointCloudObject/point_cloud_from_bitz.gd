@@ -4,7 +4,7 @@ class_name BitzCompanion
 
 @onready var point_cloud_object = $ParticlesTest
 
-@export var rembg_base_url: String = "/rembg"
+@export var rembg_base_url: String = "http://localhost:8080/rembg"
 
 @export var quest_id: String = "":
 	set(value):

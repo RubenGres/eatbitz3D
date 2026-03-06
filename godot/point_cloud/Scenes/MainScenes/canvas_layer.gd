@@ -19,8 +19,7 @@ func _on_node_focused(object: Node3D):
 	duplicate.scale = Vector3.ONE
 	duplicate.rotation = Vector3.ZERO
 	duplicate.target = camera3D
-	
-	duplicate
+		
 	for child in object3D_parent.get_children():
 		child.queue_free()
 		
@@ -30,6 +29,7 @@ func _on_node_focused(object: Node3D):
 	if duplicate is BitzCompanion:
 		particle_parent.add_child(duplicate)
 	else:
+		duplicate.rotation_speed = 0.0
 		object3D_parent.add_child(duplicate)
 		
 	blur_background.visible = true

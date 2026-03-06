@@ -26,6 +26,12 @@ signal rotation_completed
 
 @export var highlight_material: Material
 
+@export var rotation_speed = 0.1:
+	set(value):
+		rotation_speed = value
+		if is_node_ready():
+			model_3d.rotation_speed = rotation_speed
+
 @onready var model_3d = $ModelDisplay/Model3d
 @onready var model_display = $ModelDisplay
 @onready var species = $ModelDisplay/GravitatingSpecies
