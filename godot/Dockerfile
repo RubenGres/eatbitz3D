@@ -1,6 +1,6 @@
 FROM barichello/godot-ci:4.6 AS builder
 
-COPY godot/point_cloud /godot_project
+COPY . /godot_project
 
 # Verify Godot version matches the project
 RUN PROJECT_VERSION=$(grep 'config/features' /godot_project/project.godot | grep -oP '\d+\.\d+') && \
