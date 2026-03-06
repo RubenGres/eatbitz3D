@@ -9,12 +9,14 @@ RUN PROJECT_VERSION=$(grep 'config/features' /godot_project/project.godot | grep
         echo "ERROR: Godot version mismatch! Project: $PROJECT_VERSION, Docker: $GODOT_VERSION" && exit 1; \
     fi
 
-RUN cd /godot_project && godot --headless --verbose --export-release "Web" /web_export/index.html;
+WORKDIR /godot_project
+RUN mkdir -p /web_export
+RUN godot --headless --verbose --export-release "Web" /web_export/index.html
 
 FROM nginx:alpine
 
 COPY --from=builder /web_export /usr/share/nginx/html/
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
