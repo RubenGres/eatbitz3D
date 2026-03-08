@@ -1,8 +1,5 @@
 @tool
 extends Sprite3D
 
-
-@export var rotation_speed: float = 1.0
-
-func _process(delta: float) -> void:
-	self.rotation.z += rotation_speed
+func _on_point_cloud_from_bitz_rembg_texture_loaded(texture) -> void:
+	self.material_override.set_shader_parameter("sprite_texture", texture)

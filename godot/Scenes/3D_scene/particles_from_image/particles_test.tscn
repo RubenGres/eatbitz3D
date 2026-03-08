@@ -63,7 +63,6 @@ point_count = 2
 
 [node name="ParticlesTest" type="Node3D" unique_id=1420749202]
 script = ExtResource("1_dpbjc")
-texture = ExtResource("2_dpbjc")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1555643873]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
@@ -74,14 +73,12 @@ local_coords = true
 process_material = SubResource("ShaderMaterial_dpbjc")
 draw_pass_1 = SubResource("QuadMesh_a7anj")
 script = ExtResource("4_73xyk")
-texture = ExtResource("2_dpbjc")
 
 [node name="PointCloudObject" type="MeshInstance3D" parent="." unique_id=1657964455]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("QuadMesh_0axbc")
 surface_material_override/0 = SubResource("ShaderMaterial_25qum")
 script = ExtResource("8_ie16o")
-texture = ExtResource("2_dpbjc")
 point_size = 300.0
 density_curve = SubResource("Curve_xxm2l")
 max_distance = 600.0

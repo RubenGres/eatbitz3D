@@ -3,7 +3,6 @@
 [resource]
 ssao_intensity = 11.76
 glow_enabled = true
-glow_intensity = 2.41
 glow_bloom = 0.02
 glow_hdr_threshold = 0.0
 glow_hdr_luminance_cap = 99.3

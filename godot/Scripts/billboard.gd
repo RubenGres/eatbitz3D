@@ -7,6 +7,9 @@ extends Node3D
 @export_range(0.0, 20, 0.001) var sphere_radius: float = 1.0
 @export_range(0.0, 1.0, 0.001) var orbit_multiplier: float = 1.0
 @export var rotation_speed: float = 1.0
+@export var billboard_camera: bool = true:
+	set(value):
+		self.rotation = Vector3.ZERO
 
 var accumulated_time: float = 0.0
 var rotation_seed: float = RandomNumberGenerator.new().randf()
@@ -56,12 +59,9 @@ func _point_towards_target():
 		look_at(global_position + direction, Vector3.UP)
 
 func _process(delta: float) -> void:
-	_point_towards_target()
-	
-	if Engine.is_editor_hint():
-		return
-	
-	
+	if billboard_camera:
+		_point_towards_target()
+		
 func _update_material_texture():
 	if particles and point_cloud:
 		particles.texture = texture

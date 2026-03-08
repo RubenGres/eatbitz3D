@@ -2,9 +2,11 @@
 extends Node3D
 class_name BitzCompanion
 
+signal rembg_texture_loaded(texture)
+
 @onready var point_cloud_object = $ParticlesTest
 
-@export var rembg_base_url: String = "http://localhost:8080/rembg"
+var rembg_base_url: String = "http://localhost:8888/rembg"
 
 @export var quest_id: String = "":
 	set(value):
@@ -32,7 +34,15 @@ class_name BitzCompanion
 		if is_node_ready():
 			_set_highlighted()
 
+@export var billboard_camera: bool = true:
+	set(value):
+		billboard_camera = value
+		if is_node_ready():
+			point_cloud_object.billboard_camera = value
+
 var _http_rembg: HTTPRequest
+
+var bitz_image_loaded: bool = false
 
 func _ready():
 	print("[PointCloud] _ready - quest_id: %s, species_id: %d" % [quest_id, species_id])
@@ -42,10 +52,9 @@ func _ready():
 	
 	point_cloud_object.target = self.target
 
-	# hide while not loaded
-	self.hide()
-
-	_fetch()
+	if not bitz_image_loaded:
+		self.hide()
+		_fetch()
 
 func _fetch():
 	print("[PointCloud] _fetch - quest_id: %s, species_id: %d" % [quest_id, species_id])
@@ -85,6 +94,9 @@ func _on_rembg_received(result: int, response_code: int, _headers: PackedStringA
 	
 	# show node back
 	self.show()
+	self.bitz_image_loaded = true
+	
+	rembg_texture_loaded.emit(texture)
 
 func _normalized_base_url() -> String:
 	if rembg_base_url.ends_with("/"):
