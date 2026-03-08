@@ -93,8 +93,7 @@ def segment_objects_internal(
     }
     
     if len(masks_array) > 0:
-        # Use only the first (highest confidence) mask
-        combined_mask = masks_array[0]
+        combined_mask = np.any(masks_array, axis=0)
         
         # Apply mask to original image: RGBA with transparent background
         img_array = np.array(image)
