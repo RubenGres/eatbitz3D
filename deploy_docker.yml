@@ -1,0 +1,44 @@
+name: Deploy with Docker
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add host to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ vars.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Sync files to VPS
+        run: |
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='.next' \
+            --exclude='__pycache__' \
+            -e ssh \
+            . ${{ vars.VPS_USER }}@${{ vars.VPS_HOST }}:~/eatbitz/
+
+      - name: Deploy
+        run: |
+          ssh ${{ vars.VPS_USER }}@${{ vars.VPS_HOST }} '
+            cd ~/eatbitz
+            docker compose down --remove-orphans
+            docker system prune -f
+            docker compose up --build -d
+          '
