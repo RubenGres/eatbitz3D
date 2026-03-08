@@ -6,12 +6,24 @@ extends CanvasLayer
 @onready var camera3D = $SubViewport/Camera3D
 @onready var blur_background = $BlurBakground
 @onready var closeup = $ObjectCloseup
+@onready var start_capture_overlay = $StartCaptureOverlay
+@onready var capture_button: Button = $StartCaptureOverlay/CaptureButton
+@onready var reticle = $Reticle
 
 func _ready() -> void:
 	info_panel.focused.connect(_on_node_focused)
 	info_panel.closed.connect(_on_closed)
+	capture_button.pressed.connect(_on_capture_button_pressed)
 	blur_background.visible = false
 	closeup.visible = false
+	reticle.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	start_capture_overlay.visible = true
+
+func _on_capture_button_pressed() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	reticle.visible = true
+	start_capture_overlay.visible = false
 	
 func _on_node_focused(object: Node3D):
 	var duplicate = object.duplicate()

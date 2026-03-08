@@ -13,7 +13,7 @@
 transparency = 1
 cull_mode = 1
 shading_mode = 0
-albedo_color = Color(1.825, 1.825, 1.825, 0.012)
+albedo_color = Color(1, 1, 1, 0.2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6tern"]
 render_priority = 0
@@ -63,12 +63,11 @@ script = ExtResource("1_rwkad")
 sphere_radius = 1.0
 mesh = ExtResource("2_8doav")
 highlight_material = SubResource("StandardMaterial3D_6tern")
-rotation_speed = null
 
 [node name="ModelDisplay" type="Node3D" parent="." unique_id=1747748449]
 
 [node name="Model3d" type="MeshInstance3D" parent="ModelDisplay" unique_id=21969482]
-transform = Transform3D(-0.9986637, 0, 0.05167923, 0, 0.99999994, 0, -0.05167924, 0, -0.9986636, 0, 0, 0)
+transform = Transform3D(0.8491249, 0, -0.52819204, 0, 0.99999994, 0, 0.5281921, 0, 0.8491248, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_6tern")
 mesh = ExtResource("2_8doav")
 script = ExtResource("4_s8xy7")
@@ -82,9 +81,9 @@ transform_align = 3
 process_material = SubResource("ParticleProcessMaterial_fam18")
 draw_pass_1 = SubResource("QuadMesh_04dpp")
 
-[node name="Model3d_col" type="StaticBody3D" parent="ModelDisplay/Model3d" unique_id=1397822212]
+[node name="Model3d_col" type="StaticBody3D" parent="ModelDisplay/Model3d" unique_id=1888793897]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ModelDisplay/Model3d/Model3d_col" unique_id=968817935]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ModelDisplay/Model3d/Model3d_col" unique_id=1468882090]
 shape = SubResource("ConvexPolygonShape3D_qu82j")
 
 [node name="GravitatingSpecies" type="Node3D" parent="ModelDisplay" unique_id=1070553328]

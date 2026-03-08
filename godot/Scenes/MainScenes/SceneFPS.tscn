@@ -6,10 +6,35 @@
 [ext_resource type="Script" uid="uid://dhj6ffyjtg1lv" path="res://addons/Basic FPS Player/Src/basic_player_startup.gd" id="2_dvg24"]
 [ext_resource type="Texture2D" uid="uid://of43bt32yvc1" path="res://Assets/Particles/halo_small.png" id="2_vjbrx"]
 [ext_resource type="PackedScene" uid="uid://kmyakts4l64t" path="res://addons/Basic FPS Player/Src/basic_player_head.tscn" id="3_88v5a"]
+[ext_resource type="Environment" uid="uid://cadw35dgl2scf" path="res://Assets/world_env.tres" id="4_3vsn4"]
 [ext_resource type="Script" uid="uid://cx83q0vgxsspr" path="res://addons/Basic FPS Player/Src/basic_player_head.gd" id="5_e7ecd"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3vsn4"]
 viewport_path = NodePath("CanvasLayer/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0, 0, 0, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="Scene360" type="Node3D" unique_id=1100453811]
 
@@ -49,8 +74,8 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_3vsn4")
 
 [node name="InfoPanel" parent="CanvasLayer" unique_id=1394758193 instance=ExtResource("1_88v5a")]
-offset_left = 1721.0
-offset_right = 1721.0
+offset_left = 1065.0
+offset_right = 1065.0
 quest_id = ""
 species_id = 0
 
@@ -61,17 +86,57 @@ size = Vector2i(813, 643)
 
 [node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewport" unique_id=1768694288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0063987)
+environment = ExtResource("4_3vsn4")
 fov = 45.0
 
-[node name="ParticleLocation" type="Node3D" parent="CanvasLayer/SubViewport" unique_id=352583093]
+[node name="Object3DLocation" type="Node3D" parent="CanvasLayer/SubViewport" unique_id=352583093]
 
-[node name="Object3DLocation" type="Node3D" parent="CanvasLayer/SubViewport" unique_id=140684441]
+[node name="ParticleLocation" type="Node3D" parent="CanvasLayer/SubViewport" unique_id=140684441]
+
+[node name="StartCaptureOverlay" type="Control" parent="CanvasLayer" unique_id=209145889]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="CanvasLayer/StartCaptureOverlay" unique_id=113572229]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.58)
+
+[node name="CaptureButton" type="Button" parent="CanvasLayer/StartCaptureOverlay" unique_id=483066619]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -38.0
+offset_right = 180.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Click to explore"
 
 [node name="GlobalSpeciesView" parent="." unique_id=1836985689 node_paths=PackedStringArray("target") instance=ExtResource("1_hwu0x")]
 target = NodePath("../Basic FPS Player/Head")
 
 [node name="Basic FPS Player" type="CharacterBody3D" parent="." unique_id=1376736277]
 script = ExtResource("2_dvg24")
+CAPTURE_ON_START = false
 metadata/_custom_type_script = "uid://dhj6ffyjtg1lv"
 
 [node name="Head" parent="Basic FPS Player" unique_id=1320691815 instance=ExtResource("3_88v5a")]

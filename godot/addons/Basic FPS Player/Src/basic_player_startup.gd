@@ -63,6 +63,8 @@ var accel = ACCEL
 var rotation_target_player : float
 var rotation_target_head : float
 
+var drag_look_active := false
+
 # Used when bobing head
 var head_start_pos : Vector3
 
@@ -95,10 +97,22 @@ func _process(delta):
 func _input(event):
 	if Engine.is_editor_hint():
 		return
-		
-	# Listen for mouse movement and check if mouse is captured
-	if event is InputEventMouseMotion && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+
+	if event is InputEventScreenTouch:
+		drag_look_active = event.pressed
+		return
+
+	if event is InputEventScreenDrag:
 		set_rotation_target(event.relative)
+		return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		drag_look_active = event.pressed
+		return
+
+	if event is InputEventMouseMotion:
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED or drag_look_active:
+			set_rotation_target(event.relative)
 
 func set_rotation_target(mouse_motion : Vector2):
 	# Add player target to the mouse -x input
