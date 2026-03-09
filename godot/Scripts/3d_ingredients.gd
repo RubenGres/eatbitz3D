@@ -32,10 +32,15 @@ signal rotation_completed
 		if is_node_ready():
 			model_3d.rotation_speed = rotation_speed
 
+@export var associated_card_texture: Texture2D
+@export var ingredient_name: String
+@export_multiline() var ingredient_description: String
+
 @onready var model_3d = $ModelDisplay/Model3d
 @onready var model_display = $ModelDisplay
 @onready var species = $ModelDisplay/GravitatingSpecies
 @onready var main_particles = $ModelDisplay/Model3d/Particles
+
 
 func _ready() -> void:
 	add_to_group("ingredients")
@@ -43,6 +48,7 @@ func _ready() -> void:
 	_set_mesh()
 
 	model_3d.material_override = model_3d.material_override.duplicate()
+	model_3d.rotation_speed = rotation_speed
 
 func _set_target():
 	if species:

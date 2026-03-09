@@ -29,8 +29,6 @@ func _ready():
 	position.x = get_viewport_rect().size.x
 	_api.species_data_loaded.connect(_on_species_data)
 	_api.image_loaded.connect(_on_image)
-	
-	_request_data()
 
 func _request_data():
 	if quest_id.is_empty():
@@ -51,11 +49,23 @@ func _on_image(qid: String, sid: int, texture: ImageTexture):
 		return
 	%TextureRect.texture = texture
 
+func set_manual(species_name: String, description: String, additional_info: String, texture: Texture2D = null):
+	%SpeciesName.text = species_name
+	%Description.text = description
+	%AdditionalInfo.text = additional_info
+	if texture:
+		%TextureRect.texture = texture
+
 func focus_on(object: Node3D):
 	if object is BitzCompanion:
 		quest_id = object.quest_id
 		species_id = object.species_id
-		
+	elif object is Ingredient3D:
+		var image = object.associated_card_texture
+		var ingredient_name = object.ingredient_name
+		var description = object.ingredient_description
+		set_manual(ingredient_name, description, "", image)
+	
 	focused.emit(object)
 
 func slide_in():

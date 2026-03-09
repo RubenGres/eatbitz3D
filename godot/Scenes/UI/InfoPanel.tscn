@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bjrxtbsrmes47" path="res://Scenes/UI/info_panel.gd" id="1_x7mhu"]
 [ext_resource type="Shader" uid="uid://mnx5jmlkkq2d" path="res://Shaders/round_corners.gdshader" id="2_n1fx6"]
+[ext_resource type="Texture2D" uid="uid://dcpitpbcyudwy" path="res://Assets/CardsImages/EatBitz-print-FINAL_page-0001.jpg" id="3_n1fx6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ngnp"]
 bg_color = Color(0, 0, 0, 1)
@@ -32,11 +33,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 943.0
+offset_right = 943.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x7mhu")
-quest_id = "3c91ae94-8fe2-40cc-86e9-774ce67bf05d"
-species_id = 1
 
 [node name="SidePanel" type="Panel" parent="." unique_id=646199263]
 custom_minimum_size = Vector2(200, 0)
@@ -101,15 +102,16 @@ horizontal_scroll_mode = 0
 
 [node name="MarginContainer2" type="CenterContainer" parent="SidePanel/VBoxContainer/ScrollContainer" unique_id=456791582]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SidePanel/VBoxContainer/ScrollContainer/MarginContainer2" unique_id=1770350686]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="SidePanel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer" unique_id=2045554819]
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 35
 theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 25
 
 [node name="TextureRect" type="TextureRect" parent="SidePanel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer" unique_id=138446914]
@@ -119,6 +121,7 @@ custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+texture = ExtResource("3_n1fx6")
 expand_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="SidePanel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer" unique_id=560934621]

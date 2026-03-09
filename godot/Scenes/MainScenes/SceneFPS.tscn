@@ -74,10 +74,8 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_3vsn4")
 
 [node name="InfoPanel" parent="CanvasLayer" unique_id=1394758193 instance=ExtResource("1_88v5a")]
-offset_left = 1129.0
-offset_right = 1129.0
-quest_id = ""
-species_id = 0
+offset_left = 943.0
+offset_right = 943.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer" unique_id=1797053631]
 own_world_3d = true
