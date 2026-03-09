@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djtj52nokr46u"
-path="res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"
+uid="uid://rtoaytagmd00"
+path="res://.godot/imported/ChantarelleCard.jpg-302de3f179484b48600d55dba0835e20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardsImages/EatBitz-print-FINAL_page-0001.jpg"
-dest_files=["res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"]
+source_file="res://Assets/CardsImages/ChantarelleCard.jpg"
+dest_files=["res://.godot/imported/ChantarelleCard.jpg-302de3f179484b48600d55dba0835e20.ctex"]
 
 [params]
 

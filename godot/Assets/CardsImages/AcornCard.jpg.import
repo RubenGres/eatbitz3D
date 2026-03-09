@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djtj52nokr46u"
-path="res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"
+uid="uid://dplhdawgp4dmo"
+path="res://.godot/imported/AcornCard.jpg-0a3860c3a2ecc2aff95356070da85f9f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardsImages/EatBitz-print-FINAL_page-0001.jpg"
-dest_files=["res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"]
+source_file="res://Assets/CardsImages/AcornCard.jpg"
+dest_files=["res://.godot/imported/AcornCard.jpg-0a3860c3a2ecc2aff95356070da85f9f.ctex"]
 
 [params]
 

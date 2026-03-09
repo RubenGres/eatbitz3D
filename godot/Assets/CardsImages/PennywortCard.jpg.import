@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djtj52nokr46u"
-path="res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"
+uid="uid://jmkk8w055t3i"
+path="res://.godot/imported/PennywortCard.jpg-fd76501cfd3fa353899b0407684201a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardsImages/EatBitz-print-FINAL_page-0001.jpg"
-dest_files=["res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"]
+source_file="res://Assets/CardsImages/PennywortCard.jpg"
+dest_files=["res://.godot/imported/PennywortCard.jpg-fd76501cfd3fa353899b0407684201a8.ctex"]
 
 [params]
 
