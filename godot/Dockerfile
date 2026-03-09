@@ -11,6 +11,7 @@ RUN PROJECT_VERSION=$(grep 'config/features' /godot_project/project.godot | grep
 
 WORKDIR /godot_project
 RUN mkdir -p /web_export
+RUN godot --headless --import
 RUN godot --headless --verbose --export-release "Web" /web_export/index.html
 
 FROM nginx:alpine
