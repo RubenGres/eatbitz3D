@@ -70,8 +70,10 @@ func focus_on(object: Node3D):
 
 func slide_in():
 	_kill_tween()
+	$SidePanel/VBoxContainer/ScrollContainer.scroll_vertical = 0
 	_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	_tween.tween_property(self, "position:x", get_viewport_rect().size.x - size.x, slide_duration)
+	
 	opened.emit()
 
 func slide_out():
