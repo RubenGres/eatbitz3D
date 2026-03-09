@@ -9,6 +9,7 @@
 [ext_resource type="ArrayMesh" uid="uid://ckhyf6ojtxxcu" path="res://Assets/3D/Dandelion/Meshy_AI_Dandelion_0210154014_texture_decimated.obj" id="5_bneni"]
 [ext_resource type="ArrayMesh" uid="uid://dn0uagjqqal5u" path="res://Assets/3D/Elderflower/Meshy_AI_Elderflower_0210154048_texture_decimated.obj" id="6_njbcq"]
 [ext_resource type="ArrayMesh" uid="uid://65v0nahpvmgy" path="res://Assets/3D/Fava_bean/Meshy_AI_Fava_bean_0210153636_texture_decimated.obj" id="7_q0w6e"]
+[ext_resource type="Texture2D" uid="uid://dsra0in77mb41" path="res://Assets/CardsImages/FavaCard.jpg" id="7_r4ri1"]
 [ext_resource type="ArrayMesh" uid="uid://jtxgmd5n72yp" path="res://Assets/3D/Pennywort/Meshy_AI_Pennywort_0210153648_texture_decimated.obj" id="10_whepr"]
 [ext_resource type="PackedScene" uid="uid://b8gpktu4prpfl" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_from_bitz.tscn" id="11_f221m"]
 
@@ -38,6 +39,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.504182, 0, 4.3502674)
 [node name="Fava" parent="Marcelo" unique_id=991339661 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.314639, 0.7797467, 0.33607224, -0.8489243, 1.1949035, 0.5484141, 0.016645433, -0.6429817, 1.4267173, -0.94328463, 1.7053823, -0.8770398)
 mesh = ExtResource("7_q0w6e")
+associated_card_texture = ExtResource("7_r4ri1")
+ingredient_name = "Fava"
+ingredient_description = "Favas may seem ordinary, butunderground they are alchemistscreating soil fertility for all. Theygrow thick and upright, theirroots collaborating with bacteriato fix nitrogen from air into soil. Favas prepare ground for futureharvests, often rotating with grains in traditional Iberian fields. Your work may be preparatory, not final. The fertility you build mightsupport someone else’s flowering.What work would you still do if you never got recognition for it?"
 
 [node name="Elder" parent="Marcelo" unique_id=1556465291 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0.7015363, 0.27685487, 0.29099464)
@@ -74,13 +78,11 @@ mesh = ExtResource("5_bneni")
 
 [node name="PointCloudFromBitz4" parent="Companions" unique_id=1351690729 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3595138, 2.675027, 0)
-visible = true
-quest_id = "05e75062-8f06-4d26-9d1b-8b92463e44f8"
+quest_id = "96a85349-cb5c-46f6-a920-292e6126b6e5"
 species_id = 1
 
 [node name="PointCloudFromBitz5" parent="Companions" unique_id=1432574809 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5949254, 2.675027, 0)
-visible = true
 quest_id = "05e75062-8f06-4d26-9d1b-8b92463e44f8"
 
 [connection signal="rotation_completed" from="Marcelo/Fava" to="." method="_on_fava_rotation_completed"]

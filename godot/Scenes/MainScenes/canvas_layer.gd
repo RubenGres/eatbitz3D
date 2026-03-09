@@ -46,7 +46,7 @@ func _process(delta: float) -> void:
 			(mouse_pos.y - closeup_rect.position.y) / closeup_rect.size.y
 		) * 2.0 - 1.0
 		target_tilt_y_deg = clamp(normalized_x, -1.0, 1.0) * INSPECT_MAX_TILT_Y_DEG
-		target_tilt_x_deg = clamp(-normalized_y, -1.0, 1.0) * INSPECT_MAX_TILT_X_DEG
+		target_tilt_x_deg = clamp(normalized_y, -1.0, 1.0) * INSPECT_MAX_TILT_X_DEG
 
 	var target_basis = camera3D.global_transform.basis
 	target_basis = target_basis * Basis(Vector3.RIGHT, deg_to_rad(target_tilt_x_deg))
@@ -79,7 +79,6 @@ func _on_node_focused(object: Node3D):
 	duplicate.target = null
 	duplicate.is_highlighted = false
 
-	
 	blur_background.visible = true
 	closeup.visible = true
 	

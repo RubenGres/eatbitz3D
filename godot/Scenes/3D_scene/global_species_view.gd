@@ -19,7 +19,8 @@ func set_target():
 			node.target = self.target
 
 	for node: BitzCompanion in $Companions.get_children():
-		node.target = self.target
+		if node is BitzCompanion:
+			node.target = self.target
 
 
 func _on_fava_rotation_completed() -> void:
