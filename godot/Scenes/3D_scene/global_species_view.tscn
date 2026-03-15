@@ -16,6 +16,8 @@
 [ext_resource type="ArrayMesh" uid="uid://jtxgmd5n72yp" path="res://Assets/3D/Pennywort/Meshy_AI_Pennywort_0210153648_texture_decimated.obj" id="10_whepr"]
 [ext_resource type="PackedScene" uid="uid://b8gpktu4prpfl" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_from_bitz.tscn" id="11_f221m"]
 [ext_resource type="Texture2D" uid="uid://bufav0s3n1k44" path="res://Assets/CardsImages/FigCard.jpg" id="11_q0w6e"]
+[ext_resource type="ArrayMesh" uid="uid://cixh7i2bp1ei8" path="res://Assets/3D/Borage/Meshy_AI_Borage_0210153944_texture_decimated.obj" id="12_td3hn"]
+[ext_resource type="Texture2D" uid="uid://djtj52nokr46u" path="res://Assets/CardsImages/BoargeCard.jpg" id="13_xwjth"]
 [ext_resource type="Texture2D" uid="uid://jmkk8w055t3i" path="res://Assets/CardsImages/PennywortCard.jpg" id="14_6vmuk"]
 [ext_resource type="Texture2D" uid="uid://bc6eo4df3csq6" path="res://Assets/CardsImages/DandelionCard.jpg" id="14_uyet1"]
 [ext_resource type="Texture2D" uid="uid://chu71mu8k3mqf" path="res://Assets/CardsImages/PurpleBasil.jpg" id="14_whepr"]
@@ -40,7 +42,7 @@ ingredient_description = "The drought and fire resistant oak teaches that resili
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.994214, 0, 3.1845527)
 
 [node name="Mushroom" parent="Node3D3" unique_id=218090739 instance=ExtResource("1_lurwc")]
-transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0.3255825, 0, 0.37209487)
 mesh = ExtResource("4_w6870")
 associated_card_texture = ExtResource("7_6vmuk")
 ingredient_name = "Chantarelle"
@@ -50,14 +52,21 @@ ingredient_description = "Chanterelles rise only where forests are healthy. They
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.504182, 0, 4.3502674)
 
 [node name="Fava" parent="Marcelo" unique_id=991339661 instance=ExtResource("1_lurwc")]
-transform = Transform3D(1.314639, 0.7797467, 0.33607224, -0.8489243, 1.1949035, 0.5484141, 0.016645433, -0.6429817, 1.4267173, -0.94328463, 1.7053823, -0.8770398)
+transform = Transform3D(1.314639, 0.7797467, 0.33607224, -0.8489243, 1.1949035, 0.5484141, 0.016645433, -0.6429817, 1.4267173, -1.1996924, 2.2683182, -0.5693507)
 mesh = ExtResource("7_q0w6e")
 associated_card_texture = ExtResource("7_r4ri1")
 ingredient_name = "Fava"
 ingredient_description = "Favas may seem ordinary, butunderground they are alchemistscreating soil fertility for all. Theygrow thick and upright, theirroots collaborating with bacteriato fix nitrogen from air into soil. Favas prepare ground for futureharvests, often rotating with grains in traditional Iberian fields. Your work may be preparatory, not final. The fertility you build mightsupport someone else’s flowering.What work would you still do if you never got recognition for it?"
 
-[node name="Elder" parent="Marcelo" unique_id=1556465291 instance=ExtResource("1_lurwc")]
-transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0.7015363, 0.27685487, 0.29099464)
+[node name="Fava2" parent="Marcelo" unique_id=1556465291 instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.314639, 0.7797467, 0.33607224, -0.8489243, 1.1949035, 0.5484141, 0.016645433, -0.6429817, 1.4267173, -0.75782835, -2.7109885, -6.499616)
+mesh = ExtResource("7_q0w6e")
+associated_card_texture = ExtResource("7_r4ri1")
+ingredient_name = "Fava"
+ingredient_description = "Favas may seem ordinary, butunderground they are alchemistscreating soil fertility for all. Theygrow thick and upright, theirroots collaborating with bacteriato fix nitrogen from air into soil. Favas prepare ground for futureharvests, often rotating with grains in traditional Iberian fields. Your work may be preparatory, not final. The fertility you build mightsupport someone else’s flowering.What work would you still do if you never got recognition for it?"
+
+[node name="Elder" parent="Marcelo" unique_id=264913679 instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 1.3852893, 0.27685487, -0.8542905)
 mesh = ExtResource("6_njbcq")
 associated_card_texture = ExtResource("9_njbcq")
 ingredient_name = "Elderflower"
@@ -65,8 +74,15 @@ ingredient_description = "The elder stands at woodland edges as a guardian of th
 insects; its berries feed birds; its hollow stems house small creatures within. In European folklore, elder was respected as protective and regenerative. Ecologically, it thrives where disturbance opens space.
 You may be called to stand at edges: between systems, communities, or phases. What threshold are you standing upon and hesitating to cross?"
 
+[node name="Borage" parent="Marcelo" unique_id=1700528893 instance=ExtResource("1_lurwc")]
+transform = Transform3D(1.0451626, 1.1109483, -0.35021892, -1.1192973, 1.088118, 0.11134494, 0.32254192, 0.17611858, 1.5212406, -4.267228, 2.3319333, -3.9147537)
+mesh = ExtResource("12_td3hn")
+associated_card_texture = ExtResource("13_xwjth")
+ingredient_name = "Borage"
+ingredient_description = "Borage blooms in blue constellations, calling bees when nectar elsewhere wanes. Planted between crops onregenerative farms, it lifts minerals to the surface, quietly nourishing those nearby. Once carried by soldiers for courage, borage now teachesecological bravery, inviting you to become a living support system, one who enriches your surroundings simply by being present. When youoffer nourishment (time, attention, presence), ecosystems reorganize around you. How does what you support, in turn, sustain you?"
+
 [node name="Fig" parent="Marcelo" unique_id=741763768 instance=ExtResource("1_lurwc")]
-transform = Transform3D(2, 0, 0, 0, 1.344837, -1.4803424, 0, 1.4803424, 1.344837, -0.92335033, -1.6976274, -1.4509784)
+transform = Transform3D(2, 0, 0, 0, 1.93168, -0.5182786, 0, 0.5182786, 1.93168, -1.8635082, -1.6976274, -0.18603659)
 mesh = ExtResource("9_r4ri1")
 associated_card_texture = ExtResource("11_q0w6e")
 ingredient_name = "Fig"
@@ -90,7 +106,7 @@ becoming?"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.881997, 0, 0.38501394)
 
 [node name="PurpleBasil" parent="H2Douro" unique_id=1323484318 instance=ExtResource("1_lurwc")]
-transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, -0.4615698, -0.88218737, 0.69185483)
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, -1.20576, -1.9424493, 0.4825511)
 associated_card_texture = ExtResource("14_whepr")
 ingredient_name = "Purple Basil"
 ingredient_description = "Purple basil is a bridge between cultivated and wild species. It carries color as protection. Anthocyanins shield it from stress, while aromatic oils deter pests and invite pollinators when it flowers. Long associated with devotion and ritual, purple basil teaches that boundaries and invitations can coexist. What are you attracting, what are you repelling, and are those choices aligned with the ecosystem you wish to belong to?"
@@ -99,7 +115,7 @@ ingredient_description = "Purple basil is a bridge between cultivated and wild s
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.627923, 0, -0.6819413)
 
 [node name="PurpleBasil" parent="Node3D" unique_id=1893066930 instance=ExtResource("1_lurwc")]
-transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0.6744232, -1.3302941, 0.37209472)
 associated_card_texture = ExtResource("14_whepr")
 ingredient_name = "Purple Basil"
 ingredient_description = "Purple basil is a bridge between cultivated and wild species. It carries color as protection. Anthocyanins shield it from stress, while aromatic oils deter pests and invite pollinators when it flowers. Long associated with devotion and ritual, purple basil teaches that boundaries and invitations can coexist. What are you attracting, what are you repelling, and are those choices aligned with the ecosystem you wish to belong to?"
@@ -108,14 +124,14 @@ ingredient_description = "Purple basil is a bridge between cultivated and wild s
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8923211, 0, -4.3799877)
 
 [node name="Pennyworth" parent="FormigaGloriosa" unique_id=497746263 instance=ExtResource("1_lurwc")]
-transform = Transform3D(0.29532456, 0, 0.955397, 0, 1, 0, -0.955397, 0, 0.29532456, 0, 0.52795637, 1)
+transform = Transform3D(0.29532456, 0, 0.955397, 0, 1, 0, -0.955397, 0, 0.29532456, -0.09364796, 0.52795637, 0.8400936)
 mesh = ExtResource("10_whepr")
 associated_card_texture = ExtResource("14_6vmuk")
 ingredient_name = "Pennywort"
 ingredient_description = "Pennywort creeps gently across shaded ground, stone walls and rocky crevices, thriving in marginal habitats. It stores water in its round leaves like small green cups. Pennywort knits soil together, preventing erosion and holding water for insects, microbes, and neighboring plants. When you feel rooted in unlikely places, remember that adaptation is your gift. You may not need ideal conditions, only access to a fissure. What small opening could sustain you if you stopped waiting for perfect ground?"
 
 [node name="Dandelion" parent="FormigaGloriosa" unique_id=404686697 instance=ExtResource("1_lurwc")]
-transform = Transform3D(1.5649999, 0, 0, 0, 1.2241694, 0.9750047, 0, -0.9750047, 1.2241694, 0, -1.5254183, 1.5203525)
+transform = Transform3D(1.5649999, 0, 0, 0, 1.2241694, 0.9750047, 0, -0.9750047, 1.2241694, -0.37209606, -1.9881263, 1.0087218)
 mesh = ExtResource("5_bneni")
 associated_card_texture = ExtResource("14_uyet1")
 ingredient_name = "Dandelion"
@@ -123,6 +139,7 @@ ingredient_description = "Dandelions do not wait for approval. Their taproots dr
 disturbance is not chaos - it is aeration. When will the strength you store below the surface become the force that transforms your environment? "
 
 [node name="Companions" type="Node3D" parent="." unique_id=664059679]
+visible = false
 
 [node name="PointCloudFromBitz4" parent="Companions" unique_id=1351690729 instance=ExtResource("11_f221m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3595138, 2.675027, 0)
@@ -134,3 +151,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5949254, 2.675027, 0)
 quest_id = "05e75062-8f06-4d26-9d1b-8b92463e44f8"
 
 [connection signal="rotation_completed" from="Marcelo/Fava" to="." method="_on_fava_rotation_completed"]
+[connection signal="rotation_completed" from="Marcelo/Fava2" to="." method="_on_fava_rotation_completed"]

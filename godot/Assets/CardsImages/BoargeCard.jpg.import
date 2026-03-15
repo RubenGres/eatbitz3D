@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djtj52nokr46u"
-path="res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"
+path="res://.godot/imported/BoargeCard.jpg-4bcfddcba714f0a49a39c5ed698b8138.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardsImages/EatBitz-print-FINAL_page-0001.jpg"
-dest_files=["res://.godot/imported/EatBitz-print-FINAL_page-0001.jpg-97ffc712f7545df565becaaa3ee2a845.ctex"]
+source_file="res://Assets/CardsImages/BoargeCard.jpg"
+dest_files=["res://.godot/imported/BoargeCard.jpg-4bcfddcba714f0a49a39c5ed698b8138.ctex"]
 
 [params]
 

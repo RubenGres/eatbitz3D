@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bjrxtbsrmes47" path="res://Scenes/UI/info_panel.gd" id="1_x7mhu"]
 [ext_resource type="Shader" uid="uid://mnx5jmlkkq2d" path="res://Shaders/round_corners.gdshader" id="2_n1fx6"]
-[ext_resource type="Texture2D" uid="uid://dcpitpbcyudwy" path="res://Assets/CardsImages/EatBitz-print-FINAL_page-0001.jpg" id="3_n1fx6"]
+[ext_resource type="Texture2D" uid="uid://djtj52nokr46u" path="res://Assets/CardsImages/BoargeCard.jpg" id="3_n1fx6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ngnp"]
 bg_color = Color(0, 0, 0, 1)
@@ -33,8 +33,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 943.0
-offset_right = 943.0
+offset_left = 2.0
+offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x7mhu")

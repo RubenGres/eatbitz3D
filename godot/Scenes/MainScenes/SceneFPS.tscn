@@ -74,8 +74,8 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_3vsn4")
 
 [node name="InfoPanel" parent="CanvasLayer" unique_id=1394758193 instance=ExtResource("1_88v5a")]
-offset_left = 943.0
-offset_right = 943.0
+offset_left = 1164.0
+offset_right = 1164.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer" unique_id=1797053631]
 own_world_3d = true
@@ -91,6 +91,7 @@ fov = 66.0
 [node name="Object3DLocation" type="Node3D" parent="CanvasLayer/SubViewport/InspectNodeParent" unique_id=352583093]
 
 [node name="ParticleLocation" type="Node3D" parent="CanvasLayer/SubViewport/InspectNodeParent" unique_id=140684441]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 0, 0, 0)
 
 [node name="StartCaptureOverlay" type="Control" parent="CanvasLayer" unique_id=209145889]
 layout_mode = 3
