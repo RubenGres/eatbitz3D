@@ -3,15 +3,20 @@
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_4yhel"]
 [ext_resource type="Shader" uid="uid://7r2nnaeaalh8" path="res://Shaders/particles_spawn.gdshader" id="1_6rf3o"]
 [ext_resource type="Script" uid="uid://dx77855njh316" path="res://Scripts/billboard.gd" id="1_dpbjc"]
+[ext_resource type="Texture2D" uid="uid://bc6eo4df3csq6" path="res://Assets/CardsImages/DandelionCard.jpg" id="2_ie16o"]
+[ext_resource type="Texture2D" uid="uid://dplhdawgp4dmo" path="res://Assets/CardsImages/AcornCard.jpg" id="3_25qum"]
 [ext_resource type="Script" uid="uid://v4pl76e10a4" path="res://Scripts/FakePointClouds.gd" id="4_73xyk"]
 [ext_resource type="Shader" uid="uid://d16e76ivnxhu1" path="res://Shaders/particles_albedo.gdshader" id="4_dpjeb"]
+[ext_resource type="Shader" uid="uid://c7pooeyux8ko5" path="res://Shaders/outline_2d.gdshader" id="8_25qum"]
 [ext_resource type="Script" uid="uid://dwvlxgfpjqty6" path="res://Scripts/PointCloiudObject3D.gd" id="8_ie16o"]
+[ext_resource type="Script" uid="uid://4v0f1cbcveid" path="res://Scenes/3D_scene/PointCloudObject/highlight_sprite.gd" id="9_ie16o"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dpjeb"]
 frequency = 0.0029
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4yhel"]
 noise = SubResource("FastNoiseLite_dpjeb")
+seamless = true
 
 [sub_resource type="Curve" id="Curve_4yhel"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.20888889, 1), 0.0, 0.0, 0, 0, Vector2(0.86666673, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -20,15 +25,17 @@ point_count = 4
 [sub_resource type="CurveTexture" id="CurveTexture_dpbjc"]
 curve = SubResource("Curve_4yhel")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpbjc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_auv2d"]
 shader = ExtResource("1_6rf3o")
+shader_parameter/input_texture = ExtResource("2_ie16o")
+shader_parameter/height_texture = ExtResource("2_ie16o")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_4yhel")
 shader_parameter/scale_curve = SubResource("CurveTexture_dpbjc")
-shader_parameter/emission_shape = Vector2(43.3, 57.7)
-shader_parameter/height_min = 0.06274509803921569
-shader_parameter/height_max = 0.9686274509803922
-shader_parameter/z_multiplier = 10.0
-shader_parameter/jitter_strength = 1.0
+shader_parameter/emission_shape = Vector2(3.6043956, 5)
+shader_parameter/height_min = 0.0
+shader_parameter/height_max = 1.0
+shader_parameter/z_multiplier = 0.75
+shader_parameter/jitter_strength = 0.05
 shader_parameter/jitter_speed = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4yhel"]
@@ -37,18 +44,19 @@ shader = ExtResource("4_dpjeb")
 
 [sub_resource type="QuadMesh" id="QuadMesh_a7anj"]
 material = SubResource("ShaderMaterial_4yhel")
-size = Vector2(0.5, 0.5)
+size = Vector2(0.05, 0.05)
 
-[sub_resource type="QuadMesh" id="QuadMesh_0axbc"]
-size = Vector2(43.3, 57.7)
+[sub_resource type="QuadMesh" id="QuadMesh_15bpn"]
+size = Vector2(3.6043956, 5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_25qum"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v4kuh"]
 render_priority = 0
 shader = ExtResource("1_4yhel")
 shader_parameter/point_density = 221.0
 shader_parameter/point_size = 0.5000000074506
 shader_parameter/movement_speed = 1.30000001937156
 shader_parameter/movement_range = 3.0
+shader_parameter/input_texture = ExtResource("2_ie16o")
 shader_parameter/use_edge_detection = true
 shader_parameter/edge_threshold = 0.0
 shader_parameter/edge_width = 0.07999999821184
@@ -57,25 +65,61 @@ shader_parameter/edge_width = 0.07999999821184
 _data = [Vector2(0, 1), 0.0, -0.92456895, 0, 1, Vector2(1, 0.07543099), -0.13483143, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dil26"]
+render_priority = 0
+shader = ExtResource("8_25qum")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/glowSize = 3.0000001425
+shader_parameter/glowDensity = 3
+shader_parameter/glowRadialCoverage = 4
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_v4kuh"]
+size = Vector2(3.7333336, 5.0000005)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ie16o"]
+render_priority = 0
+shader = ExtResource("8_25qum")
+shader_parameter/sprite_texture = ExtResource("3_25qum")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/glowSize = 12.414000589665
+shader_parameter/glowDensity = 3
+shader_parameter/glowRadialCoverage = 4
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
+
 [node name="ParticlesTest" type="Node3D" unique_id=1420749202]
 script = ExtResource("1_dpbjc")
+max_side = 5.0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1555643873]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
 amount = 30000
 lifetime = 2.0
 preprocess = 3.0
 local_coords = true
-process_material = SubResource("ShaderMaterial_dpbjc")
+process_material = SubResource("ShaderMaterial_auv2d")
 draw_pass_1 = SubResource("QuadMesh_a7anj")
 script = ExtResource("4_73xyk")
+max_side = 5.0
 
 [node name="PointCloudObject" type="MeshInstance3D" parent="." unique_id=1657964455]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("QuadMesh_0axbc")
-surface_material_override/0 = SubResource("ShaderMaterial_25qum")
+visible = false
+mesh = SubResource("QuadMesh_15bpn")
+surface_material_override/0 = SubResource("ShaderMaterial_v4kuh")
 script = ExtResource("8_ie16o")
 point_size = 300.0
 density_curve = SubResource("Curve_xxm2l")
 max_distance = 600.0
+max_side = 5.0
+
+[node name="HighlightSprite" type="MeshInstance3D" parent="." unique_id=1219947108]
+visible = false
+material_override = SubResource("ShaderMaterial_dil26")
+mesh = SubResource("QuadMesh_v4kuh")
+surface_material_override/0 = SubResource("ShaderMaterial_ie16o")
+script = ExtResource("9_ie16o")
+max_side = 5.0

@@ -238,6 +238,7 @@ func _request_fetch() -> void:
 		return
 	if _fetch_dirty:
 		return
+	self.visible = quest_id != ""
 	_fetch_dirty = true
 	call_deferred("_deferred_fetch")
 

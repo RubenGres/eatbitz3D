@@ -3,10 +3,17 @@ extends Node3D
 
 @onready var particles = $GPUParticles3D
 @onready var point_cloud = $PointCloudObject
+@onready var highlighting = $HighlightSprite
 
 @export_range(0.0, 20, 0.001) var sphere_radius: float = 1.0
 @export_range(0.0, 1.0, 0.001) var orbit_multiplier: float = 1.0
-@export var rotation_speed: float = 1.0
+
+@export var max_side: float = 1.0:
+	set(value):
+		max_side = value
+		if(is_node_ready()):
+			_set_max_side()
+
 @export var billboard_camera: bool = true:
 	set(value):
 		self.rotation = Vector3.ZERO
@@ -30,6 +37,10 @@ var time_offset: float
 		_update_target()
 
 func _ready() -> void:
+	
+	particles.hide()
+	highlighting.hide()
+	
 	# Store initial offset from parent
 	initial_offset = position
 	initial_scale = self.scale
@@ -45,10 +56,15 @@ func _ready() -> void:
 	
 	_update_material_texture()
 	_update_target()
+	_set_max_side()
 	
-#	self.rotation_speed = rotation_speed + 
 	self.orbital_inclination = rotation_seed * 2 * PI
 	
+
+func _set_max_side():
+	particles.max_side = self.max_side
+	point_cloud.max_side = self.max_side
+	highlighting.max_side = self.max_side
 
 func _point_towards_target():
 	if not target:
@@ -58,17 +74,26 @@ func _point_towards_target():
 	if direction.length() > 0.001:
 		look_at(global_position + direction, Vector3.UP)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if billboard_camera:
 		_point_towards_target()
 		
 func _update_material_texture():
-	if particles and point_cloud:
+	if particles and point_cloud and highlighting:
 		particles.texture = texture
 		point_cloud.texture = texture
-		await get_tree().create_timer(0.1).timeout
+		highlighting.texture = texture
+		await get_tree().create_timer(0.5).timeout
 		particles.show()
-
+			
+		if texture == null:
+			particles.hide()
+			point_cloud.hide()
+			highlighting.hide()
+		else:
+			particles.show()
+			point_cloud.show()
+		
 func _update_target():
 	if point_cloud:
 		point_cloud.target = target

@@ -14,19 +14,14 @@
 [ext_resource type="Texture2D" uid="uid://cw4v16sh45cl8" path="res://Assets/CardsImages/ElderCard.jpg" id="9_njbcq"]
 [ext_resource type="ArrayMesh" uid="uid://b7qjmu16417q5" path="res://Assets/3D/Fig/Meshy_AI_Fig_0210153622_texture_decimated.obj" id="9_r4ri1"]
 [ext_resource type="ArrayMesh" uid="uid://jtxgmd5n72yp" path="res://Assets/3D/Pennywort/Meshy_AI_Pennywort_0210153648_texture_decimated.obj" id="10_whepr"]
-[ext_resource type="PackedScene" uid="uid://b8gpktu4prpfl" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_from_bitz.tscn" id="11_f221m"]
 [ext_resource type="Texture2D" uid="uid://bufav0s3n1k44" path="res://Assets/CardsImages/FigCard.jpg" id="11_q0w6e"]
 [ext_resource type="ArrayMesh" uid="uid://cixh7i2bp1ei8" path="res://Assets/3D/Borage/Meshy_AI_Borage_0210153944_texture_decimated.obj" id="12_td3hn"]
 [ext_resource type="Texture2D" uid="uid://djtj52nokr46u" path="res://Assets/CardsImages/BoargeCard.jpg" id="13_xwjth"]
 [ext_resource type="Texture2D" uid="uid://jmkk8w055t3i" path="res://Assets/CardsImages/PennywortCard.jpg" id="14_6vmuk"]
 [ext_resource type="Texture2D" uid="uid://bc6eo4df3csq6" path="res://Assets/CardsImages/DandelionCard.jpg" id="14_uyet1"]
 [ext_resource type="Texture2D" uid="uid://chu71mu8k3mqf" path="res://Assets/CardsImages/PurpleBasil.jpg" id="14_whepr"]
-[ext_resource type="Script" path="res://Scenes/3D_scene/bitzfarmsspawner.gd" id="21_tujy0"]
+[ext_resource type="Script" uid="uid://bfkbyfd68o0o6" path="res://Scenes/3D_scene/bitzfarmsspawner.gd" id="21_tujy0"]
 [ext_resource type="PackedScene" uid="uid://dq00qa8vcmf42" path="res://Scenes/3D_scene/PointCloudObject/packed_companion.tscn" id="22_u8ueu"]
-
-[sub_resource type="Curve" id="Curve_xwjth"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.764045), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [node name="GlobalSpeciesView" type="Node3D" unique_id=1836985689]
 script = ExtResource("1_8bb84")
@@ -149,18 +144,6 @@ script = ExtResource("21_tujy0")
 companion_scene = ExtResource("22_u8ueu")
 target = NodePath(".")
 spawn_interval = 1.0
-
-[node name="CompanionSpeciesExample" parent="Companions" unique_id=1351690729 instance=ExtResource("11_f221m")]
-transform = Transform3D(0.0001, 0, 0, 0, 0.0001, 0, 0, 0, 0.0001, 100, 0, 0)
-quest_id = "96a85349-cb5c-46f6-a920-292e6126b6e5"
-species_id = 7
-orbit_radius = 6.0
-orbit_radius_variance = 0.1
-drift_speed = 0.02
-drift_speed_variance = 0.005
-phase_offset = 4.668224115552224
-scale_max_distance = 8.4
-scale_curve = SubResource("Curve_xwjth")
 
 [connection signal="rotation_completed" from="Marcelo/Fava" to="." method="_on_fava_rotation_completed"]
 [connection signal="rotation_completed" from="Marcelo/Fava2" to="." method="_on_fava_rotation_completed"]

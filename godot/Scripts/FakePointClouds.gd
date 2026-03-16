@@ -7,21 +7,29 @@ extends GPUParticles3D
 		texture = value
 		_set_texture(value)
 		
-@export var scale_multiplier: float = 0.1:
+@export var max_side: float = 0.1:
 	set(value):
-		scale_multiplier = value
-		_set_scale(value)
+		max_side = value
+		_set_max_side()
 
 func _ready():
 	self.process_material = process_material.duplicate()
 
-func _set_scale(value: float):
+func _set_max_side():
 	if texture:
-		process_material.set_shader_parameter("emission_shape", texture.get_size() * value)
+		var texture_size = texture.get_size()
+		var longest_side = max(texture_size.x, texture_size.y)
+		if longest_side > 0.0:
+			var emission_shape = texture_size * (max_side / longest_side)
+			process_material.set_shader_parameter("emission_shape", emission_shape)
 
 func _set_texture(value: Texture2D):
 	if self.process_material and value:
-		process_material.set_shader_parameter("emission_shape", value.get_size() * scale_multiplier)
+		var texture_size = value.get_size()
+		var longest_side = max(texture_size.x, texture_size.y)
+		if longest_side > 0.0:
+			var emission_shape = texture_size * (max_side / longest_side)
+			process_material.set_shader_parameter("emission_shape", emission_shape)
 		process_material.set_shader_parameter("input_texture", value)
 		process_material.set_shader_parameter("height_texture", value)
 		_compute_height_range(value)
@@ -54,5 +62,5 @@ func _compute_height_range(tex: Texture2D):
 	process_material.set_shader_parameter("height_min", height_min)
 	process_material.set_shader_parameter("height_max", height_max)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

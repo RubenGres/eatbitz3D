@@ -10,6 +10,11 @@ extends MeshInstance3D
 @export var density_curve: Curve ## Controls point density based on distance
 @export var max_distance: float = 100.0 ## Maximum distance for curve normalization
 @export var target: Node3D
+@export var max_side: float = 0.1:
+	set(value):
+		max_side = value
+		if(is_node_ready()):
+			_update_material_texture()
 
 var material: Material
 
@@ -27,7 +32,7 @@ func _ready() -> void:
 
 	material = get_surface_override_material(0)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not target:
 		return
 	
@@ -42,5 +47,7 @@ func _process(delta: float) -> void:
 func _update_material_texture() -> void:
 	if material and texture:
 		material.set_shader_parameter("input_texture", texture)
-#		mesh.size = texture.get_size() * 0.1
-		mesh.size = Vector2(texture.get_width(), texture.get_height()).normalized() * (texture.get_size().length()) * 0.5
+		var texture_size = texture.get_size()
+		var longest_side = max(texture_size.x, texture_size.y)
+		if longest_side > 0.0:
+			mesh.size = texture_size * (max_side / longest_side)

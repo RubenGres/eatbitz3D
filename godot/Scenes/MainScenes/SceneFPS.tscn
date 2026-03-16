@@ -87,6 +87,7 @@ fov = 66.0
 [node name="InspectNodeParent" type="Node3D" parent="CanvasLayer/SubViewport" unique_id=149455570]
 
 [node name="Object3DLocation" type="Node3D" parent="CanvasLayer/SubViewport/InspectNodeParent" unique_id=352583093]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="ParticleLocation" type="Node3D" parent="CanvasLayer/SubViewport/InspectNodeParent" unique_id=140684441]
 transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 0, 0, 0)

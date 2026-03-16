@@ -23,11 +23,6 @@ image = (
     )
 )
 
-@app.function(
-    image=image,
-    gpu="T4",
-    timeout=300,
-)
 def segment_objects_internal(
     image_bytes: bytes,
     text_prompt: str,
@@ -72,8 +67,13 @@ def segment_objects_internal(
     labels = results["text_labels"]
     
     # Step 2: SAM2
-    sam2_predictor = SAM2ImagePredictor.from_pretrained("facebook/sam2-hiera-large")
+    sam2_predictor = SAM2ImagePredictor.from_pretrained(
+        "facebook/sam2-hiera-large",
+        device=device,
+    )
     sam2_predictor.set_image(image)
+
+    
     
     masks_list = []
     for box in boxes:
@@ -136,49 +136,26 @@ def segment_objects_internal(
     
     return result
 
-
-@app.function(image=image, gpu="T4", timeout=300)
+@app.function(image=image, timeout=300, memory=8192)
 @modal.fastapi_endpoint(method="POST")
 def segment(data: dict):
-    """
-    REST API endpoint for image segmentation
+    from fastapi.responses import JSONResponse  # ← still needed here
+
+    if "image_base64" not in data:
+        return JSONResponse({"error": "Missing 'image_base64' field"}, status_code=400)
+    if "prompt" not in data:
+        return JSONResponse({"error": "Missing 'prompt' field"}, status_code=400)
     
-    Request body:
-    {
-        "image_base64": "base64_encoded_image_string",
-        "prompt": "mushroom",
-        "threshold": 0.3  // optional, default 0.3
-    }
-    
-    Response:
-    {
-        "num_objects": 2,
-        "labels": ["mushroom", "mushroom"],
-        "scores": [0.95, 0.87],
-        "boxes": [[x1, y1, x2, y2], ...],
-        "masked_image_base64": "base64_png_original_with_mask_applied_transparent_bg",
-        "visualization_base64": "base64_encoded_overlay_image"
-    }
-    """
     try:
-        # Validate input
-        if "image_base64" not in data:
-            return {"error": "Missing 'image_base64' field"}, 400
-        if "prompt" not in data:
-            return {"error": "Missing 'prompt' field"}, 400
-        
-        # Decode image
         image_bytes = base64.b64decode(data["image_base64"])
-        
-        # Run segmentation
-        result = segment_objects_internal.local(
+        result = segment_objects_internal(
             image_bytes=image_bytes,
             text_prompt=data["prompt"],
             box_threshold=data.get("threshold", 0.3),
             return_visualization=True,
         )
-        
         return result
-    
     except Exception as e:
-        return {"error": str(e)}, 500
+        import traceback
+        traceback.print_exc()
+        return JSONResponse({"error": str(e)}, status_code=500)
