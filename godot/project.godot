@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/borderless=true
 window/stretch/mode="canvas_items"
 
 [editor]
