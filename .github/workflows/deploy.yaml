@@ -39,6 +39,7 @@ jobs:
           ssh ${{ vars.VPS_USER }}@${{ vars.VPS_HOST }} '
             cd ~/app
             docker compose down --remove-orphans
+            docker rm -f godot_web_export 2>/dev/null || true
             docker system prune -f
             docker compose up --build -d
           '
