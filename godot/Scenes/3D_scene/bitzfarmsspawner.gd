@@ -3,10 +3,13 @@ extends Node3D
 class_name BitzFarmSpawner
 
 @export_group("Setup")
-@export var companion_scene: PackedScene  # Assign your BitzCompanion.tscn here
+@export var companion_scene: PackedScene
 @export var api_url: String = "https://bitz.tools/api/farm-images/venn"
 @export var target: Node3D
-@export var spawn_interval: float = 0.1  # seconds between each spawn (increased for runtime safety)
+@export var spawn_interval: float = 0.1
+
+@export_group("Spawn Layout")
+@export var spawn_radius: float = 5.0
 
 @export_subgroup("Debug")
 @export_tool_button("Fetch & Spawn") var _spawn_button: Callable = fetch_and_spawn
@@ -14,12 +17,13 @@ class_name BitzFarmSpawner
 
 var _http: HTTPRequest
 var _spawned: Array[BitzCompanion] = []
-var _pending_free: Array[BitzCompanion] = []  # old companions waiting to be freed
+var _pending_free: Array[BitzCompanion] = []
 var _spawn_queue: Array[Dictionary] = []
 var _spawn_timer: float = 0.0
 var _is_spawning: bool = false
 var _free_timer: float = 0.0
-const FREE_DELAY: float = 0.5  # seconds before freeing old companions
+var _total_expected: int = 0  # total companions queued for this batch
+const FREE_DELAY: float = 0.5
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 
@@ -32,7 +36,6 @@ func _ready():
 		fetch_and_spawn()
 
 func _process(delta: float) -> void:
-	# Drain deferred-free queue after a short delay
 	if not _pending_free.is_empty():
 		_free_timer -= delta
 		if _free_timer <= 0.0:
@@ -41,7 +44,6 @@ func _process(delta: float) -> void:
 					c.queue_free()
 			_pending_free.clear()
 
-	# Drain spawn queue
 	if _spawn_queue.is_empty():
 		_is_spawning = false
 		return
@@ -87,18 +89,14 @@ func _on_response(result: int, response_code: int, _headers: PackedStringArray, 
 
 	var data: Dictionary = json.get_data()
 
-	# Move current companions to pending-free list instead of freeing immediately.
-	# They'll be freed after FREE_DELAY seconds, avoiding a spike on the same frame
-	# that the first new companions start spawning.
 	for c in _spawned:
 		if is_instance_valid(c):
 			_pending_free.append(c)
 	_spawned.clear()
 	_free_timer = FREE_DELAY
-
 	_spawn_queue.clear()
 
-	var seen: Dictionary = {}  # "quest_id:species_id" → true
+	var seen: Dictionary = {}
 	for farm_name in data.keys():
 		var entries: Array = data[farm_name]
 		for entry in entries:
@@ -116,8 +114,9 @@ func _on_response(result: int, response_code: int, _headers: PackedStringArray, 
 				"farm_name":   farm_name,
 			})
 
-	print("[BitzFarmSpawner] Queued %d companions (%d deduped) across %d farms" % [
-		_spawn_queue.size(), data.size(), data.keys().size()
+	_total_expected = _spawn_queue.size()
+	print("[BitzFarmSpawner] Queued %d companions across %d farms" % [
+		_total_expected, data.keys().size()
 	])
 	_is_spawning = true
 	_spawn_timer = 0.0
@@ -125,18 +124,19 @@ func _on_response(result: int, response_code: int, _headers: PackedStringArray, 
 # ── Spawning ──────────────────────────────────────────────────────────────────
 
 func _spawn_one(entry_data: Dictionary) -> void:
-	# instantiate() from a PackedScene is much faster than duplicate() on a live @tool node
 	var companion: BitzCompanion = companion_scene.instantiate()
 
-	# Assign identity BEFORE add_child so _ready() sees the correct values
-	# and only fires one fetch (both setters call _request_fetch which dedupes via _fetch_dirty)
 	companion.quest_id   = entry_data["quest_id"]
 	companion.species_id = entry_data["species_id"]
 
 	if target:
 		companion.target = target
 
+	var index  := _spawned.size()
+	var offset := _fibonacci_sphere_point(index, _total_expected) * spawn_radius
+
 	add_child(companion)
+	companion.global_position = global_position + offset
 	_spawned.append(companion)
 
 	print("[BitzFarmSpawner] + %s / species %d (%s)" % [
@@ -147,9 +147,20 @@ func _spawn_one(entry_data: Dictionary) -> void:
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+func _fibonacci_sphere_point(index: int, total: int) -> Vector3:
+	var golden_ratio := (1.0 + sqrt(5.0)) / 2.0
+	var theta        := acos(1.0 - 2.0 * (index + 0.5) / max(total, 1))
+	var phi          := TAU * index / golden_ratio
+	return Vector3(
+		sin(theta) * cos(phi),
+		cos(theta),
+		sin(theta) * sin(phi)
+	)
+
 func _clear_spawned():
 	_spawn_queue.clear()
 	_pending_free.clear()
+	_total_expected = 0
 	for c in _spawned:
 		if is_instance_valid(c):
 			c.queue_free()

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bjrxtbsrmes47" path="res://Scenes/UI/info_panel.gd" id="1_x7mhu"]
 [ext_resource type="Shader" uid="uid://mnx5jmlkkq2d" path="res://Shaders/round_corners.gdshader" id="2_n1fx6"]
-[ext_resource type="Texture2D" uid="uid://djtj52nokr46u" path="res://Assets/CardsImages/BoargeCard.jpg" id="3_n1fx6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ngnp"]
 bg_color = Color(0, 0, 0, 1)
@@ -121,7 +120,6 @@ custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("3_n1fx6")
 expand_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="SidePanel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer" unique_id=560934621]

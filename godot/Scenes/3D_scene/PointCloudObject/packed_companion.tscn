@@ -26,10 +26,11 @@ orbit_radius_variance = 0.1
 drift_speed = 0.02
 drift_speed_variance = 0.005
 wander_strength = 0.1
-phase_offset = 1.088922346695143
+phase_offset = 1.7289768603347546
 scale_max_distance = 8.4
 scale_curve = SubResource("Curve_b3irw")
-lifetime = 15.0
+lifetime = 25.0
+sleep_time = 25.0
 
 [node name="ParticlesTest" parent="." index="0" unique_id=1420749202]
 transform = Transform3D(0.667, 0, 0, 0, 0.667, 0, 0, 0, 0.667, 0, 0, 0)

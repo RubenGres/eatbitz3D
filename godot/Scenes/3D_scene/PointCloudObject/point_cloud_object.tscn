@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://lp4t5tq041mm"]
 
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_mgguj"]
-[ext_resource type="Texture2D" uid="uid://glpo3r2l8jpq" path="res://Assets/CroppedSpecies/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="2_mgguj"]
+[ext_resource type="Texture2D" uid="uid://glpo3r2l8jpq" path="res://Assets/CroppedSpecies/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.jpg" id="2_mgguj"]
 [ext_resource type="Script" uid="uid://dwvlxgfpjqty6" path="res://Scenes/3D_scene/PointCloudObject/PointCloiudObject3D.gd" id="3_6e8xl"]
 [ext_resource type="Shader" uid="uid://dxeyo5i2s6wlc" path="res://Shaders/avg_color_spatial.gdshader" id="4_6e8xl"]
 

@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://vdmn0smipudv"]
 
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_mp6lv"]
-[ext_resource type="Texture2D" uid="uid://cejfdgej0mu4u" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.png" id="2_l6vb3"]
+[ext_resource type="Texture2D" uid="uid://cejfdgej0mu4u" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg" id="2_l6vb3"]
 [ext_resource type="ArrayMesh" uid="uid://bal7e6edxoqef" path="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.obj" id="3_rdwmb"]
 [ext_resource type="Script" uid="uid://hvfoctb2rosi" path="res://mesh_instance_3d.gd" id="4_fam18"]
 [ext_resource type="PackedScene" uid="uid://lwg43ywqhjsc" path="res://Scenes/3D_scene/particles_from_image/particles_test.tscn" id="5_32k4b"]
-[ext_resource type="Texture2D" uid="uid://b0aya7v7ss0r2" path="res://Assets/CroppedSpecies/5feb8e8bb4e1713623e27ce8c13d4ce6-removebg-preview.png" id="6_04dpp"]
-[ext_resource type="Texture2D" uid="uid://damsr2qe5p5im" path="res://Assets/CroppedSpecies/Venn/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.png" id="7_1ay01"]
-[ext_resource type="Texture2D" uid="uid://cjppttgjsijox" path="res://Assets/CroppedSpecies/d9ee60ea8c95063e6163cb8989c0ea8b-removebg-preview.png" id="8_7n2qv"]
+[ext_resource type="Texture2D" uid="uid://b0aya7v7ss0r2" path="res://Assets/CroppedSpecies/5feb8e8bb4e1713623e27ce8c13d4ce6-removebg-preview.jpg" id="6_04dpp"]
+[ext_resource type="Texture2D" uid="uid://damsr2qe5p5im" path="res://Assets/CroppedSpecies/Venn/5ca7cbcb9ca94bdea641a15314fa7cf5-removebg-preview.jpg" id="7_1ay01"]
+[ext_resource type="Texture2D" uid="uid://cjppttgjsijox" path="res://Assets/CroppedSpecies/d9ee60ea8c95063e6163cb8989c0ea8b-removebg-preview.jpg" id="8_7n2qv"]
 [ext_resource type="Script" uid="uid://ex5au68xgqur" path="res://label.gd" id="9_l6vb3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i0g27"]
