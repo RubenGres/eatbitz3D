@@ -122,7 +122,7 @@ async def fetch_species_data(quest_id: str, species_id: int) -> dict:
     return history[species_id]
 
 
-async def fetch_species_image(quest_id: str, species_id: int, quality: str = "thumb") -> bytes:
+async def fetch_species_image(quest_id: str, species_id: int, quality: str = "medium") -> bytes:
     url = f"{BITZ_API}/explore/images/{quest_id}/{species_id}_image.jpg?res={quality}"
     r = await client.get(url)
     if r.status_code != 200:

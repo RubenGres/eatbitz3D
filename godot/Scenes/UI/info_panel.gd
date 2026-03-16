@@ -34,7 +34,7 @@ func _request_data():
 	if quest_id.is_empty():
 		return
 	_api.fetch_history(quest_id, species_id)
-	_api.fetch_species_image(quest_id, species_id, "thumb")
+	_api.fetch_species_image(quest_id, species_id, "medium")
 	slide_in()
 
 func _on_species_data(qid: String, sid: int, species_info: Dictionary):
