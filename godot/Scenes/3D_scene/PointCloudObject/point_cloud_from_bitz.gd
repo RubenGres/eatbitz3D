@@ -6,8 +6,8 @@ signal rembg_texture_loaded(texture)
 
 @onready var point_cloud_object = $ParticlesTest
 
-#var rembg_base_url: String = "https://eat.bitz.tools/rembg"
-var rembg_base_url: String = "http://localhost:8888/rembg"
+var rembg_base_url: String = "https://eat.bitz.tools/rembg"
+#var rembg_base_url: String = "http://localhost:8888/rembg"
 
 # ── Identity ──────────────────────────────────────────────────────────────────
 @export_group("Identity")
