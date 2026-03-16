@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dq00qa8vcmf42"]
+
+[ext_resource type="PackedScene" uid="uid://b8gpktu4prpfl" path="res://Scenes/3D_scene/PointCloudObject/point_cloud_from_bitz.tscn" id="1_xug4p"]
+[ext_resource type="Shader" uid="uid://c7pooeyux8ko5" path="res://Shaders/outline_2d.gdshader" id="2_jmrkn"]
+
+[sub_resource type="Curve" id="Curve_b3irw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.764045), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xug4p"]
+render_priority = 0
+shader = ExtResource("2_jmrkn")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/glowSize = 15.0
+shader_parameter/glowDensity = 3
+shader_parameter/glowRadialCoverage = 4
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
+
+[node name="PointCloudFromBitz" unique_id=1051864477 instance=ExtResource("1_xug4p")]
+orbit_radius = 8.0
+orbit_radius_variance = 0.1
+drift_speed = 0.02
+drift_speed_variance = 0.005
+wander_strength = 0.1
+phase_offset = 0.5793798341585259
+scale_max_distance = 8.4
+scale_curve = SubResource("Curve_b3irw")
+lifetime = 15.0
+
+[node name="HighlightSprite" parent="ParticlesTest" parent_id_path=PackedInt32Array(1420749202) index="3" unique_id=934141968]
+material_override = SubResource("ShaderMaterial_xug4p")

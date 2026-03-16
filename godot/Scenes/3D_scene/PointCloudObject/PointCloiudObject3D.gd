@@ -42,4 +42,5 @@ func _process(delta: float) -> void:
 func _update_material_texture() -> void:
 	if material and texture:
 		material.set_shader_parameter("input_texture", texture)
-		mesh.size = texture.get_size() * 0.1
+		#mesh.size = texture.get_size() * 0.1
+		mesh.size = Vector2(texture.get_width(), texture.get_height()).normalized() * (texture.get_size().length()) * 0.5
