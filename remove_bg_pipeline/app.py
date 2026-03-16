@@ -33,7 +33,7 @@ from fastapi.responses import JSONResponse, Response
 BITZ_API = "https://api.bitz.tools"
 MODAL_URL = "https://ruben-g-gres--grounded-sam2-api-segment.modal.run"
 DB_PATH = Path(os.getenv("BITZ_CACHE_DB_PATH", "/var/lib/bitz-cache/bitz_cache.db"))
-HTTP_TIMEOUT = 60.0  # Modal can be slow on cold starts
+HTTP_TIMEOUT = 240.0  # Modal can be slow on cold starts
 
 # ---------------------------------------------------------------------------
 # SQLite cache
