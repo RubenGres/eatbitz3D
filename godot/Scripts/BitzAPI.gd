@@ -9,7 +9,7 @@ signal request_failed(url: String, response_code: int)
 
 var _pending_requests: Dictionary = {}
 
-func fetch_species_image(quest_id: String, species_id: int, quality: String = "thumb") -> void:
+func fetch_species_image(quest_id: String, species_id: int, quality: String = "medium") -> void:
 	var url = api_url + "/explore/images/" + quest_id + "/" + str(species_id) + "_image.jpg?res=" + quality
 	var http = HTTPRequest.new()
 	add_child(http)
