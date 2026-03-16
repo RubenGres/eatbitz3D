@@ -70,6 +70,7 @@ func _on_node_focused(object: Node3D):
 	if duplicate is BitzCompanion:
 		object3D_parent.add_child(duplicate)
 		duplicate.billboard_camera = false
+		duplicate.lifetime = 99999
 	else:
 		particle_parent.add_child(duplicate)
 		

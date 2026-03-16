@@ -66,6 +66,8 @@ func _update_material_texture():
 	if particles and point_cloud:
 		particles.texture = texture
 		point_cloud.texture = texture
+		await get_tree().create_timer(0.1).timeout
+		particles.show()
 
 func _update_target():
 	if point_cloud:

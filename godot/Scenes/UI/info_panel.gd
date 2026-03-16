@@ -34,7 +34,7 @@ func _request_data():
 	if quest_id.is_empty():
 		return
 	_api.fetch_history(quest_id, species_id)
-	_api.fetch_species_image(quest_id, species_id)
+	_api.fetch_species_image(quest_id, species_id, "thumb")
 	slide_in()
 
 func _on_species_data(qid: String, sid: int, species_info: Dictionary):
@@ -80,7 +80,17 @@ func slide_out():
 	_kill_tween()
 	_tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	_tween.tween_property(self, "position:x", get_viewport_rect().size.x, slide_duration)
+	_tween.tween_callback(_reset)
 	closed.emit()
+
+func _reset():
+	quest_id = ""
+	species_id = 0
+	%SpeciesName.text = ""
+	%Description.text = ""
+	%AdditionalInfo.text = ""
+	%TextureRect.texture = null
+	$SidePanel/VBoxContainer/ScrollContainer.scroll_vertical = 0
 
 func _kill_tween():
 	if _tween and _tween.is_running():
