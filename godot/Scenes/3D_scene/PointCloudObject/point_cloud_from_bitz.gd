@@ -104,6 +104,10 @@ var bitz_image_loaded: bool = false
 var _effective_radius: float
 var _effective_speed: float
 var _time: float = 0.0
+var _orbit_basis: Basis = Basis.IDENTITY
+
+var _lifecycle_started: bool = false
+var _alive_timer_offset: float = 0.0
 
 # Lifecycle state machine
 enum LifecycleState { LOADING, FADE_IN, ALIVE, FADE_OUT, SLEEPING }
@@ -122,6 +126,13 @@ func _ready():
 	_effective_radius = orbit_radius + randf_range(-orbit_radius_variance, orbit_radius_variance)
 	_effective_speed  = drift_speed  + randf_range(-drift_speed_variance,  drift_speed_variance)
 
+	var rand_axis := Vector3(
+		randf_range(-1.0, 1.0),
+		randf_range(-1.0, 1.0),
+		randf_range(-1.0, 1.0)
+	).normalized()
+	_orbit_basis = Basis(rand_axis, randf() * TAU)
+
 	_http_rembg = HTTPRequest.new()
 	add_child(_http_rembg)
 	_http_rembg.request_completed.connect(_on_rembg_received)
@@ -131,7 +142,7 @@ func _ready():
 	point_cloud_object.target = self.target
 
 	if not bitz_image_loaded:
-		self.show()           # node visible but scale = 0 so nothing renders
+		self.show()
 		scale = _safe_scale(1)
 		_lifecycle_state = LifecycleState.LOADING
 		_fetch_dirty = false
@@ -155,11 +166,11 @@ func _update_position(delta: float) -> void:
 
 	var t := _time + phase_offset
 
-	var base_offset := Vector3(
-		sin(t * 1.0 + phase_offset) * cos(t * 0.37),
-		sin(t * 0.71 + phase_offset),
-		cos(t * 1.0 + phase_offset) * sin(t * 0.53)
-	) * _effective_radius
+	var local_pos := Vector3(
+		cos(t) * _effective_radius,
+		sin(t * 0.71) * _effective_radius * 0.3,
+		sin(t) * _effective_radius
+	)
 
 	var wander := Vector3(
 		sin(t * wander_frequency * 0.91) * wander_strength,
@@ -167,7 +178,7 @@ func _update_position(delta: float) -> void:
 		sin(t * wander_frequency * 1.13) * wander_strength
 	)
 
-	global_position = target.global_position + base_offset + wander
+	global_position = target.global_position + _orbit_basis * (local_pos + wander)
 
 func _update_proximity_scale() -> void:
 	if target == null or scale_max_distance <= scale_min_distance:
@@ -197,7 +208,8 @@ func _update_lifecycle(delta: float) -> void:
 			scale = _safe_scale(s)
 			if _lifecycle_timer >= fade_in_duration:
 				_lifecycle_state = LifecycleState.ALIVE
-				_lifecycle_timer = 0.0
+				_lifecycle_timer = _alive_timer_offset  # jump in mid-lifetime on first cycle
+				_alive_timer_offset = 0.0               # only applies once
 
 		LifecycleState.ALIVE:
 			scale = _safe_scale(maxf(_proximity_scale, SCALE_EPSILON))
@@ -226,6 +238,9 @@ func _update_lifecycle(delta: float) -> void:
 func _begin_fade_in() -> void:
 	_lifecycle_state = LifecycleState.FADE_IN
 	_lifecycle_timer = 0.0
+	if not _lifecycle_started and lifetime > 0.0:
+		_lifecycle_started = true
+		_alive_timer_offset = randf() * lifetime
 
 func _begin_fade_out() -> void:
 	_lifecycle_state = LifecycleState.FADE_OUT
@@ -292,7 +307,6 @@ func _apply_texture(image: Image) -> void:
 	print("[BitzCompanion] Texture applied (%dx%d)" % [image.get_width(), image.get_height()])
 	bitz_image_loaded = true
 	rembg_texture_loaded.emit(texture)
-	# Kick off the lifecycle — fade in from scale 0
 	_begin_fade_in()
 
 # ── Misc ──────────────────────────────────────────────────────────────────────
@@ -301,6 +315,12 @@ func _reload() -> void:
 	phase_offset      = randf() * TAU
 	_effective_radius = orbit_radius + randf_range(-orbit_radius_variance, orbit_radius_variance)
 	_effective_speed  = drift_speed  + randf_range(-drift_speed_variance,  drift_speed_variance)
+	var rand_axis := Vector3(
+		randf_range(-1.0, 1.0),
+		randf_range(-1.0, 1.0),
+		randf_range(-1.0, 1.0)
+	).normalized()
+	_orbit_basis = Basis(rand_axis, randf() * TAU)
 	print("[BitzCompanion] Reloaded — phase: %.2f, radius: %.2f, speed: %.2f" % [phase_offset, _effective_radius, _effective_speed])
 
 func _set_highlighted() -> void:

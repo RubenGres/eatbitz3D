@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dpw33ptrilm7r" path="res://Scenes/3D_scene/global_species_view.tscn" id="1_hwu0x"]
 [ext_resource type="Script" uid="uid://byb0nx3yo188p" path="res://Scenes/MainScenes/canvas_layer.gd" id="1_kaiwv"]
 [ext_resource type="Script" uid="uid://dhj6ffyjtg1lv" path="res://addons/Basic FPS Player/Src/basic_player_startup.gd" id="2_dvg24"]
-[ext_resource type="Texture2D" uid="uid://bouwlsij0vhkg" path="res://Assets/Particles/halo_small.png" id="2_vjbrx"]
+[ext_resource type="Texture2D" uid="uid://c4w2j0eg1mxyw" path="res://Assets/Particles/halo_small.png" id="2_vjbrx"]
 [ext_resource type="PackedScene" uid="uid://kmyakts4l64t" path="res://addons/Basic FPS Player/Src/basic_player_head.tscn" id="3_88v5a"]
 [ext_resource type="Environment" uid="uid://cadw35dgl2scf" path="res://Assets/world_env.tres" id="4_3vsn4"]
 [ext_resource type="Script" uid="uid://cx83q0vgxsspr" path="res://addons/Basic FPS Player/Src/basic_player_head.gd" id="5_e7ecd"]
