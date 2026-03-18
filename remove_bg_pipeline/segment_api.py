@@ -99,10 +99,10 @@ def segment_objects_internal(
         # combined_mask = np.any(masks_array, axis=0)
         
         # biggest score
-        combined_mask = masks_array[np.argmax(scores_out)]
+        #combined_mask = masks_array[np.argmax(scores_out)]
 
         # lagest area
-        # combined_mask = masks_array[np.argmax([m.sum() for m in masks_array])]
+        combined_mask = masks_array[np.argmax([m.sum() for m in masks_array])]
         
         # Apply mask to original image: RGBA with transparent background
         img_array = np.array(image)
