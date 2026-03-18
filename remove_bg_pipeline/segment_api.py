@@ -81,8 +81,10 @@ def segment_objects_internal(
             box=box,
             multimask_output=False,
         )
-        masks_list.append(masks[0])
-    
+
+        if mask_scores[0] > 0.7:  # tune this
+            masks_list.append(masks[0])
+
     masks_array = np.array(masks_list).astype(bool) if masks_list else np.array([])
     
     result = {
@@ -93,7 +95,14 @@ def segment_objects_internal(
     }
     
     if len(masks_array) > 0:
-        combined_mask = np.any(masks_array, axis=0)
+        # Option 1: Combine all masks (union)
+        # combined_mask = np.any(masks_array, axis=0)
+        
+        # biggest score
+        combined_mask = masks_array[np.argmax(scores_out)]
+
+        # lagest area
+        # combined_mask = masks_array[np.argmax([m.sum() for m in masks_array])]
         
         # Apply mask to original image: RGBA with transparent background
         img_array = np.array(image)
