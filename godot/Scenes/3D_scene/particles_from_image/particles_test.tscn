@@ -37,6 +37,9 @@ shader_parameter/height_max = 1.0
 shader_parameter/z_multiplier = 0.75
 shader_parameter/jitter_strength = 0.05
 shader_parameter/jitter_speed = 1.0
+shader_parameter/crop_radius = 0.3999999910592
+shader_parameter/crop_falloff = 0.05
+shader_parameter/crop_aspect = 1.777
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4yhel"]
 render_priority = 0
@@ -60,6 +63,8 @@ shader_parameter/input_texture = ExtResource("2_ie16o")
 shader_parameter/use_edge_detection = true
 shader_parameter/edge_threshold = 0.0
 shader_parameter/edge_width = 0.07999999821184
+shader_parameter/crop_radius = 0.3999999910592
+shader_parameter/crop_falloff = 0.05
 
 [sub_resource type="Curve" id="Curve_xxm2l"]
 _data = [Vector2(0, 1), 0.0, -0.92456895, 0, 1, Vector2(1, 0.07543099), -0.13483143, 0.0, 0, 0]
@@ -77,7 +82,7 @@ shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
 [sub_resource type="QuadMesh" id="QuadMesh_v4kuh"]
-size = Vector2(3.7333336, 5.0000005)
+size = Vector2(5.0000005, 3.766667)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ie16o"]
 render_priority = 0
@@ -96,7 +101,6 @@ script = ExtResource("1_dpbjc")
 max_side = 5.0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1555643873]
-visible = false
 amount = 30000
 lifetime = 2.0
 preprocess = 3.0
@@ -107,7 +111,6 @@ script = ExtResource("4_73xyk")
 max_side = 5.0
 
 [node name="PointCloudObject" type="MeshInstance3D" parent="." unique_id=1657964455]
-visible = false
 mesh = SubResource("QuadMesh_15bpn")
 surface_material_override/0 = SubResource("ShaderMaterial_v4kuh")
 script = ExtResource("8_ie16o")
