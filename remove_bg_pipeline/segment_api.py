@@ -145,7 +145,7 @@ def segment_objects_internal(
     
     return result
 
-@app.function(image=image, timeout=300, memory=8192)
+@app.function(image=image, gpu="T4"timeout=300, memory=8192)
 @modal.fastapi_endpoint(method="POST")
 def segment(data: dict):
     from fastapi.responses import JSONResponse  # ← still needed here
