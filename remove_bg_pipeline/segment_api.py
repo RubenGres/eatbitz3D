@@ -82,8 +82,7 @@ def segment_objects_internal(
             multimask_output=False,
         )
 
-        if mask_scores[0] > 0.7:  # tune this
-            masks_list.append(masks[0])
+        masks_list.append(masks[0])
 
     masks_array = np.array(masks_list).astype(bool) if masks_list else np.array([])
     
@@ -99,10 +98,10 @@ def segment_objects_internal(
         # combined_mask = np.any(masks_array, axis=0)
         
         # biggest score
-        #combined_mask = masks_array[np.argmax(scores_out)]
+        combined_mask = masks_array[np.argmax(scores)]
 
         # lagest area
-        combined_mask = masks_array[np.argmax([m.sum() for m in masks_array])]
+        #combined_mask = masks_array[np.argmax([m.sum() for m in masks_array])]
         
         # Apply mask to original image: RGBA with transparent background
         img_array = np.array(image)
@@ -145,7 +144,7 @@ def segment_objects_internal(
     
     return result
 
-@app.function(image=image, gpu="T4"timeout=300, memory=8192)
+@app.function(image=image, gpu="T4", timeout=300)
 @modal.fastapi_endpoint(method="POST")
 def segment(data: dict):
     from fastapi.responses import JSONResponse  # ← still needed here

@@ -14,6 +14,7 @@ extends GPUParticles3D
 
 func _ready():
 	self.process_material = process_material.duplicate()
+	
 
 func _set_max_side():
 	if texture:
@@ -27,11 +28,13 @@ func _set_texture(value: Texture2D):
 	if self.process_material and value:
 		var texture_size = value.get_size()
 		var longest_side = max(texture_size.x, texture_size.y)
+		var aspect = texture_size.x / texture_size.y
 		if longest_side > 0.0:
 			var emission_shape = texture_size * (max_side / longest_side)
 			process_material.set_shader_parameter("emission_shape", emission_shape)
 		process_material.set_shader_parameter("input_texture", value)
 		process_material.set_shader_parameter("height_texture", value)
+		process_material.set_shader_parameter("crop_aspect", aspect)
 		_compute_height_range(value)
 
 func _compute_height_range(tex: Texture2D):

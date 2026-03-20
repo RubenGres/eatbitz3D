@@ -143,4 +143,4 @@ metadata/_custom_type_script = "uid://dhj6ffyjtg1lv"
 script = ExtResource("5_e7ecd")
 
 [node name="RayCast3D" type="RayCast3D" parent="Basic FPS Player/Head" unique_id=273513507]
-target_position = Vector3(0, 0, -10)
+target_position = Vector3(0, 0, -100)

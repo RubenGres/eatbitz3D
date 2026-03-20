@@ -29,13 +29,6 @@ script = ExtResource("1_8bb84")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=129807161]
 environment = ExtResource("2_r4ri1")
 
-[node name="Companions" type="Node3D" parent="." unique_id=664059679 node_paths=PackedStringArray("target")]
-script = ExtResource("21_tujy0")
-companion_scene = ExtResource("22_u8ueu")
-target = NodePath(".")
-spawn_interval = 0.2
-spawn_radius = 7.0
-
 [node name="Ingredients" type="Node3D" parent="." unique_id=423093418]
 
 [node name="Node3D2" type="Node3D" parent="Ingredients" unique_id=1596802368]
@@ -147,6 +140,14 @@ associated_card_texture = ExtResource("14_uyet1")
 ingredient_name = "Dandelion"
 ingredient_description = "Dandelions do not wait for approval. Their taproots drill through compacted ground; their flowers feed early pollinators; their seeds travel without apology. Lawn-owners resent them, yet ecosystems require them. Like the dandelion, your persistence may irritate systems invested in uniformity. But in some cases,
 disturbance is not chaos - it is aeration. When will the strength you store below the surface become the force that transforms your environment? "
+
+[node name="Companions" type="Node3D" parent="." unique_id=664059679 node_paths=PackedStringArray("target")]
+script = ExtResource("21_tujy0")
+companion_scene = ExtResource("22_u8ueu")
+target = NodePath(".")
+spawn_interval = 0.02
+ring_radii = Array[float]([5.0, 10.0, 15.0, 20.0])
+ring_capacities = Array[int]([7, 20, 40, 80])
 
 [connection signal="rotation_completed" from="Ingredients/Marcelo/Fava" to="." method="_on_fava_rotation_completed"]
 [connection signal="rotation_completed" from="Ingredients/Marcelo/Fava2" to="." method="_on_fava_rotation_completed"]
