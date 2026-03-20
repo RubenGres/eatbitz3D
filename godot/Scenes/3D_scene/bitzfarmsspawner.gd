@@ -4,15 +4,15 @@ class_name BitzFarmSpawner
 
 @export_group("Setup")
 @export var companion_scene: PackedScene
-@export var api_url: String = "https://bitz.tools/api/farm-images/venn"
 @export var target: Node3D
 @export var spawn_interval: float = 0.1
 
 @export_group("Spawn Layout")
-@export var spawn_radius: float = 5.0
+@export var ring_radii: Array[float] = [2.5, 5.0, 8.0, 12.0]
+@export var ring_capacities: Array[int] = [6, 12, 20, 30]
 
 @export_subgroup("Debug")
-@export_tool_button("Fetch & Spawn") var _spawn_button: Callable = fetch_and_spawn
+@export_tool_button("Spawn") var _spawn_button: Callable = spawn_companions
 @export_tool_button("Clear") var _clear_button: Callable = _clear_spawned
 
 var _http: HTTPRequest
@@ -22,18 +22,14 @@ var _spawn_queue: Array[Dictionary] = []
 var _spawn_timer: float = 0.0
 var _is_spawning: bool = false
 var _free_timer: float = 0.0
-var _total_expected: int = 0  # total companions queued for this batch
+var _total_expected: int = 0
 const FREE_DELAY: float = 0.5
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 
 func _ready():
-	_http = HTTPRequest.new()
-	add_child(_http)
-	_http.request_completed.connect(_on_response)
-
 	if not Engine.is_editor_hint():
-		fetch_and_spawn()
+		spawn_companions()
 
 func _process(delta: float) -> void:
 	if not _pending_free.is_empty():
@@ -58,64 +54,33 @@ func _process(delta: float) -> void:
 
 # ── API ───────────────────────────────────────────────────────────────────────
 
-func fetch_and_spawn():
-	if companion_scene == null:
-		push_error("[BitzFarmSpawner] companion_scene is not set — assign a PackedScene (.tscn)")
-		return
-	if _http == null:
-		_http = HTTPRequest.new()
-		add_child(_http)
-		_http.request_completed.connect(_on_response)
-	if _http.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
-		_http.cancel_request()
-	print("[BitzFarmSpawner] Fetching %s" % api_url)
-	var err = _http.request(api_url)
-	if err != OK:
-		push_error("[BitzFarmSpawner] Failed to start request: %d" % err)
-
-func _on_response(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray):
-	if result != HTTPRequest.RESULT_SUCCESS:
-		push_error("[BitzFarmSpawner] Network error: %d" % result)
-		return
-	if response_code != 200:
-		push_error("[BitzFarmSpawner] HTTP %d" % response_code)
-		return
-
-	var json = JSON.new()
-	var parse_err = json.parse(body.get_string_from_utf8())
-	if parse_err != OK:
-		push_error("[BitzFarmSpawner] JSON parse error")
-		return
-
-	var data: Dictionary = json.get_data()
-
+func spawn_companions():
+	
 	for c in _spawned:
 		if is_instance_valid(c):
 			_pending_free.append(c)
+	
 	_spawned.clear()
 	_free_timer = FREE_DELAY
 	_spawn_queue.clear()
 
-	var seen: Dictionary = {}
-	for farm_name in data.keys():
-		var entries: Array = data[farm_name]
-		for entry in entries:
-			var qid := str(entry.get("quest_id", ""))
-			var sid := int(entry.get("species_id", 0))
+	var data = CompanionList.get_companions()
+	print(data)
+	
+	for quest_id in data.keys():
+		var image_numbers: Array = data[quest_id]
+		for image_number in image_numbers:
+			var qid := str(quest_id)
+			var sid := int(image_number)
 			var key := "%s:%d" % [qid, sid]
-			if seen.has(key):
-				print("[BitzFarmSpawner] Skipping duplicate %s" % key)
-				continue
-			seen[key] = true
+
 			_spawn_queue.append({
 				"quest_id":    qid,
-				"species_id":  sid,
-				"common_name": entry.get("common_name", "?"),
-				"farm_name":   farm_name,
+				"species_id":  sid
 			})
 
 	_total_expected = _spawn_queue.size()
-	print("[BitzFarmSpawner] Queued %d companions across %d farms" % [
+	print("[BitzFarmSpawner] Queued %d companions across %d quests" % [
 		_total_expected, data.keys().size()
 	])
 	_is_spawning = true
@@ -132,30 +97,42 @@ func _spawn_one(entry_data: Dictionary) -> void:
 	if target:
 		companion.target = target
 
-	var index  := _spawned.size()
-	var offset := _fibonacci_sphere_point(index, _total_expected) * spawn_radius
+	var index     := _spawned.size()
+	var ring_slot := _ring_for_index(index)
 
-	add_child(companion)
-	companion.global_position = global_position + offset
+	# Set orbit radius from ring before _ready() fires
+	var radius := ring_radii[ring_slot.x] if ring_slot.x < ring_radii.size() else ring_radii[-1]
+	companion.orbit_radius = radius
+
+	add_child(companion)  # _ready() fires here, reads orbit_radius
 	_spawned.append(companion)
 
-	print("[BitzFarmSpawner] + %s / species %d (%s)" % [
-		companion.quest_id,
-		companion.species_id,
-		entry_data["common_name"],
-	])
+# ── Layout ────────────────────────────────────────────────────────────────────
+
+func _ring_for_index(index: int) -> Vector2i:
+	var remaining := index
+	for ring in ring_capacities.size():
+		var capacity := ring_capacities[ring]
+		if remaining < capacity:
+			return Vector2i(ring, remaining)
+		remaining -= capacity
+	# Overflow: pack into last ring
+	var last := ring_capacities.size() - 1
+	return Vector2i(last, remaining % max(ring_capacities[last], 1))
+
+func _ring_point(ring: int, slot: int) -> Vector3:
+	var radius   := ring_radii[ring] if ring < ring_radii.size() else ring_radii[-1]
+	var capacity := ring_capacities[ring] if ring < ring_capacities.size() else ring_capacities[-1]
+	var golden_ratio := (1.0 + sqrt(5.0)) / 2.0
+	var theta        := acos(1.0 - 2.0 * (slot + 0.5) / max(capacity, 1))
+	var phi          := TAU * slot / golden_ratio
+	return Vector3(
+		sin(theta) * cos(phi) * radius,
+		cos(theta)            * radius,
+		sin(theta) * sin(phi) * radius
+	)
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
-
-func _fibonacci_sphere_point(index: int, total: int) -> Vector3:
-	var golden_ratio := (1.0 + sqrt(5.0)) / 2.0
-	var theta        := acos(1.0 - 2.0 * (index + 0.5) / max(total, 1))
-	var phi          := TAU * index / golden_ratio
-	return Vector3(
-		sin(theta) * cos(phi),
-		cos(theta),
-		sin(theta) * sin(phi)
-	)
 
 func _clear_spawned():
 	_spawn_queue.clear()
