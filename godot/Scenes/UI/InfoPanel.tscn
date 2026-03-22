@@ -70,6 +70,11 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="SidePanel/VBoxContainer" unique_id=923301670]
 layout_mode = 2
 
+[node name="LanguageButton" type="Button" parent="SidePanel/VBoxContainer/HBoxContainer" unique_id=1896985733]
+unique_name_in_owner = true
+layout_mode = 2
+text = " PT "
+
 [node name="SpeciesName" type="Label" parent="SidePanel/VBoxContainer/HBoxContainer" unique_id=482828297]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 60)
@@ -158,4 +163,5 @@ theme_override_font_sizes/font_size = 12
 text = "Oaks belong to the genus Quercus and are found across the Northern Hemisphere. They provide habitat and food for numerous species, including birds and mammals. Their acorns are a critical food source for various animals. The diverse arrangements of leaves and the impressive size are key characteristics of oaks, and some species can live for hundreds of years."
 autowrap_mode = 3
 
+[connection signal="pressed" from="SidePanel/VBoxContainer/HBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
 [connection signal="pressed" from="SidePanel/VBoxContainer/HBoxContainer/Button" to="." method="slide_out"]

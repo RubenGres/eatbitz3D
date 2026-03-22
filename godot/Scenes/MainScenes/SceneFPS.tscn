@@ -23,8 +23,12 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+expand_margin_top = 20.0
+expand_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_top = 20.0
+content_margin_bottom = 20.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 2
 border_width_top = 2
@@ -36,7 +40,7 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[node name="Scene360" type="Node3D" unique_id=1100453811]
+[node name="SceneFPS" type="Node3D" unique_id=1100453811]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=768111001]
 script = ExtResource("1_kaiwv")
@@ -74,6 +78,8 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_3vsn4")
 
 [node name="InfoPanel" parent="CanvasLayer" unique_id=1394758193 instance=ExtResource("1_88v5a")]
+offset_left = 1104.0
+offset_right = 1104.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer" unique_id=1797053631]
 own_world_3d = true
@@ -107,20 +113,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.58)
+color = Color(0, 0, 0, 0.7607843)
 
-[node name="CaptureButton" type="Button" parent="CanvasLayer/StartCaptureOverlay" unique_id=483066619]
-layout_mode = 0
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/StartCaptureOverlay" unique_id=303330120]
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = -38.0
-offset_right = 180.0
-offset_bottom = 38.0
+offset_left = -84.0
+offset_top = -20.0
+offset_right = 84.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StartCaptureOverlay/MarginContainer" unique_id=1183227743]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/StartCaptureOverlay/MarginContainer/VBoxContainer" unique_id=1183909980]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+bbcode_enabled = true
+text = "This interactive visualization was tailor made for Venn.
+
+It will allow you to explore the ingredients used in the your plate and the species that supported their growth.
+
+
+[b]Controls:[/b]
+Drag around to move the camera
+Click on a species to get more information"
+horizontal_alignment = 1
+
+[node name="CaptureButton" type="Button" parent="CanvasLayer/StartCaptureOverlay/MarginContainer/VBoxContainer" unique_id=483066619]
+unique_name_in_owner = true
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -128,7 +157,7 @@ theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "Click to explore"
+text = "Click here to explore"
 
 [node name="GlobalSpeciesView" parent="." unique_id=1836985689 node_paths=PackedStringArray("target") instance=ExtResource("1_hwu0x")]
 target = NodePath("../Basic FPS Player/Head")

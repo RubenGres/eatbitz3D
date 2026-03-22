@@ -8,7 +8,7 @@ extends CanvasLayer
 @onready var blur_background = $BlurBakground
 @onready var closeup = $ObjectCloseup
 @onready var start_capture_overlay = $StartCaptureOverlay
-@onready var capture_button: Button = $StartCaptureOverlay/CaptureButton
+@onready var capture_button: Button = %CaptureButton
 @onready var reticle = $Reticle
 
 const INSPECT_MAX_TILT_X_DEG := 15.0
@@ -25,10 +25,13 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	start_capture_overlay.visible = true
 
+	TranslationServer.set_locale("en")
+	
 func _on_capture_button_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	reticle.visible = true
 	start_capture_overlay.visible = false
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func _process(delta: float) -> void:
 	var closeup_rect = closeup.get_global_rect()

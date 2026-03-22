@@ -8,7 +8,6 @@ var _hovered_ingredient = null
 func _ready() -> void:
 	info_panel.opened.connect(_on_info_panel_opened)
 	info_panel.closed.connect(_on_info_panel_closed)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(_delta: float) -> void:
 	if raycast.is_colliding():

@@ -17,6 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="BITZ"
 run/main_scene="uid://b706tei6c7ce6"
 config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/image="uid://dcem6cphwx0nl"
 config/icon="res://icon.svg"
 
 [display]
@@ -31,6 +32,10 @@ movie_writer/movie_file="/home/ruben/Desktop/Screenshots/bitzone.png"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/Basic FPS Player/plugin.cfg", "res://addons/freecam_3D/plugin.cfg")
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://translations.en.translation", "res://translations.pt.translation")
 
 [rendering]
 

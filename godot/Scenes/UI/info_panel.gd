@@ -21,7 +21,10 @@ var _tween: Tween
 
 signal opened
 signal closed
+signal change_language(language: String)
 signal focused(object: Node3D)
+
+var current_language = "en"
 
 func _ready():
 	_api = BitzAPI.new()
@@ -50,7 +53,7 @@ func _on_image(qid: String, sid: int, texture: ImageTexture):
 	%TextureRect.texture = texture
 
 func set_manual(species_name: String, description: String, additional_info: String, texture: Texture2D = null):
-	%SpeciesName.text = species_name
+	%SpeciesName.text = species_name.split("(")[0]
 	%Description.text = description
 	%AdditionalInfo.text = additional_info
 	if texture:
@@ -95,3 +98,10 @@ func _reset():
 func _kill_tween():
 	if _tween and _tween.is_running():
 		_tween.kill()
+
+
+func _on_language_button_pressed() -> void:
+	current_language = "en" if current_language == "pt" else "pt"
+	%LanguageButton.text = "EN" if current_language == "pt" else "PT"
+	change_language.emit(current_language)
+	TranslationServer.set_locale(current_language)

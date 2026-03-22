@@ -38,18 +38,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4855537, 0, -2.213769)
 transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
 mesh = ExtResource("2_f221m")
 associated_card_texture = ExtResource("5_q0w6e")
-ingredient_name = "Acorn"
-ingredient_description = "The drought and fire resistant oak teaches that resilience is adaptive, patient, and shared. In the centuries old Montado of the Alentejo, holm oaks rise above grazing lands in  negotiated balance with animals and human care. Here, resilience is not individual permanence but collective continuity. Most acorns never become trees; they nourish birds, insects, fungi, and mammalsinstead. What might change if you stopped trying to become the tree and began nourishing the forest?"
+ingredient_name = "ACORN_NAME"
+ingredient_description = "ACORN_DESC"
 
 [node name="Node3D3" type="Node3D" parent="Ingredients" unique_id=274066767]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.994214, 0, 3.1845527)
 
-[node name="Mushroom" parent="Ingredients/Node3D3" unique_id=218090739 instance=ExtResource("1_lurwc")]
+[node name="Chantarelle" parent="Ingredients/Node3D3" unique_id=218090739 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0.3255825, 0, 0.37209487)
 mesh = ExtResource("4_w6870")
 associated_card_texture = ExtResource("7_6vmuk")
-ingredient_name = "Chantarelle"
-ingredient_description = "Chanterelles rise only where forests are healthy. They weave invisible partnerships with oak and pine roots, exchanging sugars for minerals in quiet reciprocity. You cannot force them; they appear when conditions align. Chanterelle reminds you that some rewards are signs of balance, not effort alone. Visible abundance often reflects invisible reciprocity. Instead of chasing fruiting moments, tend the network. Where in your life is visible abundance revealing invisible cooperation?"
+ingredient_name = "CHANTERELLE_NAME"
+ingredient_description = "CHANTERELLE_DESC"
 
 [node name="Marcelo" type="Node3D" parent="Ingredients" unique_id=1650134456]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.504182, 0, 4.3502674)
@@ -58,52 +58,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.504182, 0, 4.3502674)
 transform = Transform3D(1.314639, 0.7797467, 0.33607224, -0.8489243, 1.1949035, 0.5484141, 0.016645433, -0.6429817, 1.4267173, -1.1996924, 2.2683182, -0.5693507)
 mesh = ExtResource("7_q0w6e")
 associated_card_texture = ExtResource("7_r4ri1")
-ingredient_name = "Fava"
-ingredient_description = "Favas may seem ordinary, butunderground they are alchemistscreating soil fertility for all. Theygrow thick and upright, theirroots collaborating with bacteriato fix nitrogen from air into soil. Favas prepare ground for futureharvests, often rotating with grains in traditional Iberian fields. Your work may be preparatory, not final. The fertility you build mightsupport someone else’s flowering.What work would you still do if you never got recognition for it?"
+ingredient_name = "FAVA_NAME"
+ingredient_description = "FAVA_DESC"
 
 [node name="Fava2" parent="Ingredients/Marcelo" unique_id=1556465291 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.314639, 0.7797467, 0.33607224, -0.8489243, 1.1949035, 0.5484141, 0.016645433, -0.6429817, 1.4267173, -0.75782835, -2.7109885, -6.499616)
 mesh = ExtResource("7_q0w6e")
 associated_card_texture = ExtResource("7_r4ri1")
-ingredient_name = "Fava"
-ingredient_description = "Favas may seem ordinary, butunderground they are alchemistscreating soil fertility for all. Theygrow thick and upright, theirroots collaborating with bacteriato fix nitrogen from air into soil. Favas prepare ground for futureharvests, often rotating with grains in traditional Iberian fields. Your work may be preparatory, not final. The fertility you build mightsupport someone else’s flowering.What work would you still do if you never got recognition for it?"
+ingredient_name = "FAVA_NAME"
+ingredient_description = "FAVA_DESC"
 
 [node name="Elder" parent="Ingredients/Marcelo" unique_id=264913679 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 1.3852893, 0.27685487, -0.8542905)
 mesh = ExtResource("6_njbcq")
 associated_card_texture = ExtResource("9_njbcq")
-ingredient_name = "Elderflower"
-ingredient_description = "The elder stands at woodland edges as a guardian of thresholds. Across Portugal’s agricultural landscapes, this shrub often marks the boundary between managed fields and wild growth. Its blossoms feed
-insects; its berries feed birds; its hollow stems house small creatures within. In European folklore, elder was respected as protective and regenerative. Ecologically, it thrives where disturbance opens space.
-You may be called to stand at edges: between systems, communities, or phases. What threshold are you standing upon and hesitating to cross?"
+ingredient_name = "ELDERFLOWER_NAME"
+ingredient_description = "ELDERFLOWER_DESC"
 
 [node name="Borage" parent="Ingredients/Marcelo" unique_id=1700528893 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.0451626, 1.1109483, -0.35021892, -1.1192973, 1.088118, 0.11134494, 0.32254192, 0.17611858, 1.5212406, -4.267228, 2.3319333, -3.9147537)
 mesh = ExtResource("12_td3hn")
 associated_card_texture = ExtResource("13_xwjth")
-ingredient_name = "Borage"
-ingredient_description = "Borage blooms in blue constellations, calling bees when nectar elsewhere wanes. Planted between crops onregenerative farms, it lifts minerals to the surface, quietly nourishing those nearby. Once carried by soldiers for courage, borage now teachesecological bravery, inviting you to become a living support system, one who enriches your surroundings simply by being present. When youoffer nourishment (time, attention, presence), ecosystems reorganize around you. How does what you support, in turn, sustain you?"
+ingredient_name = "BORAGE_NAME"
+ingredient_description = "BORAGE_DESC"
 
 [node name="Fig" parent="Ingredients/Marcelo" unique_id=741763768 instance=ExtResource("1_lurwc")]
 transform = Transform3D(2, 0, 0, 0, 1.93168, -0.5182786, 0, 0.5182786, 1.93168, -1.8635082, -1.6976274, -0.18603659)
 mesh = ExtResource("9_r4ri1")
 associated_card_texture = ExtResource("11_q0w6e")
-ingredient_name = "Fig"
-ingredient_description = "The fig represents embodied
-partnership. It ripens in sweetness
-because of a nearly invisible ally:
-the fig wasp. The wasp enters
-the enclosed flower to pollinate
-the fig and lay her eggs, completing
-an ancient exchange. In northern
-Portugal, fig trees thrive in heat
-and poor soils, storing sugars
-patiently through long summers,
-feeding birds and people alike.
-Your abundance, too, rests on
-quiet collaborations. What unseen
-partnerships are shaping your
-becoming?"
+ingredient_name = "FIG_NAME"
+ingredient_description = "FIG_DESC"
 
 [node name="H2Douro" type="Node3D" parent="Ingredients" unique_id=359356265]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.881997, 0, 0.38501394)
@@ -111,8 +95,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.881997, 0, 0.38501394)
 [node name="PurpleBasil" parent="Ingredients/H2Douro" unique_id=1323484318 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, -1.20576, -1.9424493, 0.4825511)
 associated_card_texture = ExtResource("14_whepr")
-ingredient_name = "Purple Basil"
-ingredient_description = "Purple basil is a bridge between cultivated and wild species. It carries color as protection. Anthocyanins shield it from stress, while aromatic oils deter pests and invite pollinators when it flowers. Long associated with devotion and ritual, purple basil teaches that boundaries and invitations can coexist. What are you attracting, what are you repelling, and are those choices aligned with the ecosystem you wish to belong to?"
+ingredient_name = "PURPLE_BASIL_NAME"
+ingredient_description = "PURPLE_BASIL_DESC"
 
 [node name="Node3D" type="Node3D" parent="Ingredients" unique_id=414965709]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.627923, 0, -0.6819413)
@@ -130,16 +114,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8923211, 0, -4.3799877)
 transform = Transform3D(0.29532456, 0, 0.955397, 0, 1, 0, -0.955397, 0, 0.29532456, -0.09364796, 0.52795637, 0.8400936)
 mesh = ExtResource("10_whepr")
 associated_card_texture = ExtResource("14_6vmuk")
-ingredient_name = "Pennywort"
-ingredient_description = "Pennywort creeps gently across shaded ground, stone walls and rocky crevices, thriving in marginal habitats. It stores water in its round leaves like small green cups. Pennywort knits soil together, preventing erosion and holding water for insects, microbes, and neighboring plants. When you feel rooted in unlikely places, remember that adaptation is your gift. You may not need ideal conditions, only access to a fissure. What small opening could sustain you if you stopped waiting for perfect ground?"
+ingredient_name = "PENNYWORT_NAME"
+ingredient_description = "PENNYWORT_DESC"
 
 [node name="Dandelion" parent="Ingredients/FormigaGloriosa" unique_id=404686697 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.5649999, 0, 0, 0, 1.2241694, 0.9750047, 0, -0.9750047, 1.2241694, -0.37209606, -1.9881263, 1.0087218)
 mesh = ExtResource("5_bneni")
 associated_card_texture = ExtResource("14_uyet1")
-ingredient_name = "Dandelion"
-ingredient_description = "Dandelions do not wait for approval. Their taproots drill through compacted ground; their flowers feed early pollinators; their seeds travel without apology. Lawn-owners resent them, yet ecosystems require them. Like the dandelion, your persistence may irritate systems invested in uniformity. But in some cases,
-disturbance is not chaos - it is aeration. When will the strength you store below the surface become the force that transforms your environment? "
+ingredient_name = "DANDELION_NAME"
+ingredient_description = "DANDELION_DESC"
 
 [node name="Companions" type="Node3D" parent="." unique_id=664059679 node_paths=PackedStringArray("target")]
 script = ExtResource("21_tujy0")
