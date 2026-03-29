@@ -19,9 +19,9 @@ image = SubResource("Image_ira5k")
 radius = 32.0
 
 [node name="PointCloudFromBitz" type="Node3D" unique_id=1051864477]
-visible = false
+transform = Transform3D(0.0001, 0, 0, 0, 0.0001, 0, 0, 0, 0.0001, 0, 0, 0)
 script = ExtResource("1_xjuyy")
-phase_offset = 2.333954577570715
+phase_offset = 4.098831868891093
 sleep_time = 0.1
 
 [node name="ParticlesTest" parent="." unique_id=1420749202 instance=ExtResource("4_xjuyy")]

@@ -24,6 +24,14 @@ var _prev_mouse_mode: Input.MouseMode
 var _prev_reticle_visible: bool
 var _portrait := false
 var _touch_device := false
+var _exploring := false
+var _edge_overlay: ColorRect
+var _edge_material: ShaderMaterial
+var _smooth_edge_dir := Vector2.ZERO
+var _smooth_edge_intensity := 0.0
+
+var _cursor_texture = preload("res://Assets/Particles/halo_small.png")
+var _edge_shader = preload("res://Shaders/edge_rotation.gdshader")
 
 const INSPECT_MAX_TILT_X_DEG := 15.0
 const INSPECT_MAX_TILT_Y_DEG := 15.0
@@ -34,9 +42,10 @@ func _ready() -> void:
 
 	info_panel.focused.connect(_on_node_focused)
 	info_panel.closed.connect(_on_closed)
+	info_panel.opened.connect(_on_info_panel_opened)
 	explore_button.pressed.connect(_on_explore_button_pressed)
 	credits_button.pressed.connect(_on_credits_button_pressed)
-	back_button.pressed.connect(_on_back_button_pressed)
+	#back_button.pressed.connect(_on_back_button_pressed)
 	credits_backdrop.gui_input.connect(_on_credits_backdrop_input)
 	blur_background.visible = false
 	closeup.visible = false
@@ -45,6 +54,7 @@ func _ready() -> void:
 	welcome_overlay.visible = true
 
 	TranslationServer.set_locale("en")
+	_setup_edge_overlay()
 
 	if _touch_device:
 		explore_button.text = "Tap here to explore"
@@ -54,11 +64,12 @@ func _ready() -> void:
 	_update_layout.call_deferred()
 
 func _on_explore_button_pressed() -> void:
+	_exploring = true
 	if not _touch_device:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		_enter_explore_mode()
 	else:
 		_fps_player.set_gyro_active(true)
-	reticle.visible = true
+	reticle.visible = false
 	welcome_overlay.visible = false
 
 func _update_layout() -> void:
@@ -142,7 +153,53 @@ func _update_welcome_layout(vp_size: Vector2) -> void:
 		credits_panel.offset_right = pw
 		credits_panel.offset_bottom = ph
 
+func _setup_edge_overlay() -> void:
+	_edge_material = ShaderMaterial.new()
+	_edge_material.shader = _edge_shader
+	_edge_overlay = ColorRect.new()
+	_edge_overlay.material = _edge_material
+	_edge_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_edge_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_edge_overlay.color = Color.WHITE
+	_edge_overlay.visible = false
+	add_child(_edge_overlay)
+	move_child(_edge_overlay, 0)
+
+func _set_custom_cursor() -> void:
+	var hotspot = _cursor_texture.get_size() / 2.0
+	Input.set_custom_mouse_cursor(_cursor_texture, Input.CURSOR_ARROW, hotspot)
+
+func _enter_explore_mode() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	_set_custom_cursor()
+	_fps_player.set_edge_rotation_active(true)
+	_edge_overlay.visible = true
+
+func _exit_explore_mode() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_custom_mouse_cursor(null)
+	_fps_player.set_edge_rotation_active(false)
+	_edge_overlay.visible = false
+	_smooth_edge_dir = Vector2.ZERO
+	_smooth_edge_intensity = 0.0
+
+func _on_info_panel_opened() -> void:
+	if _exploring and not _touch_device:
+		_exit_explore_mode()
+
+func _update_edge_overlay(delta: float) -> void:
+	if not _edge_overlay.visible:
+		return
+	var target_dir = _fps_player.edge_direction
+	var target_int = _fps_player.edge_intensity
+	_smooth_edge_dir = _smooth_edge_dir.lerp(target_dir, clamp(delta * 10.0, 0.0, 1.0))
+	_smooth_edge_intensity = lerpf(_smooth_edge_intensity, target_int, clamp(delta * 10.0, 0.0, 1.0))
+	_edge_material.set_shader_parameter("edge_input", _smooth_edge_dir)
+	_edge_material.set_shader_parameter("intensity", _smooth_edge_intensity)
+
 func _process(delta: float) -> void:
+	_update_edge_overlay(delta)
+
 	var closeup_rect = closeup.get_global_rect()
 	var mouse_pos := get_viewport().get_mouse_position()
 	var is_hovering_closeup = closeup.visible and closeup_rect.has_point(mouse_pos)
@@ -171,28 +228,31 @@ func _process(delta: float) -> void:
 	inspect_node_parent.global_transform.basis = Basis(next_quat)
 
 func _on_node_focused(object: Node3D):
+	if not object:
+		return
+
 	for child in object3D_parent.get_children():
 		child.queue_free()
 
 	for child in particle_parent.get_children():
 		child.queue_free()
 
-	var duplicate = object.duplicate()
+	var duplicated_object = object.duplicate()
 
-	if duplicate is BitzCompanion:
-		object3D_parent.add_child(duplicate)
-		duplicate.billboard_camera = false
-		duplicate.lifetime = 99999
-		duplicate.texture_res = "large"
-		duplicate._fetch()
+	if duplicated_object is BitzCompanion:
+		object3D_parent.add_child(duplicated_object)
+		duplicated_object.billboard_camera = false
+		duplicated_object.lifetime = 99999
+		duplicated_object.texture_res = "large"
+		duplicated_object._fetch()
 	else:
-		particle_parent.add_child(duplicate)
+		particle_parent.add_child(duplicated_object)
 
-	duplicate.position = Vector3.ZERO
-	duplicate.scale = Vector3.ONE
-	duplicate.rotation = Vector3.ZERO
-	duplicate.target = null
-	duplicate.is_highlighted = false
+	duplicated_object.position = Vector3.ZERO
+	duplicated_object.scale = Vector3.ONE
+	duplicated_object.rotation = Vector3.ZERO
+	duplicated_object.target = null
+	duplicated_object.is_highlighted = false
 
 	blur_background.visible = true
 	closeup.visible = true
@@ -200,10 +260,14 @@ func _on_node_focused(object: Node3D):
 func _on_closed():
 	blur_background.visible = false
 	closeup.visible = false
+	if _exploring and not _touch_device:
+		_enter_explore_mode()
 
 func _on_credits_button_pressed() -> void:
 	_prev_mouse_mode = Input.get_mouse_mode()
 	_prev_reticle_visible = reticle.visible
+	if _exploring and not _touch_device:
+		_exit_explore_mode()
 	credits_overlay.visible = true
 	credits_button.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -219,6 +283,8 @@ func _on_back_button_pressed() -> void:
 func _close_credits() -> void:
 	credits_overlay.visible = false
 	credits_button.visible = true
-	if not _touch_device:
+	if _exploring and not _touch_device:
+		_enter_explore_mode()
+	elif not _touch_device:
 		Input.set_mouse_mode(_prev_mouse_mode)
 	reticle.visible = _prev_reticle_visible

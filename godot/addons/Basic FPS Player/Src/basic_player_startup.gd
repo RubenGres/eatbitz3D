@@ -59,6 +59,10 @@ func _enter_tree():
 @export var UPDATE_PLAYER_ON_PHYS_STEP := true	# When check player is moved and rotated in _physics_process (fixed fps)
 												# Otherwise player is updated in _process (uncapped)
 
+@export_category("Edge Rotation")
+@export var EDGE_ZONE := 0.15
+@export var EDGE_ROTATION_SPEED := 1.0
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 # To keep track of current speed and acceleration
@@ -72,6 +76,10 @@ var rotation_target_head : float
 var drag_look_active := false
 var _touch_device := false
 var _gyro_active := false
+
+var edge_rotation_active := false
+var edge_direction := Vector2.ZERO
+var edge_intensity := 0.0
 
 # Used when bobing head
 var head_start_pos : Vector3
@@ -104,6 +112,8 @@ func _physics_process(delta):
 func _process(delta):
 	if Engine.is_editor_hint():
 		return
+	if edge_rotation_active:
+		_apply_edge_rotation(delta)
 
 func _input(event):
 	if Engine.is_editor_hint():
@@ -115,6 +125,9 @@ func _input(event):
 
 	if event is InputEventScreenDrag:
 		set_rotation_target(event.relative)
+		return
+
+	if edge_rotation_active:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -153,6 +166,50 @@ func _apply_gyroscope(delta: float) -> void:
 	# gyro.y = yaw rate (turn left/right), gyro.x = pitch rate (look up/down)
 	rotation_target_player -= gyro.y * GYRO_SENSITIVITY * delta
 	rotation_target_head += gyro.x * GYRO_SENSITIVITY * delta
+
+	if CLAMP_HEAD_ROTATION:
+		rotation_target_head = clamp(
+			rotation_target_head,
+			deg_to_rad(CLAMP_HEAD_ROTATION_MIN),
+			deg_to_rad(CLAMP_HEAD_ROTATION_MAX)
+		)
+
+func set_edge_rotation_active(active: bool) -> void:
+	edge_rotation_active = active
+	if not active:
+		edge_direction = Vector2.ZERO
+		edge_intensity = 0.0
+		drag_look_active = false
+
+func _apply_edge_rotation(delta: float) -> void:
+	var vp = get_viewport()
+	var mouse_pos = vp.get_mouse_position()
+	var vp_size = vp.get_visible_rect().size
+	if vp_size.x <= 0.0 or vp_size.y <= 0.0:
+		edge_direction = Vector2.ZERO
+		edge_intensity = 0.0
+		return
+
+	var norm_x = mouse_pos.x / vp_size.x
+	var norm_y = mouse_pos.y / vp_size.y
+	var ex := 0.0
+	var ey := 0.0
+
+	if norm_x < EDGE_ZONE:
+		ex = -smoothstep(EDGE_ZONE, 0.0, norm_x)
+	elif norm_x > 1.0 - EDGE_ZONE:
+		ex = smoothstep(1.0 - EDGE_ZONE, 1.0, norm_x)
+
+	if norm_y < EDGE_ZONE:
+		ey = -smoothstep(EDGE_ZONE, 0.0, norm_y)
+	elif norm_y > 1.0 - EDGE_ZONE:
+		ey = smoothstep(1.0 - EDGE_ZONE, 1.0, norm_y)
+
+	edge_direction = Vector2(ex, ey)
+	edge_intensity = clamp(edge_direction.length(), 0.0, 1.0)
+
+	rotation_target_player += -ex * EDGE_ROTATION_SPEED * delta
+	rotation_target_head += -ey * EDGE_ROTATION_SPEED * delta
 
 	if CLAMP_HEAD_ROTATION:
 		rotation_target_head = clamp(

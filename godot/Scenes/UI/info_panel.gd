@@ -26,10 +26,19 @@ signal focused(object: Node3D)
 
 var current_language = "en"
 
+var portrait_mode: bool = false:
+	set(value):
+		if portrait_mode == value:
+			return
+		portrait_mode = value
+		if is_node_ready():
+			_apply_layout()
+
 func _ready():
 	_api = BitzAPI.new()
 	add_child(_api)
-	position.x = get_viewport_rect().size.x
+	_apply_layout()
+	_move_offscreen()
 	_api.species_data_loaded.connect(_on_species_data)
 	_api.image_loaded.connect(_on_image)
 
@@ -76,18 +85,63 @@ func focus_on(object: Node3D):
 	
 	focused.emit(object)
 
+func _move_offscreen():
+	if portrait_mode:
+		position.y = get_viewport_rect().size.y
+		position.x = 0
+	else:
+		position.x = get_viewport_rect().size.x
+		position.y = 0
+
+func _apply_layout():
+	var side_panel = $SidePanel
+	var separator = $SidePanel/VSeparator
+
+	if portrait_mode:
+		separator.visible = false
+		side_panel.anchor_left = 0.0
+		side_panel.anchor_top = 0.4
+		side_panel.anchor_right = 1.0
+		side_panel.anchor_bottom = 1.0
+		side_panel.offset_left = 0
+		side_panel.offset_top = 0
+		side_panel.offset_right = 0
+		side_panel.offset_bottom = 0
+	else:
+		separator.visible = true
+		side_panel.anchor_left = 1.0
+		side_panel.anchor_top = 0.0
+		side_panel.anchor_right = 1.0
+		side_panel.anchor_bottom = 1.0
+		side_panel.offset_left = -336.0
+		side_panel.offset_top = 0
+		side_panel.offset_right = 0
+		side_panel.offset_bottom = 0
+
+	_move_offscreen()
+
 func slide_in():
 	_kill_tween()
 	$SidePanel/VBoxContainer/ScrollContainer.scroll_vertical = 0
 	_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	_tween.tween_property(self, "position:x", get_viewport_rect().size.x - size.x, slide_duration)
-	
+
+	if portrait_mode:
+		var vp_h = get_viewport_rect().size.y
+		_tween.tween_property(self, "position:y", vp_h - size.y, slide_duration)
+	else:
+		_tween.tween_property(self, "position:x", get_viewport_rect().size.x - size.x, slide_duration)
+
 	opened.emit()
 
 func slide_out():
 	_kill_tween()
 	_tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	_tween.tween_property(self, "position:x", get_viewport_rect().size.x, slide_duration)
+
+	if portrait_mode:
+		_tween.tween_property(self, "position:y", get_viewport_rect().size.y, slide_duration)
+	else:
+		_tween.tween_property(self, "position:x", get_viewport_rect().size.x, slide_duration)
+
 	_tween.tween_callback(_reset)
 	closed.emit()
 
