@@ -156,7 +156,8 @@ func rotate_player(delta):
 		$Head.quaternion = Quaternion(Vector3.RIGHT, rotation_target_head)
 
 func set_gyro_active(active: bool) -> void:
-	_gyro_active = active and _touch_device and GYRO_ENABLED
+	_gyro_active = true
+	#active and _touch_device and GYRO_ENABLED
 
 func _apply_gyroscope(delta: float) -> void:
 	var gyro := Input.get_gyroscope()
