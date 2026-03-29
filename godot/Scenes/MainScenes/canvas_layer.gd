@@ -14,15 +14,23 @@ extends CanvasLayer
 @onready var credits_overlay: Control = $WelcomeOverlay/CreditsOverlay
 @onready var credits_backdrop: ColorRect = $WelcomeOverlay/CreditsOverlay/Backdrop
 @onready var back_button: Button = %BackButton
+@onready var sub_viewport: SubViewport = $SubViewport
+@onready var welcome_margin: MarginContainer = $WelcomeOverlay/MarginContainer
+@onready var credits_panel: PanelContainer = $WelcomeOverlay/CreditsOverlay/PanelContainer
+@onready var controls_label: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel3
 
 var _prev_mouse_mode: Input.MouseMode
 var _prev_reticle_visible: bool
+var _portrait := false
+var _touch_device := false
 
 const INSPECT_MAX_TILT_X_DEG := 15.0
 const INSPECT_MAX_TILT_Y_DEG := 15.0
 const INSPECT_TILT_SMOOTH_SPEED := 6.0
 
 func _ready() -> void:
+	_touch_device = DisplayServer.is_touchscreen_available()
+
 	info_panel.focused.connect(_on_node_focused)
 	info_panel.closed.connect(_on_closed)
 	explore_button.pressed.connect(_on_explore_button_pressed)
@@ -36,12 +44,100 @@ func _ready() -> void:
 	welcome_overlay.visible = true
 
 	TranslationServer.set_locale("en")
-	
+
+	if _touch_device:
+		explore_button.text = "Tap here to explore"
+		controls_label.text = "\n[b]Controls:[/b]\nDrag to look around\nTap on a species to learn more"
+
+	get_viewport().size_changed.connect(_update_layout)
+	_update_layout.call_deferred()
+
 func _on_explore_button_pressed() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if not _touch_device:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	reticle.visible = true
 	welcome_overlay.visible = false
-	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+func _update_layout() -> void:
+	var vp_size = get_viewport().get_visible_rect().size
+	var new_portrait = vp_size.y > vp_size.x
+
+	if new_portrait != _portrait:
+		_portrait = new_portrait
+		blur_background.visible = false
+		closeup.visible = false
+		info_panel.portrait_mode = _portrait
+
+	_update_inspection_layout(vp_size)
+	_update_welcome_layout(vp_size)
+
+func _update_inspection_layout(vp_size: Vector2) -> void:
+	if _portrait:
+		closeup.anchor_left = 0.0
+		closeup.anchor_top = 0.0
+		closeup.anchor_right = 1.0
+		closeup.anchor_bottom = 0.4
+		closeup.offset_left = 0
+		closeup.offset_top = 0
+		closeup.offset_right = 0
+		closeup.offset_bottom = 0
+		sub_viewport.size = Vector2i(int(vp_size.x), int(vp_size.y * 0.4))
+	else:
+		var closeup_width := min(813.0, vp_size.x * 0.6)
+		closeup.anchor_left = 0.0
+		closeup.anchor_top = 0.0
+		closeup.anchor_right = 0.0
+		closeup.anchor_bottom = 1.0
+		closeup.offset_left = 0
+		closeup.offset_top = 0
+		closeup.offset_right = closeup_width
+		closeup.offset_bottom = 0
+		sub_viewport.size = Vector2i(int(closeup_width), int(vp_size.y))
+
+func _update_welcome_layout(vp_size: Vector2) -> void:
+	var margin_h: float
+	var margin_v_top: float
+	var margin_v_bottom: float
+
+	if _portrait:
+		margin_h = vp_size.x * 0.05
+		margin_v_top = vp_size.y * 0.03
+		margin_v_bottom = vp_size.y * 0.10
+	else:
+		var max_content_width := 900.0
+		margin_h = max((vp_size.x - max_content_width) / 2.0, vp_size.x * 0.05)
+		margin_v_top = vp_size.y * 0.05
+		margin_v_bottom = vp_size.y * 0.10
+
+	welcome_margin.anchor_left = 0.0
+	welcome_margin.anchor_top = 0.0
+	welcome_margin.anchor_right = 1.0
+	welcome_margin.anchor_bottom = 1.0
+	welcome_margin.offset_left = margin_h
+	welcome_margin.offset_top = margin_v_top
+	welcome_margin.offset_right = -margin_h
+	welcome_margin.offset_bottom = -margin_v_bottom
+
+	if _portrait:
+		credits_panel.anchor_left = 0.0
+		credits_panel.anchor_top = 0.0
+		credits_panel.anchor_right = 1.0
+		credits_panel.anchor_bottom = 1.0
+		credits_panel.offset_left = vp_size.x * 0.03
+		credits_panel.offset_top = vp_size.y * 0.03
+		credits_panel.offset_right = -vp_size.x * 0.03
+		credits_panel.offset_bottom = -vp_size.y * 0.05
+	else:
+		var pw := min(380.0, vp_size.x * 0.4)
+		var ph := min(320.0, vp_size.y * 0.45)
+		credits_panel.anchor_left = 0.5
+		credits_panel.anchor_top = 0.5
+		credits_panel.anchor_right = 0.5
+		credits_panel.anchor_bottom = 0.5
+		credits_panel.offset_left = -pw
+		credits_panel.offset_top = -ph
+		credits_panel.offset_right = pw
+		credits_panel.offset_bottom = ph
 
 func _process(delta: float) -> void:
 	var closeup_rect = closeup.get_global_rect()
@@ -70,23 +166,23 @@ func _process(delta: float) -> void:
 	var blend = clamp(delta * INSPECT_TILT_SMOOTH_SPEED, 0.0, 1.0)
 	var next_quat := current_quat.slerp(target_quat, blend)
 	inspect_node_parent.global_transform.basis = Basis(next_quat)
-	
+
 func _on_node_focused(object: Node3D):
 	for child in object3D_parent.get_children():
 		child.queue_free()
-		
+
 	for child in particle_parent.get_children():
 		child.queue_free()
-	
+
 	var duplicate = object.duplicate()
-	
+
 	if duplicate is BitzCompanion:
 		object3D_parent.add_child(duplicate)
 		duplicate.billboard_camera = false
 		duplicate.lifetime = 99999
 	else:
 		particle_parent.add_child(duplicate)
-		
+
 	duplicate.position = Vector3.ZERO
 	duplicate.scale = Vector3.ONE
 	duplicate.rotation = Vector3.ZERO
@@ -95,7 +191,7 @@ func _on_node_focused(object: Node3D):
 
 	blur_background.visible = true
 	closeup.visible = true
-	
+
 func _on_closed():
 	blur_background.visible = false
 	closeup.visible = false
@@ -118,5 +214,6 @@ func _on_back_button_pressed() -> void:
 func _close_credits() -> void:
 	credits_overlay.visible = false
 	credits_button.visible = true
-	Input.set_mouse_mode(_prev_mouse_mode)
+	if not _touch_device:
+		Input.set_mouse_mode(_prev_mouse_mode)
 	reticle.visible = _prev_reticle_visible
