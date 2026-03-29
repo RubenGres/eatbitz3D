@@ -32,7 +32,6 @@ const MOUSE_SENSITIVITY := 0.002
 var movement_active := true:
 	set(val):
 		movement_active = val
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if movement_active else Input.MOUSE_MODE_VISIBLE)
 		display_message("[Movement ON]" if movement_active else "[Movement OFF]")
 
 ## The current maximum speed. Lower or higher it by scrolling the mouse wheel.

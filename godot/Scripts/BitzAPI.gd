@@ -61,6 +61,7 @@ func _on_json_received(result: int, response_code: int, headers: PackedStringArr
 		return
 	var entry = history[sid]
 	var assistant_raw = entry.get("assistant", "{}")
+	print("assistant_raw:", assistant_raw)
 	var parsed = _fixup_string(assistant_raw)
 	if parsed == null:
 		parsed = {}
@@ -75,6 +76,10 @@ func _cleanup_request(key: String) -> void:
 		_pending_requests.erase(key)
 
 func _fixup_string(assistant_data: String) -> Variant:
+	var inner = JSON.new()
+	if inner.parse(assistant_data) == OK:
+		return inner.data
+
 	var fixed = ""
 	for i in assistant_data.length():
 		var c = assistant_data[i]
@@ -87,7 +92,6 @@ func _fixup_string(assistant_data: String) -> Variant:
 				fixed += "\""
 		else:
 			fixed += c
-	var inner = JSON.new()
 	var parse_err = inner.parse(fixed)
 	if parse_err != OK:
 		push_error("BitzAPI: Failed to parse fixup string: %s" % inner.get_error_message())

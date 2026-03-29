@@ -18,9 +18,6 @@ func _enter_tree():
 ## PLAYER MOVMENT SCRIPT ##
 ###########################
 
-@export_category("Mouse Capture")
-@export var CAPTURE_ON_START := true
-
 @export_category("Movement")
 @export_subgroup("Settings")
 @export var SPEED := 5.0
@@ -93,9 +90,6 @@ func _ready():
 
 	_touch_device = DisplayServer.is_touchscreen_available()
 
-	if CAPTURE_ON_START:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 	head_start_pos = $Head.position
 
 func _physics_process(delta):
@@ -135,8 +129,7 @@ func _input(event):
 		return
 
 	if event is InputEventMouseMotion:
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED or drag_look_active:
-			set_rotation_target(event.relative)
+		set_rotation_target(event.relative)
 
 func set_rotation_target(mouse_motion : Vector2):
 	# Add player target to the mouse -x input

@@ -12,25 +12,11 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_3vsn4"]
 viewport_path = NodePath("CanvasLayer/SubViewport")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
-bg_color = Color(0, 0, 0, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3vsn4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-bg_color = Color(1, 1, 1, 1)
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kaiwv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_425xl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vsn4"]
 bg_color = Color(0, 0, 0, 0.92)
@@ -84,6 +70,26 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0, 0, 0, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="SceneFPS" type="Node3D" unique_id=1100453811]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=768111001]
@@ -101,7 +107,7 @@ offset_right = 13.0
 offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 mouse_filter = 2
 texture = ExtResource("2_vjbrx")
 
@@ -159,9 +165,15 @@ color = Color(0, 0, 0, 0.7607843)
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/WelcomeOverlay" unique_id=303330120]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -293.5
+offset_right = 450.0
+offset_bottom = 293.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -199,21 +211,28 @@ text = "EAT.BITZ was created by Bernat Cuni, Ruben Gres, and Genomic Gastronomy
 in partnership with Venn Canteen and with support from ST3ER."
 horizontal_alignment = 1
 
+[node name="RichTextLabel4" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=1718489252]
+custom_minimum_size = Vector2(10, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Click anywhere to start exploring"
+horizontal_alignment = 1
+
 [node name="ExploreButton" type="Button" parent="CanvasLayer/WelcomeOverlay" unique_id=483066619]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 400.0
-offset_top = 539.0
-offset_right = 747.0
-offset_bottom = 604.0
+offset_left = -15.0
+offset_top = -14.0
+offset_right = 1162.0
+offset_bottom = 657.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 22
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "Click here to explore"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3vsn4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kaiwv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_425xl")
 
 [node name="CreditsButton" type="Button" parent="CanvasLayer/WelcomeOverlay" unique_id=48748897]
 unique_name_in_owner = true
@@ -326,10 +345,7 @@ target = NodePath("../Basic FPS Player/Head")
 
 [node name="Basic FPS Player" type="CharacterBody3D" parent="." unique_id=1376736277]
 script = ExtResource("2_dvg24")
-CAPTURE_ON_START = false
 KEY_BIND_MOUSE_SENS = 0.001
-EDGE_ZONE = null
-EDGE_ROTATION_SPEED = null
 metadata/_custom_type_script = "uid://dhj6ffyjtg1lv"
 
 [node name="Head" parent="Basic FPS Player" unique_id=1320691815 instance=ExtResource("3_88v5a")]

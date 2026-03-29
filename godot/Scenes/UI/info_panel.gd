@@ -55,9 +55,10 @@ func _request_data():
 	slide_in()
 
 func _on_species_data(qid: String, sid: int, species_info: Dictionary):
+	print("[InfoPanel] species info loaded: ", species_info)
 	if qid != quest_id or sid != species_id:
 		return
-	%SpeciesName.text = species_info.get("name", "Unknown")
+	%SpeciesName.text = species_info.get("name", "Unknown").split("(")[0].split("/")[0]
 	%Description.text = species_info.get("what_is_it", "")
 	%AdditionalInfo.text = species_info.get("information", "")
 
@@ -67,7 +68,7 @@ func _on_image(qid: String, sid: int, texture: ImageTexture):
 	%TextureRect.texture = texture
 
 func set_manual(species_name: String, description: String, additional_info: String, texture: Texture2D = null):
-	%SpeciesName.text = species_name.split("(")[0]
+	%SpeciesName.text = species_name.split("(")[0].split("/")[0]
 	%Description.text = description
 	%AdditionalInfo.text = additional_info
 	if texture:

@@ -20,7 +20,6 @@ extends CanvasLayer
 @onready var controls_label: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel3
 @onready var _fps_player = $"../Basic FPS Player"
 
-var _prev_mouse_mode: Input.MouseMode
 var _prev_reticle_visible: bool
 var _portrait := false
 var _touch_device := false
@@ -50,7 +49,6 @@ func _ready() -> void:
 	blur_background.visible = false
 	closeup.visible = false
 	reticle.visible = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	welcome_overlay.visible = true
 
 	TranslationServer.set_locale("en")
@@ -170,13 +168,11 @@ func _set_custom_cursor() -> void:
 	Input.set_custom_mouse_cursor(_cursor_texture, Input.CURSOR_ARROW, hotspot)
 
 func _enter_explore_mode() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	_set_custom_cursor()
 	_fps_player.set_edge_rotation_active(true)
 	_edge_overlay.visible = true
 
 func _exit_explore_mode() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Input.set_custom_mouse_cursor(null)
 	_fps_player.set_edge_rotation_active(false)
 	_edge_overlay.visible = false
@@ -264,13 +260,11 @@ func _on_closed():
 		_enter_explore_mode()
 
 func _on_credits_button_pressed() -> void:
-	_prev_mouse_mode = Input.get_mouse_mode()
 	_prev_reticle_visible = reticle.visible
 	if _exploring and not _touch_device:
 		_exit_explore_mode()
 	credits_overlay.visible = true
 	credits_button.visible = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	reticle.visible = false
 
 func _on_credits_backdrop_input(event: InputEvent) -> void:
@@ -285,6 +279,4 @@ func _close_credits() -> void:
 	credits_button.visible = true
 	if _exploring and not _touch_device:
 		_enter_explore_mode()
-	elif not _touch_device:
-		Input.set_mouse_mode(_prev_mouse_mode)
 	reticle.visible = _prev_reticle_visible
