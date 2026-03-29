@@ -41,6 +41,5 @@ jobs:
             cd ~/eatbitz3D
             export VENN_STATIC_DIR=${{ vars.VENN_STATIC_DIR }}
             docker compose down --remove-orphans
-            docker system prune -f
             docker compose up --build -d
           '

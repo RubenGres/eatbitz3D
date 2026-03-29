@@ -11,6 +11,9 @@ services:
     volumes:
       - ./gateway.nginx.conf:/etc/nginx/conf.d/default.conf:ro
     restart: always
+    networks:
+      - default
+      - web                  # <-- added
 
   eatbitz3d:
     container_name: godot_web_export
@@ -43,3 +46,8 @@ services:
       - ${VENN_STATIC_DIR:-./server}:/usr/share/nginx/html:ro
       - ./venn_static.nginx.conf:/etc/nginx/conf.d/default.conf:ro
     restart: always
+
+networks:
+  default:                   # <-- the existing eatbitz3d_default network
+  web:
+    external: true           # <-- references the web network from reverse-proxy
