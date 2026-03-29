@@ -95,6 +95,11 @@ var rembg_base_url: String = "https://eat.bitz.tools/rembg"
 ## Duration of the fade-out when disappearing.
 @export var fade_out_duration: float = 1.2
 
+# ── Loading Control ───────────────────────────────────────────────────────────
+## When false the companion will NOT auto-fetch on _ready(); the spawner
+## calls start_fetch() instead, so we can cap concurrent HTTP requests.
+var auto_fetch: bool = true
+
 # ── Private ───────────────────────────────────────────────────────────────────
 var _http_rembg: HTTPRequest
 var _decode_thread: Thread
@@ -146,7 +151,8 @@ func _ready():
 		scale = _safe_scale(1)
 		_lifecycle_state = LifecycleState.LOADING
 		_fetch_dirty = false
-		_fetch()
+		if auto_fetch:
+			_fetch()
 
 func _exit_tree() -> void:
 	if _decode_thread and _decode_thread.is_started():
@@ -248,8 +254,14 @@ func _begin_fade_out() -> void:
 
 # ── Fetch helpers ─────────────────────────────────────────────────────────────
 
+## Called by the spawner when auto_fetch is false.
+func start_fetch() -> void:
+	_fetch()
+
 func _request_fetch() -> void:
 	if not is_node_ready():
+		return
+	if not auto_fetch:
 		return
 	if _fetch_dirty:
 		return

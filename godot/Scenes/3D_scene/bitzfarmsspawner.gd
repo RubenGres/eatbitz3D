@@ -11,6 +11,10 @@ class_name BitzFarmSpawner
 @export var ring_radii: Array[float] = [2.5, 5.0, 8.0, 12.0]
 @export var ring_capacities: Array[int] = [6, 12, 20, 30]
 
+@export_group("Loading")
+## Max companions fetching their texture over HTTP at the same time.
+@export var max_concurrent_fetches: int = 4
+
 @export_subgroup("Debug")
 @export_tool_button("Spawn") var _spawn_button: Callable = spawn_companions
 @export_tool_button("Clear") var _clear_button: Callable = _clear_spawned
@@ -25,7 +29,11 @@ var _free_timer: float = 0.0
 var _total_expected: int = 0
 const FREE_DELAY: float = 0.5
 
-# ── Lifecycle ─────────────────────────────────────────────────────────────────
+# ── Fetch queue ───────────────────────────────────────────────────────────
+var _fetch_queue: Array[BitzCompanion] = []
+var _currently_fetching: int = 0
+
+# ── Lifecycle ─────────────────────────────────────────────────────────────
 
 func _ready():
 	if not Engine.is_editor_hint():
@@ -42,17 +50,17 @@ func _process(delta: float) -> void:
 
 	if _spawn_queue.is_empty():
 		_is_spawning = false
-		return
+	else:
+		_spawn_timer -= delta
+		if _spawn_timer <= 0.0:
+			_spawn_timer = spawn_interval
+			var entry_data: Dictionary = _spawn_queue.pop_front()
+			_spawn_one(entry_data)
 
-	_spawn_timer -= delta
-	if _spawn_timer > 0.0:
-		return
+	# Drain the fetch queue up to the concurrency cap
+	_pump_fetch_queue()
 
-	_spawn_timer = spawn_interval
-	var entry_data: Dictionary = _spawn_queue.pop_front()
-	_spawn_one(entry_data)
-
-# ── API ───────────────────────────────────────────────────────────────────────
+# ── API ───────────────────────────────────────────────────────────────────
 
 func spawn_companions():
 	
@@ -61,6 +69,8 @@ func spawn_companions():
 			_pending_free.append(c)
 	
 	_spawned.clear()
+	_fetch_queue.clear()
+	_currently_fetching = 0
 	_free_timer = FREE_DELAY
 	_spawn_queue.clear()
 
@@ -72,7 +82,6 @@ func spawn_companions():
 		for image_number in image_numbers:
 			var qid := str(quest_id)
 			var sid := int(image_number)
-			var key := "%s:%d" % [qid, sid]
 
 			_spawn_queue.append({
 				"quest_id":    qid,
@@ -86,11 +95,13 @@ func spawn_companions():
 	_is_spawning = true
 	_spawn_timer = 0.0
 
-# ── Spawning ──────────────────────────────────────────────────────────────────
+# ── Spawning ──────────────────────────────────────────────────────────────
 
 func _spawn_one(entry_data: Dictionary) -> void:
 	var companion: BitzCompanion = companion_scene.instantiate()
 
+	# Tell companion NOT to auto-fetch; we control the fetch queue.
+	companion.auto_fetch = false
 	companion.quest_id   = entry_data["quest_id"]
 	companion.species_id = entry_data["species_id"]
 
@@ -107,7 +118,23 @@ func _spawn_one(entry_data: Dictionary) -> void:
 	add_child(companion)  # _ready() fires here, reads orbit_radius
 	_spawned.append(companion)
 
-# ── Layout ────────────────────────────────────────────────────────────────────
+	# Enqueue for managed fetching
+	companion.rembg_texture_loaded.connect(_on_companion_loaded)
+	_fetch_queue.append(companion)
+
+# ── Fetch-queue management ────────────────────────────────────────────────
+
+func _pump_fetch_queue() -> void:
+	while _currently_fetching < max_concurrent_fetches and not _fetch_queue.is_empty():
+		var companion: BitzCompanion = _fetch_queue.pop_front()
+		if is_instance_valid(companion):
+			_currently_fetching += 1
+			companion.start_fetch()
+
+func _on_companion_loaded(_texture) -> void:
+	_currently_fetching = maxi(_currently_fetching - 1, 0)
+
+# ── Layout ────────────────────────────────────────────────────────────────
 
 func _ring_for_index(index: int) -> Vector2i:
 	var remaining := index
@@ -132,10 +159,12 @@ func _ring_point(ring: int, slot: int) -> Vector3:
 		sin(theta) * sin(phi) * radius
 	)
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# ── Helpers ───────────────────────────────────────────────────────────────
 
 func _clear_spawned():
 	_spawn_queue.clear()
+	_fetch_queue.clear()
+	_currently_fetching = 0
 	_pending_free.clear()
 	_total_expected = 0
 	for c in _spawned:

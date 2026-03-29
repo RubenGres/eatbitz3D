@@ -7,9 +7,16 @@ extends CanvasLayer
 @onready var camera3D = $SubViewport/Camera3D
 @onready var blur_background = $BlurBakground
 @onready var closeup = $ObjectCloseup
-@onready var start_capture_overlay = $StartCaptureOverlay
-@onready var capture_button: Button = %CaptureButton
+@onready var welcome_overlay = $WelcomeOverlay
+@onready var explore_button: Button = %ExploreButton
 @onready var reticle = $Reticle
+@onready var credits_button: Button = %CreditsButton
+@onready var credits_overlay: Control = $WelcomeOverlay/CreditsOverlay
+@onready var credits_backdrop: ColorRect = $WelcomeOverlay/CreditsOverlay/Backdrop
+@onready var back_button: Button = %BackButton
+
+var _prev_mouse_mode: Input.MouseMode
+var _prev_reticle_visible: bool
 
 const INSPECT_MAX_TILT_X_DEG := 15.0
 const INSPECT_MAX_TILT_Y_DEG := 15.0
@@ -18,19 +25,22 @@ const INSPECT_TILT_SMOOTH_SPEED := 6.0
 func _ready() -> void:
 	info_panel.focused.connect(_on_node_focused)
 	info_panel.closed.connect(_on_closed)
-	capture_button.pressed.connect(_on_capture_button_pressed)
+	explore_button.pressed.connect(_on_explore_button_pressed)
+	credits_button.pressed.connect(_on_credits_button_pressed)
+	back_button.pressed.connect(_on_back_button_pressed)
+	credits_backdrop.gui_input.connect(_on_credits_backdrop_input)
 	blur_background.visible = false
 	closeup.visible = false
 	reticle.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	start_capture_overlay.visible = true
+	welcome_overlay.visible = true
 
 	TranslationServer.set_locale("en")
 	
-func _on_capture_button_pressed() -> void:
+func _on_explore_button_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	reticle.visible = true
-	start_capture_overlay.visible = false
+	welcome_overlay.visible = false
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func _process(delta: float) -> void:
@@ -89,3 +99,24 @@ func _on_node_focused(object: Node3D):
 func _on_closed():
 	blur_background.visible = false
 	closeup.visible = false
+
+func _on_credits_button_pressed() -> void:
+	_prev_mouse_mode = Input.get_mouse_mode()
+	_prev_reticle_visible = reticle.visible
+	credits_overlay.visible = true
+	credits_button.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	reticle.visible = false
+
+func _on_credits_backdrop_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		_close_credits()
+
+func _on_back_button_pressed() -> void:
+	_close_credits()
+
+func _close_credits() -> void:
+	credits_overlay.visible = false
+	credits_button.visible = true
+	Input.set_mouse_mode(_prev_mouse_mode)
+	reticle.visible = _prev_reticle_visible

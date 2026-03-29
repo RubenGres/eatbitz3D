@@ -39,5 +39,4 @@ locale/translations=PackedStringArray("res://translations.en.translation", "res:
 
 [rendering]
 
-scaling_3d/scale=2.0
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

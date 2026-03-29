@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d15kdcriluaps"
-path="res://.godot/imported/2d_light_texture.jpg-77b29e039491feea602ef5c9ccb83e15.ctex"
+path.s3tc="res://.godot/imported/2d_light_texture.jpg-77b29e039491feea602ef5c9ccb83e15.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Particles/2d_light_texture.jpg"
-dest_files=["res://.godot/imported/2d_light_texture.jpg-77b29e039491feea602ef5c9ccb83e15.ctex"]
+dest_files=["res://.godot/imported/2d_light_texture.jpg-77b29e039491feea602ef5c9ccb83e15.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

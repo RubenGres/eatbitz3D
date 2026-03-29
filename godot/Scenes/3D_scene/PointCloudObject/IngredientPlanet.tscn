@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://bh4ju04iisnig" path="res://Shaders/point_cloud_spatial.gdshader" id="1_cjpyj"]
 [ext_resource type="Script" uid="uid://bi5rghypmvqsy" path="res://Scripts/3d_ingredients.gd" id="1_rwkad"]
 [ext_resource type="ArrayMesh" uid="uid://bytu0auqqv4i2" path="res://Assets/3D/Purple_Basil/Meshy_AI_Purple_Basil_0210153601_texture_decimated.obj" id="2_8doav"]
-[ext_resource type="Texture2D" uid="uid://dst2x8gkhs37n" path="res://Assets/3D/Beetroot/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg" id="2_rwkad"]
+[ext_resource type="Texture2D" uid="uid://df6q7o2pleb1l" path="res://Assets/3D/Acorn/Meshy_AI_Acorn_0210153654_texture.jpg" id="2_rwkad"]
 [ext_resource type="Texture2D" uid="uid://f6xnhael0ite" path="res://Assets/3D/Purple_Basil/Meshy_AI_Purple_Basil_0210153601_texture.jpg" id="4_6tern"]
 [ext_resource type="Script" uid="uid://hvfoctb2rosi" path="res://mesh_instance_3d.gd" id="4_s8xy7"]
 [ext_resource type="Shader" uid="uid://dnobl87qxs7ps" path="res://Shaders/particles_albedo_from_texture.gdshader" id="5_cjpyj"]
