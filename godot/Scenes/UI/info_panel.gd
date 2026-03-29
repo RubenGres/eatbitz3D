@@ -33,6 +33,11 @@ func _ready():
 	_api.species_data_loaded.connect(_on_species_data)
 	_api.image_loaded.connect(_on_image)
 
+func _gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		slide_out()
+		accept_event()
+
 func _request_data():
 	if quest_id.is_empty():
 		return

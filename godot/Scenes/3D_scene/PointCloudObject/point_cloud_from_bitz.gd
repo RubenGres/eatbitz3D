@@ -21,6 +21,8 @@ var rembg_base_url: String = "https://eat.bitz.tools/rembg"
 		species_id = value
 		_request_fetch()
 
+@export_enum("icon", "thumb", "small", "medium", "large") var texture_res: String = "icon"
+
 # ── Scene References ──────────────────────────────────────────────────────────
 @export_group("Scene References")
 @export var target: Node3D:
@@ -281,7 +283,7 @@ func _fetch() -> void:
 		return
 	if _http_rembg.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
 		_http_rembg.cancel_request()
-	var url := "%s/%s/%d" % [_normalized_base_url(), quest_id, species_id]
+	var url := "%s/%s/%d?res=%s" % [_normalized_base_url(), quest_id, species_id, texture_res]
 	print("[BitzCompanion] Requesting %s" % url)
 	var err := _http_rembg.request(url)
 	if err != OK:

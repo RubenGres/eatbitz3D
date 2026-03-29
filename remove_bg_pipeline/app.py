@@ -1,12 +1,17 @@
 """
 BITZ Background Removal Micro-Service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-GET /rembg/{quest_id}/{species_id}  → returns the masked PNG image
-GET /rembg/{quest_id}/{species_id}?info=1  → returns JSON metadata
+GET /rembg/{quest_id}/{species_id}           → returns the full-size masked PNG
+GET /rembg/{quest_id}/{species_id}?res=icon  → returns a resized variant
+GET /rembg/{quest_id}/{species_id}?info=1    → returns JSON metadata
 
-Results are cached as files on disk so repeated requests skip both the
-BITZ API and the Modal segmentation call.  Each entry produces two files
-inside CACHE_DIR:  {key}.png  and  {key}.json
+Supported res values: icon (50), thumb (150), small (300), medium (800), large (1600)
+Omit res to get the original segmented image.
+
+Results are cached as files on disk.  Each entry produces:
+  {key}.png            — full-size masked image
+  {key}_{res}.png      — resized variant (created on first request)
+  {key}.json           — metadata (species, labels, scores)
 
 Run:
     pip install fastapi uvicorn httpx
@@ -35,9 +40,14 @@ BITZ_API = "https://api.bitz.tools"
 MODAL_URL = "https://ruben-g-gres--grounded-sam2-api-segment.modal.run"
 CACHE_DIR = Path(os.getenv("BITZ_CACHE_DIR", "/opt/EATBITZ/rembg"))
 HTTP_TIMEOUT = 240.0  # Modal can be slow on cold starts
-# Max dimension (width or height) for companion textures served to the client.
-# Point-cloud particles don't need full-res images; 512 px is plenty.
-MAX_TEXTURE_SIZE = int(os.getenv("BITZ_MAX_TEXTURE_SIZE", "512"))
+
+SIZES = {
+    "icon":   (50, 50),
+    "thumb":  (150, 150),
+    "small":  (300, 300),
+    "medium": (800, 800),
+    "large":  (1600, 1600),
+}
 
 # ---------------------------------------------------------------------------
 # Filesystem cache
@@ -50,6 +60,10 @@ def _cache_key(quest_id: str, species_id: int) -> str:
 
 def _png_path(key: str) -> Path:
     return CACHE_DIR / f"{key}.png"
+
+
+def _resized_path(key: str, res: str) -> Path:
+    return CACHE_DIR / f"{key}_{res}.png"
 
 
 def _meta_path(key: str) -> Path:
@@ -80,6 +94,21 @@ def _put_cache(
         "labels": labels,
         "scores": scores,
     }))
+
+
+def _get_resized(key: str, res: str, source_png: bytes) -> bytes:
+    """Return a resized variant, generating and caching it if needed."""
+    path = _resized_path(key, res)
+    if path.exists():
+        return path.read_bytes()
+    max_side = SIZES[res]
+    img = Image.open(io.BytesIO(source_png))
+    img.thumbnail(max_side, Image.LANCZOS)
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", optimize=True)
+    data = buf.getvalue()
+    path.write_bytes(data)
+    return data
 
 
 # ---------------------------------------------------------------------------
@@ -124,17 +153,6 @@ async def fetch_species_image(quest_id: str, species_id: int, quality: str = "me
     return r.content
 
 
-def _downscale_png(png_bytes: bytes, max_side: int = MAX_TEXTURE_SIZE) -> bytes:
-    """Downscale a PNG image so the longest side is at most *max_side* px."""
-    img = Image.open(io.BytesIO(png_bytes))
-    if max(img.size) <= max_side:
-        return png_bytes
-    img.thumbnail((max_side, max_side), Image.LANCZOS)
-    buf = io.BytesIO()
-    img.save(buf, format="PNG", optimize=True)
-    return buf.getvalue()
-
-
 async def remove_bg(image_bytes: bytes, prompt: str) -> dict:
     b64 = base64.b64encode(image_bytes).decode()
     r = await client.post(MODAL_URL, json={"image_base64": b64, "prompt": prompt})
@@ -152,8 +170,12 @@ async def remove_bg(image_bytes: bytes, prompt: str) -> dict:
 async def get_rembg(
     quest_id: str,
     species_id: int,
+    res: str | None = Query(None, description="Resolution preset: icon, thumb, small, medium, large"),
     info: bool = Query(False, description="Return JSON metadata instead of image"),
 ):
+    if res is not None and res not in SIZES:
+        raise HTTPException(400, f"Unknown res '{res}'. Choose from: {', '.join(SIZES)}")
+
     key = _cache_key(quest_id, species_id)
 
     # --- check cache ---
@@ -166,12 +188,14 @@ async def get_rembg(
                 "labels": cached["labels"],
                 "scores": cached["scores"],
             })
+        image_png = _get_resized(key, res, cached["image_png"]) if res else cached["image_png"]
+        etag = f"{key}_{res}" if res else key
         return Response(
-            content=cached["image_png"],
+            content=image_png,
             media_type="image/png",
             headers={
                 "Cache-Control": "public, max-age=86400, immutable",
-                "ETag": f'"{key[:16]}"',
+                "ETag": f'"{etag[:16]}"',
             },
         )
 
@@ -189,11 +213,10 @@ async def get_rembg(
         raise HTTPException(502, "Modal returned no masked image")
 
     image_png = base64.b64decode(masked_b64)
-    image_png = _downscale_png(image_png)
     labels = str(data.get("labels", []))
     scores = str(data.get("scores", []))
 
-    # --- store in cache ---
+    # --- store full-size in cache ---
     _put_cache(key, image_png, species_name, labels, scores)
 
     if info:
@@ -204,12 +227,14 @@ async def get_rembg(
             "scores": scores,
         })
 
+    out = _get_resized(key, res, image_png) if res else image_png
+    etag = f"{key}_{res}" if res else key
     return Response(
-        content=image_png,
+        content=out,
         media_type="image/png",
         headers={
             "Cache-Control": "public, max-age=86400, immutable",
-            "ETag": f'"{key[:16]}"',
+            "ETag": f'"{etag[:16]}"',
         },
     )
 
@@ -219,6 +244,8 @@ async def invalidate_cache(quest_id: str, species_id: int):
     key = _cache_key(quest_id, species_id)
     _png_path(key).unlink(missing_ok=True)
     _meta_path(key).unlink(missing_ok=True)
+    for res_name in SIZES:
+        _resized_path(key, res_name).unlink(missing_ok=True)
     return {"deleted": key}
 
 
