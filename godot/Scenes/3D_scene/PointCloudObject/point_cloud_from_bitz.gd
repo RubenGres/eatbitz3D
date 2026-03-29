@@ -68,6 +68,8 @@ var rembg_base_url: String = "https://eat.bitz.tools/rembg"
 
 @export_subgroup("Debug")
 @export_tool_button("Reload") var _reload_button: Callable = _reload
+@export_tool_button("Reload Texture") var _reload_texture_button: Callable:
+	get: return _reload_texture
 
 # ── Proximity Scale ───────────────────────────────────────────────────────────
 @export_group("Proximity Scale")
@@ -321,7 +323,8 @@ func _apply_texture(image: Image) -> void:
 	print("[BitzCompanion] Texture applied (%dx%d)" % [image.get_width(), image.get_height()])
 	bitz_image_loaded = true
 	rembg_texture_loaded.emit(texture)
-	_begin_fade_in()
+	if _lifecycle_state == LifecycleState.LOADING:
+		_begin_fade_in()
 
 # ── Misc ──────────────────────────────────────────────────────────────────────
 
@@ -336,6 +339,13 @@ func _reload() -> void:
 	).normalized()
 	_orbit_basis = Basis(rand_axis, randf() * TAU)
 	print("[BitzCompanion] Reloaded — phase: %.2f, radius: %.2f, speed: %.2f" % [phase_offset, _effective_radius, _effective_speed])
+
+func _reload_texture() -> void:
+	bitz_image_loaded = false
+	_lifecycle_state = LifecycleState.LOADING
+	_lifecycle_timer = 0.0
+	_fetch()
+	print("[BitzCompanion] Texture reload requested")
 
 func _set_highlighted() -> void:
 	$ParticlesTest/HighlightSprite.visible = is_highlighted

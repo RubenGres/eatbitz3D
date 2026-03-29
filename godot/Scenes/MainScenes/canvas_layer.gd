@@ -18,6 +18,7 @@ extends CanvasLayer
 @onready var welcome_margin: MarginContainer = $WelcomeOverlay/MarginContainer
 @onready var credits_panel: PanelContainer = $WelcomeOverlay/CreditsOverlay/PanelContainer
 @onready var controls_label: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel3
+@onready var _fps_player = $"../Basic FPS Player"
 
 var _prev_mouse_mode: Input.MouseMode
 var _prev_reticle_visible: bool
@@ -47,7 +48,7 @@ func _ready() -> void:
 
 	if _touch_device:
 		explore_button.text = "Tap here to explore"
-		controls_label.text = "\n[b]Controls:[/b]\nDrag to look around\nTap on a species to learn more"
+		controls_label.text = "\n[b]Controls:[/b]\nTilt your device or drag to look around\nTap on a species to learn more"
 
 	get_viewport().size_changed.connect(_update_layout)
 	_update_layout.call_deferred()
@@ -55,6 +56,8 @@ func _ready() -> void:
 func _on_explore_button_pressed() -> void:
 	if not _touch_device:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		_fps_player.set_gyro_active(true)
 	reticle.visible = true
 	welcome_overlay.visible = false
 
@@ -83,7 +86,7 @@ func _update_inspection_layout(vp_size: Vector2) -> void:
 		closeup.offset_bottom = 0
 		sub_viewport.size = Vector2i(int(vp_size.x), int(vp_size.y * 0.4))
 	else:
-		var closeup_width := min(813.0, vp_size.x * 0.6)
+		var closeup_width = min(813.0, vp_size.x * 0.6)
 		closeup.anchor_left = 0.0
 		closeup.anchor_top = 0.0
 		closeup.anchor_right = 0.0
@@ -128,8 +131,8 @@ func _update_welcome_layout(vp_size: Vector2) -> void:
 		credits_panel.offset_right = -vp_size.x * 0.03
 		credits_panel.offset_bottom = -vp_size.y * 0.05
 	else:
-		var pw := min(380.0, vp_size.x * 0.4)
-		var ph := min(320.0, vp_size.y * 0.45)
+		var pw = min(380.0, vp_size.x * 0.4)
+		var ph = min(320.0, vp_size.y * 0.45)
 		credits_panel.anchor_left = 0.5
 		credits_panel.anchor_top = 0.5
 		credits_panel.anchor_right = 0.5
@@ -180,6 +183,8 @@ func _on_node_focused(object: Node3D):
 		object3D_parent.add_child(duplicate)
 		duplicate.billboard_camera = false
 		duplicate.lifetime = 99999
+		duplicate.texture_res = "large"
+		duplicate._fetch()
 	else:
 		particle_parent.add_child(duplicate)
 

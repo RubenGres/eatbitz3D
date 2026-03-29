@@ -49,6 +49,12 @@ func _enter_tree():
 @export var KEY_BIND_DOWN := "ui_down"
 @export var KEY_BIND_JUMP := "ui_accept"
 
+@export_category("Gyroscope (Mobile)")
+@export var GYRO_ENABLED := true
+@export var GYRO_SENSITIVITY := 1.0
+## Minimum angular velocity (rad/s) to register as intentional movement
+@export var GYRO_DEADZONE := 0.05
+
 @export_category("Advanced")
 @export var UPDATE_PLAYER_ON_PHYS_STEP := true	# When check player is moved and rotated in _physics_process (fixed fps)
 												# Otherwise player is updated in _process (uncapped)
@@ -64,6 +70,8 @@ var rotation_target_player : float
 var rotation_target_head : float
 
 var drag_look_active := false
+var _touch_device := false
+var _gyro_active := false
 
 # Used when bobing head
 var head_start_pos : Vector3
@@ -75,7 +83,8 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	# Capture mouse if set to true
+	_touch_device = DisplayServer.is_touchscreen_available()
+
 	if CAPTURE_ON_START:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -85,8 +94,10 @@ func _physics_process(delta):
 	if Engine.is_editor_hint():
 		return
 	
-	# Increment player tick, used in head bob motion
 	tick += 1
+	
+	if _gyro_active:
+		_apply_gyroscope(delta)
 	
 	rotate_player(delta)
 
@@ -125,11 +136,27 @@ func set_rotation_target(mouse_motion : Vector2):
 	
 func rotate_player(delta):
 	if MOUSE_ACCEL:
-		# Shperical lerp between player rotation and target
 		quaternion = quaternion.slerp(Quaternion(Vector3.UP, rotation_target_player), KEY_BIND_MOUSE_ACCEL * delta)
-		# Same again for head
 		$Head.quaternion = $Head.quaternion.slerp(Quaternion(Vector3.RIGHT, rotation_target_head), KEY_BIND_MOUSE_ACCEL * delta)
 	else:
-		# If mouse accel is turned off, simply set to target
 		quaternion = Quaternion(Vector3.UP, rotation_target_player)
 		$Head.quaternion = Quaternion(Vector3.RIGHT, rotation_target_head)
+
+func set_gyro_active(active: bool) -> void:
+	_gyro_active = active and _touch_device and GYRO_ENABLED
+
+func _apply_gyroscope(delta: float) -> void:
+	var gyro := Input.get_gyroscope()
+	if gyro.length_squared() < GYRO_DEADZONE * GYRO_DEADZONE:
+		return
+
+	# gyro.y = yaw rate (turn left/right), gyro.x = pitch rate (look up/down)
+	rotation_target_player -= gyro.y * GYRO_SENSITIVITY * delta
+	rotation_target_head += gyro.x * GYRO_SENSITIVITY * delta
+
+	if CLAMP_HEAD_ROTATION:
+		rotation_target_head = clamp(
+			rotation_target_head,
+			deg_to_rad(CLAMP_HEAD_ROTATION_MIN),
+			deg_to_rad(CLAMP_HEAD_ROTATION_MAX)
+		)
