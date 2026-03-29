@@ -33,12 +33,11 @@ rows = {row["key"]: row for row in db.execute(
 
 print(f"Found {len(rows)} entries in DB, fetching quests from BITZ API...")
 
-with urllib.request.urlopen(f"{BITZ_API}/explore/quests") as resp:
+with urllib.request.urlopen(f"{BITZ_API}/quest_list") as resp:
     quests = json.loads(resp.read())
 
 renamed = 0
-for quest in quests:
-    quest_id = quest["id"]
+for quest_id in quests["quests"].keys():
     with urllib.request.urlopen(f"{BITZ_API}/explore/data/{quest_id}/history.json") as resp:
         history = json.loads(resp.read()).get("history", [])
 
