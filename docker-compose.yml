@@ -27,7 +27,7 @@ services:
       context: ./remove_bg_pipeline
       dockerfile: Dockerfile
     environment:
-      - BITZ_CACHE_DB_PATH=/var/lib/bitz-cache/bitz_cache.db
+      - BITZ_CACHE_DIR=${BITZ_CACHE_DIR:-/opt/EATBITZ/rembg}
     expose:
       - "8787"
     volumes:

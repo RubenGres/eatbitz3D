@@ -4,8 +4,9 @@ BITZ Background Removal Micro-Service
 GET /rembg/{quest_id}/{species_id}  → returns the masked PNG image
 GET /rembg/{quest_id}/{species_id}?info=1  → returns JSON metadata
 
-Results are cached in a local SQLite database so repeated requests
-skip both the BITZ API and the Modal segmentation call.
+Results are cached as files on disk so repeated requests skip both the
+BITZ API and the Modal segmentation call.  Each entry produces two files
+inside CACHE_DIR:  {key}.png  and  {key}.json
 
 Run:
     pip install fastapi uvicorn httpx
@@ -17,9 +18,8 @@ from __future__ import annotations
 import base64
 import hashlib
 import io
+import json
 import os
-import sqlite3
-import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -34,29 +34,15 @@ from PIL import Image
 
 BITZ_API = "https://api.bitz.tools"
 MODAL_URL = "https://ruben-g-gres--grounded-sam2-api-segment.modal.run"
-DB_PATH = Path(os.getenv("BITZ_CACHE_DB_PATH", "/var/lib/bitz-cache/bitz_cache.db"))
+CACHE_DIR = Path(os.getenv("BITZ_CACHE_DIR", "/opt/EATBITZ/rembg"))
 HTTP_TIMEOUT = 240.0  # Modal can be slow on cold starts
 # Max dimension (width or height) for companion textures served to the client.
 # Point-cloud particles don't need full-res images; 512 px is plenty.
 MAX_TEXTURE_SIZE = int(os.getenv("BITZ_MAX_TEXTURE_SIZE", "512"))
 
 # ---------------------------------------------------------------------------
-# SQLite cache
+# Filesystem cache
 # ---------------------------------------------------------------------------
-
-
-def _init_db(db: sqlite3.Connection):
-    db.execute("""
-        CREATE TABLE IF NOT EXISTS cache (
-            key        TEXT PRIMARY KEY,
-            image_png  BLOB NOT NULL,
-            species    TEXT,
-            labels     TEXT,
-            scores     TEXT,
-            created_at REAL NOT NULL
-        )
-    """)
-    db.commit()
 
 
 def _cache_key(quest_id: str, species_id: int) -> str:
@@ -64,49 +50,54 @@ def _cache_key(quest_id: str, species_id: int) -> str:
     return hashlib.sha256(raw.encode()).hexdigest()
 
 
-def _get_cached(db: sqlite3.Connection, key: str) -> sqlite3.Row | None:
-    row = db.execute(
-        "SELECT image_png, species, labels, scores FROM cache WHERE key = ?",
-        (key,),
-    ).fetchone()
-    return row
+def _png_path(key: str) -> Path:
+    return CACHE_DIR / f"{key}.png"
+
+
+def _meta_path(key: str) -> Path:
+    return CACHE_DIR / f"{key}.json"
+
+
+def _get_cached(key: str) -> dict | None:
+    png = _png_path(key)
+    meta = _meta_path(key)
+    if not png.exists() or not meta.exists():
+        return None
+    return {
+        "image_png": png.read_bytes(),
+        **json.loads(meta.read_text()),
+    }
 
 
 def _put_cache(
-    db: sqlite3.Connection,
     key: str,
     image_png: bytes,
     species: str,
     labels: str,
     scores: str,
 ):
-    db.execute(
-        "INSERT OR REPLACE INTO cache (key, image_png, species, labels, scores, created_at) "
-        "VALUES (?, ?, ?, ?, ?, ?)",
-        (key, image_png, species, labels, scores, time.time()),
-    )
-    db.commit()
+    _png_path(key).write_bytes(image_png)
+    _meta_path(key).write_text(json.dumps({
+        "species": species,
+        "labels": labels,
+        "scores": scores,
+    }))
 
 
 # ---------------------------------------------------------------------------
 # App lifecycle
 # ---------------------------------------------------------------------------
 
-db: sqlite3.Connection
 client: httpx.AsyncClient
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    global db, client
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    db = sqlite3.connect(DB_PATH, check_same_thread=False)
-    db.row_factory = sqlite3.Row
-    _init_db(db)
+    global client
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
     client = httpx.AsyncClient(timeout=HTTP_TIMEOUT)
     yield
     await client.aclose()
-    db.close()
 
 
 app = FastAPI(title="BITZ Background Removal", lifespan=lifespan)
@@ -168,7 +159,7 @@ async def get_rembg(
     key = _cache_key(quest_id, species_id)
 
     # --- check cache ---
-    cached = _get_cached(db, key)
+    cached = _get_cached(key)
     if cached is not None:
         if info:
             return JSONResponse({
@@ -205,7 +196,7 @@ async def get_rembg(
     scores = str(data.get("scores", []))
 
     # --- store in cache ---
-    _put_cache(db, key, image_png, species_name, labels, scores)
+    _put_cache(key, image_png, species_name, labels, scores)
 
     if info:
         return JSONResponse({
@@ -228,12 +219,12 @@ async def get_rembg(
 @app.delete("/cache/{quest_id}/{species_id}")
 async def invalidate_cache(quest_id: str, species_id: int):
     key = _cache_key(quest_id, species_id)
-    db.execute("DELETE FROM cache WHERE key = ?", (key,))
-    db.commit()
+    _png_path(key).unlink(missing_ok=True)
+    _meta_path(key).unlink(missing_ok=True)
     return {"deleted": key}
 
 
 @app.get("/health")
 async def health():
-    count = db.execute("SELECT COUNT(*) as n FROM cache").fetchone()["n"]
+    count = sum(1 for f in CACHE_DIR.glob("*.png")) if CACHE_DIR.exists() else 0
     return {"status": "ok", "cached_entries": count}
