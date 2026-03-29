@@ -16,7 +16,6 @@ Run:
 from __future__ import annotations
 
 import base64
-import hashlib
 import io
 import json
 import os
@@ -46,8 +45,7 @@ MAX_TEXTURE_SIZE = int(os.getenv("BITZ_MAX_TEXTURE_SIZE", "512"))
 
 
 def _cache_key(quest_id: str, species_id: int) -> str:
-    raw = f"{quest_id}:{species_id}"
-    return hashlib.sha256(raw.encode()).hexdigest()
+    return f"{quest_id}_{species_id}"
 
 
 def _png_path(key: str) -> Path:
