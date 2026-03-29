@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 COPY app.py /app/app.py
 
-RUN pip install --no-cache-dir fastapi "uvicorn[standard]" httpx
+RUN pip install --no-cache-dir fastapi "uvicorn[standard]" httpx Pillow
 
 EXPOSE 8787
 

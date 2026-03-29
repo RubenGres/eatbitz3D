@@ -14,6 +14,10 @@ RUN mkdir -p /web_export
 RUN godot --headless --import
 RUN godot --headless --verbose --export-release "Web" /web_export/index.html
 
+# Pre-compress heavy assets so nginx can serve them with gzip_static
+RUN find /web_export -type f \( -name '*.wasm' -o -name '*.pck' -o -name '*.js' \) \
+    -exec gzip -k -9 {} \;
+
 FROM nginx:alpine
 
 COPY --from=builder /web_export /usr/share/nginx/html/

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import io
 import os
 import sqlite3
 import time
@@ -25,6 +26,7 @@ from pathlib import Path
 import httpx
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import JSONResponse, Response
+from PIL import Image
 
 # ---------------------------------------------------------------------------
 # Config
@@ -34,6 +36,9 @@ BITZ_API = "https://api.bitz.tools"
 MODAL_URL = "https://ruben-g-gres--grounded-sam2-api-segment.modal.run"
 DB_PATH = Path(os.getenv("BITZ_CACHE_DB_PATH", "/var/lib/bitz-cache/bitz_cache.db"))
 HTTP_TIMEOUT = 240.0  # Modal can be slow on cold starts
+# Max dimension (width or height) for companion textures served to the client.
+# Point-cloud particles don't need full-res images; 512 px is plenty.
+MAX_TEXTURE_SIZE = int(os.getenv("BITZ_MAX_TEXTURE_SIZE", "512"))
 
 # ---------------------------------------------------------------------------
 # SQLite cache
@@ -130,6 +135,17 @@ async def fetch_species_image(quest_id: str, species_id: int, quality: str = "me
     return r.content
 
 
+def _downscale_png(png_bytes: bytes, max_side: int = MAX_TEXTURE_SIZE) -> bytes:
+    """Downscale a PNG image so the longest side is at most *max_side* px."""
+    img = Image.open(io.BytesIO(png_bytes))
+    if max(img.size) <= max_side:
+        return png_bytes
+    img.thumbnail((max_side, max_side), Image.LANCZOS)
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", optimize=True)
+    return buf.getvalue()
+
+
 async def remove_bg(image_bytes: bytes, prompt: str) -> dict:
     b64 = base64.b64encode(image_bytes).decode()
     r = await client.post(MODAL_URL, json={"image_base64": b64, "prompt": prompt})
@@ -161,7 +177,14 @@ async def get_rembg(
                 "labels": cached["labels"],
                 "scores": cached["scores"],
             })
-        return Response(content=cached["image_png"], media_type="image/png")
+        return Response(
+            content=cached["image_png"],
+            media_type="image/png",
+            headers={
+                "Cache-Control": "public, max-age=86400, immutable",
+                "ETag": f'"{key[:16]}"',
+            },
+        )
 
     # --- fetch from BITZ ---
     species_info = await fetch_species_data(quest_id, species_id)
@@ -177,6 +200,7 @@ async def get_rembg(
         raise HTTPException(502, "Modal returned no masked image")
 
     image_png = base64.b64decode(masked_b64)
+    image_png = _downscale_png(image_png)
     labels = str(data.get("labels", []))
     scores = str(data.get("scores", []))
 
@@ -191,7 +215,14 @@ async def get_rembg(
             "scores": scores,
         })
 
-    return Response(content=image_png, media_type="image/png")
+    return Response(
+        content=image_png,
+        media_type="image/png",
+        headers={
+            "Cache-Control": "public, max-age=86400, immutable",
+            "ETag": f'"{key[:16]}"',
+        },
+    )
 
 
 @app.delete("/cache/{quest_id}/{species_id}")

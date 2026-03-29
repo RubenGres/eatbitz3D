@@ -17,7 +17,7 @@ dest_files=["res://.godot/imported/Meshy_AI_Purple_Basil_0210153601_texture_deci
 
 generate_tangents=true
 generate_lods=true
-generate_shadow_mesh=true
+generate_shadow_mesh=false
 generate_lightmap_uv2=false
 generate_lightmap_uv2_texel_size=0.2
 scale_mesh=Vector3(1, 1, 1)
