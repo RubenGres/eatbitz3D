@@ -174,5 +174,8 @@ func _kill_tween():
 		_tween.kill()
 
 
-func sync_language(_locale: String) -> void:
+func sync_language(locale: String) -> void:
+	_api.set_locale(locale)
+	if not quest_id.is_empty():
+		_api.fetch_history(quest_id, species_id)
 	_update_ingredient_text()

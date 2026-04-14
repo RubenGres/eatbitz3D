@@ -1,0 +1,1672 @@
+{
+  "010f83c9-b710-420f-9cf3-b78cab3f680c": {
+    "0": {
+      "name": "Raphanus raphanistrum (Rabanete Silvestre)",
+      "what_is_it": "O rabanete silvestre é uma planta com flor anual ou bienal da família da mostarda, Brassicaceae.",
+      "information": "É nativa do oeste da Ásia, Europa e partes do Norte da África, mas tornou-se uma erva daninha invasora disseminada em muitas outras regiões. A planta é conhecida por suas flores de quatro pétalas que podem variar de branco a amarelo ou roxo, muitas vezes com veias mais escuras distintas. Geralmente cresce em áreas perturbadas, beiras de estradas e campos agrícolas, onde pode competir com as culturas.",
+      "species_interactions": "Suas flores fornecem néctar e pólen para vários polinizadores, incluindo abelhas e borboletas, enquanto suas sementes são por vezes consumidas por pássaros.",
+      "scientific_name": "Raphanus raphanistrum",
+      "common_name": "Rabanete Silvestre"
+    },
+    "1": {
+      "name": "Galium aparine (Amor-de-hortelão)",
+      "what_is_it": "O amor-de-hortelão é uma planta herbácea anual comum da família da garança, facilmente reconhecida por suas folhas verticiladas e pelos pegajosos em forma de gancho.",
+      "information": "Nativa da Europa e da Ásia, espalhou-se globalmente como uma erva daninha bem-sucedida em jardins, campos e matas. A planta usa suas pequenas cerdas em forma de gancho para escalar outras vegetações, alcançando a luz solar sem precisar de um caule grosso e lenhoso. Suas sementes também são cobertas por esses ganchos, o que é uma adaptação fundamental para a dispersão através do pelo de animais.",
+      "species_interactions": "As cerdas em forma de gancho da planta permitem que ela se agarre ao pelo de animais que passam, facilitando a ampla dispersão de suas sementes.",
+      "scientific_name": "Galium aparine",
+      "common_name": "Amor-de-hortelão"
+    },
+    "3": {
+      "name": "Tradescantia fluminensis (Trapoeraba)",
+      "what_is_it": "Esta é uma planta herbácea perene da família da trapoeraba, caracterizada por seus caules rastejantes e delicadas flores brancas de três pétalas.",
+      "information": "Nativa da América do Sul, tornou-se uma espécie invasora disseminada em muitas regiões temperadas e subtropicais porque pode se regenerar rapidamente a partir de pequenos fragmentos de caule. Prospera em ambientes úmidos e sombreados, como o chão de florestas e zonas ribeirinhas, onde forma tapetes densos que bloqueiam a luz. As flores são efêmeras, geralmente abrindo pela manhã e murchando à tarde.",
+      "species_interactions": "Embora suas flores forneçam néctar para pequenas abelhas e moscas, seu hábito de crescimento agressivo muitas vezes desloca a cobertura de solo nativa e perturba a biodiversidade local.",
+      "scientific_name": "Tradescantia fluminensis",
+      "common_name": "Trapoeraba"
+    },
+    "6": {
+      "name": "Tradescantia fluminensis",
+      "what_is_it": "Também conhecida como trapoeraba, esta linda planta apresenta flores brancas e caules suculentos.",
+      "information": "A Tradescantia fluminensis prospera em diversas condições, formando frequentemente uma bela cobertura de solo. É conhecida por sua adaptabilidade e resiliência, sendo frequentemente vista em jardins e margeando áreas úmidas. Além de seu valor ornamental, tem sido usada na medicina tradicional e pode ser bastante popular entre os jardineiros de borboletas, pois atrai polinizadores.",
+      "species_interactions": "Esta espécie pode interagir com vários polinizadores, como abelhas e borboletas, que visitam suas flores, e pode coexistir com outras plantas como Zea mays.",
+      "scientific_name": "Tradescantia fluminensis",
+      "common_name": ""
+    },
+    "9": {
+      "name": "Sonchus sp. (Serralha)",
+      "what_is_it": "A serralha é uma planta caracterizada por suas flores amarelas semelhantes às do dente-de-leão e folhas lobadas.",
+      "information": "Frequentemente encontradas em áreas perturbadas, as serralhas são rápidas em colonizar e podem produzir um número significativo de sementes. Elas servem como uma importante fonte de alimento para polinizadores, especialmente abelhas. As serralhas também podem desempenhar um papel na restauração ecológica, fornecendo cobertura e habitat para vários insetos.",
+      "species_interactions": "As serralhas atraem polinizadores como abelhas, que também podem ser atraídas pelas flores do rabanete silvestre próximo.",
+      "scientific_name": "Sonchus sp.",
+      "common_name": "Serralha"
+    }
+  },
+  "96a85349-cb5c-46f6-a920-292e6126b6e5": {
+    "3": {
+      "name": "Fragaria sp. (Morango Silvestre)",
+      "what_is_it": "Uma erva perene de baixo crescimento da família Rosaceae, caracterizada por suas folhas trifoliadas e fruto vermelho comestível.",
+      "information": "Morangos silvestres são comuns em regiões temperadas, colonizando frequentemente áreas perturbadas, prados e bordas de florestas. Propagam-se por estolões, ou 'corredores', que lhes permitem formar densas esteiras de cobertura do solo. Essas plantas são altamente resilientes e podem sobreviver em uma variedade de tipos de solo.",
+      "species_interactions": "Servem como planta hospedeira para várias larvas de borboletas e mariposas, e seus frutos são consumidos por uma ampla gama de vida selvagem, incluindo pássaros, esquilos e tartarugas-caixa.",
+      "scientific_name": "Fragaria sp.",
+      "common_name": "Morango Silvestre"
+    },
+    "9": {
+      "name": "Foeniculum vulgare (Funcho)",
+      "what_is_it": "O funcho é uma erva perene resistente com folhas plumosas e um aroma distinto semelhante ao de anis, pertencente à família Apiaceae.",
+      "information": "Nativo do Mediterrâneo, naturalizou-se globalmente em habitats secos e ensolarados, como beiras de estradas e áreas costeiras. É amplamente cultivado por seus bulbos, sementes e folhagem comestíveis, que são usados em diversas aplicações culinárias e medicinais. Os segmentos finos e filiformes das folhas da planta são uma característica chave de identificação.",
+      "species_interactions": "É uma planta hospedeira crucial para as larvas de borboletas-rabo-de-andorinha e atrai uma grande variedade de insetos predadores benéficos e polinizadores para suas flores ricas em néctar.",
+      "scientific_name": "Foeniculum vulgare",
+      "common_name": "Funcho"
+    },
+    "10": {
+      "name": "Cornu aspersum (Caracol-de-jardim)",
+      "what_is_it": "Uma espécie comum de caracol terrestre que respira ar, da família Helicidae.",
+      "information": "Nativo do Mediterrâneo e da Europa Ocidental, é hoje um dos caracóis terrestres mais amplamente distribuídos no mundo. É um herbívoro generalista que pode se tornar uma praga significativa em jardins e na agricultura. Durante períodos secos ou frios, ele se fecha dentro de sua concha com uma camada de muco seco semelhante a pergaminho.",
+      "species_interactions": "Consome uma ampla gama de espécies de plantas e é um item de presa chave para várias aves, pequenos mamíferos e invertebrados predadores.",
+      "scientific_name": "Cornu aspersum",
+      "common_name": "Caracol-de-jardim"
+    },
+    "11": {
+      "name": "Calendula arvensis (Calêndula-do-campo)",
+      "what_is_it": "Uma pequena planta herbácea anual da família das margaridas, conhecida por suas flores compostas de cor amarelo-vivo ou laranja.",
+      "information": "Nativa do centro e sul da Europa, esta espécie resistente é comumente encontrada em campos em pousio, vinhedos e beiras de estradas perturbadas. É menor que sua parente cultivada, a calêndula-comum, e tem uma longa história de uso na medicina herbal tradicional por suas propriedades cicatrizantes e anti-inflamatórias.",
+      "species_interactions": "As flores servem como uma valiosa fonte de néctar e pólen para uma variedade de polinizadores generalistas, incluindo abelhas, borboletas e moscas-das-flores.",
+      "scientific_name": "Calendula arvensis",
+      "common_name": "Calêndula-do-campo"
+    },
+    "12": {
+      "name": "Calendula arvensis (Calêndula-do-campo)",
+      "what_is_it": "Uma pequena planta herbácea anual da família das margaridas (Asteraceae), caracterizada por suas flores compostas de cor amarelo-vivo ou laranja.",
+      "information": "Nativa da região do Mediterrâneo, esta planta anual resistente prospera em solos perturbados, campos e beiras de estradas. É bem conhecida por suas flores heliotrópicas que se abrem com o sol e se fecham à noite. Historicamente, tem sido usada na medicina popular e como substituto culinário do açafrão devido às suas pétalas vibrantes.",
+      "species_interactions": "As flores são uma valiosa fonte de néctar e pólen para uma variedade de insetos, incluindo abelhas, borboletas e moscas-das-flores.",
+      "scientific_name": "Calendula arvensis",
+      "common_name": "Calêndula-do-campo"
+    },
+    "15": {
+      "name": "Formiga (Formicidae)",
+      "what_is_it": "Formigas são pequenos insetos sociais conhecidos por seu comportamento cooperativo e colônias complexas.",
+      "information": "As formigas desempenham papéis cruciais nos ecossistemas, incluindo a aeração do solo, dispersão de sementes e decomposição. Elas são encontradas em todos os continentes, exceto na Antártida, e interagem com uma variedade de espécies, incluindo plantas e outros insetos. Muitas formigas têm relações mutualísticas com plantas, muitas vezes protegendo-as de herbívoros em troca de néctar.",
+      "species_interactions": "As formigas podem interagir com a espirradeira e outras plantas, protegendo-as de herbívoros ou alimentando-se de frutos caídos.",
+      "scientific_name": "Formicidae",
+      "common_name": "Formiga"
+    },
+    "16": {
+      "name": "Oxalis triangularis",
+      "what_is_it": "Também conhecida como trevo-roxo, esta planta é reconhecida por suas folhas triangulares únicas e cor roxa vibrante.",
+      "information": "Oxalis triangularis é frequentemente cultivada como planta ornamental devido à sua folhagem e flores vistosas. Geralmente, prospera em solo bem drenado e pode ser cultivada em ambientes internos ou externos. Esta espécie é conhecida por exibir um comportamento chamado nictinastia, onde suas folhas se fecham à noite e reabrem durante o dia. Faz parte de uma família que possui várias espécies que podem ser comestíveis, mas recomenda-se cautela, pois algumas podem conter ácido oxálico, que pode ser prejudicial em grandes quantidades.",
+      "species_interactions": "O trevo-roxo pode atrair polinizadores como abelhas ou borboletas, especialmente quando está em floração.",
+      "scientific_name": "Oxalis triangularis",
+      "common_name": ""
+    },
+    "18": {
+      "name": "Morus alba (Amora-branca)",
+      "what_is_it": "Uma árvore decídua de crescimento rápido, conhecida por suas formas de folha altamente variáveis e frutos comestíveis.",
+      "information": "Nativa da China, esta espécie foi introduzida globalmente para apoiar a indústria do bicho-da-seda e desde então se naturalizou em muitas regiões. Plantas jovens frequentemente exibem folhas profundamente lobadas, uma característica morfológica que frequentemente muda para folhas não lobadas em formato de coração à medida que a árvore amadurece. É altamente adaptável e pode prosperar em uma variedade de tipos de solo e ambientes urbanos.",
+      "species_interactions": "Serve como a única fonte de alimento para o bicho-da-seda e produz amoras que são um recurso alimentar vital para inúmeras espécies de aves e mamíferos.",
+      "scientific_name": "Morus alba",
+      "common_name": "Amora-branca"
+    },
+    "22": {
+      "name": "Fragaria × ananassa (Morango)",
+      "what_is_it": "Uma planta híbrida amplamente cultivada da família das rosas, conhecida por seus frutos comestíveis doces e vermelhos.",
+      "information": "Esta espécie é um híbrido de dois morangos silvestres das Américas e é um pilar da agricultura de clima temperado. Cresce como uma planta perene rasteira que se espalha por estolões, o que lhe permite colonizar canteiros rapidamente. O 'fruto' é, na verdade, um receptáculo aumentado, sendo os verdadeiros frutos botânicos os pequenos aquênios em sua superfície.",
+      "species_interactions": "Suas flores fornecem néctar para vários polinizadores, como abelhas, enquanto seus frutos são uma fonte de alimento para pássaros e pequenos mamíferos que auxiliam na dispersão de sementes.",
+      "scientific_name": "Fragaria × ananassa",
+      "common_name": "Morango"
+    },
+    "25": {
+      "name": "Fragaria × ananassa (Morango)",
+      "what_is_it": "Uma planta de morango cultivada, reconhecida por suas folhas trifoliadas e serrilhadas e por suas lindas flores brancas adornadas com centros amarelos.",
+      "information": "Esta planta prefere solo bem drenado e é frequentemente encontrada em jardins. Os morangos que produz não são apenas uma fruta popular, mas também desempenham um papel na atração de polinizadores. Curiosamente, também são conhecidos por sua capacidade de se espalhar por estolões, criando uma mancha vibrante em condições favoráveis.",
+      "species_interactions": "O morango pode atrair vários polinizadores, como abelhas, o que pode ser benéfico para a flora circundante.",
+      "scientific_name": "Fragaria × ananassa",
+      "common_name": "Morango"
+    },
+    "33": {
+      "name": "Calendula arvensis (Calêndula-do-campo)",
+      "what_is_it": "Uma pequena planta herbácea anual da família das margaridas, conhecida por suas flores compostas de cor amarelo-vivo ou laranja.",
+      "information": "Nativa do centro e sul da Europa, é uma espécie pioneira resistente, frequentemente encontrada em habitats perturbados como beiras de estradas e campos agrícolas. Possui um longo período de floração e produz sementes curvas e espinhosas distintas, que são facilmente dispersas por animais ou pela atividade humana.",
+      "species_interactions": "As flores fornecem uma importante fonte de néctar e pólen para vários polinizadores generalistas, incluindo abelhas, sirfídeos e borboletas.",
+      "scientific_name": "Calendula arvensis",
+      "common_name": "Calêndula-do-campo"
+    },
+    "34": {
+      "name": "Cota tinctoria (Margarida-dourada)",
+      "what_is_it": "Uma planta herbácea perene da família das margaridas, caracterizada por suas inflorescências amarelo-vivas e folhagem aromática semelhante a samambaia.",
+      "information": "Nativa da Europa e da Ásia Ocidental, esta espécie é altamente tolerante à seca e prospera em habitats ensolarados e bem drenados, como prados e encostas rochosas. É amplamente cultivada como ornamental e foi historicamente valorizada como fonte de um corante amarelo extraído de suas inflorescências. As folhas finamente divididas da planta são frequentemente pilosas, ajudando-a a conservar a umidade em ambientes secos.",
+      "species_interactions": "Suas flores ricas em néctar atraem uma grande variedade de insetos benéficos, particularmente abelhas solitárias e sirfídeos, que atuam como polinizadores primários.",
+      "scientific_name": "Cota tinctoria",
+      "common_name": "Margarida-dourada"
+    },
+    "44": {
+      "name": "Marrubium vulgare (Marroio-branco)",
+      "what_is_it": "Uma erva perene da família da menta, caracterizada por suas folhas opostas e profundamente enrugadas e por seus caules quadrados e pilosos.",
+      "information": "Nativa da região do Mediterrâneo, esta planta resistente se espalhou pelo mundo e é frequentemente encontrada em habitats secos e perturbados, como beiras de estradas e pastagens superpastoreadas. Tem uma longa história de uso na medicina tradicional e como aromatizante para doces e bebidas. A textura 'acolchoada' distinta da folha da planta ajuda a conservar a umidade em ambientes áridos.",
+      "species_interactions": "Suas flores são uma valiosa fonte de alimento para abelhas de língua comprida e borboletas, embora seu sabor amargo a torne desagradável para a maioria do gado.",
+      "scientific_name": "Marrubium vulgare",
+      "common_name": "Marroio-branco"
+    },
+    "45": {
+      "name": "Stachys bullata (Urtiga-mansa-da-Califórnia)",
+      "what_is_it": "Uma planta herbácea perene da família da menta (Lamiaceae), nativa das regiões costeiras da Califórnia.",
+      "information": "Apresenta folhas rugosas e altamente texturizadas e caules quadrados típicos de sua família, muitas vezes emitindo um aroma pungente quando machucada. Esta espécie prospera em habitats úmidos e sombreados, como bosques de carvalhos e fundos de cânions, onde pode formar densas manchas. Suas pequenas flores roxas bilabiadas estão dispostas em verticilos ao longo de uma espiga ereta.",
+      "species_interactions": "As flores ricas em néctar são uma fonte de alimento para beija-flores e várias abelhas nativas, enquanto a própria planta oferece abrigo para pequenos animais que vivem no solo.",
+      "scientific_name": "Stachys bullata",
+      "common_name": "Urtiga-mansa-da-Califórnia"
+    },
+    "48": {
+      "name": "Salsinha (Petroselinum crispum)",
+      "what_is_it": "Uma erva bienal com folhas verdes exuberantes, frequentemente usada em pratos culinários.",
+      "information": "A salsinha é uma erva culinária comum, apreciada por suas folhas aromáticas. É frequentemente encontrada em jardins e como planta cultivada devido à sua popularidade na culinária. A salsinha é conhecida por seu alto teor de vitamina C e potenciais benefícios à saúde, incluindo propriedades antioxidantes. A planta pode ser usada fresca ou seca e é comumente vista como guarnição. Em seu segundo ano, produz pequenos cachos de flores amarelo-esverdeadas em forma de umbela, que atraem vários polinizadores, incluindo abelhas.",
+      "species_interactions": "A salsinha fornece uma fonte de alimento para polinizadores, que podem visitar suas flores quando elas desabrocham.",
+      "scientific_name": "Petroselinum crispum",
+      "common_name": "Salsinha"
+    },
+    "50": {
+      "name": "Couve-selvagem (Brassica oleracea)",
+      "what_is_it": "Uma variante selvagem de couve, conhecida por suas grandes folhas glaucas e capacidade de floração.",
+      "information": "A couve-selvagem é a ancestral de muitos vegetais cultivados e prospera em diversos habitats. Suas folhas são distintas, com veias proeminentes, e é uma importante fonte de alimento para numerosos insetos e herbívoros. Esta planta pode desenvolver flores amarelas vistosas, promovendo interações com vários polinizadores. Além de seu papel ecológico, também possui aplicações culinárias.",
+      "species_interactions": "A couve-selvagem pode atrair herbívoros que se alimentam de suas folhas, enquanto as gramíneas ao redor, embora competindo por recursos, fornecem habitat e alimento para outras espécies.",
+      "scientific_name": "Brassica oleracea",
+      "common_name": "Couve-selvagem"
+    },
+    "51": {
+      "name": "Salvia rosmarinus (Alecrim)",
+      "what_is_it": "O alecrim é uma erva lenhosa e perene com folhas perfumadas, perenes e em forma de agulha, e pequenas flores bilabiadas.",
+      "information": "Nativo do Mediterrâneo, este membro da família da menta é altamente tolerante à seca e prospera em ambientes ensolarados e bem drenados. É amplamente cultivado por sua folhagem aromática, que é usada na culinária, na medicina tradicional e na indústria de fragrâncias. O nome da planta vem do latim 'ros marinus', que significa 'orvalho do mar'.",
+      "species_interactions": "Suas flores fornecem néctar para vários polinizadores, como abelhas e borboletas, enquanto seus fortes óleos essenciais ajudam a repelir muitas pragas herbívoras.",
+      "scientific_name": "Salvia rosmarinus",
+      "common_name": "Alecrim"
+    },
+    "52": {
+      "name": "Bellis perennis (Margarida-comum)",
+      "what_is_it": "Uma planta herbácea perene comum da família Asteraceae, caracterizada por suas floretas radiais brancas e floretas do disco amarelas.",
+      "information": "Nativa da Europa, mas naturalizada globalmente, esta espécie resiliente prospera em habitats de grama curta, como gramados e prados. Sua roseta basal de folhas em forma de colher, de baixo crescimento, permite que sobreviva a cortes e pisoteios frequentes. As inflorescências são conhecidas pelo heliotropismo, fechando-se à noite e abrindo-se para seguir o sol durante o dia.",
+      "species_interactions": "Serve como uma importante fonte de néctar no início da estação para vários polinizadores, incluindo abelhas, borboletas e sirfídeos.",
+      "scientific_name": "Bellis perennis",
+      "common_name": "Margarida-comum"
+    },
+    "54": {
+      "name": "Flavoparmelia caperata (Líquen-escudo-verde-comum)",
+      "what_is_it": "Este é um líquen folioso comum, caracterizado por seu talo folíceo verde-amarelado pálido, que frequentemente forma grandes rosetas circulares.",
+      "information": "É um organismo simbiótico composto por um fungo e uma alga verde, normalmente encontrado em cascas de árvores, mas também adaptável a rochas e superfícies artificiais. Esta espécie é notavelmente tolerante à poluição por dióxido de enxofre, tornando-a uma visão frequente em áreas urbanas e suburbanas. Ele se expande para fora a partir do centro, com as partes mais antigas no meio muitas vezes se tornando enrugadas ou desenvolvendo estruturas reprodutivas.",
+      "species_interactions": "Serve como um micro-habitat para pequenos invertebrados, como tardígrados e ácaros, ao mesmo tempo que é coletado por algumas espécies de aves para a construção de ninhos.",
+      "scientific_name": "Flavoparmelia caperata",
+      "common_name": "Líquen-escudo-verde-comum"
+    },
+    "58": {
+      "name": "Viola sororia (Violeta-azul-comum)",
+      "what_is_it": "Uma flor silvestre perene, herbácea e sem caule, comum e nativa do leste da América do Norte.",
+      "information": "É frequentemente encontrada em gramados, prados e bosques abertos, prosperando em solos úmidos e bem drenados. A planta produz tanto flores vistosas de polinização aberta quanto flores discretas de autopolinização perto do solo. É a flor estadual de quatro estados dos EUA: Illinois, Nova Jersey, Rhode Island e Wisconsin.",
+      "species_interactions": "Serve como uma planta hospedeira larval crítica para várias espécies de borboletas fritilárias e suas sementes são frequentemente dispersas por formigas.",
+      "scientific_name": "Viola sororia",
+      "common_name": "Violeta-azul-comum"
+    },
+    "61": {
+      "name": "Dedaleira-comum (Digitalis purpurea)",
+      "what_is_it": "Uma planta perene alta conhecida por suas flores em forma de sino, que podem ser roxas, brancas ou amarelas.",
+      "information": "A dedaleira-comum é frequentemente encontrada em clareiras de bosques e ao longo de estradas, prosperando em solo bem drenado. Embora suas flores sejam icônicas por atrair polinizadores, as folhas contêm compostos que são tóxicos se ingeridos. Esta planta tem usos históricos significativos na medicina herbal, principalmente para condições cardíacas devido ao seu conteúdo de digitalis. Além disso, pode ser um indicador de solos ricos em nutrientes.",
+      "species_interactions": "A dedaleira pode atrair vários polinizadores, incluindo abelhas e beija-flores, quando floresce, contribuindo para a saúde do ecossistema local.",
+      "scientific_name": "Digitalis purpurea",
+      "common_name": "Dedaleira-comum"
+    },
+    "65": {
+      "name": "Thymus vulgaris (Tomilho-comum)",
+      "what_is_it": "O tomilho-comum é um subarbusto perene de baixo crescimento e base lenhosa da família da menta, amplamente cultivado como erva culinária e medicinal.",
+      "information": "Nativa do Mediterrâneo, esta planta resistente prospera em solos rochosos, ensolarados e bem drenados, e é excepcionalmente tolerante à seca. Suas folhas pequenas e aromáticas contêm timol, um óleo essencial com poderosas propriedades antissépticas e antifúngicas usado há séculos na medicina tradicional. Durante o verão, produz cachos de pequenas flores ricas em néctar, de cor rosa a roxa, que são altamente atraentes para vários polinizadores.",
+      "species_interactions": "Serve como uma fonte vital de néctar para abelhas melíferas e abelhas solitárias, enquanto seus fortes compostos aromáticos ajudam a repelir muitos insetos herbívoros.",
+      "scientific_name": "Thymus vulgaris",
+      "common_name": "Tomilho-comum"
+    },
+    "67": {
+      "name": "Saxifraga-dourada (Chrysosplenium sp.)",
+      "what_is_it": "Uma planta herbácea perene de baixo crescimento com folhas arredondadas e recortadas e pequenas flores amarelas.",
+      "information": "A saxifraga-dourada geralmente prospera em áreas úmidas e sombreadas e é frequentemente encontrada em bosques e entre rochas. Sua folhagem única a torna uma presença distinta no sub-bosque, onde pode se espalhar rapidamente. A planta produz pequenas flores amarelas que florescem na primavera e são polinizadas principalmente por insetos. As folhas verdes brilhantes e as flores amarelas contrastantes criam uma exibição vibrante quando em flor. Dado seu padrão de crescimento, pode desempenhar um papel significativo na estabilização do solo em seus habitats naturais.",
+      "species_interactions": "A saxifraga-dourada pode atrair vários polinizadores, incluindo abelhas, que também podem ser encontradas visitando plantas vizinhas, como gramíneas.",
+      "scientific_name": "Chrysosplenium sp.",
+      "common_name": "Saxifraga-dourada"
+    },
+    "68": {
+      "name": "Dinheiro-em-penca (Lysimachia nummularia)",
+      "what_is_it": "Uma planta perene de cobertura do solo conhecida por suas vibrantes flores amarelas e folhas redondas e recortadas.",
+      "information": "A dinheiro-em-penca prospera em áreas úmidas e sombreadas, sendo frequentemente usada para estabilizar o solo e prevenir a erosão. Suas flores amarelas brilhantes florescem do final da primavera ao início do verão, atraindo vários polinizadores. A planta se espalha rapidamente e é conhecida por sua folhagem vibrante, que se torna dourada no outono. A dinheiro-em-penca também pode ser usada em aplicações culinárias, especialmente suas folhas jovens, que podem ser adicionadas a saladas. No entanto, pode competir com espécies nativas se não for manejada adequadamente.",
+      "species_interactions": "A dinheiro-em-penca pode abrigar pequenos insetos enquanto fornece néctar para polinizadores; ela coexiste com gramíneas próximas.",
+      "scientific_name": "Lysimachia nummularia",
+      "common_name": "Dinheiro-em-penca"
+    },
+    "69": {
+      "name": "Stachys arvensis (Erva-ferida-dos-campos)",
+      "what_is_it": "Uma pequena planta herbácea anual da família da menta (Lamiaceae) caracterizada por seus caules quadrados e verticilos de pequenas flores roxo-pálidas.",
+      "information": "Nativa da Europa e da Ásia Ocidental, esta espécie tornou-se uma erva daninha difundida em regiões temperadas, colonizando frequentemente jardins, campos cultivados e solos perturbados. É uma planta de baixo crescimento com folhas opostas e peludas e pequenas núculas que podem permanecer dormentes no solo por vários anos. Apesar de seu nome, tem uso histórico limitado na medicina tradicional em comparação com outros membros do gênero Stachys.",
+      "species_interactions": "As pequenas flores fornecem uma fonte de néctar para várias abelhas pequenas e sirfídeos, enquanto a própria planta pode servir como hospedeira para certos insetos minadores de folhas especializados.",
+      "scientific_name": "Stachys arvensis",
+      "common_name": "Erva-ferida-dos-campos"
+    },
+    "70": {
+      "name": "Desconhecido",
+      "what_is_it": "Nenhuma espécie identificada na imagem.",
+      "information": "Estamos começando de novo! Vamos mergulhar no ambiente para descobrir a biodiversidade oculta que está esperando para ser descoberta.",
+      "species_interactions": "Nenhuma interação observada, pois nenhuma espécie foi identificada ainda.",
+      "scientific_name": "",
+      "common_name": "Desconhecido"
+    },
+    "72": {
+      "name": "Ameixeira ou Cerejeira (Prunus sp.)",
+      "what_is_it": "Uma árvore lenhosa conhecida por suas deslumbrantes flores brancas que são vibrantes na primavera.",
+      "information": "O gênero Prunus inclui tanto ameixeiras quanto cerejeiras, que são frequentemente cultivadas por seus frutos deliciosos. Essas árvores florescem com belas flores brancas, atraindo polinizadores quando em plena floração. Elas podem tolerar vários tipos de solo, mas preferem condições bem drenadas. Além de seus usos culinários, essas árvores também são valorizadas por sua beleza ornamental. A fruta é frequentemente consumida fresca, em geleias ou usada em sobremesas.",
+      "species_interactions": "As espécies de Prunus podem atrair abelhas e outros polinizadores, fornecendo uma fonte de alimento vital durante a floração.",
+      "scientific_name": "Prunus sp.",
+      "common_name": "Ameixeira ou Cerejeira"
+    },
+    "73": {
+      "name": "Prunus cerasifera (Ameixa-de-jardim)",
+      "what_is_it": "Uma árvore decídua ou grande arbusto da família Rosaceae, reconhecida por suas flores brancas de floração precoce.",
+      "information": "Esta espécie é nativa do Sudeste da Europa e da Ásia Ocidental, mas tornou-se naturalizada em muitas outras regiões temperadas. É valorizada por sua exibição floral no início da primavera e produz pequenas drupas comestíveis que variam de cor. A árvore é frequentemente usada como porta-enxerto para outras variedades de ameixa devido à sua rusticidade.",
+      "species_interactions": "Suas flores precoces são uma fonte de alimento vital para polinizadores emergentes como as abelhas, enquanto seus frutos fornecem sustento para pássaros e pequenos mamíferos.",
+      "scientific_name": "Prunus cerasifera",
+      "common_name": "Ameixa-de-jardim"
+    },
+    "76": {
+      "name": "Coccinella septempunctata - Joaninha-de-sete-pintas",
+      "what_is_it": "Um pequeno besouro com élitros vermelhos distintos, apresentando sete pontos pretos.",
+      "information": "A joaninha-de-sete-pintas é comumente encontrada em jardins e campos, alimentando-se principalmente de pulgões, o que a torna um inseto benéfico para os jardineiros. Os adultos são caracterizados por sua carapaça vermelha brilhante e padrão de pontos, embora o número e a visibilidade dos pontos possam variar. Eles desempenham um papel crucial no controle de populações de pragas e são conhecidos por seu notável ciclo de vida, que inclui vários estágios larvais antes de emergirem como adultos.",
+      "species_interactions": "Esta espécie de joaninha preda insetos de corpo mole, que podem ser encontrados perto de amoreiras e gramíneas, ajudando a manter o equilíbrio no ecossistema.",
+      "scientific_name": "Coccinella septempunctata",
+      "common_name": "Joaninha-de-sete-pintas"
+    },
+    "81": {
+      "name": "Quercus sp. (Carvalho)",
+      "what_is_it": "Um gênero diverso de árvores caracterizado por folhas lobadas e bolotas, comumente encontrado em vários habitats.",
+      "information": "Os carvalhos são longevos e podem crescer bastante, formando ecossistemas importantes que sustentam numerosos organismos. Eles produzem bolotas que servem de alimento para vários animais selvagens, e suas folhas adquirem cores brilhantes no outono. Os carvalhos também desempenham um papel vital no armazenamento de carbono e na saúde do solo.",
+      "species_interactions": "Os carvalhos podem sustentar vários insetos, pássaros e mamíferos, fornecendo alimento e abrigo, enquanto interagem com espécies próximas de Trifolium e Scleroderma.",
+      "scientific_name": "Quercus sp.",
+      "common_name": "Carvalho"
+    },
+    "84": {
+      "name": "Salvia rosmarinus (Alecrim)",
+      "what_is_it": "Uma erva lenhosa e perene com folhas perfumadas, perenes e em forma de agulha e pequenas flores de cor azul-pálido a roxo.",
+      "information": "Nativo da região do Mediterrâneo, o alecrim é um membro da família da hortelã (Lamiaceae) e está bem adaptado a ambientes costeiros e solos secos. É amplamente cultivado por sua folhagem aromática, que é usada em aplicações culinárias, medicinais e cosméticas. A planta é conhecida por sua tolerância à seca e sua capacidade de atrair uma variedade de insetos benéficos.",
+      "species_interactions": "O alecrim fornece uma fonte vital de néctar e pólen para polinizadores como a abelha-europeia (Apis mellifera) visível na imagem, o que ajuda a planta a se reproduzir através da polinização cruzada.",
+      "scientific_name": "Salvia rosmarinus",
+      "common_name": "Alecrim"
+    },
+    "85": {
+      "name": "Salvia rosmarinus (Alecrim)",
+      "what_is_it": "O alecrim é uma erva lenhosa e perene com folhas perfumadas, perenes e em forma de agulha e pequenas flores bilabiadas.",
+      "information": "Nativo da região do Mediterrâneo, está bem adaptado a ambientes costeiros e pode resistir à seca. É amplamente cultivado por sua folhagem aromática, que é usada em aplicações culinárias, medicinais e de perfumaria. A planta geralmente floresce na primavera e no verão, fornecendo uma fonte confiável de néctar para vários polinizadores.",
+      "species_interactions": "O alecrim fornece néctar e pólen para vários insetos, como a abelha-europeia (Apis mellifera) vista aqui, que por sua vez facilita a polinização da planta.",
+      "scientific_name": "Salvia rosmarinus",
+      "common_name": "Alecrim"
+    }
+  },
+  "4914a7b9-044f-4677-abf1-04c0566e0829": {
+    "0": {
+      "name": "Espécie Desconhecida",
+      "what_is_it": "Infelizmente, não há espécies identificadas na imagem.",
+      "information": "Sem nenhuma espécie identificável, pode ser benéfico explorar as áreas circundantes em busca de sinais de biodiversidade.",
+      "species_interactions": "Nenhuma interação pode ser estabelecida sem espécies identificadas.",
+      "scientific_name": "",
+      "common_name": "Espécie Desconhecida"
+    }
+  },
+  "8323c860-51e2-4453-88ee-89684a531c39": {
+    "0": {
+      "name": "Não Aplicável",
+      "what_is_it": "Nenhuma espécie identificada na imagem.",
+      "information": "Nenhuma informação adicional pode ser fornecida.",
+      "species_interactions": "Nenhuma interação a ser relatada.",
+      "scientific_name": "",
+      "common_name": "Não Aplicável"
+    },
+    "4": {
+      "name": "Cantharellus cibarius (Cantharellus Dourado)",
+      "what_is_it": "Um cogumelo selvagem comestível muito apreciado, conhecido por sua cor amarelo-alaranjada brilhante e formato de funil.",
+      "information": "Os cantharellus dourados são fungos micorrízicos, formando relações simbióticas com várias árvores, especialmente folhosas e coníferas. Eles são caracterizados por suas 'falsas lamelas', que na verdade são cristas rombas que descem pelo caule, e muitas vezes têm um aroma frutado suave que lembra damascos. Esses cogumelos geralmente aparecem no final do verão e no outono, após períodos de chuva.",
+      "species_interactions": "Eles formam associações micorrízicas mutuamente benéficas com as raízes das árvores hospedeiras, trocando nutrientes do solo por carboidratos produzidos pela árvore.",
+      "scientific_name": "Cantharellus cibarius",
+      "common_name": "Cantharellus Dourado"
+    }
+  },
+  "82a95a52-0dc0-4932-8fdd-3645133808fb": {
+    "2": {
+      "name": "Margarida (Leucanthemum vulgare)",
+      "what_is_it": "Uma flor branca brilhante com um centro amarelo, a Margarida é comumente encontrada em campos e jardins.",
+      "information": "Conhecida por seu formato clássico de margarida, a Margarida prospera em uma variedade de solos e é frequentemente associada a habitats de pastagem. Esta planta perene não é apenas esteticamente agradável, mas também serve como fonte de alimento para vários polinizadores, incluindo abelhas e borboletas. As flores também são usadas na medicina tradicional, e sua aparência alegre adiciona um toque de cor às paisagens.",
+      "species_interactions": "As Margaridas atraem polinizadores que se alimentam do néctar, ajudando em seu ciclo de vida e, ao mesmo tempo, apoiando a saúde do ecossistema.",
+      "scientific_name": "Leucanthemum vulgare",
+      "common_name": "Margarida"
+    }
+  },
+  "0c3cb7a4-0693-4ef7-9aef-eba1ed32a466": {
+    "0": {
+      "name": "Melissa officinalis (Erva-cidreira)",
+      "what_is_it": "A erva-cidreira é uma planta herbácea perene da família da hortelã, Lamiaceae, caracterizada por suas folhas com aroma de limão.",
+      "information": "Nativa do centro-sul da Europa e do Mediterrâneo, naturalizou-se globalmente e prospera em solos úmidos e bem drenados. A planta apresenta caules quadrados e folhas opostas e ovais com uma textura distintamente enrugada e bordas serrilhadas. Tem uma longa história de uso na medicina tradicional como um sedativo suave e em aplicações culinárias por seu sabor cítrico.",
+      "species_interactions": "As flores da planta, ricas em néctar, são altamente atraentes para polinizadores, especialmente abelhas, razão pela qual o nome de seu gênero é derivado da palavra grega para abelha.",
+      "scientific_name": "Melissa officinalis",
+      "common_name": "Erva-cidreira"
+    },
+    "2": {
+      "name": "Suillus luteus",
+      "what_is_it": "O Boleto-anelado é um tipo de cogumelo porcini conhecido por seu chapéu viscoso característico e é frequentemente encontrado em associação com pinheiros.",
+      "information": "O Suillus luteus pode ser reconhecido por seu chapéu de cor amarelo-escuro a marrom e pela textura viscosa que ajuda na dispersão dos esporos. Esses fungos formam principalmente relações micorrízicas com árvores coníferas, melhorando a absorção de nutrientes para suas árvores hospedeiras enquanto se beneficiam dos carboidratos produzidos por elas. São comestíveis, mas devem ser devidamente limpos devido à sua textura viscosa. Sua presença indica um ecossistema florestal saudável e, às vezes, pode ser visto espreitando através da serrapilheira em florestas de coníferas.",
+      "species_interactions": "O Boleto-anelado interage com várias espécies no ecossistema florestal, formando especialmente relações benéficas com pinheiros e sendo potencialmente uma fonte de alimento para criaturas da floresta.",
+      "scientific_name": "Suillus luteus",
+      "common_name": ""
+    }
+  },
+  "102dad33-bbbf-4701-93d1-5eebf9f5286c": {
+    "0": {
+      "name": "Hydrangea macrophylla",
+      "what_is_it": "A hortênsia é um arbusto ornamental popular conhecido por suas flores grandes e vistosas.",
+      "information": "Esta espécie é particularmente notável pelas variações de cor de suas flores, que são influenciadas pelo pH do solo; solos ácidos produzem flores azuis, enquanto solos alcalinos produzem flores rosas. Historicamente utilizada em jardins asiáticos, seu apelo ornamental também levou a híbridos que apresentam formas e tamanhos de flores incomuns.",
+      "species_interactions": "A Hydrangea macrophylla atrai vários polinizadores e pode interagir com micróbios do solo através de seu extenso sistema radicular, melhorando a ciclagem de nutrientes.",
+      "scientific_name": "Hydrangea macrophylla",
+      "common_name": ""
+    },
+    "1": {
+      "name": "Taxus baccata (Teixo)",
+      "what_is_it": "Esta é uma árvore ou arbusto conífero perene caracterizado por suas agulhas planas de cor verde-escura e longevidade excepcional.",
+      "information": "Nativo da Europa e de partes da Ásia e África, é frequentemente encontrado em florestas antigas e pátios de igrejas, onde alguns indivíduos viveram por mais de 2.000 anos. Todas as partes da planta, exceto o arilo vermelho carnudo, contêm alcaloides taxina altamente tóxicos, que servem como uma potente defesa contra herbívoros.",
+      "species_interactions": "Pássaros como tordos e bombicilas consomem os arilos vermelhos não tóxicos e dispersam as sementes, enquanto a folhagem densa e perene fornece locais de nidificação cruciais e abrigo de inverno para várias espécies de vida selvagem.",
+      "scientific_name": "Taxus baccata",
+      "common_name": "Teixo"
+    },
+    "5": {
+      "name": "Glechoma hederacea (Hera-terrestre)",
+      "what_is_it": "Uma erva perene rasteira e de baixo crescimento da família da menta, frequentemente encontrada em gramados e jardins sombreados.",
+      "information": "Nativa da Europa e da Ásia, esta planta naturalizou-se amplamente e é conhecida por sua disseminação agressiva por meio de estolões. Ela prospera em ambientes úmidos e sombreados, mas é altamente adaptável a vários tipos de solo e condições de luz. Historicamente, foi usada na medicina tradicional e como agente aromatizante na produção de cerveja ale antes que o lúpulo se tornasse padrão.",
+      "species_interactions": "Serve como uma importante fonte de néctar no início da estação para abelhas e outros polinizadores, embora seu crescimento denso possa suprimir a germinação de outras plantas.",
+      "scientific_name": "Glechoma hederacea",
+      "common_name": "Hera-terrestre"
+    }
+  },
+  "3611fe10-b560-480d-94bd-06577633f61f": {
+    "0": {
+      "name": "Mostarda Selvagem e Gramíneas",
+      "what_is_it": "A mostarda selvagem é uma planta caracterizada por seus caules vermelhos/roxos e folhas enrugadas e dentadas. As gramíneas formam um cenário variado, contribuindo para a biodiversidade geral da área.",
+      "information": "A mostarda selvagem (Brassica sp.) tem sido usada na medicina tradicional e em práticas culinárias por várias culturas. Na culinária romana, por exemplo, as sementes de mostarda eram moídas e misturadas com vinho para criar molhos. As espécies de gramíneas da família Poaceae há muito tempo são simbolicamente ligadas à abundância e fertilidade, estando frequentemente presentes em rituais agrários em diversas culturas.",
+      "species_interactions": "A mostarda selvagem pode servir como planta hospedeira para vários insetos, enquanto as gramíneas podem fornecer cobertura do solo e habitat para numerosos pequenos organismos.",
+      "scientific_name": "",
+      "common_name": "Mostarda Selvagem e Gramíneas"
+    },
+    "4": {
+      "name": "Acelga (Beta vulgaris subsp. vulgaris)",
+      "what_is_it": "Uma variedade cultivada de beterraba folhosa, conhecida por seus pecíolos coloridos e folhas ricas em nutrientes.",
+      "information": "A acelga é cultivada desde a antiguidade, sendo frequentemente usada na culinária mediterrânea. Na Roma antiga, suas folhas eram admiradas por seu sabor e benefícios à saúde. As cores vivas também a tornaram um símbolo de vitalidade em muitos jardins, representando prosperidade e saúde.",
+      "scientific_name": "Beta vulgaris subsp. vulgaris",
+      "common_name": "Acelga"
+    },
+    "8": {
+      "name": "Espécie Desconhecida",
+      "what_is_it": "Uma espécie não identificada observada na área.",
+      "information": "Como permanece não identificada, não há significado cultural ou histórico específico a ser observado. Tipicamente, espécies não classificadas podem representar uma biodiversidade inexplorada com potenciais papéis ecológicos.",
+      "species_interactions": "Não aplicável",
+      "scientific_name": "",
+      "common_name": "Espécie Desconhecida"
+    }
+  },
+  "dc23a859-8819-4c30-8cd1-97d83baf7d31": {
+    "0": {
+      "name": "Hyles euphorbiae (Lagarta da esfinge-das-eufórbias)",
+      "what_is_it": "Uma lagarta conhecida por sua aparência marcante e sua dieta que consiste principalmente em eufórbias.",
+      "information": "A lagarta da esfinge-das-eufórbias pode ser de um verde brilhante ou ter uma aparência espinhosa, imitando partes das plantas das quais se alimenta para camuflagem. Os adultos são frequentemente vistos voando ao entardecer ou à noite e desempenham um papel importante no ecossistema como polinizadores. Essas lagartas são encontradas principalmente em jardins e áreas com abundância de eufórbias. Curiosamente, elas também são conhecidas por se alimentarem de outras espécies de plantas, demonstrando sua adaptabilidade.",
+      "species_interactions": "A lagarta da esfinge-das-eufórbias interage com a grama, pois pode ser encontrada nos mesmos habitats e potencialmente ser predada por insetos que ocupam nichos ecológicos semelhantes.",
+      "scientific_name": "Hyles euphorbiae",
+      "common_name": "Lagarta da esfinge-das-eufórbias"
+    }
+  },
+  "3f0417ba-12ad-49bb-af4e-3dee43268be9": {
+    "0": {
+      "name": "Hierácio (Hieracium spp.)",
+      "what_is_it": "Hierácio é um grupo de plantas com flores conhecido por suas flores vibrantes semelhantes às do dente-de-leão. Elas são tipicamente encontradas em prados e pastagens.",
+      "information": "As espécies de Hierácio podem ser frequentemente reconhecidas por suas flores amarelas brilhantes que florescem em cachos. São plantas perenes que prosperam em áreas abertas e podem crescer em vários tipos de solo. Curiosamente, os Hierácios também podem se reproduzir por meios vegetativos, o que lhes permite espalhar-se rapidamente por habitats adequados. Algumas espécies podem ter usos medicinais, pois eram tradicionalmente usadas para tratar doenças como tosse e feridas.",
+      "scientific_name": "Hieracium spp.",
+      "common_name": "Hierácio"
+    },
+    "1": {
+      "name": "Trevo-branco (Trifolium repens)",
+      "what_is_it": "Uma erva perene de baixo crescimento comumente encontrada em pastagens.",
+      "information": "O trevo-branco é conhecido por suas folhas trifoliadas e cachos redondos de flores brancas. Ele geralmente prospera em solos bem drenados e pode atuar como um fertilizante natural, fixando nitrogênio no solo. Esta espécie é atraente para muitos polinizadores, especialmente abelhas, e é usada em pastagens e gramados por sua durabilidade e vegetação exuberante.",
+      "scientific_name": "Trifolium repens",
+      "common_name": "Trevo-branco"
+    }
+  },
+  "bd333070-8010-454b-876d-d094fe285dca": {
+    "3": {
+      "name": "Fumaria officinalis",
+      "what_is_it": "A fumária é uma planta anual trepadeira, conhecida por suas folhas delicadas, semelhantes a samambaias, e pequenas flores tubulares.",
+      "information": "A fumária é frequentemente encontrada em solos perturbados e ao longo de estradas. Possui uma flor única de cor rosa a arroxeada que atrai vários polinizadores. Historicamente, tem sido usada na medicina herbal por suas supostas propriedades desintoxicantes. A planta é bienal e completa seu ciclo de vida rapidamente, prosperando em diversos tipos de solo, o que a torna bastante resiliente.",
+      "scientific_name": "Fumaria officinalis",
+      "common_name": ""
+    }
+  },
+  "c2a481de-3a11-4289-be3f-3b00d1ac8dff": {
+    "0": {
+      "name": "Abelha (Hymenoptera sp.)",
+      "what_is_it": "Um inseto voador conhecido por seu papel na polinização e por produzir mel.",
+      "information": "As abelhas são polinizadores essenciais, desempenhando um papel fundamental na polinização de muitas plantas, incluindo culturas agrícolas. Elas têm um corpo peludo que auxilia na coleta de pólen e se comunicam através de danças para compartilhar informações sobre fontes de alimento. Algumas espécies de abelhas são solitárias, enquanto outras, como as abelhas-melíferas, vivem em colônias. Suas populações têm diminuído devido à perda de habitat, uso de pesticidas e doenças.",
+      "scientific_name": "Hymenoptera sp.",
+      "common_name": "Abelha"
+    }
+  },
+  "b790c8b7-44af-421e-b2cd-21ec0511fd00": {
+    "1": {
+      "name": "Gazania rigens",
+      "what_is_it": "Uma planta cultivada conhecida por suas flores brilhantes e vibrantes, frequentemente usada em jardins.",
+      "information": "Gazania rigens, comumente conhecida como Gazânia, é uma planta perene com flores nativa da África do Sul. Ela prospera em pleno sol e é resistente à seca, tornando-se uma escolha popular para canteiros e bordaduras de jardins. As flores vêm em uma variedade de cores, atraindo polinizadores como abelhas e borboletas. Sua capacidade única de fechar as flores em resposta a mudanças de temperatura é uma adaptação notável.",
+      "scientific_name": "Gazania rigens",
+      "common_name": ""
+    }
+  },
+  "3bd42395-eea0-43aa-a9a9-6cd5d975c6b5": {
+    "0": {
+      "name": "Linária-roxa (Linaria purpurea)",
+      "what_is_it": "Uma planta perene com flores roxas impressionantes que se assemelham a bocas-de-leão, frequentemente encontrada em jardins e áreas perturbadas.",
+      "information": "A Linária-roxa pode se adaptar a várias condições de solo e é conhecida por sua capacidade de prosperar em solos pobres. Suas flores são particularmente atraentes para uma variedade de polinizadores, tornando-a uma excelente espécie para apoiar a biodiversidade local. Esta planta é nativa da Europa e tem sido usada na medicina herbal tradicional por suas potenciais propriedades diuréticas.",
+      "scientific_name": "Linaria purpurea",
+      "common_name": "Linária-roxa"
+    },
+    "1": {
+      "name": "Ulex europaeus (Tojo)",
+      "what_is_it": "O Tojo, também conhecido como tojo-ordinário ou tojo-europeu, é um arbusto florido reconhecido por seus ramos espinhosos e flores amarelas vibrantes.",
+      "information": "O Tojo é conhecido por sua adaptação única a habitats secos e arenosos, prosperando em solos pobres devido à sua capacidade de fixar nitrogênio no solo com a ajuda de bactérias simbióticas. Suas flores são uma fonte crucial de néctar para vários polinizadores durante o inverno e a primavera, oferecendo sustento importante quando outras fontes de alimento são escassas. Curiosamente, a planta pode ser considerada invasora em muitas regiões, particularmente na Nova Zelândia e em partes da Austrália, onde supera a flora local e forma matagais densos.",
+      "scientific_name": "Ulex europaeus",
+      "common_name": "Tojo"
+    }
+  },
+  "f7eb6983-2c10-47c7-bad4-b45d4a7f2d6c": {
+    "0": {
+      "name": "Pelargonium graveolens",
+      "what_is_it": "O gerânio-rosa é uma planta perene com flores, conhecida por suas folhas perfumadas e belas flores.",
+      "information": "Na era vitoriana, o gerânio-rosa era frequentemente incluído em pot-pourris, simbolizando amor e paixão. Também é usado em aromaterapia e perfumaria, com seu óleo essencial contendo compostos como geraniol e citronelol, que foram reconhecidos por suas propriedades antibacterianas. Esta planta foi celebrada em vários contextos culturais, notadamente na literatura do século XIX, onde o aroma do gerânio-rosa evocava nostalgia e saudade.",
+      "scientific_name": "Pelargonium graveolens",
+      "common_name": ""
+    },
+    "1": {
+      "name": "Symphytum officinale (Confrei-comum)",
+      "what_is_it": "Uma planta herbácea perene com flores da família da borragem, Boraginaceae, conhecida por suas folhas peludas e flores pendentes em forma de sino.",
+      "information": "Nativa da Europa e da Ásia, prospera em locais úmidos e gramados, como margens de rios e valas. Tem uma longa história de uso medicinal para tratar feridas e ossos quebrados, embora contenha alcaloides pirrolizidínicos que podem ser tóxicos se ingeridos. A planta também é valorizada por jardineiros como um 'acumulador dinâmico' que traz nutrientes das profundezas do solo com sua longa raiz pivotante.",
+      "species_interactions": "Suas flores ricas em néctar são altamente atraentes para vários polinizadores, especialmente abelhas de língua comprida, como as mamangavas.",
+      "scientific_name": "Symphytum officinale",
+      "common_name": "Confrei-comum"
+    },
+    "2": {
+      "name": "Cerejeira-brava (Prunus avium)",
+      "what_is_it": "A Cerejeira-brava é uma árvore de folha caduca conhecida por suas belas flores de primavera e pequenas cerejas comestíveis. Pode crescer até 25 metros de altura e é frequentemente encontrada em florestas e bosques.",
+      "information": "A Cerejeira-brava tem sido significativa em várias culturas, simbolizando prosperidade e renovação, especialmente evidente na cultura japonesa durante o Hanami, o festival das flores de cerejeira. Historicamente, sua madeira tem sido usada em móveis finos e marcenaria, mostrando seu valor além de seu fruto. Tribos nativas americanas utilizavam o fruto medicinalmente, enquanto no folclore europeu, a árvore frequentemente representava amor e fertilidade.",
+      "scientific_name": "Prunus avium",
+      "common_name": "Cerejeira-brava"
+    },
+    "3": {
+      "name": "Carvalho-Inglês (Quercus robur)",
+      "what_is_it": "Uma majestosa árvore de folha caduca conhecida por sua força e longevidade, o Carvalho-Inglês pode crescer até 40 metros de altura e é uma parte vital de muitos ecossistemas.",
+      "information": "O Carvalho-Inglês tem sido um símbolo de força e resistência em várias culturas, frequentemente associado a deuses do céu e da guerra, como Zeus na mitologia grega. Sua madeira foi historicamente usada na construção naval durante a Era da Navegação, notavelmente pela Marinha Britânica no século XVIII. No folclore, é frequentemente conectado à sabedoria e proteção, com suas folhas sendo usadas na medicina tradicional para tratar diversas doenças.",
+      "scientific_name": "Quercus robur",
+      "common_name": "Carvalho-Inglês"
+    },
+    "4": {
+      "name": "Pinus sylvestris",
+      "what_is_it": "O Pinheiro-silvestre é uma conífera alta nativa da Europa e da Ásia, conhecida por sua casca marrom-alaranjada distinta e agulhas longas.",
+      "information": "O Pinheiro-silvestre tem sido um símbolo de resiliência e resistência em várias culturas, frequentemente associado à força no folclore. Usado como madeira na construção e na construção naval, foi crucial durante a Era da Navegação no século XVII. Sua resina é tradicionalmente extraída para a produção de terebintina, adicionando uma dimensão histórica à sua significância ecológica e econômica.",
+      "scientific_name": "Pinus sylvestris",
+      "common_name": ""
+    },
+    "5": {
+      "name": "Aeônio-Arbóreo (Aeonium arboreum)",
+      "what_is_it": "O Aeônio-Arbóreo é uma suculenta perene caracterizada por sua formação de roseta distinta no topo de um caule alto, frequentemente vista em jardins e paisagens áridas.",
+      "information": "Originalmente das Ilhas Canárias, o Aeônio-Arbóreo tem sido cultivado por sua beleza ornamental e resistência à seca. Em práticas fitoterápicas tradicionais, foi associado a vários usos medicinais, frequentemente ligados ao alívio de irritações na pele. A espécie também inspirou vários artistas e fotógrafos, que capturam sua estrutura única e cores vibrantes, tornando-a um tema popular em obras de arte com tema de suculentas.",
+      "scientific_name": "Aeonium arboreum",
+      "common_name": "Aeônio-Arbóreo"
+    },
+    "6": {
+      "name": "Aloe arborescens",
+      "what_is_it": "A Babosa-candelabro é uma planta suculenta conhecida por suas impressionantes e altas espigas de flores vermelhas que se assemelham a tochas.",
+      "information": "Na medicina tradicional, especialmente na cultura Zulu da África do Sul, a Aloe arborescens é reverenciada por suas propriedades curativas, sendo frequentemente usada em remédios para doenças de pele e saúde interna. Suas flores vibrantes não são apenas ornamentais, mas foram celebradas em ilustrações botânicas do século XIX, simbolizando a resiliência em ambientes áridos. A planta também aparece na medicina holística moderna, enfatizando seu papel em práticas de saúde alternativas.",
+      "scientific_name": "Aloe arborescens",
+      "common_name": ""
+    },
+    "8": {
+      "name": "Mamangava (Bombus spp.)",
+      "what_is_it": "As mamangavas são insetos grandes e peludos conhecidos por seu zumbido característico enquanto polinizam flores. Elas desempenham um papel crucial na polinização de muitas plantas.",
+      "information": "Em várias culturas, as mamangavas simbolizam comunidade e trabalho árduo, particularmente entre sociedades agrícolas onde são reconhecidas por seu papel essencial na polinização. Na Roma Antiga, eram associadas à deusa Flora, representando a fertilidade e a vitalidade da vida. Sua presença em jardins é frequentemente ligada à abundância e à mudança das estações.",
+      "scientific_name": "Bombus spp.",
+      "common_name": "Mamangava"
+    },
+    "9": {
+      "name": "Geranium robertianum (Erva-de-são-roberto)",
+      "what_is_it": "A Erva-de-são-roberto é uma planta perene conhecida por suas pequenas flores rosas e folhas finamente divididas. Ela geralmente prospera em áreas sombreadas ou de floresta.",
+      "information": "A Erva-de-são-roberto tem um lugar na medicina popular, particularmente na Europa, onde tem sido usada para tratar feridas devido às suas propriedades adstringentes. Acreditava-se em algumas culturas que ela afastava maus espíritos, e sua presença era considerada um sinal de boa sorte. Os constituintes químicos da planta incluem a geraniína, um composto fenólico acilado, que tem sido estudado por suas propriedades antioxidantes.",
+      "scientific_name": "Geranium robertianum",
+      "common_name": "Erva-de-são-roberto"
+    },
+    "10": {
+      "name": "Mosca-doméstica (Musca domestica)",
+      "what_is_it": "A Mosca-doméstica é um inseto comum conhecido por sua capacidade de prosperar em ambientes humanos. Elas são frequentemente encontradas em residências e podem ser reconhecidas por seu zumbido e movimentos rápidos.",
+      "information": "As moscas-domésticas têm sido significativas em várias culturas, simbolizando a decomposição e a pestilência devido à sua associação com resíduos e sujeira. Curiosamente, elas são utilizadas em pesquisas, especialmente em estudos de genética e comportamento, desde o início do século XX. Seu ciclo de vida rápido as torna sujeitos ideais para a compreensão da dinâmica populacional e da transmissão de doenças.",
+      "scientific_name": "Musca domestica",
+      "common_name": "Mosca-doméstica"
+    },
+    "12": {
+      "name": "Abutilon pictum (Lanterna-chinesa)",
+      "what_is_it": "Este é um arbusto perene da família das malvas, caracterizado por suas flores pendentes em forma de sino e folhas variegadas, semelhantes às do bordo.",
+      "information": "Nativa da América do Sul, esta espécie é popular em jardins por sua folhagem atraente e flores vermelho-alaranjadas de longa floração. As manchas amarelas distintas nas folhas são tipicamente causadas pelo vírus do mosaico do Abutilon, que muitas vezes é mantido intencionalmente por seu valor ornamental. Prefere solo bem drenado e sombra parcial a pleno sol em climas temperados a tropicais.",
+      "species_interactions": "As flores ricas em néctar atraem beija-flores e vários insetos polinizadores, enquanto o vírus do mosaico do Abutilon é transmitido entre as plantas pela mosca-branca.",
+      "scientific_name": "Abutilon pictum",
+      "common_name": "Lanterna-chinesa"
+    },
+    "14": {
+      "name": "Girassol Comum (Helianthus annuus)",
+      "what_is_it": "O Girassol Comum é uma planta anual conhecida por suas grandes flores amarelas e brilhantes que seguem o sol. É um item básico em jardins e na agricultura, valorizado por suas sementes e óleo.",
+      "information": "Os Girassóis Comuns têm raízes profundas nas culturas indígenas da América do Norte, onde são celebrados como um símbolo de colheita e sustento. A planta era cultivada pelos nativos americanos muito antes do contato europeu por suas sementes nutritivas, ricas em óleo e proteína. Além disso, desempenhavam um papel em várias cerimônias e eram frequentemente vistos como uma representação de positividade e calor.",
+      "scientific_name": "Helianthus annuus",
+      "common_name": "Girassol Comum"
+    },
+    "16": {
+      "name": "Íris-fétida (Iris foetidissima)",
+      "what_is_it": "Uma planta perene conhecida por suas folhas distintas em forma de espada e bagas vermelhas vistosas, a Íris-fétida tem um odor forte que repele herbívoros.",
+      "information": "No folclore, a Íris-fétida tem sido associada a uma variedade de crenças culturais, muitas vezes relacionada à proteção contra maus espíritos devido ao seu cheiro potente. Ela tem sido usada na medicina tradicional por suas supostas propriedades anti-inflamatórias, especialmente na Europa. Historicamente, as vistosas bagas da planta também foram utilizadas na fabricação de corantes, mostrando seu papel multifacetado tanto em contextos naturais quanto culturais.",
+      "scientific_name": "Iris foetidissima",
+      "common_name": "Íris-fétida"
+    },
+    "17": {
+      "name": "Prunus persica (Pêssego)",
+      "what_is_it": "Esta é uma muda jovem de um pessegueiro, uma árvore decídua da família das rosas (Rosaceae) amplamente cultivada por seu fruto comestível.",
+      "information": "Os pessegueiros são nativos do Noroeste da China e têm sido cultivados por milhares de anos, eventualmente se espalhando pelo globo para regiões temperadas. Eles são caracterizados por suas folhas longas em forma de lança com bordas serrilhadas e sua capacidade de produzir drupas doces com casca aveludada. Essas árvores prosperam em solo bem drenado e requerem luz solar significativa para crescer e produzir frutos de forma eficaz.",
+      "species_interactions": "As flores fornecem uma importante fonte de néctar e pólen para abelhas e outros polinizadores, enquanto o fruto é consumido por uma grande variedade de pássaros e mamíferos.",
+      "scientific_name": "Prunus persica",
+      "common_name": "Pêssego"
+    },
+    "18": {
+      "name": "Prunus laurocerasus",
+      "what_is_it": "O Louro-cerejo é um arbusto perene conhecido por suas folhas brilhantes e crescimento denso, frequentemente usado como cerca-viva ou planta ornamental.",
+      "information": "Historicamente, o Louro-cerejo tem sido associado à proteção e imortalidade; era usado na Roma Antiga para coroas de louros, simbolizando vitória e honra. O folclore frequentemente liga esta planta a tradições de noivas, onde suas folhas significam fidelidade. Além disso, a planta contém compostos como glicosídeos cianogênicos, que têm implicações em práticas medicinais tradicionais, embora seja aconselhada cautela devido à sua toxicidade em certas partes.",
+      "scientific_name": "Prunus laurocerasus",
+      "common_name": ""
+    },
+    "19": {
+      "name": "Acelga (Beta vulgaris subsp. vulgaris)",
+      "what_is_it": "A acelga é um vegetal de folhas verdes conhecido por seus talos vermelhos vibrantes e folhas grandes e largas, frequentemente usada em saladas e pratos cozidos.",
+      "information": "A acelga tem significado histórico nas culinárias mediterrâneas, particularmente na Itália e na Grécia, onde é cultivada desde a antiguidade. Ela simboliza alimentação saudável e biodiversidade, pois existe em várias cores, cada uma representando diferentes benefícios nutricionais. Tradicionalmente, também era utilizada na medicina popular, onde era valorizada por seu alto teor de vitaminas e supostos benefícios à saúde.",
+      "scientific_name": "Beta vulgaris subsp. vulgaris",
+      "common_name": "Acelga"
+    },
+    "20": {
+      "name": "Lírio-corneta (Watsonia borbonica)",
+      "what_is_it": "Uma planta perene nativa da África do Sul, o Lírio-corneta apresenta longas espigas de flores em forma de trombeta em cores vibrantes, atraindo vários polinizadores.",
+      "information": "Os Lírios-corneta são celebrados na cultura sul-africana por sua beleza, muitas vezes simbolizando esperança e renovação nos jardins. Na medicina tradicional, seu bulbo tem sido empregado, com cautela, por suas potenciais propriedades medicinais, enquanto sua aparência marcante os torna favoritos entre floristas e paisagistas.",
+      "scientific_name": "Watsonia borbonica",
+      "common_name": "Lírio-corneta"
+    },
+    "23": {
+      "name": "Alface (Lactuca sativa)",
+      "what_is_it": "A alface é um vegetal de folhas verdes comumente usado em saladas e sanduíches, apresentando folhas crocantes que podem variar em cor e textura.",
+      "information": "A alface é cultivada desde pelo menos o século V a.C., com os antigos egípcios valorizando-a como fonte de alimento e símbolo de fertilidade. Ela apareceu em arte antiga, literatura e oferendas, e é mencionada nos escritos do autor romano Plínio, o Velho, por suas propriedades medicinais. Várias culturas desenvolveram inúmeras variedades, destacando a versatilidade da alface na culinária.",
+      "scientific_name": "Lactuca sativa",
+      "common_name": "Alface"
+    }
+  },
+  "e089a595-122c-46f2-bcc9-9351f352d902": {
+    "2": {
+      "name": "Calêndula (Calendula officinalis)",
+      "what_is_it": "A Calêndula é uma planta com flor anual conhecida por suas vibrantes flores laranjas e amarelas.",
+      "information": "Esta planta é bem conceituada não apenas por sua beleza em jardins, mas também por suas propriedades medicinais. Tradicionalmente, a Calêndula tem sido usada por seus efeitos anti-inflamatórios, e suas pétalas são frequentemente utilizadas em remédios de ervas e cosméticos. As flores atraem polinizadores como abelhas e borboletas, tornando-a uma adição benéfica a qualquer jardim.",
+      "scientific_name": "Calendula officinalis",
+      "common_name": "Calêndula"
+    },
+    "11": {
+      "name": "Azedinha (Oxalis pes-caprae)",
+      "what_is_it": "Uma erva perene com flores amarelas brilhantes e folhas semelhantes a trevos.",
+      "information": "Nativa da África do Sul, a Azedinha é frequentemente encontrada em gramados e jardins. Ela pode formar tapetes densos, espalhando-se rapidamente através de bulbos subterrâneos. Embora suas flores sejam encantadoras, esta espécie pode ser invasora em algumas áreas, competindo com plantas nativas.",
+      "scientific_name": "Oxalis pes-caprae",
+      "common_name": "Azedinha"
+    }
+  },
+  "dc287647-4c08-41e0-940a-6c431d95d732": {
+    "0": {
+      "name": "Tradescantia fluminensis (Trapoeraba-de-folha-pequena)",
+      "what_is_it": "Uma erva suculenta perene nativa da América do Sul que se tornou uma cobertura de solo invasora generalizada em muitas regiões temperadas e subtropicais.",
+      "information": "Ela prospera em ambientes úmidos e sombreados, como o chão de florestas e zonas ribeirinhas, onde forma tapetes densos que sufocam a vegetação nativa. A planta se reproduz principalmente de forma vegetativa através de fragmentos de caule, pois até mesmo um pequeno pedaço pode facilmente enraizar e iniciar uma nova colônia. Em muitas áreas, é considerada uma erva daninha ambiental significativa devido à sua capacidade de deslocar rapidamente a flora indígena.",
+      "species_interactions": "Ela compete agressivamente com plantas nativas de estrato rasteiro por luz e nutrientes, e seu crescimento denso pode inibir a germinação e o estabelecimento de plântulas de árvores nativas.",
+      "scientific_name": "Tradescantia fluminensis",
+      "common_name": "Trapoeraba-de-folha-pequena"
+    },
+    "1": {
+      "name": "Hedera helix (Hera-inglesa)",
+      "what_is_it": "A Hera-inglesa é uma planta trepadeira perene conhecida por sua capacidade de se agarrar a superfícies com radículas aéreas.",
+      "information": "Ao longo da história, a Hera-inglesa foi associada à fidelidade e amizade em várias culturas, sendo frequentemente usada em decorações de casamento como símbolo de amor eterno. Na Roma Antiga, a hera estava ligada a Baco, o deus do vinho, representando renascimento e celebração. A planta também é usada na medicina tradicional, conhecida por seu potencial para tratar doenças respiratórias através de suas saponinas.",
+      "scientific_name": "Hedera helix",
+      "common_name": "Hera-inglesa"
+    },
+    "4": {
+      "name": "Gladíolo-do-campo (Gladiolus italicus)",
+      "what_is_it": "Uma planta perene caracterizada por suas folhas em forma de espada e espiga de flores coloridas, que normalmente floresce na natureza durante o verão.",
+      "information": "Nos tempos romanos, o Gladíolo era associado aos gladiadores ou 'portadores de espada' devido ao formato de espada de suas folhas. As flores serviam como símbolos de força, integridade e honra em várias culturas. Na Itália, suas flores também são celebradas durante festivais, significando a chegada do verão.",
+      "scientific_name": "Gladiolus italicus",
+      "common_name": "Gladíolo-do-campo"
+    },
+    "10": {
+      "name": "Morango (Fragaria × ananassa)",
+      "what_is_it": "Uma planta de cobertura de solo perene e cultivada, conhecida por seus frutos comestíveis doces e vermelhos, frequentemente usados em sobremesas e geleias.",
+      "information": "Os morangos têm um significado cultural desde os tempos antigos, especialmente na Europa, onde eram associados a Vênus, a deusa do amor, simbolizando beleza e abundância. Na França do século XVII, os morangos eram usados em misturas medicinais, acreditando-se que fossem uma cura para várias doenças. Sua cor vermelha vibrante e sabor doce inspiraram inúmeros poemas e obras de arte, tornando-os um motivo querido em pinturas de natureza-morta durante o Renascimento. O rico teor de Vitamina C da fruta também a tornou um item básico na medicina tradicional.",
+      "scientific_name": "Fragaria × ananassa",
+      "common_name": "Morango"
+    }
+  },
+  "d8d027d0-cce9-4e03-89ad-2969f4413015": {
+    "5": {
+      "name": "Amphibolips confluens (Grande Galha de Maçã do Carvalho)",
+      "what_is_it": "Esta é uma galha de planta, um crescimento esférico em um carvalho induzido pelas larvas de uma pequena vespa galhadora.",
+      "information": "A galha se forma quando uma vespa fêmea deposita um ovo em um broto de folha, fazendo com que a árvore desenvolva uma estrutura protetora e rica em nutrientes para a larva em desenvolvimento. No interior, uma única larva amadurece antes de emergir como adulta através de um pequeno orifício de saída. Essas estruturas são comuns em várias espécies de carvalho e frequentemente se tornam marrons e com aspecto de papel à medida que envelhecem.",
+      "species_interactions": "A larva da vespa obtém nutrientes do carvalho, enquanto a galha fornece um micro-habitat para outros insetos, como inquilinos e parasitoides.",
+      "scientific_name": "Amphibolips confluens",
+      "common_name": "Grande Galha de Maçã do Carvalho"
+    },
+    "21": {
+      "name": "Agapanthus spp. (Lírio-do-nilo)",
+      "what_is_it": "O Agapanthus, comumente conhecido como Lírio-do-nilo, apresenta cachos impressionantes de flores azuis ou brancas no topo de hastes altas e é frequentemente encontrado em jardins e paisagens cultivadas.",
+      "information": "Originário da África do Sul, o Agapanthus foi adotado em várias culturas por sua beleza ornamental. Na Inglaterra vitoriana, era celebrado por sua aparência marcante e frequentemente usado em arranjos florais. As flores simbolizam amor e união, e foram destaque na arte que promovia o esplendor do design de jardins ao longo dos séculos XIX e XX.",
+      "scientific_name": "Agapanthus spp.",
+      "common_name": "Lírio-do-nilo"
+    }
+  },
+  "3c91ae94-8fe2-40cc-86e9-774ce67bf05d": {
+    "2": {
+      "name": "Crisântemo-coroado (Glebionis coronaria)",
+      "what_is_it": "O Crisântemo-coroado é uma planta com flor comumente conhecida por suas vibrantes flores amarelas e folhagem distinta.",
+      "information": "Esta planta prospera em áreas ensolaradas e é frequentemente encontrada em jardins e ao longo de estradas. É conhecida por suas folhas e flores comestíveis, frequentemente usadas em pratos culinários. Além de seus usos na culinária, o Crisântemo-coroado atrai vários polinizadores, tornando-se uma planta benéfica para a biodiversidade geral.",
+      "scientific_name": "Glebionis coronaria",
+      "common_name": "Crisântemo-coroado"
+    },
+    "4": {
+      "name": "Genciana-sem-caule (Gentiana acaulis)",
+      "what_is_it": "Uma planta perene de baixo crescimento com flores azuis impressionantes, frequentemente encontrada em regiões alpinas. Floresce no início da primavera e prefere solos ricos em calcário.",
+      "information": "No folclore alpino, a genciana-sem-caule simboliza esperança e está associada à boa sorte. As flores têm sido usadas na medicina tradicional por seus benefícios digestivos e aparecem frequentemente em pinturas de paisagens do período romântico, particularmente em obras de artistas suíços como Caspar Wolf por volta do século XVIII.",
+      "scientific_name": "Gentiana acaulis",
+      "common_name": "Genciana-sem-caule"
+    },
+    "6": {
+      "name": "Achillea millefolium (Milefólio Comum)",
+      "what_is_it": "Uma planta perene resistente da família Asteraceae, caracterizada por sua folhagem plumosa, semelhante a samambaia, e cachos de flores pequenas, brancas ou rosadas, com topo plano.",
+      "information": "Nativa de regiões temperadas do Hemisfério Norte, o milefólio é uma espécie altamente adaptável encontrada em prados, pastagens e locais perturbados. Possui uma longa história de uso medicinal, especialmente por suas propriedades adstringentes para tratar feridas, e seu nome é uma homenagem ao herói grego Aquiles. A planta é excepcionalmente tolerante à seca e suas folhas aromáticas contêm óleos essenciais que podem atuar como um repelente natural de insetos.",
+      "species_interactions": "Serve como uma importante fonte de néctar para diversos polinizadores, como sirfídeos e pequenas abelhas, enquanto sua folhagem fornece uma fonte de alimento crucial para as larvas de várias espécies de mariposas.",
+      "scientific_name": "Achillea millefolium",
+      "common_name": "Milefólio Comum"
+    },
+    "11": {
+      "name": "Aranha-saltadora (Salticidae)",
+      "what_is_it": "Uma aranha pequena e ágil, conhecida por sua notável capacidade de salto e excelente visão.",
+      "information": "As aranhas-saltadoras são caracterizadas por suas cores vibrantes e grandes olhos frontais, que auxiliam em sua proeza de caça. Diferentemente das teias, essas aranhas perseguem ativamente e se lançam sobre suas presas, predominantemente insetos. Elas têm um ritual de acasalamento único, envolvendo movimentos e gestos complexos para atrair parceiros. Muitas espécies são encontradas em diversos habitats, de jardins a florestas, apresentando uma ampla distribuição.",
+      "species_interactions": "As aranhas-saltadoras podem caçar insetos encontrados perto do carvalho ou de flores como a margarida-coroada e o dente-de-leão. Sua aparência vibrante e movimento ágil as tornam tanto predadoras quanto presas neste ecossistema.",
+      "scientific_name": "Salticidae",
+      "common_name": "Aranha-saltadora"
+    },
+    "12": {
+      "name": "Lavanda (Lavandula)",
+      "what_is_it": "Uma planta com flor aromática, conhecida por suas belas espigas roxas e aroma calmante.",
+      "information": "A lavanda prospera em solo bem drenado e requer sol pleno, o que a torna uma favorita em jardins. Seus óleos perfumados são amplamente utilizados para relaxamento e fins culinários. A lavanda atrai uma variedade de polinizadores, especialmente abelhas, e também é conhecida por suas propriedades repelentes de pragas. Ela pode se adaptar a vários climas, demonstrando sua resiliência em diferentes ambientes.",
+      "species_interactions": "As flores perfumadas da lavanda atraem polinizadores como abelhas e borboletas, que também podem ser observados visitando plantas próximas, como o dente-de-leão ou a margarida-coroada.",
+      "scientific_name": "Lavandula",
+      "common_name": "Lavanda"
+    },
+    "13": {
+      "name": "Bombus pascuorum (Abelha-cardadora-comum)",
+      "what_is_it": "Uma espécie comum de mamangava social, caracterizada por seus pelos densos e de cor gengibre no tórax.",
+      "information": "Essas abelhas são encontradas em toda a Europa e no norte da Ásia, em diversos habitats como jardins, parques e prados. Elas são conhecidas como abelhas 'cardadoras' porque usam suas pernas para pentear musgo e grama seca para construir e isolar seus ninhos. Elas são ativas do início da primavera ao final do outono, com uma língua longa que as torna excelentes polinizadoras para flores de tubo profundo, como a lavanda mostrada aqui.",
+      "species_interactions": "Como polinizador generalista, fornece serviços ecossistêmicos essenciais para muitas espécies de plantas, ao mesmo tempo que serve como hospedeiro para a mamangava-cuco-do-campo parasita.",
+      "scientific_name": "Bombus pascuorum",
+      "common_name": "Abelha-cardadora-comum"
+    },
+    "14": {
+      "name": "Percevejo-de-fogo (Pyrrhocoris apterus)",
+      "what_is_it": "O percevejo-de-fogo é um inseto impressionante, conhecido por sua coloração vívida em preto e vermelho.",
+      "information": "Nativo da Europa, o percevejo-de-fogo é comumente encontrado em jardins e perto de árvores decíduas. Alimenta-se das sementes de certas plantas, especialmente membros da família das malvas. Este inseto desempenha um papel no controle de populações de plantas e é frequentemente visto em grandes grupos, aquecendo-se ao sol. Os percevejos-de-fogo não são agressivos e, às vezes, podem ser confundidos com pragas nocivas devido às suas cores vivas.",
+      "species_interactions": "O percevejo-de-fogo pode interagir com polinizadores como as mamangavas, muitas vezes compartilhando habitats em jardins ou entre plantas com flores. Ele também pode coexistir com a aranha-saltadora, pois ambos habitam áreas semelhantes.",
+      "scientific_name": "Pyrrhocoris apterus",
+      "common_name": "Percevejo-de-fogo"
+    }
+  },
+  "dd9fc895-30d0-4b83-a9f0-13cb869afa1a": {
+    "2": {
+      "name": "Lanterna-chinesa (Abutilon pictum)",
+      "what_is_it": "A Lanterna-chinesa é uma planta ornamental versátil, nativa de regiões tropicais, que se distingue por suas flores vibrantes em forma de sino e folhas semelhantes às do bordo. Desenvolve-se bem em jardins e ambientes internos, prosperando em climas mais quentes.",
+      "information": "Admirada na era vitoriana, a Lanterna-chinesa era preferida nos jardins por suas qualidades ornamentais, representando conexão e calor. Suas flores simbolizam a beleza da transitoriedade e são frequentemente celebradas em arranjos florais. A planta é usada na medicina tradicional, aproveitando suas propriedades anti-inflamatórias em algumas culturas.",
+      "scientific_name": "Abutilon pictum",
+      "common_name": "Lanterna-chinesa"
+    }
+  },
+  "3be47c5e-92f0-4906-aa57-cbbca0ad533c": {
+    "1": {
+      "name": "Pampilho-das-searas (Glebionis segetum)",
+      "what_is_it": "Uma flor silvestre alegre que frequentemente embeleza prados e campos com suas flores amarelo-vivas.",
+      "information": "O Pampilho-das-searas geralmente prospera em solos revolvidos, especialmente em campos agrícolas. Apresenta flores amarelo-vivas, semelhantes a margaridas, que atraem diversos polinizadores. De forma única, é conhecido por ocorrer em grandes e vibrantes manchas, tornando-se uma visão encantadora tanto para humanos quanto para a vida selvagem. A planta tem sido historicamente reconhecida por suas propriedades medicinais e seu papel ecológico no apoio às populações de polinizadores.",
+      "scientific_name": "Glebionis segetum",
+      "common_name": "Pampilho-das-searas"
+    },
+    "2": {
+      "name": "Gotas-de-sol-de-Berlandier (Calylophus berlandieri)",
+      "what_is_it": "Gotas-de-sol-de-Berlandier é uma planta com flor conhecida por suas flores amarelo-vivas que se abrem durante o dia.",
+      "information": "Esta erva perene prospera em solos bem drenados e é frequentemente encontrada em campos abertos e pastagens. Suas flores atraem uma variedade de polinizadores, e é conhecida por sua capacidade de se adaptar a diversas condições de solo.",
+      "scientific_name": "Calylophus berlandieri",
+      "common_name": "Gotas-de-sol-de-Berlandier"
+    },
+    "3": {
+      "name": "Campos-dourados-da-Califórnia (Lasthenia californica)",
+      "what_is_it": "Uma flor silvestre amarelo-viva nativa das pastagens da Califórnia, comumente encontrada em prados e áreas abertas.",
+      "information": "Os Campos-dourados-da-Califórnia são conhecidos por suas flores amarelas vibrantes que florescem na primavera. Esta planta anual prospera em solos pobres em nutrientes e é frequentemente encontrada em grandes colônias, criando um efeito de tapete dourado. Desempenha um papel vital nos ecossistemas locais como fonte de néctar para vários polinizadores, especialmente abelhas.",
+      "scientific_name": "Lasthenia californica",
+      "common_name": "Campos-dourados-da-Califórnia"
+    }
+  },
+  "2a89203e-9beb-4d23-8df5-f5e0b4a8f720": {
+    "0": {
+      "name": "Espécie Desconhecida",
+      "what_is_it": "Nenhuma espécie identificada na imagem.",
+      "information": "Não há detalhes específicos sobre a espécie disponíveis.",
+      "scientific_name": "",
+      "common_name": "Espécie Desconhecida"
+    },
+    "1": {
+      "name": "Morango / Fragaria × ananassa",
+      "what_is_it": "Uma planta cultivada popular, conhecida por seu fruto doce e vermelho.",
+      "information": "Morangos prosperam em climas temperados e são cultivados em todo o mundo por seus deliciosos frutos. São plantas perenes que produzem estolões, permitindo que se espalhem e colonizem novas áreas. Os morangos são ricos em vitaminas e antioxidantes, tornando-os não apenas deliciosos em sobremesas, mas também uma escolha saudável. Suas flores são uma fonte de atração para polinizadores, desempenhando um papel crucial no ecossistema.",
+      "scientific_name": "Fragaria × ananassa",
+      "common_name": "Morango"
+    }
+  },
+  "8bd3e700-80a3-41d8-80e3-902d641ba169": {
+    "1": {
+      "name": "Família Sciomyzidae (Mosca-do-brejo)",
+      "what_is_it": "Uma mosca pequena, tipicamente marrom-avermelhada, pertencente a uma família cujas larvas são predadoras especializadas de caracóis e lesmas.",
+      "information": "As moscas-do-brejo são comumente encontradas em pântanos, brejos e matas úmidas, onde suas presas larvais são abundantes. Existem cerca de 500 espécies em todo o mundo, muitas vezes identificáveis por suas antenas proeminentes e apontadas para a frente e pelo hábito de repousar na vegetação perto da água. Algumas espécies são de interesse para a ciência como potenciais agentes de controle biológico para caracóis que transmitem doenças parasitárias.",
+      "species_interactions": "Como larvas, são predadores ou parasitoides obrigatórios de vários moluscos, incluindo caracóis de água doce, caracóis terrestres e lesmas.",
+      "scientific_name": "",
+      "common_name": "Família Sciomyzidae (Mosca-do-brejo)"
+    },
+    "2": {
+      "name": "Laurus nobilis (Louro)",
+      "what_is_it": "Uma árvore ou grande arbusto perene e aromático, nativo da região do Mediterrâneo, amplamente conhecido por suas folhas culinárias.",
+      "information": "Prospera em solo bem drenado e locais ensolarados, atingindo frequentemente alturas de 7 a 18 metros se não for podado. Historicamente, sua folhagem era usada para fazer coroas para os vitoriosos na Grécia e Roma antigas, simbolizando honra e glória. As folhas contêm óleos essenciais como o eucaliptol, que lhes conferem sua fragrância e sabor característicos.",
+      "species_interactions": "Fornece abrigo e locais de nidificação para pássaros, enquanto suas pequenas flores amarelas atraem vários polinizadores, como abelhas e borboletas.",
+      "scientific_name": "Laurus nobilis",
+      "common_name": "Louro"
+    },
+    "3": {
+      "name": "Gilbardeira (Ruscus aculeatus)",
+      "what_is_it": "A gilbardeira é uma planta perene, conhecida por suas folhas espinhosas que se assemelham a uma vassoura. Tradicionalmente, tem sido usada por suas propriedades medicinais.",
+      "information": "Na Grécia antiga, a gilbardeira estava ligada à deusa do amor, Afrodite, e acreditava-se que possuía qualidades protetoras contra o mau-olhado. Seus caules fortes e lenhosos eram historicamente usados por açougueiros para varrer suas lojas, daí o seu nome comum em inglês. A planta tem sido usada na medicina herbal para tratar distúrbios circulatórios desde pelo menos o século XIX, demonstrando sua importância duradoura tanto na cultura quanto na medicina.",
+      "scientific_name": "Ruscus aculeatus",
+      "common_name": "Gilbardeira"
+    },
+    "8": {
+      "name": "Tagetes tenuifolia (Tagete-fina)",
+      "what_is_it": "Uma planta anual, baixa e arbustiva, notável por suas folhas plumosas e flores vibrantes, muitas vezes alaranjadas ou amarelas.",
+      "information": "Nativa da América Central, a tagete-fina tem sido reverenciada em várias culturas por sua cor vibrante e propriedades medicinais. Na cultura tradicional asteca, era usada não apenas para fins ornamentais, mas também em rituais para honrar os mortos, acreditando-se que guiava os espíritos. Conhecida por seus usos culinários, as flores são comestíveis e têm um sabor cítrico.",
+      "scientific_name": "Tagetes tenuifolia",
+      "common_name": "Tagete-fina"
+    },
+    "10": {
+      "name": "Malmequer-dos-campos (Glebionis segetum)",
+      "what_is_it": "O malmequer-dos-campos é uma planta com flores amarelas brilhantes, comumente encontrada em campos e prados.",
+      "information": "Esta flor alegre é frequentemente associada a paisagens agrícolas, florescendo lindamente no verão. O malmequer-dos-campos não é apenas agradável aos olhos; ele desempenha um papel vital nos ecossistemas, fornecendo néctar para polinizadores como abelhas e borboletas. Curiosamente, é conhecido por tolerar condições de solo pobre, tornando-se uma adição resiliente a misturas de flores silvestres. Apesar de sua beleza, é classificado como uma espécie de preocupação para a conservação em algumas áreas devido à perda de habitat.",
+      "scientific_name": "Glebionis segetum",
+      "common_name": "Malmequer-dos-campos"
+    }
+  },
+  "2bf38e96-7ea1-4692-825e-02416d1bbbb8": {
+    "12": {
+      "name": "Nenhuma espécie encontrada",
+      "what_is_it": "Atualmente, não há espécies identificadas nesta imagem.",
+      "information": "Isso pode ser uma oportunidade para explorar o ambiente em busca de biodiversidade oculta, já que muitos pequenos organismos e plantas são frequentemente ignorados.",
+      "scientific_name": "No species found",
+      "common_name": ""
+    }
+  },
+  "68a82d2a-5357-4c54-b420-93985c0197bf": {
+    "3": {
+      "name": "Tropaeolum majus (Capuchinha)",
+      "what_is_it": "Uma planta cultivada conhecida por suas flores vermelhas vibrantes e folhas redondas.",
+      "information": "A capuchinha não é apenas visualmente atraente, mas também comestível! Suas folhas e flores têm um sabor apimentado, tornando-as uma adição deliciosa a saladas. Esta planta também é uma ótima companheira para vegetais, pois atrai insetos benéficos e repele pragas. Originária da América do Sul, a capuchinha prospera em solo bem drenado e pode ser encontrada em jardins ao redor do mundo.",
+      "scientific_name": "Tropaeolum majus",
+      "common_name": "Capuchinha"
+    }
+  },
+  "ea098515-5b40-4edf-a529-eb6049093975": {
+    "0": {
+      "name": "Botão-de-ouro (Ranunculus acris)",
+      "what_is_it": "Uma flor amarela vibrante com cinco pétalas, frequentemente encontrada em prados.",
+      "information": "O botão-de-ouro geralmente prospera em habitats úmidos e gramados e pode produzir compostos tóxicos conhecidos como ranunculina, que podem causar irritação na pele. A espécie é conhecida por ser pioneira em solos perturbados, colonizando frequentemente áreas após eventos como pastagem ou atividade humana.",
+      "scientific_name": "Ranunculus acris",
+      "common_name": "Botão-de-ouro"
+    }
+  },
+  "ef854f14-e01d-4662-af11-fca6b4e38c78": {
+    "2": {
+      "name": "Silene latifolia (Silene-branca)",
+      "what_is_it": "Uma planta herbácea com flores, perene ou bienal, comum da família do cravo, Caryophyllaceae.",
+      "information": "Nativa da Europa e da Ásia Ocidental, esta espécie está agora amplamente naturalizada em toda a América do Norte em habitats perturbados, como beiras de estradas e campos. É dioica, o que significa que as plantas individuais são masculinas ou femininas, e suas flores brancas geralmente se abrem à noite para emitir um perfume que atrai polinizadores noturnos. A planta é facilmente identificada por suas pétalas profundamente entalhadas e cálice peludo e inflado com veias proeminentes.",
+      "species_interactions": "As flores são polinizadas principalmente por mariposas de língua comprida, como as mariposas-falcão, que são atraídas por sua fragrância noturna.",
+      "scientific_name": "Silene latifolia",
+      "common_name": "Silene-branca"
+    },
+    "3": {
+      "name": "Concha de Caracol",
+      "what_is_it": "Uma concha em espiral comumente deixada para trás por caracóis, muitas vezes lisa e brilhante, podendo variar em tamanho e cor dependendo da espécie.",
+      "information": "Conchas de caracol vazias simbolizam transição e resiliência em muitas culturas, sendo frequentemente usadas no folclore para representar uma jornada ou um santuário protetor. Na arte, foram apresentadas como símbolos de movimento lento e introspecção, como visto em várias pinturas naturalistas do século XVII. As conchas também são significativas no estudo da ecologia dos moluscos, refletindo as condições ambientais em que prosperaram.",
+      "scientific_name": "",
+      "common_name": "Concha de Caracol"
+    }
+  },
+  "684b6a4f-5f48-41c4-bdce-ea2606e21810": {
+    "3": {
+      "name": "Capuchinha (Tropaeolum majus)",
+      "what_is_it": "A capuchinha é uma planta com flor vibrante e comestível, conhecida por suas folhas apimentadas e flores brilhantes, frequentemente vista em jardins e saladas.",
+      "information": "A capuchinha é nativa da América do Sul e muito apreciada por suas flores vistosas e sua capacidade de prosperar em solos pobres. As flores e folhas não são apenas bonitas, mas também comestíveis, sendo frequentemente usadas para adicionar sabor aos pratos. Esta planta atrai polinizadores como abelhas e borboletas, desempenhando um papel essencial no ecossistema do jardim.",
+      "scientific_name": "Tropaeolum majus",
+      "common_name": "Capuchinha"
+    },
+    "4": {
+      "name": "Margarida-do-campo (Glebionis segetum)",
+      "what_is_it": "Uma flor amarela brilhante frequentemente encontrada em campos e ao longo das estradas.",
+      "information": "A margarida-do-campo é conhecida por suas flores vibrantes, semelhantes a margaridas, que geralmente florescem no verão. Ela prospera em solos revolvidos, sendo frequentemente vista ao lado de culturas como o milho, o que lhe deu o nome. Curiosamente, pode ser um indicador de rica biodiversidade, pois sua presença pode atrair vários polinizadores e insetos.",
+      "scientific_name": "Glebionis segetum",
+      "common_name": "Margarida-do-campo"
+    }
+  },
+  "fb689419-f92d-4b43-8202-b3a29787ce58": {
+    "2": {
+      "name": "Cebolinha (Allium schoenoprasum)",
+      "what_is_it": "A cebolinha é uma erva perene com folhas verdes longas e finas e flores roxas. Pertence à família da cebola e é comumente usada em preparações culinárias.",
+      "information": "A cebolinha prospera em solo bem drenado e é frequentemente encontrada em jardins e hortas. É conhecida por seu sabor suave de cebola e é frequentemente usada como guarnição ou em receitas. Além de seus usos culinários, a cebolinha pode atrair polinizadores como abelhas e borboletas, desempenhando um papel essencial no apoio aos ecossistemas locais.",
+      "scientific_name": "Allium schoenoprasum",
+      "common_name": "Cebolinha"
+    },
+    "7": {
+      "name": "Pinheiro (Pinus sp.)",
+      "what_is_it": "Os pinheiros são árvores coníferas conhecidas por suas agulhas longas e pinhas distintas. São predominantes em vários habitats e facilmente reconhecíveis por suas folhas em forma de agulha.",
+      "information": "Os pinheiros são encontrados em diversos ambientes, desde regiões montanhosas até áreas costeiras. Eles desempenham um papel essencial nos ecossistemas florestais, fornecendo habitat para inúmeras espécies, atuando como sumidouros de carbono e fornecendo madeira e resina para uso humano. As pinhas que se desenvolvem nos pinheiros são vitais para a reprodução e podem permanecer na árvore por vários anos antes de dispersar as sementes.",
+      "scientific_name": "Pinus sp.",
+      "common_name": "Pinheiro"
+    }
+  },
+  "08f434d0-fb5b-4344-a881-b1f6ed5bc576": {
+    "1": {
+      "name": "Cebolinha (Allium schoenoprasum)",
+      "what_is_it": "A cebolinha é uma erva perene conhecida por seu sabor suave de cebola e flores roxas brilhantes, comumente usada na culinária.",
+      "information": "Na cultura chinesa, a cebolinha é celebrada por sua capacidade de promover a saúde e a longevidade. É tradicionalmente incluída em bolinhos e refogados, simbolizando prosperidade. Os antigos romanos a valorizavam como tempero, acreditando que seu aroma poderia afastar doenças.",
+      "scientific_name": "Allium schoenoprasum",
+      "common_name": "Cebolinha"
+    },
+    "10": {
+      "name": "Margarida-do-campo (Glebionis segetum)",
+      "what_is_it": "Uma planta com flores amarelas brilhantes encontrada em campos e áreas perturbadas, conhecida por sua aparência alegre e importância na agricultura.",
+      "information": "A margarida-do-campo foi historicamente usada como símbolo de felicidade e alegria em várias culturas europeias. Em algumas crenças populares, acreditava-se que protegia as colheitas de espíritos malignos. Esta planta também é um habitat preferido para polinizadores, contribuindo para os ecossistemas locais e a biodiversidade agrícola.",
+      "scientific_name": "Glebionis segetum",
+      "common_name": "Margarida-do-campo"
+    },
+    "13": {
+      "name": "Mentha suaveolens (Hortelã-maçã)",
+      "what_is_it": "A hortelã-maçã é uma planta herbácea perene da família da menta, conhecida por suas folhas felpudas e texturizadas e seu aroma frutado distinto.",
+      "information": "Nativa da região do Mediterrâneo, esta planta resistente prospera em habitats úmidos e ensolarados, como margens de riachos e prados úmidos. Ela se espalha vigorosamente através de rizomas subterrâneos e é facilmente reconhecida por suas folhas rugosas e de cor verde-claro, que têm um aroma que lembra maçãs. É amplamente cultivada para uso culinário, chás de ervas e como cobertura ornamental do solo.",
+      "species_interactions": "As pequenas flores pálidas da planta fornecem uma valiosa fonte de néctar para abelhas, borboletas e outros polinizadores, enquanto seus óleos essenciais aromáticos ajudam a protegê-la de muitos herbívoros mamíferos.",
+      "scientific_name": "Mentha suaveolens",
+      "common_name": "Hortelã-maçã"
+    },
+    "14": {
+      "name": "Dente-de-leão (Taraxacum officinale)",
+      "what_is_it": "Uma planta com flor conhecida por suas flores amarelas brilhantes e pompons de sementes, comumente encontrada em gramados e jardins.",
+      "information": "O dente-de-leão tem uma rica história na medicina herbal europeia, sendo frequentemente usado por suas propriedades diuréticas. No folclore, acredita-se que as sementes carregam desejos quando sopradas. A planta aparece com destaque na arte, simbolizando resiliência e a primavera.",
+      "scientific_name": "Taraxacum officinale",
+      "common_name": "Dente-de-leão"
+    }
+  },
+  "2551dfa0-477d-4084-ab73-9d628393f662": {
+    "16": {
+      "name": "Armadillidiidae (Tatuzinho-de-jardim)",
+      "what_is_it": "Um crustáceo terrestre conhecido por sua capacidade de se enrolar em uma bola quando ameaçado, comumente encontrado sob folhas e pedras.",
+      "information": "Os tatuzinhos-de-jardim, ou tatus-bola, são únicos entre os crustáceos porque se adaptaram à vida terrestre. Eles são decompositores importantes no ecossistema do solo, ajudando a decompor a matéria orgânica. Os tatuzinhos-de-jardim preferem ambientes úmidos para evitar a dessecação.",
+      "scientific_name": "Armadillidiidae",
+      "common_name": "Tatuzinho-de-jardim"
+    },
+    "17": {
+      "name": "Malmequer-do-deserto (Baileya multiradiata)",
+      "what_is_it": "Uma planta perene com flores, nativa dos desertos do sudoeste dos Estados Unidos.",
+      "information": "O malmequer-do-deserto prospera em ambientes áridos, produzindo flores amarelo-vivas que podem florescer o ano todo, dependendo da precipitação. A planta é bem adaptada a condições secas e atua como uma importante fonte de néctar para abelhas, borboletas e outros polinizadores. Suas folhas são verde-acinzentadas, o que ajuda a reduzir a perda de água, tornando-a uma espécie resiliente em seu ecossistema.",
+      "scientific_name": "Baileya multiradiata",
+      "common_name": "Malmequer-do-deserto"
+    }
+  },
+  "1ba4202a-1ab7-4575-b24c-b2c8072eea90": {
+    "3": {
+      "name": "Heracleum Gigante (Heracleum mantegazzianum)",
+      "what_is_it": "Uma planta imponente conhecida por suas grandes flores brancas e tamanho imenso, frequentemente encontrada perto de fontes de água.",
+      "information": "O heracleum gigante, nativo da região do Cáucaso, tornou-se uma espécie invasora em muitas partes do mundo. No folclore, foi associado a propriedades místicas, sendo nomeado na literatura britânica durante o período vitoriano como uma planta que inspira admiração. Sua seiva pode causar reações cutâneas graves, tornando-a fascinante e perigosa, destacando sua dualidade na cultura como uma maravilha natural e um conto de advertência.",
+      "scientific_name": "Heracleum mantegazzianum",
+      "common_name": "Heracleum Gigante"
+    },
+    "11": {
+      "name": "Trapoeraba (Tradescantia fluminensis)",
+      "what_is_it": "Uma planta perene com folhas pequenas e ovais e delicadas flores brancas que desabrocham em cachos. Frequentemente encontrada em regiões tropicais e subtropicais, é apreciada por suas qualidades ornamentais.",
+      "information": "Originária da América do Sul, a trapoeraba chegou a vários jardins ao redor do mundo, celebrada não apenas por sua beleza, mas também por sua natureza resistente. A planta está ligada a lendas coloridas em algumas culturas, onde simboliza a resiliência, sendo capaz de prosperar em diferentes condições. O folclore frequentemente destaca sua adaptabilidade e os habitats exuberantes que cria, tornando-a uma favorita entre jardineiros que buscam vegetação de baixa manutenção.",
+      "scientific_name": "Tradescantia fluminensis",
+      "common_name": "Trapoeraba"
+    }
+  },
+  "3a71666b-7c5f-4b98-971b-1cd5d778232e": {
+    "6": {
+      "name": "Caracol-dos-bosques (Cepaea nemoralis)",
+      "what_is_it": "O caracol-dos-bosques é um pequeno caracol terrestre com uma concha distinta que exibe uma variedade de padrões de cores. É comumente encontrado em bosques, jardins e áreas gramadas.",
+      "information": "No folclore, o caracol-dos-bosques simboliza paciência e persistência devido ao seu movimento lento, e foi mencionado em várias obras literárias. As variações de cor da concha têm sido usadas em estudos de adaptação e camuflagem animal, ilustrando sua importância na pesquisa ecológica.",
+      "scientific_name": "Cepaea nemoralis",
+      "common_name": "Caracol-dos-bosques"
+    }
+  },
+  "ee2b5c86-3450-4ed1-aa54-b6470a8ff91b": {
+    "0": {
+      "name": "Tagetes patula (Cravo-francês)",
+      "what_is_it": "Uma flor anual vibrante e resistente, conhecida por suas flores brilhantes de cor amarela, laranja ou vermelha.",
+      "information": "Os cravos-franceses são frequentemente cultivados em jardins por sua beleza ornamental e capacidade de repelir certas pragas. Eles prosperam em solo bem drenado e podem florescer da primavera até a geada. Além disso, atraem polinizadores como abelhas e borboletas, tornando-os uma adição valiosa a qualquer ecossistema de jardim.",
+      "scientific_name": "Tagetes patula",
+      "common_name": "Cravo-francês"
+    },
+    "7": {
+      "name": "Pteridium aquilinum (Samambaia-das-taperas)",
+      "what_is_it": "Uma samambaia grande e robusta, conhecida por suas frondes triangulares e ocorrência generalizada.",
+      "information": "A samambaia-das-taperas é frequentemente encontrada tanto em áreas ensolaradas quanto sombreadas, em uma variedade de habitats. Suas frondes podem atingir até um metro de comprimento e são conhecidas por sua textura delicada. Apesar de ser comum, contém toxinas que podem afetar a vida selvagem e é frequentemente considerada invasora em algumas regiões, desempenhando um papel complexo em seus ecossistemas.",
+      "scientific_name": "Pteridium aquilinum",
+      "common_name": "Samambaia-das-taperas"
+    }
+  },
+  "63ad4ec3-1857-462c-8809-62a070069e47": {
+    "0": {
+      "name": "Chrysanthemum coronarium (Crisântemo-coroado)",
+      "what_is_it": "Uma planta herbácea conhecida por suas flores amarelo-vivas e folhas únicas e plumosas.",
+      "information": "O crisântemo-coroado é frequentemente encontrado em jardins e áreas perturbadas. Ele prospera em condições ensolaradas e é conhecido por seus usos culinários, especialmente na culinária asiática, onde as folhas são adicionadas a saladas e refogados. Esta planta tem um ciclo de vida robusto e pode ser vista florescendo da primavera ao outono, atraindo vários polinizadores durante seu período de floração.",
+      "scientific_name": "Chrysanthemum coronarium",
+      "common_name": "Crisântemo-coroado"
+    }
+  },
+  "9b2a85d8-6f7e-4629-bf4c-c50e579ff051": {
+    "0": {
+      "name": "Cebolinha (Allium schoenoprasum) e Cravo-de-defunto (Tagetes spp.)",
+      "what_is_it": "A cebolinha é uma planta herbácea conhecida por suas folhas verdes, altas e finas, e flores roxas. Os cravos-de-defunto são plantas floríferas vibrantes, que são frequentemente de cor amarelo-viva ou laranja.",
+      "information": "A cebolinha faz parte da família da cebola e é valorizada por seus usos culinários, adicionando um sabor suave de cebola aos pratos. Ela prospera em solo bem drenado e pode ser encontrada em jardins ou ambientes semelhantes a prados. Os cravos-de-defunto são frequentemente plantados em jardins não apenas por sua beleza, mas também por sua capacidade de repelir pragas. Ambas as espécies oferecem apelo visual e desempenham papéis no apoio à biodiversidade dentro do ecossistema do jardim.",
+      "scientific_name": "Allium schoenoprasum",
+      "common_name": "Cebolinha (Allium schoenoprasum) e Cravo-de-defunto (Tagetes spp.)"
+    }
+  },
+  "3f178658-ae36-417c-8f5f-f9f1f9e19d91": {
+    "0": {
+      "name": "Brassica juncea (Mostarda-castanha)",
+      "what_is_it": "A mostarda-castanha é uma hortaliça folhosa caracterizada por suas folhas de cor verde-escura a vermelho-escura. É comumente usada em pratos culinários.",
+      "information": "A Brassica juncea é conhecida por seu sabor picante, que pode ser mais intenso quando crua. Esta planta prospera em climas mais frios e é frequentemente cultivada por suas folhas nutritivas. Além do consumo humano, ela fornece alimento para vários insetos e pode melhorar a saúde do solo através de seu sistema radicular profundo.",
+      "scientific_name": "Brassica juncea",
+      "common_name": "Mostarda-castanha"
+    },
+    "4": {
+      "name": "Botão-de-ouro (Ranunculus acris) e Erva-de-são-roberto (Geranium robertianum)",
+      "what_is_it": "O botão-de-ouro é uma flor amarela vibrante encontrada em campos e prados, enquanto a erva-de-são-roberto é uma pequena planta de flores rosas conhecida por sua aparência delicada.",
+      "information": "O botão-de-ouro prefere pastagens úmidas e prados, caracterizando-se por suas flores amarelas em forma de taça que atraem vários polinizadores. A erva-de-são-roberto geralmente cresce em áreas sombreadas ou perturbadas; suas folhas têm uma tonalidade avermelhada distinta e são conhecidas por suas propriedades medicinais, sendo frequentemente usadas em remédios tradicionais.",
+      "scientific_name": "",
+      "common_name": "Botão-de-ouro (Ranunculus acris) e Erva-de-são-roberto (Geranium robertianum)"
+    },
+    "10": {
+      "name": "Allium schoenoprasum (Cebolinha)",
+      "what_is_it": "A cebolinha é uma planta herbácea perene com folhas verdes finas e flores roxas atraentes.",
+      "information": "A cebolinha faz parte da família da cebola e é conhecida por seu sabor suave de cebola, o que a torna uma erva culinária popular. Ela prospera em diversos tipos de solo e climas e é frequentemente cultivada em jardins. Além de seus usos culinários, a cebolinha também atrai polinizadores, como abelhas, devido às suas flores vibrantes.",
+      "scientific_name": "Allium schoenoprasum",
+      "common_name": "Cebolinha"
+    }
+  },
+  "997aceb0-3994-4aaf-9a44-23beee94106b": {
+    "1": {
+      "name": "Trifolium repens (Trevo-branco)",
+      "what_is_it": "Uma planta perene de baixo crescimento com folhas trifoliadas e inflorescências brancas.",
+      "information": "O trevo-branco é comumente encontrado em gramados, campos e prados. É conhecido por sua capacidade de fixar nitrogênio no solo, melhorando a fertilidade do solo. Esta espécie frequentemente atrai polinizadores como abelhas, e suas folhas podem ter uma aparência distinta de três folíolos, às vezes associada à boa sorte. Possui uma ampla distribuição e é utilizado no manejo de pastagens e no controle da erosão.",
+      "scientific_name": "Trifolium repens",
+      "common_name": "Trevo-branco"
+    },
+    "2": {
+      "name": "Apis mellifera (Abelha-europeia)",
+      "what_is_it": "Um inseto social conhecido por seu papel na polinização e produção de mel.",
+      "information": "A abelha-europeia é um inseto altamente social que vive em colmeias e se comunica através de danças. Elas desempenham um papel crucial na polinização de flores, incluindo muitas culturas agrícolas, tornando-as vitais para a agricultura. As abelhas são reconhecidas por sua capacidade de produzir e armazenar mel, que usam como alimento durante os meses de inverno.",
+      "scientific_name": "Apis mellifera",
+      "common_name": "Abelha-europeia"
+    },
+    "10": {
+      "name": "Líquen",
+      "what_is_it": "Um organismo simbiótico composto por fungos e algas ou cianobactérias.",
+      "information": "Os líquenes são organismos fascinantes que podem crescer em várias superfícies, incluindo rochas, árvores e solo. Eles desempenham um papel crucial nos ecossistemas, ajudando a decompor rochas para formar solo e fornecendo alimento para vários herbívoros. Sua presença pode indicar um ambiente saudável, e eles existem em uma variedade de formas e cores.",
+      "scientific_name": "",
+      "common_name": "Líquen"
+    }
+  },
+  "d8f4d3e7-40cf-4e9d-ace7-5a69338ca599": {
+    "0": {
+      "name": "Brassica juncea (Folhas de mostarda)",
+      "what_is_it": "Uma hortaliça folhosa conhecida por suas folhas roxas distintas, frequentemente usada em saladas e na culinária asiática.",
+      "information": "Na medicina tradicional chinesa, as folhas de mostarda são valorizadas por sua capacidade de revigorar o baço e auxiliar na digestão. Artistas como Pierre-Auguste Renoir retrataram hortaliças folhosas semelhantes em suas pinturas de natureza-morta, capturando a vivacidade e a textura do mundo vegetal.",
+      "scientific_name": "Brassica juncea",
+      "common_name": "Folhas de mostarda"
+    }
+  },
+  "351b27fd-a883-40c4-8049-3afd18954769": {
+    "1": {
+      "name": "Morango (Fragaria × ananassa)",
+      "what_is_it": "Uma planta híbrida amplamente cultivada, conhecida por seus frutos doces e vermelhos.",
+      "information": "Morangos não são apenas deliciosos, mas também altamente nutritivos, repletos de vitamina C, manganês e antioxidantes. Eles são únicos por serem uma das únicas frutas que têm suas sementes do lado de fora. Em 2017, a Califórnia produziu mais de 1,5 bilhão de libras de morangos, tornando-se o estado líder na produção de morangos nos Estados Unidos.",
+      "scientific_name": "Fragaria × ananassa",
+      "common_name": "Morango"
+    }
+  },
+  "73c96822-1bf6-4ea9-b109-e8e14c3cf459": {
+    "0": {
+      "name": "Plantago lanceolata (Tanchagem-menor)",
+      "what_is_it": "A tanchagem-menor é uma erva perene resistente, conhecida por suas folhas estreitas e nervuradas e suas distintas espigas de flores cilíndricas em hastes longas.",
+      "information": "Nativa da Eurásia, mas agora encontrada globalmente, é uma visão comum em gramados, pastagens e solos perturbados. A planta é polinizada pelo vento e produz sementes que podem permanecer dormentes no solo por muitos anos. Historicamente, suas folhas têm sido usadas na medicina herbal para tratar inflamações de pele e problemas respiratórios.",
+      "species_interactions": "Serve como uma importante planta hospedeira para as larvas de várias espécies de borboletas e fornece sementes para diversas aves que se alimentam no solo.",
+      "scientific_name": "Plantago lanceolata",
+      "common_name": "Tanchagem-menor"
+    },
+    "1": {
+      "name": "Digitalis purpurea (Dedaleira)",
+      "what_is_it": "Uma planta com flor bienal ou perene de vida curta da família Plantaginaceae, conhecida por suas altas espigas de flores tubulares roxas.",
+      "information": "Nativa da Europa, é amplamente naturalizada em regiões temperadas e frequentemente encontrada em clareiras de bosques, sebes e jardins. A planta contém glicosídeos cardíacos, como a digoxina, que são usados na medicina para tratar condições cardíacas, mas são altamente tóxicos se ingeridos. Normalmente, desenvolve uma roseta basal de folhas no primeiro ano e uma haste floral alta no segundo.",
+      "species_interactions": "É polinizada principalmente por abelhas de língua comprida, especialmente mamangavas, que são atraídas pelo seu néctar e guiadas para dentro das flores tubulares pelos padrões de manchas.",
+      "scientific_name": "Digitalis purpurea",
+      "common_name": "Dedaleira"
+    },
+    "2": {
+      "name": "Trapoeraba (Commelina communis)",
+      "what_is_it": "A trapoeraba é uma erva perene com flores azuis impressionantes que desabrocham pela manhã e se fecham à noite. Suas folhas largas, em forma de espada, são distintas.",
+      "information": "Culturalmente, a trapoeraba é celebrada em várias tradições asiáticas, muitas vezes simbolizando a beleza transitória e a natureza fugaz da vida. É usada na culinária tradicional coreana, onde as pétalas são comestíveis e às vezes incluídas em saladas. Uma musa para artistas, suas características delicadas nos lembram da efemeridade refletida na poesia, evocativa de momentos capturados nas palavras de Matsuo Bashō, enfatizando a beleza da natureza.",
+      "scientific_name": "Commelina communis",
+      "common_name": "Trapoeraba"
+    },
+    "3": {
+      "name": "Cornu aspersum (Caracol-de-jardim)",
+      "what_is_it": "O caracol-de-jardim é um caracol terrestre conhecido por sua concha em espiral e vida em ritmo lento. É frequentemente encontrado em jardins e ambientes úmidos, onde se alimenta de uma variedade de material vegetal.",
+      "information": "Na Roma antiga, o caracol-de-jardim não era apenas uma fonte de alimento, mas também aparecia na arte e na literatura, simbolizando o progresso lento e constante. O poeta romano Horácio os mencionou em suas obras, referindo-se ao seu ritmo letárgico como uma metáfora para a indulgência e a paciência. Esses caracóis também estão associados a esforços de biodiversidade e são usados em estudos para entender os impactos ecológicos em moluscos terrestres.",
+      "scientific_name": "Cornu aspersum",
+      "common_name": "Caracol-de-jardim"
+    },
+    "6": {
+      "name": "Aranha-lobo (Lycosidae)",
+      "what_is_it": "Aranhas-lobo são caçadoras ágeis que não tecem teias; em vez disso, dependem de sua velocidade e excelente visão para perseguir suas presas.",
+      "information": "Em várias culturas, as aranhas-lobo simbolizam intuição e poder devido às suas habilidades predatórias e natureza solitária. Elas são frequentemente apresentadas no folclore, representando astúcia e adaptabilidade. Algumas tribos indígenas usaram suas imagens para ensinar lições sobre resiliência e sobrevivência, inserindo esses aracnídeos na mitologia local.",
+      "scientific_name": "Lycosidae",
+      "common_name": "Aranha-lobo"
+    },
+    "9": {
+      "name": "Silene latifolia (Silene-branca)",
+      "what_is_it": "A Silene-branca é uma planta com flor conhecida por suas delicadas flores brancas e folhas largas, comumente encontrada em prados e campos. Ela floresce do final da primavera ao início do verão, atraindo vários polinizadores.",
+      "information": "Na medicina herbal tradicional, a Silene latifolia tem sido usada por suas potenciais propriedades calmantes. Ela tem associações históricas com fertilidade e amor, sendo frequentemente referenciada em contos populares e rituais em culturas europeias. A proeminência da planta em imagens poéticas ilustra sua beleza e resiliência, tornando-a uma favorita entre poetas como John Keats, que apreciava suas qualidades etéreas.",
+      "scientific_name": "Silene latifolia",
+      "common_name": "Silene-branca"
+    },
+    "12": {
+      "name": "Flor Silvestre Amarela Comum",
+      "what_is_it": "Uma flor silvestre de cor amarelo-vivo caracterizada por um centro escuro, frequentemente encontrada em prados e campos.",
+      "information": "Esta flor silvestre é frequentemente associada à resiliência e alegria em várias culturas. No folclore, acredita-se que ela traz boa sorte e às vezes é usada em remédios tradicionais por suas propriedades calmantes. É uma parte crucial dos ecossistemas, atraindo polinizadores e contribuindo para a biodiversidade.",
+      "scientific_name": "",
+      "common_name": "Flor Silvestre Amarela Comum"
+    },
+    "13": {
+      "name": "Hieracium sabaudum (Gavião-de-outono)",
+      "what_is_it": "Uma planta herbácea perene da família do girassol, conhecida por suas flores compostas de um amarelo-vivo e caules robustos e ramificados.",
+      "information": "Esta espécie geralmente cresce em bosques abertos, charnecas e ao longo de estradas, preferindo solos ácidos. É um gavião-de-flor-tardia, aparecendo do final do verão até o outono, quando muitas outras flores silvestres já terminaram de florescer. O gênero Hieracium é notoriamente complexo devido à sua capacidade de se reproduzir assexuadamente por meio de sementes, um processo conhecido como apomixia.",
+      "species_interactions": "Suas flores fornecem uma importante fonte de néctar e pólen no final da estação para vários insetos, incluindo abelhas, sirfídeos e borboletas.",
+      "scientific_name": "Hieracium sabaudum",
+      "common_name": "Gavião-de-outono"
+    },
+    "14": {
+      "name": "Echium vulgare (Erva-viperina)",
+      "what_is_it": "A Erva-viperina é uma planta bienal conhecida por suas impressionantes flores roxas e caules peludos. Ela prospera em solos secos e arenosos e é uma favorita entre abelhas e outros polinizadores.",
+      "information": "Historicamente, a Erva-viperina foi associada a várias propriedades medicinais, especialmente em remédios herbais europeus. A planta era frequentemente ligada à proteção contra picadas de cobra devido ao seu nome, pois acreditava-se que as flores se assemelhavam à cabeça de uma víbora. Suas cores vibrantes são frequentemente celebradas no folclore, representando resiliência e beleza natural.",
+      "scientific_name": "Echium vulgare",
+      "common_name": "Erva-viperina"
+    },
+    "15": {
+      "name": "Labaça-de-folhas-largas (Rumex obtusifolius)",
+      "what_is_it": "Uma erva perene caracterizada por folhas largas de bordas onduladas e caules avermelhados. Frequentemente cresce em habitats perturbados e é reconhecida por suas espigas de sementes distintas.",
+      "information": "Rumex obtusifolius tem sido usado na medicina tradicional por suas propriedades adstringentes e é mencionado em vários textos de ervas. No mundo culinário, suas folhas podem ser consumidas, embora seja frequentemente considerada uma erva daninha em ambientes agrícolas, refletindo a tensão entre utilidade e incômodo.",
+      "scientific_name": "Rumex obtusifolius",
+      "common_name": "Labaça-de-folhas-largas"
+    }
+  },
+  "5b72018d-8628-4c81-84f6-1a4d7fe56fbb": {
+    "0": {
+      "name": "Borragem (Borago officinalis)",
+      "what_is_it": "A borragem é uma erva que apresenta flores azuis vibrantes e folhas aveludadas. É frequentemente encontrada em jardins e tem um sabor único, semelhante ao do pepino.",
+      "information": "A borragem não é apenas um rosto bonito no jardim; também é conhecida por suas propriedades medicinais, incluindo efeitos anti-inflamatórios. Suas flores são comestíveis e podem atrair polinizadores, tornando-a uma ótima planta companheira para atrair abelhas. Nativa da região do Mediterrâneo, a borragem pode prosperar em uma variedade de solos e é frequentemente usada em saladas e bebidas por seu sabor refrescante.",
+      "scientific_name": "Borago officinalis",
+      "common_name": "Borragem"
+    }
+  },
+  "05e75062-8f06-4d26-9d1b-8b92463e44f8": {
+    "1": {
+      "name": "Arbusto-da-batata-azul (Solanum rantonnetii)",
+      "what_is_it": "Um arbusto impressionante conhecido por suas flores azuis vibrantes e folhagem atraente.",
+      "information": "O Arbusto-da-batata-azul é nativo da América do Sul, mas é comumente cultivado para fins ornamentais. É um arbusto perene que pode crescer até 1,8 metros de altura e prospera em solo bem drenado com sol pleno. Suas flores não apenas fornecem um toque de cor, mas também atraem vários polinizadores, tornando-o uma adição maravilhosa aos jardins. Além disso, esta planta pode produzir bagas que podem ser comestíveis, embora seja aconselhável cautela.",
+      "scientific_name": "Solanum rantonnetii",
+      "common_name": "Arbusto-da-batata-azul"
+    }
+  },
+  "ca8db078-500a-4061-9c2e-e24c637f8780": {
+    "1": {
+      "name": "Confrei (Symphytum officinale)",
+      "what_is_it": "O confrei é uma erva perene conhecida por suas folhas largas e pequenas flores em forma de sino.",
+      "information": "O confrei tem sido usado historicamente na medicina herbal por suas supostas propriedades de cicatrização de feridas, atribuídas à presença de alantoína, um composto que promove a regeneração celular. Ele prospera em solos úmidos e ricos em nitrogênio e é frequentemente cultivado como planta companheira por sua capacidade de acumular nutrientes.",
+      "scientific_name": "Symphytum officinale",
+      "common_name": "Confrei"
+    },
+    "4": {
+      "name": "Trevo-branco (Trifolium repens)",
+      "what_is_it": "O trevo-branco é uma planta perene de baixo crescimento, conhecida por suas folhas trifoliadas e cachos de flores brancas.",
+      "information": "O trevo-branco é frequentemente utilizado em ambientes agrícolas por sua capacidade de fixar nitrogênio no solo, contribuindo para a fertilidade do solo. A planta estabelece uma relação simbiótica com bactérias Rhizobia que permite essa fixação de nitrogênio, tornando-a benéfica para pastagem e forragem.",
+      "scientific_name": "Trifolium repens",
+      "common_name": "Trevo-branco"
+    },
+    "5": {
+      "name": "Echium plantagineum (Viborina-roxa)",
+      "what_is_it": "Uma erva anual de inverno, eriçada, da família Boraginaceae, caracterizada por suas impressionantes espigas de flores roxas em forma de funil.",
+      "information": "Nativa do Mediterrâneo, esta planta é uma colonizadora de grande sucesso em solos perturbados e pastagens em vários continentes. Está bem adaptada a climas mediterrâneos e pode produzir milhares de sementes por planta, que permanecem viáveis no solo por muitos anos. Embora seja uma importante erva daninha em algumas regiões, também é valorizada por apicultores por sua alta produção de néctar.",
+      "species_interactions": "A planta é uma fonte prolífica de néctar para abelhas e borboletas, mas contém alcaloides que são tóxicos para o gado em pastoreio, especialmente cavalos e porcos.",
+      "scientific_name": "Echium plantagineum",
+      "common_name": "Viborina-roxa"
+    },
+    "7": {
+      "name": "Margarida-do-campo (Glebionis segetum)",
+      "what_is_it": "Uma planta com flores amarelas brilhantes, comumente encontrada em campos e áreas perturbadas.",
+      "information": "Glebionis segetum é conhecida por seu papel ecológico como espécie pioneira, colonizando frequentemente solos nus e contribuindo para a estabilização do solo. Tem sido historicamente significativa na agricultura, proporcionando benefícios como a atração de polinizadores e servindo como um marcador de fertilidade do solo.",
+      "scientific_name": "Glebionis segetum",
+      "common_name": "Margarida-do-campo"
+    }
+  },
+  "36be59a7-a0e9-4ec6-8d4c-d9049074cf9d": {
+    "3": {
+      "name": "Eclipta prostrata",
+      "what_is_it": "Comumente conhecida como Erva-de-botão, Eclipta prostrata é uma erva rasteira encontrada em áreas úmidas, caracterizada por suas pequenas flores brancas e folhas alongadas distintas.",
+      "information": "Na medicina tradicional, particularmente na Ayurveda, a Eclipta prostrata é estimada por sua capacidade de promover o crescimento do cabelo e melhorar a função hepática. É usada desde tempos antigos na Índia, com referências encontradas em textos do século VI d.C. Além disso, a planta possui significado cultural em várias regiões da Ásia, onde seus extratos são usados em cosméticos e terapias à base de ervas.",
+      "scientific_name": "Eclipta prostrata",
+      "common_name": ""
+    },
+    "4": {
+      "name": "Tanchagem-menor (Plantago lanceolata)",
+      "what_is_it": "A Tanchagem-menor é uma erva perene caracterizada por suas folhas longas em forma de lança e espigas de flores densas que florescem no verão.",
+      "information": "Historicamente, a Tanchagem-menor tem sido utilizada desde a antiguidade, com referências às suas propriedades medicinais encontradas em textos que datam do século I d.C. Era frequentemente usada por culturas indígenas norte-americanas para tratar feridas e problemas respiratórios. As folhas contêm compostos conhecidos como aucubina, que possuem propriedades antibacterianas, tornando-a significativa nos remédios tradicionais à base de ervas.",
+      "scientific_name": "Plantago lanceolata",
+      "common_name": "Tanchagem-menor"
+    },
+    "5": {
+      "name": "Borragem (Borago officinalis)",
+      "what_is_it": "A Borragem é uma planta herbácea conhecida por suas flores azuis em forma de estrela e folhas peludas. É frequentemente associada a usos culinários e propriedades medicinais.",
+      "information": "Historicamente, a borragem tem sido valorizada desde o Império Romano por sua suposta capacidade de levantar o ânimo e dar coragem. Na Idade Média, era usada em infusões e vinhos, celebrada por herboristas como Nicholas Culpeper, que notou suas propriedades refrescantes e seu uso em tratamentos para febres. Curiosamente, suas flores têm sido usadas tanto na culinária para guarnição quanto na medicina tradicional para tratar diversas doenças, incluindo problemas de pele.",
+      "scientific_name": "Borago officinalis",
+      "common_name": "Borragem"
+    },
+    "6": {
+      "name": "Brassica juncea (Planta de Mostarda)",
+      "what_is_it": "A planta de mostarda é uma verdura crucífera de folhas verdes conhecida por seu sabor picante, frequentemente usada na culinária e por suas sementes, que são moídas para fazer o condimento de mostarda.",
+      "information": "As plantas de mostarda são cultivadas há milhares de anos, com referências históricas que remontam à Roma Antiga, onde eram usadas não apenas em práticas culinárias, mas também na medicina tradicional. Em muitas culturas, as sementes de mostarda simbolizam prosperidade e são usadas em rituais por suas supostas propriedades protetoras. As sementes foram parte integrante do comércio de especiarias e foram mencionadas por poetas, como Homero, sustentando sua longa importância cultural.",
+      "scientific_name": "Brassica juncea",
+      "common_name": "Planta de Mostarda"
+    },
+    "7": {
+      "name": "Silene latifolia (Campion-Branco)",
+      "what_is_it": "O Campion-Branco é uma planta perene conhecida por suas delicadas flores brancas e folhagem verde exuberante. Tipicamente encontrada em prados e pastagens, floresce entre o final da primavera e o verão.",
+      "information": "Na medicina popular europeia, a Silene latifolia tem sido usada por sua suposta capacidade de aliviar problemas estomacais e promover a cicatrização. Notavelmente, durante o período medieval, era frequentemente associada ao amor e à beleza, aparecendo em vários textos poéticos como um símbolo de afeto romântico. As flores sedosas da planta também inspiraram artistas como o botânico do século XVII Ernest de Lépici, que as ilustrou em detalhadas obras botânicas.",
+      "scientific_name": "Silene latifolia",
+      "common_name": "Campion-Branco"
+    }
+  },
+  "f1b320c6-f642-4385-88ab-8ad0c77fef02": {
+    "1": {
+      "name": "Trevo Branco (Trifolium repens)",
+      "what_is_it": "Uma planta perene de baixo crescimento com folhas trifoliadas distintas.",
+      "information": "O trevo branco é frequentemente encontrado em gramados e prados, caracterizado por suas pequenas inflorescências brancas. Esta planta é benéfica para a saúde do solo, pois fixa nitrogênio, aumentando a fertilidade do solo. Também serve como uma importante fonte de alimento para abelhas e outros polinizadores, promovendo a biodiversidade.",
+      "scientific_name": "Trifolium repens",
+      "common_name": "Trevo Branco"
+    },
+    "3": {
+      "name": "Capuchinha (Tropaeolum majus)",
+      "what_is_it": "Uma planta anual vibrante com folhas redondas e flores brilhantes e coloridas.",
+      "information": "A capuchinha é conhecida por suas folhas de sabor apimentado e flores comestíveis, frequentemente usadas em saladas e como guarnições. Esta planta prospera em solo pobre e é uma ótima companheira para outras plantas de jardim, repelindo pragas enquanto atrai insetos benéficos como polinizadores.",
+      "scientific_name": "Tropaeolum majus",
+      "common_name": "Capuchinha"
+    },
+    "6": {
+      "name": "Digitalis purpurea (Dedaleira)",
+      "what_is_it": "A dedaleira é uma planta bienal alta que produz flores impressionantes em forma de sino, geralmente em tons de roxo.",
+      "information": "A dedaleira é conhecida por suas belas flores e é uma fonte do medicamento para o coração digoxina. Embora seja frequentemente encontrada em bosques e áreas gramadas, é importante notar que a planta inteira é tóxica se ingerida. As flores da planta atraem vários polinizadores, incluindo abelhas e borboletas.",
+      "scientific_name": "Digitalis purpurea",
+      "common_name": "Dedaleira"
+    },
+    "8": {
+      "name": "Rubus fruticosus (Amora-silvestre), Pteridium aquilinum (Samambaia-brava)",
+      "what_is_it": "A amora-silvestre é um arbusto espinhoso que produz frutos deliciosos, enquanto a samambaia-brava é uma samambaia grande e plumosa comumente encontrada em áreas selvagens.",
+      "information": "As amoreiras-silvestres são conhecidas por seus saborosos frutos pretos, fornecendo alimento tanto para humanos quanto para a vida selvagem. Os caules espinhosos servem como um mecanismo de defesa contra herbívoros. A samambaia-brava, por outro lado, possui um sistema de rizoma robusto e pode frequentemente dominar áreas, desempenhando um papel importante nos ecossistemas florestais como cobertura do solo que fornece habitat para vários organismos.",
+      "scientific_name": "",
+      "common_name": "Rubus fruticosus (Amora-silvestre), Pteridium aquilinum (Samambaia-brava)"
+    }
+  },
+  "3e19d3ed-8f24-5bc5-8016-621a18fb0735": {
+    "20": {
+      "name": "Glebionis segetum (Pampilho-das-searas)",
+      "what_is_it": "Uma flor silvestre anual de cor amarelo-vivo da família das margaridas (Asteraceae), tipicamente encontrada em campos agrícolas e solos perturbados.",
+      "information": "Nativa do Mediterrâneo, espalhou-se pela Europa como um arqueófito, frequentemente associada a culturas de cereais. Apresenta folhas glaucas e profundamente lobadas e grandes capítulos florais compostos que florescem do início do verão ao outono. Embora já tenha sido considerada uma erva daninha problemática, suas populações diminuíram significativamente devido ao uso de herbicidas modernos e à limpeza de sementes.",
+      "species_interactions": "As flores fornecem uma fonte abundante de néctar e pólen para uma gama diversificada de polinizadores generalistas, particularmente moscas-das-flores e abelhas solitárias.",
+      "scientific_name": "Glebionis segetum",
+      "common_name": "Pampilho-das-searas"
+    },
+    "30": {
+      "name": "Hieracium sp. (Hierácio)",
+      "what_is_it": "Uma planta herbácea perene da família Asteraceae, conhecida por seus capítulos florais compostos de cor amarelo-vivo.",
+      "information": "Os hierácios são um grande gênero de plantas caracterizadas por sua seiva leitosa e capítulos florais compostos inteiramente por florículos ligulados. São notórios entre os botânicos por sua genética complexa, reproduzindo-se frequentemente de forma assexuada para criar muitas microespécies quase idênticas. Essas plantas prosperam em solos ensolarados e bem drenados, como prados e beiras de estradas, onde às vezes podem se tornar invasoras.",
+      "species_interactions": "As flores fornecem uma fonte significativa de néctar e pólen para vários polinizadores generalistas, incluindo abelhas, moscas-das-flores e borboletas.",
+      "scientific_name": "Hieracium sp.",
+      "common_name": "Hierácio"
+    },
+    "48": {
+      "name": "Umbilicus rupestris (Umbigo-de-vênus)",
+      "what_is_it": "O umbigo-de-vênus é uma planta suculenta e perene da família das crassuláceas (Crassulaceae), facilmente identificada por suas folhas redondas e carnudas.",
+      "information": "É nativa do sul e oeste da Europa e é comumente encontrada crescendo em fendas de rochas úmidas, muros de pedra antigos e taludes sombreados. A planta apresenta folhas peltadas distintas com uma depressão central e produz espigas altas e eretas de flores em forma de sino, de cor branco-esverdeada, durante os meses de verão.",
+      "species_interactions": "Fornece uma fonte de alimento para vários invertebrados e suas flores são visitadas por abelhas e outros polinizadores.",
+      "scientific_name": "Umbilicus rupestris",
+      "common_name": "Umbigo-de-vênus"
+    }
+  },
+  "c920f7ee-db6e-58f0-a906-51c55b7a8982": {
+    "0": {
+      "name": "Epiphragma fasciapenne (Típula-de-asa-listrada)",
+      "what_is_it": "Esta é uma espécie de típula da família Limoniidae, distinguida por suas asas com belos padrões de listras.",
+      "information": "São comumente encontradas em áreas úmidas e arborizadas perto de fontes de água em toda a América do Norte oriental. As larvas são semiaquáticas ou terrestres, vivendo tipicamente em madeira úmida em decomposição e consumindo-a. Os adultos têm vida curta e se concentram principalmente na reprodução, sendo frequentemente vistos pousados em folhas em ambientes sombreados.",
+      "species_interactions": "As larvas atuam como importantes decompositores nos ecossistemas florestais, enquanto os adultos fornecem uma refeição rica em nutrientes para predadores como pássaros, libélulas e aranhas.",
+      "scientific_name": "Epiphragma fasciapenne",
+      "common_name": "Típula-de-asa-listrada"
+    },
+    "1": {
+      "name": null,
+      "what_is_it": null,
+      "information": "{'species_identification': {'name': 'Araneae (Aranha)', 'what_is_it': 'Araneae, comumente conhecidas como aranhas, são artrópodes que respiram ar, possuem oito pernas e são conhecidas por sua capacidade de fiar seda. Elas desempenham papéis vitais no controle de populações de insetos.', 'information': 'Em muitas culturas, as aranhas simbolizam criatividade e paciência, sendo frequentemente vistas como construtoras de teias que capturam tanto alimento quanto luz. Elas são parte integrante de vários ecossistemas, servindo tanto como predadores quanto como presas. Na medicina tradicional, alguns venenos de aranha são explorados por suas potenciais propriedades medicinais. As diversas espécies de aranhas também desempenham papéis significativos no controle de pragas em jardins e sistemas agrícolas.'}, 'sampling_guidance': {'question': \"Você vê outros insetos ou pragas perto da teia da aranha?\", 'yes_action': 'Capture uma foto de quaisquer insetos presos na teia ou próximos para ajudar a identificar suas interações dentro do ecossistema.', 'no_action': 'Procure na área por outras aranhas ou insetos escondidos que vivem em habitats semelhantes.'}, 'next_target': {'focus': 'Insetos ou outras espécies de aranhas', 'location': \"Perto da teia da aranha ou na área circundante da estrutura.\"}}",
+      "scientific_name": "",
+      "common_name": ""
+    },
+    "2": {
+      "name": "Fragaria × ananassa (Morango de Jardim)",
+      "what_is_it": "Uma planta herbácea perene de baixo crescimento da família das rosas, amplamente cultivada por seu fruto comestível, doce e vermelho.",
+      "information": "Esta espécie é um híbrido de duas espécies de morango silvestre das Américas e é uma das frutas de jardim mais comuns em todo o mundo. Ela se espalha através de caules horizontais chamados estolões e prefere climas temperados com solo bem drenado. O 'fruto' é, na verdade, um fruto acessório agregado, sendo os verdadeiros frutos botânicos as pequenas sementes em sua superfície.",
+      "species_interactions": "Suas flores atraem vários polinizadores, como abelhas e borboletas, enquanto seus frutos são consumidos por pássaros e pequenos mamíferos que ajudam a dispersar suas sementes.",
+      "scientific_name": "Fragaria × ananassa",
+      "common_name": "Morango de Jardim"
+    },
+    "14": {
+      "name": "Cucurbita pepo (Abobrinha/Abóbora de Verão)",
+      "what_is_it": "Uma jovem trepadeira herbácea da família das cucurbitáceas, comumente cultivada por seu fruto comestível.",
+      "information": "Nativa da América do Norte, esta espécie é uma planta anual de crescimento rápido que prospera em ambientes quentes e ensolarados com solo fértil. Produz flores amarelas grandes e vibrantes que também são comestíveis e é conhecida por suas folhas largas e ásperas. As variedades domesticadas incluem abobrinha, abóbora-menina e muitos tipos de abóboras.",
+      "species_interactions": "Possui uma relação mutualística especializada com abelhas-da-abóbora para polinização e é frequentemente alvo de herbívoros como os percevejos-da-abóbora.",
+      "scientific_name": "Cucurbita pepo",
+      "common_name": "Abobrinha/Abóbora de Verão"
+    },
+    "17": {
+      "name": "Lactuca sativa var. longifolia (Alface Romana)",
+      "what_is_it": "Esta é uma variedade de alface caracterizada por suas folhas longas e robustas e nervuras centrais firmes, formando uma cabeça ereta.",
+      "information": "A alface romana é uma cultura anual de estação fria que é mais tolerante ao calor do que muitas outras variedades de alface. É uma verdura folhosa densa em nutrientes, fornecendo altos níveis de vitaminas A e K, e é amplamente cultivada em regiões temperadas globalmente. Historicamente, é um dos tipos de alface cultivada mais antigos conhecidos, com raízes que remontam ao antigo Egito.",
+      "species_interactions": "Serve como fonte primária de alimento para vários herbívoros, desde pragas de jardim como lesmas e pulgões até seres humanos.",
+      "scientific_name": "Lactuca sativa var. longifolia",
+      "common_name": "Alface Romana"
+    }
+  },
+  "00000000-0000-0000-0000-000000000000": {
+    "1": {
+      "name": "Jasminum polyanthum (Jasmim-Rosa)",
+      "what_is_it": "Uma trepadeira perene de crescimento rápido da família das oliveiras, conhecida por suas flores prolíficas e altamente perfumadas.",
+      "information": "Nativa da China e de Mianmar, esta trepadeira vigorosa pode atingir alturas de até 6 metros, entrelaçando-se em suportes. Produz cachos densos de botões rosa-avermelhados que se abrem em flores brancas em forma de estrela, que são mais perfumadas à noite. É amplamente cultivada como planta ornamental em regiões temperadas e subtropicais por seu apelo estético e aroma intenso.",
+      "species_interactions": "As flores perfumadas atraem vários polinizadores, incluindo mariposas e abelhas, enquanto a folhagem densa oferece locais para nidificação e abrigo para pequenos pássaros.",
+      "scientific_name": "Jasminum polyanthum",
+      "common_name": "Jasmim-Rosa"
+    },
+    "2": {
+      "name": "Origanum vulgare (Orégano)",
+      "what_is_it": "Uma erva perene da família da hortelã (Lamiaceae) nativa da região do Mediterrâneo e amplamente cultivada por suas folhas aromáticas.",
+      "information": "O orégano prospera em solo bem drenado e sol pleno, sendo frequentemente encontrado em habitats secos e rochosos em sua área de ocorrência nativa. Contém óleos essenciais como carvacrol e timol, que lhe conferem seu sabor picante característico e propriedades antimicrobianas. Historicamente, tem sido usado tanto como um item básico na culinária quanto para diversos fins medicinais.",
+      "species_interactions": "Suas flores são altamente atraentes para uma variedade de polinizadores, incluindo abelhas e borboletas, enquanto seus óleos aromáticos podem atuar como um repelente natural contra certos insetos herbívoros.",
+      "scientific_name": "Origanum vulgare",
+      "common_name": "Orégano"
+    },
+    "10": {
+      "name": "Tipula sp. (Típula)",
+      "what_is_it": "Uma típula é um inseto díptero grande e esguio, caracterizado por pernas extremamente longas e frágeis e uma aparência semelhante à de um mosquito.",
+      "information": "As típulas são encontradas em todo o mundo em ambientes úmidos, onde suas larvas, conhecidas como 'leatherjackets', geralmente vivem no solo ou na água, alimentando-se de matéria orgânica em decomposição. Os adultos costumam ter vida curta, focando-se principalmente no acasalamento, e muitas espécies não se alimentam durante seu breve estágio adulto. Apesar de seu nome comum 'mosquito hawks' em inglês, são inofensivas para os humanos e não picam nem caçam outros insetos.",
+      "species_interactions": "Como adultos, servem como uma fonte de alimento significativa para pássaros, morcegos e aranhas, enquanto suas larvas desempenham um papel crucial na ciclagem de nutrientes ao decompor material vegetal.",
+      "scientific_name": "Tipula sp.",
+      "common_name": "Típula"
+    },
+    "11": {
+      "name": "Arion ater (Lesma-preta-europeia)",
+      "what_is_it": "Um grande molusco gastrópode terrestre sem concha, conhecido por sua pele escura e enrugada e seu papel como necrófago generalista.",
+      "information": "Nativa da Europa, esta lesma se espalhou globalmente e é comumente encontrada em jardins úmidos, florestas e campos. Alimenta-se de uma dieta diversificada de matéria orgânica em decomposição, fungos e plantas vivas, o que a torna uma praga agrícola significativa. Um comportamento de defesa único envolve contrair-se em uma bola e balançar de um lado para o outro quando ameaçada.",
+      "species_interactions": "Atua como um decompositor vital nos ecossistemas, ao mesmo tempo que é predada por várias aves, ouriços e besouros predadores.",
+      "scientific_name": "Arion ater",
+      "common_name": "Lesma-preta-europeia"
+    },
+    "13": {
+      "name": "Tropaeolum majus (Capuchinha)",
+      "what_is_it": "Uma popular planta com flor anual, caracterizada por suas folhas circulares e peltadas e partes comestíveis com sabor apimentado.",
+      "information": "Originalmente nativas dos Andes, na América do Sul, as capuchinhas são agora cultivadas globalmente em jardins por suas flores brilhantes e usos culinários. São notavelmente resistentes, muitas vezes se desenvolvendo melhor em solos pobres, onde produzem mais flores em relação à folhagem. Todas as partes da planta acima do solo são comestíveis, contendo altos níveis de Vitamina C e luteína.",
+      "species_interactions": "Na jardinagem orgânica, são frequentemente usadas como plantas companheiras para atrair polinizadores e atuar como uma cultura-armadilha para pulgões e larvas da borboleta-branca-da-couve.",
+      "scientific_name": "Tropaeolum majus",
+      "common_name": "Capuchinha"
+    },
+    "18": {
+      "name": null,
+      "what_is_it": null,
+      "information": "{'species_identification': {'name': 'Folha Indeterminada', 'what_is_it': 'Esta é uma folha de uma planta indeterminada, caracterizada por uma borda ondulada ou ligeiramente serrilhada.', 'information': 'As folhas frequentemente têm um significado importante em várias culturas, representando às vezes o crescimento, a renovação ou até mesmo um ciclo de vida. Em algumas tradições, as folhas são usadas em rituais ou como símbolos de paz e harmonia. Suas diversas formas e padrões podem ser vistos como uma metáfora para a complexidade e a beleza da natureza.'}, 'sampling_guidance': {'question': 'Você vê alguma flor ou fruto acompanhando esta planta?', 'yes_action': \"Tire uma foto das flores ou dos frutos, eles podem fornecer pistas sobre a identidade da planta.\", 'no_action': 'Procure por plantas próximas que possam ter flores desabrochando ou frutos em desenvolvimento.'}, 'next_target': {'focus': 'Flores ou frutos', 'location': 'Verifique plantas ou arbustos próximos em busca de quaisquer sinais de flores ou frutos.'}}",
+      "scientific_name": "",
+      "common_name": ""
+    }
+  },
+  "ff518a8d-2524-5d68-8557-95d2df04fc94": {
+    "6": {
+      "name": "Rosa canina (Rosa-silvestre)",
+      "what_is_it": "Um arbusto decíduo e trepador da família das rosas, caracterizado por suas flores rosa-pálidas e espinhos curvos.",
+      "information": "Nativa da Europa, Norte da África e Ásia Ocidental, é comumente encontrada em sebes e margens de bosques. A planta produz frutos ovais de cor vermelho-vivo conhecidos como cinórrodos, que são excepcionalmente ricos em vitamina C e foram usados historicamente para prevenir o escorbuto. Seus caules arqueados podem atingir até cinco metros de altura, usando espinhos para escalar a vegetação vizinha.",
+      "species_interactions": "Fornece uma rica fonte de néctar e pólen para várias espécies de abelhas e serve como uma fonte de alimento de inverno crucial para pássaros que consomem seus cinórrodos ricos em nutrientes.",
+      "scientific_name": "Rosa canina",
+      "common_name": "Rosa-silvestre"
+    }
+  },
+  "538cf4ae-2205-508f-944a-74697f02e24a": {
+    "11": {
+      "name": "Dipsacus fullonum (Cardo-penteador)",
+      "what_is_it": "Esta é a inflorescência seca e espinhosa de um cardo-penteador, uma planta herbácea bienal conhecida por sua estrutura espinhosa distinta.",
+      "information": "Nativos da Eurásia e do Norte da África, os cardos-penteadores são frequentemente encontrados em solos perturbados, prados e ao longo de estradas. As inflorescências secas persistem durante o inverno e foram historicamente usadas na indústria têxtil para levantar a felpa de tecidos de lã. As folhas da planta formam um copo ao redor do caule que pode coletar água da chuva, o que pode servir como defesa contra insetos rastejantes.",
+      "species_interactions": "As sementes fornecem uma importante fonte de alimento de inverno para pássaros como os pintassilgos, enquanto as flores de verão são uma rica fonte de néctar para abelhas e borboletas.",
+      "scientific_name": "Dipsacus fullonum",
+      "common_name": "Cardo-penteador"
+    }
+  },
+  "129fbb80-99e4-5b32-afaa-4d783bc561b7": {
+    "4": {
+      "name": "Ribes nigrum (Groselha-preta)",
+      "what_is_it": "Um arbusto decíduo da família da groselha, Grossulariaceae, cultivado principalmente por suas bagas escuras comestíveis e ricas em nutrientes.",
+      "information": "Nativa de regiões temperadas do norte da Europa e da Ásia, esta planta prospera em solos úmidos e bem drenados e é muito valorizada por seu alto teor de vitamina C. As folhas são palmatilobadas com uma textura rugosa e possuem pequenas glândulas amarelas na parte inferior que liberam um aroma pungente quando esmagadas. É uma espécie resistente, frequentemente encontrada em bosques úmidos, sebes e jardins domésticos.",
+      "species_interactions": "A planta fornece uma importante fonte de néctar no início da estação para as abelhas e serve como hospedeira larval para várias espécies de lepidópteros, como a mariposa-transparente-da-groselheira.",
+      "scientific_name": "Ribes nigrum",
+      "common_name": "Groselha-preta"
+    }
+  },
+  "8f32e0a4-e5d3-4e57-804b-2c2d1ae7f11f": {
+    "0": {
+      "name": "Alecrim (Salvia rosmarinus)",
+      "what_is_it": "Uma erva culinária popular com folhas aromáticas e semelhantes a agulhas.",
+      "information": "O alecrim é nativo da região do Mediterrâneo e prefere solos bem drenados com bastante luz solar. Pode crescer como um pequeno arbusto e é conhecido por sua folhagem perfumada. Frequentemente usado na culinária, também possui propriedades medicinais e acredita-se que melhora a memória. O alecrim atrai vários polinizadores, como as abelhas.",
+      "species_interactions": "O alecrim pode servir como fonte de alimento para polinizadores e pode repelir certas pragas, apoiando assim a saúde das plantas próximas.",
+      "scientific_name": "Salvia rosmarinus",
+      "common_name": "Alecrim"
+    },
+    "3": {
+      "name": "Artemisia spp. e Salvia officinalis",
+      "what_is_it": "Artemisia, comumente conhecida como absinto, é um gênero diverso de plantas conhecidas por suas folhas aromáticas. Salvia officinalis, ou sálvia, é uma erva culinária com folhas verde-acinzentadas e flores roxas.",
+      "information": "As espécies de Artemisia são frequentemente encontradas em climas temperados e têm uma variedade de usos, incluindo culinários e medicinais. A Salvia officinalis tem uma longa história de uso na culinária e na medicina tradicional, particularmente para a saúde digestiva. Ambas as espécies podem atrair polinizadores, fornecendo recursos essenciais em seus ecossistemas.",
+      "species_interactions": "Artemisia e Salvia officinalis podem fornecer habitat e alimento para vários insetos e polinizadores, aumentando a biodiversidade local. Suas folhas aromáticas também podem deter certos herbívoros.",
+      "scientific_name": "",
+      "common_name": "Artemisia spp. e Salvia officinalis"
+    },
+    "5": {
+      "name": "Rubus fruticosus",
+      "what_is_it": "Comumente conhecida como amora-preta, Rubus fruticosus é um arbusto espinhoso que produz bagas escuras e doces. Possui folhas serrilhadas e caules cobertos de espinhos, o que a torna uma planta distinta.",
+      "information": "As amoras-pretas fazem parte da cultura humana desde os tempos antigos, sendo frequentemente usadas na culinária e na medicina tradicional. Nas tradições celtas, as amoras-pretas simbolizam abundância e fertilidade, e na cultura popular britânica, são frequentemente associadas a festivais de colheita. Além disso, as bagas contêm antocianinas, que foram estudadas por suas propriedades antioxidantes.",
+      "species_interactions": "As amoreiras-pretas fornecem habitats vitais para várias aves e insetos, além de servirem como fonte de alimento para muitos pequenos mamíferos.",
+      "scientific_name": "Rubus fruticosus",
+      "common_name": ""
+    }
+  },
+  "75bececa-2dc7-4ebb-a3c8-8d37367128a2": {
+    "4": {
+      "name": "Joaninha-Asiática (Harmonia axyridis)",
+      "what_is_it": "Um pequeno besouro redondo que pode variar de cor do amarelo ao laranja e possui manchas pretas.",
+      "information": "A joaninha-asiática é conhecida por seu papel benéfico no controle de populações de pulgões, tornando-a uma valiosa aliada em jardins. Elas também são conhecidas por entrar em casas em grande número durante os meses de inverno e podem secretar um fluido que pode manchar paredes e tecidos.",
+      "species_interactions": "A joaninha-asiática interage com a sálvia-escarlate alimentando-se de pragas que podem prejudicar a planta, promovendo sua saúde.",
+      "scientific_name": "Harmonia axyridis",
+      "common_name": "Joaninha-Asiática"
+    },
+    "5": {
+      "name": "Alface (Lactuca sativa)",
+      "what_is_it": "Um vegetal de folhas verdes comumente usado em saladas, conhecido por sua textura crocante e sabor refrescante.",
+      "information": "A alface prospera em meses mais frios e pode ser cultivada em vários tipos de solo. É rica em água, o que a torna hidratante e de baixas calorias. A alface é frequentemente colhida antes de florescer, pois a floração pode tornar as folhas amargas. Esta planta pode atrair vários insetos, incluindo pragas comuns de jardim, e sabe-se que é cultivada desde os tempos antigos.",
+      "species_interactions": "A alface pode atrair pulgões e outros insetos que se alimentam de sua seiva, ao mesmo tempo que fornece um habitat para insetos benéficos como as joaninhas.",
+      "scientific_name": "Lactuca sativa",
+      "common_name": "Alface"
+    },
+    "6": {
+      "name": "Salvia officinalis (Sálvia Comum)",
+      "what_is_it": "Uma erva aromática conhecida por seus usos culinários e propriedades medicinais.",
+      "information": "A sálvia comum é uma erva perene com folhas verde-acinzentadas e flores lilases, frequentemente cultivada em jardins. Pode crescer até 60 cm de altura. Suas folhas são altamente aromáticas e são usadas na culinária, especialmente na cozinha mediterrânea. A sálvia tem uma longa história de uso na medicina tradicional por suas propriedades anti-inflamatórias e antimicrobianas. Atrai vários polinizadores, incluindo abelhas, e desempenha um papel em ecossistemas de jardins sustentáveis.",
+      "species_interactions": "A sálvia comum pode atrair uma variedade de polinizadores, criando um ecossistema vibrante onde os insetos ajudam na polinização.",
+      "scientific_name": "Salvia officinalis",
+      "common_name": "Sálvia Comum"
+    },
+    "8": {
+      "name": "Santolina (Santolina chamaecyparissus)",
+      "what_is_it": "Um arbusto perene caracterizado por sua folhagem aromática, verde-acinzentada e flores amarelas em forma de botão.",
+      "information": "A santolina é bem conhecida por sua resistência à seca e é frequentemente usada em jardins por sua fragrância agradável e apelo estético. Ela prospera em solos bem drenados e pode atrair vários polinizadores. Historicamente, tem sido usada por suas propriedades medicinais e como repelente de insetos.",
+      "species_interactions": "Esta planta pode atrair abelhas e borboletas em busca de néctar, ao mesmo tempo que pode abrigar outros insetos que se alimentam de suas folhas.",
+      "scientific_name": "Santolina chamaecyparissus",
+      "common_name": "Santolina"
+    }
+  },
+  "93bf7859-64a2-4c40-b9ce-51012bb11de4": {
+    "1": {
+      "name": "Trepadeira-das-sebes (Calystegia sepium)",
+      "what_is_it": "Uma trepadeira perene com grandes flores em forma de trombeta, de cor branca a rosa pálido.",
+      "information": "A Trepadeira-das-sebes prefere áreas ensolaradas e pode ser encontrada subindo em arbustos e cercas. Suas flores podem atrair vários polinizadores, e seu extenso sistema radicular ajuda a prevenir a erosão do solo. Ela também tem um histórico de uso na medicina tradicional. No entanto, pode ser invasora em algumas regiões, competindo com a flora nativa.",
+      "species_interactions": "A Trepadeira-das-sebes pode compartilhar polinizadores com a Epilóbio, criando um ecossistema onde ambas as plantas podem se beneficiar da presença de abelhas e borboletas.",
+      "scientific_name": "Calystegia sepium",
+      "common_name": "Trepadeira-das-sebes"
+    },
+    "2": {
+      "name": "Joaninha-de-sete-pintas (Coccinella septempunctata)",
+      "what_is_it": "Um pequeno besouro conhecido por suas distintas sete pintas pretas sobre um fundo vermelho.",
+      "information": "A Joaninha-de-sete-pintas é um inseto benéfico, conhecido principalmente por seu apetite por pulgões, o que a torna um controlador de pragas natural em jardins e na agricultura. Elas são frequentemente encontradas em plantas como a colza e preferem áreas ensolaradas para obter calor e atividade ideais.",
+      "species_interactions": "A Joaninha-de-sete-pintas pode ser encontrada perto tanto da Epilóbio quanto da Trepadeira-das-sebes, pois pode ser atraída por essas plantas em busca de presas em potencial.",
+      "scientific_name": "Coccinella septempunctata",
+      "common_name": "Joaninha-de-sete-pintas"
+    },
+    "8": {
+      "name": "Mamangava (Bombus spp.)",
+      "what_is_it": "As mamangavas são insetos grandes e peludos, conhecidos por suas listras pretas e amarelas distintas. Elas são polinizadoras essenciais para muitas plantas com flores.",
+      "information": "As mamangavas prosperam em vários habitats, incluindo jardins, prados e florestas. São insetos sociais que vivem em colônias, com uma rainha, operárias e zangões. Diferentemente das abelhas melíferas, as mamangavas podem realizar a polinização por vibração, vibrando seus corpos para liberar o pólen. Elas desempenham um papel crucial na polinização de culturas e flores silvestres e são capazes de forragear em climas mais frios.",
+      "species_interactions": "As mamangavas interagem com o Orégano (Origanum vulgare) polinizando suas flores, o que, por sua vez, facilita a reprodução da planta. Elas também fazem parte de uma rede maior envolvendo as outras espécies previamente identificadas, dependendo da proximidade floral e da sobreposição de habitat.",
+      "scientific_name": "Bombus spp.",
+      "common_name": "Mamangava"
+    },
+    "9": {
+      "name": "Orégano (Origanum vulgare)",
+      "what_is_it": "O orégano é uma erva perene muito apreciada por suas folhas aromáticas e usos culinários.",
+      "information": "Nativo da região do Mediterrâneo, o orégano prospera em solos ensolarados e bem drenados. Suas folhas são ricas em óleos essenciais e são um ingrediente chave em muitos pratos. A planta também atrai uma variedade de insetos benéficos, incluindo polinizadores e insetos predadores que ajudam a controlar pragas. Curiosamente, o orégano tem sido notado por suas propriedades antimicrobianas, tornando-o não apenas delicioso, mas também benéfico para a saúde.",
+      "species_interactions": "O orégano pode fornecer abrigo e alimento para vários insetos, como abelhas e joaninhas, que podem ajudar a controlar pulgões que se alimentam de plantas vizinhas.",
+      "scientific_name": "Origanum vulgare",
+      "common_name": "Orégano"
+    },
+    "10": {
+      "name": "Girassol (Helianthus annuus)",
+      "what_is_it": "Uma planta anual alta e vibrante com grandes inflorescências redondas, conhecidas por seguir o sol ao longo do dia.",
+      "information": "Os girassóis são importantes tanto esteticamente quanto ecologicamente, fornecendo alimento para pássaros, insetos e humanos. Eles são ricos em sementes que são uma fonte de óleo e proteína. Os girassóis também podem melhorar a saúde do solo e atrair vários polinizadores, tornando-os uma parte crucial do ecossistema.",
+      "species_interactions": "Os girassóis podem atrair polinizadores como as mamangavas e fornecer um habitat para insetos como as joaninhas, promovendo a biodiversidade na área.",
+      "scientific_name": "Helianthus annuus",
+      "common_name": "Girassol"
+    },
+    "11": {
+      "name": "Labaça-de-folhas-largas (Rumex obtusifolius)",
+      "what_is_it": "Uma planta perene com folhas largas em formato de flecha e pequenas flores esverdeadas, frequentemente encontrada em áreas perturbadas e ao longo de estradas.",
+      "information": "A labaça-de-folhas-largas tem uma roseta distinta de folhas largas e pode crescer até 1,2 metros de altura. Ela produz pequenas espigas de flores que atraem vários insetos. Esta planta é frequentemente vista como uma erva daninha, mas desempenha um papel importante ao fornecer habitat e alimento para várias espécies. As folhas são comestíveis e têm sido usadas na medicina tradicional, embora possam ser ligeiramente amargas devido ao alto teor de ácido oxálico.",
+      "species_interactions": "A labaça-de-folhas-largas pode fornecer abrigo e néctar para polinizadores como mamangavas, servindo também como fonte de alimento para certos insetos, como pulgões e lagartas.",
+      "scientific_name": "Rumex obtusifolius",
+      "common_name": "Labaça-de-folhas-largas"
+    },
+    "12": {
+      "name": "Onagra Comum (Oenothera biennis)",
+      "what_is_it": "Uma planta bienal conhecida por suas flores amarelas que desabrocham à noite e atraem polinizadores noturnos.",
+      "information": "A onagra comum tem uma roseta de folhas lanceoladas em seu primeiro ano e, no segundo ano, produz longas espigas adornadas com flores amarelas. Essas flores se abrem à noite e podem atrair mariposas e outros visitantes noturnos. A planta também é conhecida por suas sementes, que têm sido usadas por seu óleo, que se acredita conter ácidos graxos benéficos.",
+      "species_interactions": "A onagra comum pode atrair polinizadores noturnos como mariposas, ao mesmo tempo que fornece uma fonte de alimento para joaninhas ao hospedar pulgões em sua folhagem.",
+      "scientific_name": "Oenothera biennis",
+      "common_name": "Onagra Comum"
+    }
+  },
+  "1d458f8c-b00d-4601-9b7b-d3728ac43d44": {
+    "0": {
+      "name": "Tasneirinha (Senecio vulgaris)",
+      "what_is_it": "Uma planta anual de baixo crescimento que geralmente tem flores amarelas brilhantes.",
+      "information": "A tasneirinha frequentemente cresce em áreas perturbadas, como beiras de estradas e jardins. Ela tem uma roseta de folhas que podem ser serrilhadas e produz pequenas flores semelhantes ao dente-de-leão. Esta planta é conhecida por seu crescimento rápido e pela capacidade de prosperar em solos pobres. Ela pode se reproduzir tanto sexualmente quanto assexuadamente, tornando-a bastante resiliente em vários habitats.",
+      "species_interactions": "A tasneirinha pode atrair vários polinizadores, como abelhas e borboletas, servindo também como fonte de alimento para alguns insetos herbívoros.",
+      "scientific_name": "Senecio vulgaris",
+      "common_name": "Tasneirinha"
+    }
+  },
+  "c0255b39-922c-4ee5-bcef-38f3dc132b2c": {
+    "0": {
+      "name": "Girassol (Helianthus annuus)",
+      "what_is_it": "Uma planta alta e vibrante que produz grandes flores amarelas que se viram para o sol.",
+      "information": "Os girassóis não são conhecidos apenas por sua beleza; eles podem crescer até 3 metros de altura e são cultivados por suas sementes e óleo. Eles prosperam em condições ensolaradas e são frequentemente vistos em campos agrícolas. Essas plantas também desempenham um papel na atração de polinizadores como abelhas e borboletas, contribuindo positivamente para a biodiversidade local.",
+      "scientific_name": "Helianthus annuus",
+      "common_name": "Girassol"
+    }
+  },
+  "bca9add2-6147-47c0-a8cf-ae223399aceb": {
+    "4": {
+      "name": "Groselha Vermelha (Ribes rubrum)",
+      "what_is_it": "Um arbusto decíduo que produz pequenas bagas vermelhas e ácidas, frequentemente usadas em compotas e geleias.",
+      "information": "As groselhas vermelhas são conhecidas por sua tonalidade vibrante e sabor ácido. Elas crescem em cachos e são ricas em vitaminas, o que as torna populares em usos culinários. A planta prospera em solo bem drenado e é frequentemente encontrada em regiões temperadas. As groselhas vermelhas também podem sustentar a vida selvagem, fornecendo alimento para pássaros.",
+      "scientific_name": "Ribes rubrum",
+      "common_name": "Groselha Vermelha"
+    }
+  },
+  "ded6c6ef-c5d8-41b8-999d-4150c18ac5ff": {
+    "9": {
+      "name": "Mirtilo (Vaccinium corymbosum)",
+      "what_is_it": "O Mirtilo é um arbusto decíduo conhecido por suas bagas azuis doces e nutritivas e por suas atraentes flores brancas ou rosas. Geralmente cresce em solos ácidos e bem drenados e é comumente cultivado por seus frutos.",
+      "information": "Esta espécie possui um valor cultural significativo, especialmente entre as tribos nativas americanas, que tradicionalmente colhiam mirtilos por suas propriedades nutricionais e medicinais. Além disso, os Mirtilos são mencionados em várias obras literárias como símbolos de abundância e saúde, sendo particularmente notados na obra do poeta William Carlos Williams, que transmite sua associação simbólica com a essência do verão.",
+      "scientific_name": "Vaccinium corymbosum",
+      "common_name": "Mirtilo"
+    },
+    "13": {
+      "name": "Mosca-das-flores (Eristalis tenax)",
+      "what_is_it": "Eristalis tenax, comumente conhecida como mosca-das-flores, assemelha-se a uma abelha e é conhecida por seu comportamento de voo pairado. Elas são frequentemente encontradas perto de flores, onde se alimentam de néctar.",
+      "information": "A mosca-das-flores desempenha um papel crucial na polinização e é frequentemente mencionada na literatura como um símbolo de laboriosidade e da importância da cooperação entre as espécies. Curiosamente, as larvas desta espécie são aquáticas e decompõem matéria orgânica, ligando-as tanto a ecossistemas terrestres quanto aquáticos. Na medicina popular, algumas culturas acreditavam que as moscas-das-flores traziam boa sorte, especialmente para as colheitas.",
+      "scientific_name": "Eristalis tenax",
+      "common_name": "Mosca-das-flores"
+    },
+    "20": {
+      "name": "Rudbéquia (Rudbeckia hirta)",
+      "what_is_it": "A Rudbéquia é uma flor silvestre perene caracterizada por suas pétalas amarelas e cone central escuro, atraindo polinizadores em jardins e prados.",
+      "information": "Na América do Norte, a Rudbéquia tem um profundo significado cultural, muitas vezes simbolizando encorajamento e inspiração. É frequentemente apresentada na arte popular e como um motivo na literatura, representando a beleza das flores silvestres. Além disso, tribos nativas americanas utilizavam suas raízes e folhas para fins medicinais, demonstrando seu papel na medicina tradicional.",
+      "scientific_name": "Rudbeckia hirta",
+      "common_name": "Rudbéquia"
+    }
+  },
+  "cf5eff9d-d059-4853-a804-995bb7117ad2": {
+    "0": {
+      "name": "Dente-de-leão Comum (Taraxacum officinale)",
+      "what_is_it": "Uma flor amarela brilhante que se transforma em uma cabeça de sementes felpuda, comumente vista em gramados e campos.",
+      "information": "O Dente-de-leão Comum é conhecido por seu alto valor nutricional e propriedades medicinais, sendo frequentemente usado em saladas ou como remédio herbal. Sua raiz pivotante profunda permite que ele prospere em solos variados e desempenha um papel no suporte a polinizadores como abelhas e borboletas. As sementes são dispersas pelo vento, o que leva à sua ampla presença, sendo por vezes considerado uma erva daninha.",
+      "scientific_name": "Taraxacum officinale",
+      "common_name": "Dente-de-leão Comum"
+    },
+    "3": {
+      "name": "Umbilicus rupestris ou Umbigo-de-vênus",
+      "what_is_it": "Uma planta perene resistente com folhas carnudas e arredondadas que se assemelham a um umbigo.",
+      "information": "O Umbigo-de-vênus é frequentemente encontrado agarrado a superfícies rochosas e muros, tornando-o uma escolha resiliente para jardins em condições desafiadoras. Suas folhas únicas em forma de copo armazenam água, permitindo que prospere em áreas secas. Esta planta produz pequenas flores em forma de sino que atraem vários polinizadores, destacando seu papel no apoio à biodiversidade local.",
+      "scientific_name": "Umbilicus rupestris",
+      "common_name": "Umbigo-de-vênus"
+    },
+    "6": {
+      "name": "Azaleia (Rhododendron spp.)",
+      "what_is_it": "Azaleias são arbustos floridos conhecidos por suas belas flores e cores vibrantes, comumente encontrados em regiões temperadas.",
+      "information": "As azaleias pertencem ao gênero Rhododendron e podem prosperar em uma variedade de climas, preferindo tipicamente solos ácidos. Elas florescem na primavera e podem apresentar uma infinidade de cores, atraindo uma variedade de polinizadores como abelhas e borboletas. As azaleias também são populares no paisagismo, frequentemente plantadas por seu valor ornamental.",
+      "scientific_name": "Rhododendron spp.",
+      "common_name": "Azaleia"
+    },
+    "9": {
+      "name": "Ulex europaeus (Tojo-comum)",
+      "what_is_it": "O tojo-comum é um arbusto espinhoso perene conhecido por suas flores amarelas brilhantes e seu hábito denso e arbustivo.",
+      "information": "O tojo prospera em solos pobres e arenosos e é frequentemente encontrado em áreas costeiras. É notório por seus espinhos afiados e pode criar matagais densos que fornecem habitat para várias aves. As flores produzem um aroma semelhante ao de coco e florescem o ano todo em climas amenos, atraindo inúmeros polinizadores.",
+      "scientific_name": "Ulex europaeus",
+      "common_name": "Tojo-comum"
+    },
+    "10": {
+      "name": "Prosopis spp. (Algaroba)",
+      "what_is_it": "A algaroba é uma árvore ou arbusto resistente que prospera em regiões áridas, conhecida por suas vagens de sementes distintas e folhas coriáceas.",
+      "information": "As algarobeiras têm sistemas radiculares profundos que lhes permitem acessar a umidade subterrânea, tornando-as vitais em ecossistemas desérticos. Elas produzem vagens de sementes longas e retorcidas que são comestíveis e têm sido usadas por séculos como fonte de alimento por povos indígenas. A madeira de algaroba também é valorizada por sua durabilidade e é comumente usada para cozinhar.",
+      "scientific_name": "Prosopis spp.",
+      "common_name": "Algaroba"
+    }
+  },
+  "e316ea2b-43c6-4184-91f1-264b3dee8ab9": {
+    "2": {
+      "name": "Dedaleira-comum (Digitalis purpurea)",
+      "what_is_it": "Uma planta herbácea alta conhecida por suas impressionantes flores tubulares, frequentemente encontrada em jardins.",
+      "information": "A Digitalis purpurea é bem conhecida por seus glicosídeos cardíacos, que têm propriedades medicinais que afetam principalmente o coração. Historicamente, tem sido usada no tratamento de doenças cardíacas. No entanto, todas as partes da planta são tóxicas se ingeridas incorretamente. Na natureza, ela geralmente prospera em bosques ou em terrenos perturbados.",
+      "scientific_name": "Digitalis purpurea",
+      "common_name": "Dedaleira-comum"
+    }
+  },
+  "51253f62-8d1b-4da5-9526-e3e7881e7da1": {
+    "0": {
+      "name": "Crisântemo-coroado (Chrysanthemum coronarium)",
+      "what_is_it": "O crisântemo-coroado é uma planta anual conhecida por suas folhas verdes e flores amarelas vibrantes, frequentemente encontrada em regiões mediterrâneas. É cultivado como hortaliça e planta ornamental, apreciado por seu sabor único e apelo estético.",
+      "information": "Na culinária do Leste Asiático, especialmente coreana e japonesa, o crisântemo-coroado é usado em vários pratos, como sopas e saladas, onde suas folhas contribuem com um sabor apimentado e aromático. Além disso, simboliza resiliência e adaptabilidade, sendo frequentemente representado em obras de arte tradicionais que celebram a transição entre as estações. Historicamente, esta planta apareceu em motivos florais durante o período Edo no Japão (1603-1868) e foi celebrada na poesia por sua natureza florescente, significando renovação.",
+      "scientific_name": "Chrysanthemum coronarium",
+      "common_name": "Crisântemo-coroado"
+    }
+  },
+  "cc9e2dde-6c9e-472c-b8b8-f5e1fb021495": {
+    "0": {
+      "name": "Morango de Jardim (Fragaria × ananassa)",
+      "what_is_it": "Uma planta cultivada popular, conhecida por seu fruto doce e vermelho, frequentemente cultivada em jardins.",
+      "information": "Morangos de jardim são uma espécie híbrida cultivada por seus deliciosos frutos. Eles prosperam em regiões temperadas e são frequentemente cultivados em jardins ou como cobertura de solo. Essas plantas produzem flores brancas que atraem polinizadores como abelhas e borboletas, desempenhando um papel vital em sua reprodução. Os morangos são ricos em vitaminas e são amplamente consumidos frescos ou usados em vários pratos culinários. Além disso, eles têm uma maneira única de se espalhar através de estolões, formando novas plantas ao seu redor, criando um canteiro de morangos exuberante.",
+      "scientific_name": "Fragaria × ananassa",
+      "common_name": "Morango de Jardim"
+    }
+  },
+  "de450767-b240-4eaa-95b4-ee0dbde6852c": {
+    "0": {
+      "name": "Cantharellus cibarius (Cantarelo Dourado)",
+      "what_is_it": "Um cogumelo selvagem comestível muito procurado, conhecido por sua cor amarelo-alaranjada brilhante e formato de funil.",
+      "information": "Esta espécie é micorrízica, formando relações simbióticas essenciais com as raízes de várias árvores de madeira de lei e coníferas. É facilmente reconhecida por suas cristas decurrentes e rombas que se assemelham a lamelas e seu aroma distinto e suave de damascos.",
+      "species_interactions": "Forma uma parceria mutualística com as árvores, trocando nutrientes do solo e água por carboidratos produzidos através da fotossíntese.",
+      "scientific_name": "Cantharellus cibarius",
+      "common_name": "Cantarelo Dourado"
+    }
+  },
+  "21bb8e65-ce6b-4f79-8a96-864e56322ef6": {
+    "0": {
+      "name": "Titanopsis calcarea (Folha de Concreto)",
+      "what_is_it": "Uma pequena suculenta perene formadora de touceiras, nativa das regiões áridas de calcário da África do Sul.",
+      "information": "Esta espécie é famosa por suas pontas de folhas altamente texturizadas e verrugosas que imitam a aparência das rochas ao redor, fornecendo uma camuflagem eficaz contra herbívoros. Ela produz flores amarelas ou laranjas brilhantes, semelhantes a margaridas, durante os meses mais frios e é altamente adaptada a condições de seca extrema. Em seu habitat natural, muitas vezes cresce parcialmente enterrada no solo para se proteger do sol e do calor intensos.",
+      "species_interactions": "Fornece néctar para vários insetos polinizadores, enquanto sua morfologia críptica serve como um mecanismo de defesa primário contra animais de pasto.",
+      "scientific_name": "Titanopsis calcarea",
+      "common_name": "Folha de Concreto"
+    }
+  },
+  "4503ee10-b0b7-4a10-a5da-13dafeae7946": {
+    "0": {
+      "name": "Amphibolips nubilipennis (Galha Translúcida de Carvalho)",
+      "what_is_it": "Esta é uma galha de planta, um crescimento especializado induzido por uma pequena vespa cinipídea na folha de um carvalho.",
+      "information": "Essas galhas são carnudas e translúcidas quando frescas, servindo como um berçário protetor e fonte de alimento para uma única larva de vespa em desenvolvimento. Elas são mais comumente encontradas em carvalhos vermelhos durante os meses de primavera e início do verão. À medida que a larva amadurece, a galha seca e fica marrom antes que a vespa adulta emerja.",
+      "species_interactions": "A larva da vespa da galha atua como um parasita, sequestrando os recursos da árvore para seu próprio desenvolvimento, enquanto a própria galha pode ser alvo de vespas hiperparasitoides.",
+      "scientific_name": "Amphibolips nubilipennis",
+      "common_name": "Galha Translúcida de Carvalho"
+    }
+  },
+  "f351819c-969b-4bb8-8c14-e823147da8b1": {
+    "5": {
+      "name": "Digitalis purpurea (Dedaleira Comum)",
+      "what_is_it": "Uma planta herbácea bienal alta, caracterizada por suas impressionantes espigas de flores roxas em forma de sino, voltadas para baixo, com gargantas manchadas.",
+      "information": "Nativa da Europa, é comumente encontrada em clareiras de florestas, sebes e terrenos perturbados. A planta contém glicosídeos cardíacos como a digoxina, que são usados medicinalmente para tratar condições cardíacas, mas tornam a planta inteira altamente tóxica se ingerida. Normalmente, ela desenvolve uma roseta basal de folhas em seu primeiro ano e produz sua alta haste floral no segundo ano.",
+      "species_interactions": "As flores são especificamente adaptadas para a polinização por mamangavas, que são grandes o suficiente para roçar nos órgãos reprodutivos enquanto buscam néctar no fundo dos sinos.",
+      "scientific_name": "Digitalis purpurea",
+      "common_name": "Dedaleira Comum"
+    }
+  }
+}

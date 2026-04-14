@@ -10,6 +10,7 @@ signal request_failed(url: String, response_code: int)
 var _pending_requests: Dictionary = {}
 var _local_data: Dictionary = {}
 var _local_data_loaded: bool = false
+var _locale: String = "en"
 
 func fetch_species_image(quest_id: String, species_id: int, quality: String = "medium") -> void:
 	var url = api_url + "/explore/images/" + quest_id + "/" + str(species_id) + "_image.jpg?res=" + quality
@@ -44,11 +45,19 @@ func _on_image_received(_result: int, response_code: int, _headers: PackedString
 	image_loaded.emit(info.get("quest_id", ""), info.get("species_id", ""), texture)
 
 
+func set_locale(locale: String) -> void:
+	if _locale == locale:
+		return
+	_locale = locale
+	_local_data_loaded = false
+	_local_data = {}
+
 func _load_local_data() -> void:
 	if _local_data_loaded:
 		return
 	_local_data_loaded = true
-	var file = FileAccess.open("res://data/species_data.json", FileAccess.READ)
+	var path = "res://data/species_data_pt.json" if _locale == "pt" else "res://data/species_data.json"
+	var file = FileAccess.open(path, FileAccess.READ)
 	if not file:
 		push_error("BitzAPI: local species_data.json not found")
 		return
