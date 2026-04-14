@@ -2,10 +2,18 @@ extends Node3D
 
 @onready var info_panel: InfoPanel = $"../../CanvasLayer/InfoPanel"
 
+const HOLD_DURATION := 0.5
+const HOLD_MAX_DRIFT := 20.0
+
 var _hovered_ingredient = null
 var _panel_open := false
+var _touch_device := false
+var _touch_start_time := 0.0
+var _touch_start_pos := Vector2.ZERO
+var _touch_held := false
 
 func _ready() -> void:
+	_touch_device = DisplayServer.is_touchscreen_available()
 	info_panel.opened.connect(_on_info_panel_opened)
 	info_panel.closed.connect(_on_info_panel_closed)
 
@@ -39,6 +47,26 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _panel_open:
 		return
+
+	if _touch_device:
+		if event is InputEventScreenTouch:
+			if event.pressed:
+				_touch_start_time = Time.get_ticks_msec() / 1000.0
+				_touch_start_pos = event.position
+				_touch_held = true
+			else:
+				if _touch_held:
+					var elapsed = Time.get_ticks_msec() / 1000.0 - _touch_start_time
+					var drift = event.position.distance_to(_touch_start_pos)
+					if elapsed >= HOLD_DURATION and drift <= HOLD_MAX_DRIFT and _hovered_ingredient:
+						info_panel.slide_in()
+						info_panel.focus_on(_hovered_ingredient)
+				_touch_held = false
+		elif event is InputEventScreenDrag:
+			if _touch_held and event.position.distance_to(_touch_start_pos) > HOLD_MAX_DRIFT:
+				_touch_held = false
+		return
+
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if _hovered_ingredient:
 			var ingredient = _hovered_ingredient

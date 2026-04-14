@@ -56,7 +56,7 @@ func _ready() -> void:
 	_setup_edge_overlay()
 
 	if _touch_device:
-		controls_label.text = "[center][b]Controls[/b]\nDrag to look around  ·  Tap a species to learn more[/center]"
+		controls_label.text = "[center][b]Controls[/b]\nDrag to look around  ·  Hold a species to learn more[/center]"
 		cta_label.text = "[center]— Tap anywhere to explore —[/center]"
 
 	get_viewport().size_changed.connect(_update_layout)
@@ -194,6 +194,15 @@ func _update_edge_overlay(delta: float) -> void:
 	_smooth_edge_intensity = lerpf(_smooth_edge_intensity, target_int, clamp(delta * 10.0, 0.0, 1.0))
 	_edge_material.set_shader_parameter("edge_input", _smooth_edge_dir)
 	_edge_material.set_shader_parameter("intensity", _smooth_edge_intensity)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if credits_overlay.visible:
+			_close_credits()
+			get_viewport().set_input_as_handled()
+		elif closeup.visible:
+			info_panel.slide_out()
+			get_viewport().set_input_as_handled()
 
 func _process(delta: float) -> void:
 	_update_edge_overlay(delta)
