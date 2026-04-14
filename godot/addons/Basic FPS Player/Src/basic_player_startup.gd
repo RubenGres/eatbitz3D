@@ -78,6 +78,7 @@ var sensitivity_scale := 0.12
 var edge_rotation_active := false
 var edge_direction := Vector2.ZERO
 var edge_intensity := 0.0
+var _mouse_in_window := true
 
 # Used when bobing head
 var head_start_pos : Vector3
@@ -92,6 +93,9 @@ func _ready():
 	_touch_device = DisplayServer.is_touchscreen_available()
 
 	head_start_pos = $Head.position
+
+	get_viewport().mouse_entered.connect(func(): _mouse_in_window = true)
+	get_viewport().mouse_exited.connect(func(): _mouse_in_window = false)
 
 func _physics_process(delta):
 	if Engine.is_editor_hint():
@@ -177,6 +181,11 @@ func set_edge_rotation_active(active: bool) -> void:
 		drag_look_active = false
 
 func _apply_edge_rotation(delta: float) -> void:
+	if not _mouse_in_window:
+		edge_direction = Vector2.ZERO
+		edge_intensity = 0.0
+		return
+
 	var vp = get_viewport()
 	var mouse_pos = vp.get_mouse_position()
 	var vp_size = vp.get_visible_rect().size
