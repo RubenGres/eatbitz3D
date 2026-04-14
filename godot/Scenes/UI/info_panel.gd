@@ -25,6 +25,7 @@ signal change_language(language: String)
 signal focused(object: Node3D)
 
 var current_language = "en"
+var _current_ingredient: Ingredient3D = null
 
 var portrait_mode: bool = false:
 	set(value):
@@ -67,6 +68,16 @@ func _on_image(qid: String, sid: int, texture: ImageTexture):
 		return
 	%TextureRect.texture = texture
 
+func _update_ingredient_text():
+	if not _current_ingredient:
+		return
+	set_manual(
+		tr(_current_ingredient.ingredient_name),
+		tr(_current_ingredient.ingredient_description),
+		"",
+		_current_ingredient.associated_card_texture
+	)
+
 func set_manual(species_name: String, description: String, additional_info: String, texture: Texture2D = null):
 	%SpeciesName.text = species_name.split("(")[0].split("/")[0]
 	%Description.text = description
@@ -79,10 +90,8 @@ func focus_on(object: Node3D):
 		quest_id = object.quest_id
 		species_id = object.species_id
 	elif object is Ingredient3D:
-		var image = object.associated_card_texture
-		var ingredient_name = object.ingredient_name
-		var description = object.ingredient_description
-		set_manual(ingredient_name, description, "", image)
+		_current_ingredient = object
+		_update_ingredient_text()
 	
 	focused.emit(object)
 
@@ -147,6 +156,7 @@ func slide_out():
 	closed.emit()
 
 func _reset():
+	_current_ingredient = null
 	quest_id = ""
 	species_id = 0
 	%SpeciesName.text = ""
@@ -165,3 +175,4 @@ func _on_language_button_pressed() -> void:
 	%LanguageButton.text = "EN" if current_language == "pt" else "PT"
 	change_language.emit(current_language)
 	TranslationServer.set_locale(current_language)
+	_update_ingredient_text()
