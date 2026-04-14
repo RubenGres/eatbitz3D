@@ -18,6 +18,7 @@ extends CanvasLayer
 @onready var welcome_margin: MarginContainer = $WelcomeOverlay/MarginContainer
 @onready var credits_panel: PanelContainer = $WelcomeOverlay/CreditsOverlay/PanelContainer
 @onready var controls_label: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel3
+@onready var cta_label: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel4
 @onready var _fps_player = $"../Basic FPS Player"
 
 var _prev_reticle_visible: bool
@@ -44,7 +45,7 @@ func _ready() -> void:
 	info_panel.opened.connect(_on_info_panel_opened)
 	explore_button.pressed.connect(_on_explore_button_pressed)
 	credits_button.pressed.connect(_on_credits_button_pressed)
-	#back_button.pressed.connect(_on_back_button_pressed)
+	back_button.pressed.connect(_on_back_button_pressed)
 	credits_backdrop.gui_input.connect(_on_credits_backdrop_input)
 	blur_background.visible = false
 	closeup.visible = false
@@ -55,14 +56,15 @@ func _ready() -> void:
 	_setup_edge_overlay()
 
 	if _touch_device:
-		explore_button.text = "Tap here to explore"
-		controls_label.text = "\n[b]Controls:[/b]\nTilt your device or drag to look around\nTap on a species to learn more"
+		controls_label.text = "[center][b]Controls[/b]\nDrag to look around  ·  Tap a species to learn more[/center]"
+		cta_label.text = "[center]— Tap anywhere to explore —[/center]"
 
 	get_viewport().size_changed.connect(_update_layout)
 	_update_layout.call_deferred()
 
 func _on_explore_button_pressed() -> void:
 	_exploring = true
+	_fps_player.sensitivity_scale = 1.0
 	if not _touch_device:
 		_enter_explore_mode()
 	else:
@@ -116,7 +118,7 @@ func _update_welcome_layout(vp_size: Vector2) -> void:
 		margin_v_top = vp_size.y * 0.03
 		margin_v_bottom = vp_size.y * 0.10
 	else:
-		var max_content_width := 900.0
+		var max_content_width := 560.0
 		margin_h = max((vp_size.x - max_content_width) / 2.0, vp_size.x * 0.05)
 		margin_v_top = vp_size.y * 0.05
 		margin_v_bottom = vp_size.y * 0.10

@@ -170,9 +170,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -450.0
+offset_left = -280.0
 offset_top = -293.5
-offset_right = 450.0
+offset_right = 280.0
 offset_bottom = 293.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -180,43 +180,50 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WelcomeOverlay/MarginContainer" unique_id=1183227743]
 layout_mode = 2
 alignment = 1
+theme_override_constants/separation = 18
+
+[node name="Title" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 54
+bbcode_enabled = true
+text = "[center][b]EAT.BITZ[/b][/center]"
+horizontal_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=1183909980]
-custom_minimum_size = Vector2(10, 192.285)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
-text = "This [b]EAT.BITZ[/b] interactive visualization was tailor made for Venn Canteen in Porto, Portugal. It uses data sourced from the regenerative farms and foragers who supply the restaurant.
-
-It allows you to explore key ingredients used in the restaurant as well as some of the biodiversity that supports the growth of these species."
+text = "[center]An interactive visualization of the biodiversity behind [b]Venn Canteen[/b] in Porto, Portugal, exploring the regenerative farms and foragers who supply the restaurant.[/center]"
 horizontal_alignment = 1
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=1164453504]
-custom_minimum_size = Vector2(900, 150)
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 20
+theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
-text = "
-[b]Controls:[/b]
-Drag around to move the camera
-Click on a species to get more information"
+text = "[center][b]Controls[/b]
+Move your mouse to look around  ·  Click a species to learn more[/center]"
 horizontal_alignment = 1
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=847622633]
-custom_minimum_size = Vector2(0, 83.56)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 16
+theme_override_colors/default_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true
-text = "EAT.BITZ was created by Bernat Cuni, Ruben Gres, and Genomic Gastronomy
-in partnership with Venn Canteen and with support from ST3ER."
+text = "[center]Created by Bernat Cuní, Ruben Gres, and Genomic Gastronomy
+in partnership with Venn Canteen and with support from ST3ER.[/center]"
 horizontal_alignment = 1
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=1718489252]
-custom_minimum_size = Vector2(10, 50)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
-text = "Click anywhere to start exploring"
+text = "[center]— Click anywhere to explore —[/center]"
 horizontal_alignment = 1
 
 [node name="ExploreButton" type="Button" parent="CanvasLayer/WelcomeOverlay" unique_id=483066619]
@@ -237,16 +244,16 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_425xl")
 [node name="CreditsButton" type="Button" parent="CanvasLayer/WelcomeOverlay" unique_id=48748897]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 4
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 451.0
+offset_left = -170.0
 offset_top = -58.0
-offset_right = 551.0
+offset_right = -20.0
 offset_bottom = -18.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -291,54 +298,68 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_credits_panel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WelcomeOverlay/CreditsOverlay/PanelContainer" unique_id=701650990]
 layout_mode = 2
+theme_override_constants/separation = 12
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/CreditsOverlay/PanelContainer/VBoxContainer" unique_id=232913837]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/WelcomeOverlay/CreditsOverlay/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/CreditsOverlay/PanelContainer/VBoxContainer/ScrollContainer" unique_id=232913837]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 14
+fit_content = true
 bbcode_enabled = true
-text = "[center][b]About EAT.BITZ[/b][/center]
+text = "[center][font_size=20][b]About EAT.BITZ[/b][/font_size][/center]
 
 EAT.BITZ is a three-part artistic experience for exploring biodiversity of the kitchen.
 
 Through an ingredient oracle reading, a kaleidoscope viewer, and an interactive digital platform, visitors get an intimate view of the ecological multitudes behind various dishes served in the restaurant.
 
-EAT.BITZ uses data collected by the BITZ (Biodiversity in Transition Zones) digital tool—a participatory platform for place-based species quests that explore and document biodiversity in various landscapes.
+EAT.BITZ uses data collected by the [b]BITZ[/b] (Biodiversity in Transition Zones) digital tool — a participatory platform for place-based species quests that explore and document biodiversity in various landscapes.
 
-For EAT.BITZ: Venn Canteen, BITZ data was collected from local regenerative farms and foragers who supply the restaurant. This data, including images and species names of both the cultivated ingredients and the surrounding wild biodiversity was translated into an interactive datascape and set of bespoke oracle cards that illustrate the biodiversity behind Venn Canteen's menu and mission. Through EAT.BITZ: Venn Canteen, visitors to the restaurant can learn about key ingredients and feel connected to the wild species that support the agroecological systems of Northern Portugal.
-
-
-
-[center][b]Credits[/b][/center]
-
-BITZ (Biodiversity in Transition Zones) is a digital tool for identifying and learning about the organisms around you. The BITZ team is composed of:
-
-[b]Bernat Cuni:[/b] Bernat Cuní is an artist and digital craftsman working with emerging technologies from a post-capitalist lens.
-
-[b]Ruben Gres[/b] is a machine learning engineer turned creative technologist. He specializes in generative AI and interactive systems with a focus on bringing high level concepts to everyone through playful experiences.
-
-[b]Genomic Gastronomy[/b] is an artist-led think tank that examines the biotechnologies and biodiversity of human food systems. Their mission is to map food controversies, prototype alternative culinary futures, and imagine a more just, biodiverse & beautiful food system.
-
-[b]EAT.BITZ[/b]: Venn was created in partnership with Venn Canteen in Porto, Portugal and supported by ST3ER (2025-2026).
-
-[b]VENN[/b] is a 100% plant-based restaurant in Porto's Baixa district. Founded in 2023 by Monika Bloch, Snider Rodrigues, and Julian Fernandes, VENN celebrates the full potential of vegetables through explorative cuisine rooted in regenerative agriculture, agroforestry, and the revitalisation of ancient and overlooked ingredients. The restaurant works closely with small-scale regenerative farms and foragers across Portugal, and uses its tasting menu format to make biodiversity, sourcing, and circularity legible to guests.
-
-[b]ST3ER:[/b] Scaling Twin Transition in Tourism by harnessing the Experience Economy for greater Resilience.
+For EAT.BITZ: Venn Canteen, BITZ data was collected from local regenerative farms and foragers who supply the restaurant. This data was translated into an interactive datascape and set of bespoke oracle cards that illustrate the biodiversity behind Venn Canteen's menu and mission. Through EAT.BITZ: Venn Canteen, visitors can learn about key ingredients and feel connected to the wild species that support the agroecological systems of Northern Portugal.
 
 
+[center][color=#666666]────────────────────[/color][/center]
+
+
+[center][font_size=20][b]Credits[/b][/font_size][/center]
+
+[b]Bernat Cuní[/b]
+[color=#aaaaaa]Artist and digital craftsman working with emerging technologies from a post-capitalist lens.[/color]
+
+[b]Ruben Gres[/b]
+[color=#aaaaaa]Machine learning engineer turned creative technologist. Specializes in generative AI and interactive systems, focused on bringing high-level concepts to everyone through playful experiences.[/color]
+
+[b]Genomic Gastronomy[/b]
+[color=#aaaaaa]Artist-led think tank examining the biotechnologies and biodiversity of human food systems. Their mission: map food controversies, prototype alternative culinary futures, and imagine a more just, biodiverse & beautiful food system.[/color]
+
+[b]Venn Canteen[/b]
+[color=#aaaaaa]100% plant-based restaurant in Porto's Baixa district. Founded in 2023 by Monika Bloch, Snider Rodrigues, and Julian Fernandes. Works closely with small-scale regenerative farms and foragers across Portugal.[/color]
+
+[b]ST3ER[/b]
+[color=#aaaaaa]Scaling Twin Transition in Tourism by harnessing the Experience Economy for greater Resilience.
+
+This Project has indirectly received funding from the European Union's COSME - SMP programme, via an Open Call issued and executed under project ST3ER (grant agreement No 101121592)[/color]
 "
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/WelcomeOverlay/CreditsOverlay/PanelContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="BackButton" type="Button" parent="CanvasLayer/WelcomeOverlay/CreditsOverlay/PanelContainer/VBoxContainer" unique_id=1542543133]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
+custom_minimum_size = Vector2(0, 38)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "Back"
+text = "Close"
 
 [node name="GlobalSpeciesView" parent="." unique_id=1836985689 node_paths=PackedStringArray("target") instance=ExtResource("1_hwu0x")]
 target = NodePath("../Basic FPS Player/Head")

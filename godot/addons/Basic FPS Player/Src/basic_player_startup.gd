@@ -57,7 +57,7 @@ func _enter_tree():
 												# Otherwise player is updated in _process (uncapped)
 
 @export_category("Edge Rotation")
-@export var EDGE_ZONE := 0.15
+@export var EDGE_ZONE := 0.40
 @export var EDGE_ROTATION_SPEED := 1.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -73,6 +73,7 @@ var rotation_target_head : float
 var drag_look_active := false
 var _touch_device := false
 var _gyro_active := false
+var sensitivity_scale := 0.12
 
 var edge_rotation_active := false
 var edge_direction := Vector2.ZERO
@@ -133,9 +134,9 @@ func _input(event):
 
 func set_rotation_target(mouse_motion : Vector2):
 	# Add player target to the mouse -x input
-	rotation_target_player += -mouse_motion.x * KEY_BIND_MOUSE_SENS
+	rotation_target_player += -mouse_motion.x * KEY_BIND_MOUSE_SENS * sensitivity_scale
 	# Add head target to the mouse -y input
-	rotation_target_head += -mouse_motion.y * KEY_BIND_MOUSE_SENS
+	rotation_target_head += -mouse_motion.y * KEY_BIND_MOUSE_SENS * sensitivity_scale
 	# Clamp rotation
 	if CLAMP_HEAD_ROTATION:
 		rotation_target_head = clamp(rotation_target_head, deg_to_rad(CLAMP_HEAD_ROTATION_MIN), deg_to_rad(CLAMP_HEAD_ROTATION_MAX))
