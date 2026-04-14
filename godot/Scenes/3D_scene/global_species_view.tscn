@@ -104,8 +104,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.627923, 0, -0.6819413)
 [node name="PurpleBasil" parent="Ingredients/Node3D" unique_id=1893066930 instance=ExtResource("1_lurwc")]
 transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0.6744232, -1.3302941, 0.37209472)
 associated_card_texture = ExtResource("14_whepr")
-ingredient_name = "Purple Basil"
-ingredient_description = "Purple basil is a bridge between cultivated and wild species. It carries color as protection. Anthocyanins shield it from stress, while aromatic oils deter pests and invite pollinators when it flowers. Long associated with devotion and ritual, purple basil teaches that boundaries and invitations can coexist. What are you attracting, what are you repelling, and are those choices aligned with the ecosystem you wish to belong to?"
+ingredient_name = "PURPLE_BASIL_NAME"
+ingredient_description = "PURPLE_BASIL_DESC"
 
 [node name="FormigaGloriosa" type="Node3D" parent="Ingredients" unique_id=1299884123]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8923211, 0, -4.3799877)

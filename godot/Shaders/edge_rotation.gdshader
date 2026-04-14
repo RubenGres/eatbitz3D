@@ -5,15 +5,15 @@ uniform float intensity = 0.0;
 
 const float EDGE_W = 0.18;
 const float LINE_SPEED = 2.0;
-const float LINE_FREQ = 6.0;
+const float STRIP_WIDTH = EDGE_W * 0.1;
 
 float edge_glow(float dist) {
 	return 1.0 - smoothstep(0.0, EDGE_W, dist);
 }
 
 float sweep_line(float dist) {
-	float phase = fract(dist / EDGE_W * LINE_FREQ - TIME * LINE_SPEED);
-	return smoothstep(0.35, 0.5, phase) * smoothstep(0.65, 0.5, phase);
+	float center = fract(TIME * LINE_SPEED) * EDGE_W;
+	return smoothstep(STRIP_WIDTH, 0.0, abs(dist - center));
 }
 
 void fragment() {
