@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Registry — Companion Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg:      #080a07;
+      --surf:    #0c0e0a;
+      --card:    #111408;
+      --border:  #1a1e14;
+      --amber:   #c9a84c;
+      --amber-d: rgba(201,168,76,0.11);
+      --green:   #5a8a4a;
+      --red:     #b06060;
+      --red-d:   rgba(160,80,80,0.14);
+      --text:    #cbc6ba;
+      --dim:     #5a6050;
+      --muted:   #38403088;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 11px;
+      overflow: hidden;
+    }
+    /* grain */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999; opacity: 0.038;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2a3022; border-radius: 2px; }
+
+    /* ── layout ── */
+    #app { display: flex; flex-direction: column; height: 100%; }
+
+    /* ── header ── */
+    #hdr {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 18px; height: 46px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surf); flex-shrink: 0;
+    }
+    .title { font-family: 'Crimson Pro', serif; font-size: 19px; font-style: italic; color: var(--amber); }
+    .title-sep { color: #252820; margin: 0 10px; }
+    .title-sub { color: var(--dim); font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.14em; }
+
+    /* ── body ── */
+    #body { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── sidebar ── */
+    #sidebar {
+      width: 258px; flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      background: var(--surf);
+      display: flex; flex-direction: column;
+    }
+    #sb-hdr {
+      padding: 9px 14px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lbl { font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--dim); }
+    #quest-list { flex: 1; overflow-y: auto; }
+
+    .qitem {
+      padding: 9px 14px; cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: background 0.09s, border-color 0.09s;
+    }
+    .qitem:hover { background: var(--card); }
+    .qitem.active { background: var(--card); border-left-color: var(--amber); }
+    .qitem-id  { color: #7aaa60; font-size: 10px; margin-bottom: 1px; }
+    .qitem-full { color: var(--dim); font-size: 8.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .qitem-meta { display: flex; gap: 5px; align-items: center; margin-top: 4px; }
+
+    .bdg { font-size: 8.5px; padding: 1px 5px; border-radius: 2px; border: 1px solid; display: inline-flex; align-items: center; }
+    .bdg-amber { color: var(--amber); border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.07); }
+    .bdg-dim   { color: #2e3828; border-color: var(--border); background: transparent; }
+
+    /* ── main ── */
+    #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    #main-hdr {
+      display: none; padding: 8px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surf); flex-shrink: 0;
+      align-items: center; justify-content: space-between;
+    }
+    #main-hdr.show { display: flex; }
+
+    #grid-wrap { flex: 1; overflow-y: auto; padding: 14px; }
+
+    /* ── empty ── */
+    #empty-state {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100%; gap: 10px; text-align: center; padding: 32px;
+    }
+    .empty-title {
+      font-family: 'Crimson Pro', serif; font-style: italic;
+      font-size: 44px; color: var(--border); line-height: 1.1;
+    }
+    .empty-sub { color: var(--dim); font-size: 10px; max-width: 240px; line-height: 1.8; }
+
+    /* ── shimmer / loading ── */
+    #loading-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 9px; }
+    #loading-grid.show { display: grid; }
+
+    .shimmer {
+      background: linear-gradient(90deg, var(--card) 30%, var(--border) 50%, var(--card) 70%);
+      background-size: 200%; animation: shim 1.4s linear infinite;
+      border-radius: 2px;
+    }
+    @keyframes shim { to { background-position: -200% center; } }
+
+    /* ── species grid ── */
+    #species-grid {
+      display: none; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 9px;
+    }
+    #species-grid.show { display: grid; }
+
+    /* ── card ── */
+    .card {
+      background: var(--card); border: 2px solid var(--border); border-radius: 3px;
+      overflow: hidden; cursor: pointer; position: relative;
+      transition: transform 0.11s ease, border-color 0.13s ease, background 0.13s ease, box-shadow 0.13s ease;
+      animation: fadeUp 0.18s ease both;
+    }
+    .card:hover { transform: translateY(-2px); }
+    .card.on {
+      border-color: var(--amber);
+      background: #181508;
+      box-shadow: 0 0 18px rgba(201,168,76,0.18), 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-img {
+      position: relative; aspect-ratio: 1; background: #070907; overflow: hidden;
+    }
+    .card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transition: opacity 0.26s; display: block;
+    }
+    .card-img img.vis { opacity: 1; }
+
+    /* amber overlay on selected images */
+    .card.on .card-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(201,168,76,0.12);
+      pointer-events: none;
+    }
+
+    .card-fallback {
+      position: absolute; inset: 0;
+      display: none; align-items: center; justify-content: center;
+      font-family: 'Crimson Pro', serif; font-size: 26px;
+      font-style: italic; color: var(--dim);
+    }
+
+    .card-num {
+      position: absolute; top: 5px; left: 5px;
+      background: rgba(0,0,0,0.6); color: var(--dim);
+      font-size: 8.5px; padding: 1px 4px; border-radius: 2px;
+    }
+    .card-dot {
+      position: absolute; top: 0; right: 0;
+      width: 26px; height: 26px;
+      background: var(--amber);
+      display: none;
+      align-items: center; justify-content: center;
+      clip-path: polygon(100% 0, 0 0, 100% 100%);
+    }
+    .card-dot::after {
+      content: '✓';
+      position: absolute; top: 3px; right: 3px;
+      font-size: 9px; color: #0a0800; font-weight: 700;
+      line-height: 1;
+    }
+    .card.on .card-dot { display: flex; }
+
+    .card-body { padding: 7px 8px 8px; }
+    .card-empty-bdg {
+      font-size: 8.5px; color: var(--red);
+      border: 1px solid rgba(160,80,80,0.3); background: var(--red-d);
+      padding: 1px 5px; border-radius: 2px;
+      display: inline-block; margin-bottom: 3px;
+    }
+    .card-name { font-family: 'Crimson Pro', serif; font-size: 13.5px; color: var(--text); line-height: 1.3; transition: color 0.13s; }
+    .card-name.unk { color: var(--dim); font-style: italic; }
+    .card.on .card-name { color: var(--amber); }
+    .card-type { font-size: 8.5px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+
+    /* ── controls ── */
+    input.ctrl {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); padding: 4px 9px; border-radius: 2px;
+      font-family: inherit; font-size: 10.5px; outline: none; width: 172px;
+      transition: border-color 0.12s;
+    }
+    input.ctrl::placeholder { color: #2e3828; }
+    input.ctrl:focus { border-color: #3a4030; }
+
+    button.btn {
+      background: transparent; border: 1px solid #3a4030;
+      color: var(--amber); padding: 4px 11px; border-radius: 2px;
+      font-family: inherit; font-size: 9px; letter-spacing: 0.09em;
+      text-transform: uppercase; cursor: pointer;
+      transition: background 0.11s, border-color 0.11s;
+    }
+    button.btn:hover { background: var(--amber-d); border-color: var(--amber); }
+    button.btn.success { color: var(--green); border-color: var(--green); }
+
+    /* ── modal ── */
+    #modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.74);
+      z-index: 500; align-items: center; justify-content: center; padding: 28px;
+    }
+    #modal.show { display: flex; }
+
+    #modal-panel {
+      background: var(--surf); border: 1px solid var(--border); border-radius: 3px;
+      width: 100%; max-width: 640px; max-height: 80vh;
+      display: flex; flex-direction: column;
+    }
+    #modal-hdr {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 15px; border-bottom: 1px solid var(--border);
+    }
+    #export-ta {
+      flex: 1; min-height: 220px; background: var(--bg); color: #72a85d;
+      border: none; padding: 14px 16px;
+      font-family: 'DM Mono', monospace; font-size: 10.5px; line-height: 1.65;
+      resize: none; outline: none; overflow: auto;
+    }
+    #modal-ftr {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 15px; border-top: 1px solid var(--border);
+    }
+
+    /* ── companions table panel ── */
+    #table-panel {
+      width: 380px; flex-shrink: 0;
+      border-left: 1px solid var(--border);
+      background: var(--surf);
+      display: none; flex-direction: column; overflow: hidden;
+    }
+    #table-panel.show { display: flex; }
+    #tp-hdr {
+      padding: 9px 14px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    #tp-body { flex: 1; overflow-y: auto; }
+
+    .tp-table { width: 100%; border-collapse: collapse; }
+    .tp-table thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--surf); color: var(--dim);
+      font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 7px 10px; text-align: left; font-weight: 400;
+      border-bottom: 1px solid var(--border);
+    }
+    .tp-table tbody tr { cursor: pointer; }
+    .tp-table tbody tr:hover td { background: rgba(201,168,76,0.04); }
+    .tp-table td {
+      padding: 8px 10px; vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+    .tp-name {
+      font-family: 'Crimson Pro', serif; font-size: 13px;
+      color: var(--amber); white-space: nowrap; min-width: 90px;
+    }
+    .tp-name.unk { color: var(--dim); font-style: italic; }
+    .tp-desc { font-size: 9.5px; color: var(--dim); line-height: 1.6; }
+    .tp-info { font-size: 9px; color: #3e4a38; line-height: 1.65; }
+    .tp-info .info-key { color: #2a3226; }
+    .tp-empty {
+      padding: 36px 16px; text-align: center;
+      font-family: 'Crimson Pro', serif; font-style: italic;
+      color: var(--border); font-size: 18px; line-height: 1.5;
+    }
+
+    /* ── tab bar ── */
+    #tab-bar {
+      display: flex; align-items: stretch;
+      border-bottom: 1px solid var(--border);
+      background: var(--surf); flex-shrink: 0; padding: 0 18px; gap: 0;
+    }
+    .tab-btn {
+      background: transparent; border: none; border-bottom: 2px solid transparent;
+      color: var(--dim); padding: 7px 14px; margin-bottom: -1px;
+      font-family: inherit; font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer;
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    /* ── species panel ── */
+    #sp-panel { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+    #sp-panel.show { display: flex; }
+
+    #sp-apibar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surf); flex-shrink: 0; flex-wrap: wrap;
+    }
+    #sp-ctrlbar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surf); flex-shrink: 0;
+    }
+    .filter-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--dim); padding: 3px 9px; border-radius: 2px;
+      font-family: inherit; font-size: 9px; letter-spacing: 0.07em;
+      text-transform: uppercase; cursor: pointer; transition: all 0.1s;
+    }
+    .filter-btn:hover { border-color: var(--muted); color: var(--text); }
+    .filter-btn.active { border-color: var(--amber); color: var(--amber); background: var(--amber-d); }
+
+    #sp-progress {
+      height: 2px; background: var(--border); flex-shrink: 0;
+      display: none; position: relative; overflow: hidden;
+    }
+    #sp-progress.show { display: block; }
+    #sp-progress-bar {
+      height: 100%; background: var(--amber);
+      transition: width 0.3s ease;
+    }
+
+    #sp-wrap { flex: 1; overflow-y: auto; }
+
+    .sp-table { width: 100%; border-collapse: collapse; }
+    .sp-table thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--surf); color: var(--dim);
+      font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 7px 10px; text-align: left; font-weight: 400;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    .sp-table td {
+      padding: 6px 10px; vertical-align: middle;
+      border-bottom: 1px solid var(--border); font-size: 10.5px;
+    }
+    .sp-table tbody tr:hover td { background: rgba(255,255,255,0.015); }
+    .sp-table td.td-thumb { width: 40px; padding: 4px 6px 4px 10px; }
+    .sp-table td.td-quest { width: 90px; color: var(--dim); font-size: 9px; }
+    .sp-table td.td-idx  { width: 36px; color: var(--dim); text-align: center; }
+    .sp-table td.td-name { font-family: 'Crimson Pro', serif; font-size: 13px; }
+    .sp-table td.td-name.unknown { color: var(--dim); font-style: italic; }
+    .sp-table td.td-name.real { color: var(--text); }
+    .sp-table td.td-desc { font-size: 9px; color: var(--dim); max-width: 200px; }
+    .sp-table td.td-status { width: 80px; }
+    .sp-table td.td-action { width: 90px; white-space: nowrap; }
+
+    .sp-thumb {
+      width: 36px; height: 36px; object-fit: cover; border-radius: 2px;
+      background: var(--card); display: block;
+      border: 1px solid var(--border);
+    }
+    .sp-thumb-placeholder {
+      width: 36px; height: 36px; border-radius: 2px;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Crimson Pro', serif; font-style: italic;
+      color: var(--muted); font-size: 14px;
+    }
+
+    .st-complete { color: var(--green); font-size: 9px; }
+    .st-unknown  { color: #a07030; font-size: 9px; }
+    .st-missing  { color: var(--red); font-size: 9px; }
+    .st-working  { color: var(--amber); font-size: 9px; animation: pulse 1s infinite; }
+    .st-done     { color: var(--green); font-size: 9px; }
+    .st-error    { color: var(--red); font-size: 9px; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    button.regen-btn {
+      background: transparent; border: 1px solid #3a4030;
+      color: var(--dim); padding: 3px 8px; border-radius: 2px;
+      font-family: inherit; font-size: 9px; cursor: pointer;
+      transition: all 0.1s; white-space: nowrap;
+    }
+    button.regen-btn:hover { border-color: var(--amber); color: var(--amber); background: var(--amber-d); }
+    button.regen-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    #sp-export-wrap {
+      border-top: 1px solid var(--border); background: var(--surf);
+      flex-shrink: 0; padding: 10px 16px; display: flex; gap: 8px; align-items: center;
+    }
+    #sp-export-ta {
+      flex: 1; background: var(--bg); color: #72a85d;
+      border: 1px solid var(--border); padding: 8px 12px;
+      font-family: 'DM Mono', monospace; font-size: 10px; line-height: 1.5;
+      resize: none; outline: none; height: 72px; border-radius: 2px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+
+  <!-- Header -->
+  <div id="hdr">
+    <div style="display:flex;align-items:baseline;">
+      <span class="title">Field Registry</span>
+      <span class="title-sep">//</span>
+      <span class="title-sub" id="hdr-sub">Companion Management</span>
+    </div>
+    <div id="hdr-companions-ctrl" style="display:flex;align-items:center;gap:8px;">
+      <input class="ctrl" type="text" id="search" placeholder="search species…" oninput="handleSearch()">
+      <button class="btn" onclick="openModal()">Export GDScript</button>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div id="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('companions')">Companions</button>
+    <button class="tab-btn" onclick="switchTab('species')">Species Data</button>
+  </div>
+
+  <!-- Body -->
+  <div id="body">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <div id="sb-hdr">
+        <span class="lbl">Quests</span>
+        <span id="q-count" class="lbl" style="color:#2e3828;"></span>
+      </div>
+      <div id="quest-list"></div>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+      <div id="main-hdr">
+        <div>
+          <div class="lbl" style="margin-bottom:2px;">Active Quest</div>
+          <div id="aq-id" style="color:var(--amber);font-size:9.5px;word-break:break-all;max-width:480px;"></div>
+        </div>
+        <div id="stats" style="display:flex;gap:14px;color:var(--dim);font-size:9.5px;white-space:nowrap;"></div>
+      </div>
+
+      <div id="grid-wrap">
+        <div id="empty-state">
+          <div class="empty-title">No Quest<br>Selected</div>
+          <div class="empty-sub">Select a quest from the sidebar to load species data and manage companions</div>
+        </div>
+        <div id="loading-grid"></div>
+        <div id="species-grid"></div>
+      </div>
+    </div>
+
+    <!-- Companions Table Panel -->
+    <div id="table-panel">
+      <div id="tp-hdr">
+        <span class="lbl">Companions</span>
+        <span id="tp-count" class="lbl" style="color:#2e3828;"></span>
+      </div>
+      <div id="tp-body"></div>
+    </div>
+
+  </div>
+
+  <!-- Species Data Tab -->
+  <div id="sp-panel">
+
+    <!-- API key bar -->
+    <div id="sp-apibar">
+      <span class="lbl" style="white-space:nowrap;">Gemini API Key</span>
+      <input class="ctrl" id="sp-apikey" type="password" placeholder="AIza…" style="width:240px;font-size:10px;">
+      <span class="lbl" style="white-space:nowrap;margin-left:6px;">Model</span>
+      <select class="ctrl" id="sp-model" style="width:220px;font-size:10px;">
+        <option value="gemini-3-flash-preview">gemini-3-flash-preview</option>
+        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+        <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
+        <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+        <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+      </select>
+      <button class="btn" onclick="saveApiKey()">Save</button>
+      <button class="btn" onclick="fetchModels()" style="color:var(--dim);">Fetch Models</button>
+      <span id="sp-keystatus" class="lbl" style="color:#2e3828;"></span>
+      <div style="flex:1;"></div>
+      <button class="btn" id="sp-regen-all-btn" onclick="regenAll()" style="white-space:nowrap;">Regen All Missing / Unknown</button>
+      <button class="btn" onclick="copySpJSON()" style="white-space:nowrap;">Copy JSON</button>
+      <button class="btn" onclick="document.getElementById('sp-load-input').click()" style="white-space:nowrap;">Load JSON</button>
+      <input type="file" id="sp-load-input" accept=".json,application/json" style="display:none;" onchange="loadSpJSON(this)">
+    </div>
+
+    <!-- Filter + stats bar -->
+    <div id="sp-ctrlbar">
+      <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" onclick="setFilter('unknown',this)">Unknown</button>
+      <button class="filter-btn" onclick="setFilter('missing',this)">Missing</button>
+      <button class="filter-btn" onclick="setFilter('complete',this)">Complete</button>
+      <span id="sp-stats" class="lbl" style="margin-left:8px;color:#2e3828;"></span>
+      <div style="flex:1;"></div>
+      <span id="sp-regen-status" class="lbl" style="color:var(--amber);"></span>
+    </div>
+
+    <!-- Progress bar -->
+    <div id="sp-progress"><div id="sp-progress-bar" style="width:0%"></div></div>
+
+    <!-- Table -->
+    <div id="sp-wrap">
+      <table class="sp-table">
+        <thead><tr>
+          <th></th>
+          <th>Quest</th>
+          <th>#</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr></thead>
+        <tbody id="sp-tbody"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Export Modal -->
+<div id="modal" onclick="if(event.target.id==='modal')closeModal()">
+  <div id="modal-panel">
+    <div id="modal-hdr">
+      <div>
+        <div style="font-family:'Crimson Pro',serif;font-size:15px;font-style:italic;color:var(--amber);">Export</div>
+        <div class="lbl" style="margin-top:2px;">companions.gd — GDScript</div>
+      </div>
+      <div style="display:flex;gap:7px;">
+        <button class="btn" id="copy-btn" onclick="doCopy()">Copy</button>
+        <button class="btn" style="color:var(--dim);" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+    <textarea id="export-ta" readonly></textarea>
+    <div id="modal-ftr">
+      <span id="exp-stats" class="lbl" style="color:#2e3828;"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─ Data ──────────────────────────────────────────────────────────────────────
+
+let COMPANIONS = {
+  "de450767-b240-4eaa-95b4-ee0dbde6852c": [0],
+  "010f83c9-b710-420f-9cf3-b78cab3f680c": [0, 1, 3, 6, 9],
+  "21bb8e65-ce6b-4f79-8a96-864e56322ef6": [0],
+  "96a85349-cb5c-46f6-a920-292e6126b6e5": [3, 9, 10, 11, 12, 15, 16, 18, 22, 25, 33, 34, 44, 45, 48, 51, 52, 54, 58, 61, 65, 67, 68, 69, 72, 73, 76, 81, 84, 85],
+  "4914a7b9-044f-4677-abf1-04c0566e0829": [0],
+  "8323c860-51e2-4453-88ee-89684a531c39": [4],
+  "82a95a52-0dc0-4932-8fdd-3645133808fb": [2],
+  "0c3cb7a4-0693-4ef7-9aef-eba1ed32a466": [0, 2],
+  "4503ee10-b0b7-4a10-a5da-13dafeae7946": [0],
+  "102dad33-bbbf-4701-93d1-5eebf9f5286c": [0, 1, 5],
+  "3611fe10-b560-480d-94bd-06577633f61f": [0],
+  "dc23a859-8819-4c30-8cd1-97d83baf7d31": [0],
+  "3f0417ba-12ad-49bb-af4e-3dee43268be9": [0, 1],
+  "bd333070-8010-454b-876d-d094fe285dca": [3],
+  "c2a481de-3a11-4289-be3f-3b00d1ac8dff": [0],
+  "b790c8b7-44af-421e-b2cd-21ec0511fd00": [1],
+  "3bd42395-eea0-43aa-a9a9-6cd5d975c6b5": [0, 1],
+  "f7eb6983-2c10-47c7-bad4-b45d4a7f2d6c": [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 14, 16, 17, 18, 19, 20, 23],
+  "e089a595-122c-46f2-bcc9-9351f352d902": [2, 11],
+  "dc287647-4c08-41e0-940a-6c431d95d732": [0, 1, 4, 10],
+  "d8d027d0-cce9-4e03-89ad-2969f4413015": [5, 21],
+  "3c91ae94-8fe2-40cc-86e9-774ce67bf05d": [2, 4, 6, 11, 12, 13, 14],
+  "dd9fc895-30d0-4b83-a9f0-13cb869afa1a": [2],
+  "3be47c5e-92f0-4906-aa57-cbbca0ad533c": [1, 2, 3],
+  "2a89203e-9beb-4d23-8df5-f5e0b4a8f720": [0, 1],
+  "8bd3e700-80a3-41d8-80e3-902d641ba169": [1, 2, 3, 8, 10],
+  "2bf38e96-7ea1-4692-825e-02416d1bbbb8": [12],
+  "68a82d2a-5357-4c54-b420-93985c0197bf": [3],
+  "ea098515-5b40-4edf-a529-eb6049093975": [0],
+  "ef854f14-e01d-4662-af11-fca6b4e38c78": [2, 3],
+  "684b6a4f-5f48-41c4-bdce-ea2606e21810": [3, 4],
+  "fb689419-f92d-4b43-8202-b3a29787ce58": [2, 7],
+  "08f434d0-fb5b-4344-a881-b1f6ed5bc576": [1, 10, 13, 14],
+  "2551dfa0-477d-4084-ab73-9d628393f662": [16, 17],
+  "1ba4202a-1ab7-4575-b24c-b2c8072eea90": [3, 11],
+  "f351819c-969b-4bb8-8c14-e823147da8b1": [5],
+  "3a71666b-7c5f-4b98-971b-1cd5d778232e": [6],
+  "ee2b5c86-3450-4ed1-aa54-b6470a8ff91b": [0, 7],
+  "63ad4ec3-1857-462c-8809-62a070069e47": [0],
+  "9b2a85d8-6f7e-4629-bf4c-c50e579ff051": [0],
+  "3f178658-ae36-417c-8f5f-f9f1f9e19d91": [0, 4, 10],
+  "997aceb0-3994-4aaf-9a44-23beee94106b": [1, 2, 10],
+  "d8f4d3e7-40cf-4e9d-ace7-5a69338ca599": [0],
+  "351b27fd-a883-40c4-8049-3afd18954769": [1],
+  "73c96822-1bf6-4ea9-b109-e8e14c3cf459": [0, 1, 2, 3, 6, 9, 12, 13, 14, 15],
+  "5b72018d-8628-4c81-84f6-1a4d7fe56fbb": [0],
+  "05e75062-8f06-4d26-9d1b-8b92463e44f8": [1],
+  "ca8db078-500a-4061-9c2e-e24c637f8780": [1, 4, 5, 7],
+  "36be59a7-a0e9-4ec6-8d4c-d9049074cf9d": [3, 4, 5, 6, 7],
+  "f1b320c6-f642-4385-88ab-8ad0c77fef02": [1, 3, 6, 8],
+  "3e19d3ed-8f24-5bc5-8016-621a18fb0735": [20, 30, 48],
+  "c920f7ee-db6e-58f0-a906-51c55b7a8982": [0, 1, 2, 14, 17],
+  "00000000-0000-0000-0000-000000000000": [1, 2, 10, 11, 13, 18],
+  "ff518a8d-2524-5d68-8557-95d2df04fc94": [6],
+  "538cf4ae-2205-508f-944a-74697f02e24a": [11],
+  "129fbb80-99e4-5b32-afaa-4d783bc561b7": [4],
+  "8f32e0a4-e5d3-4e57-804b-2c2d1ae7f11f": [0, 3, 5],
+  "75bececa-2dc7-4ebb-a3c8-8d37367128a2": [4, 5, 6, 8],
+  "93bf7859-64a2-4c40-b9ce-51012bb11de4": [1, 2, 8, 9, 10, 11, 12],
+  "1d458f8c-b00d-4601-9b7b-d3728ac43d44": [0],
+  "c0255b39-922c-4ee5-bcef-38f3dc132b2c": [0],
+  "bca9add2-6147-47c0-a8cf-ae223399aceb": [4],
+  "ded6c6ef-c5d8-41b8-999d-4150c18ac5ff": [9, 13, 20],
+  "cf5eff9d-d059-4853-a804-995bb7117ad2": [0, 3, 6, 9, 10],
+  "e316ea2b-43c6-4184-91f1-264b3dee8ab9": [2],
+  "51253f62-8d1b-4da5-9526-e3e7881e7da1": [0],
+  "cc9e2dde-6c9e-472c-b8b8-f5e1fb021495": [0],
+};
+
+const API = 'https://api.bitz.tools/explore';
+const cache = {};   // questId → species[]
+let activeQ = null;
+let query   = '';
+
+// ─ Parse ─────────────────────────────────────────────────────────────────────
+
+// mirrors GDScript _fixup_string: replace ' with " except apostrophes in words
+function fixupParse(str) {
+  try { return JSON.parse(str); } catch (_) {}
+  const fixed = str.replace(/'/g, (_, i, s) => {
+    const prevLetter = i > 0 && /[a-zA-Z]/.test(s[i - 1]);
+    const nextLetter = i < s.length - 1 && /[a-zA-Z]/.test(s[i + 1]);
+    return (prevLetter && nextLetter) ? "'" : '"';
+  });
+  try { return JSON.parse(fixed); } catch (_) {}
+  return null;
+}
+
+function parseHistory(qid, history) {
+  return history.map((entry, i) => {
+    let name = null, what = null, si = null;
+    try {
+      const raw = entry.assistant;
+      const a = typeof raw === 'string' ? fixupParse(raw) : (raw || {});
+      si = a?.species_identification || null;
+      if (si) { name = si.name || null; what = si.what_is_it || null; }
+    } catch (_) {}
+    return { i, name, what, si, qid };
+  });
+}
+
+// ─ Quest List ────────────────────────────────────────────────────────────────
+
+function renderQuests() {
+  const ids = Object.keys(COMPANIONS);
+  document.getElementById('q-count').textContent = ids.length;
+  document.getElementById('quest-list').innerHTML = ids.map(id => {
+    const n      = (COMPANIONS[id] || []).length;
+    const loaded = !!cache[id];
+    return `
+      <div class="qitem${id === activeQ ? ' active' : ''}" onclick="selectQ('${id}')">
+        <div class="qitem-id">${id.slice(0, 8)}…</div>
+        <div class="qitem-full" title="${id}">${id}</div>
+        <div class="qitem-meta">
+          ${n > 0
+            ? `<span class="bdg bdg-amber">${n} companion${n !== 1 ? 's' : ''}</span>`
+            : '<span style="color:#2e3828;font-size:8.5px;">no companions</span>'}
+          ${loaded ? '<span class="bdg bdg-dim">loaded</span>' : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ─ Select Quest ──────────────────────────────────────────────────────────────
+
+async function selectQ(qid) {
+  activeQ = qid;
+  renderQuests();
+  document.getElementById('main-hdr').classList.add('show');
+  document.getElementById('aq-id').textContent = qid;
+  document.getElementById('empty-state').style.display = 'none';
+
+  if (!cache[qid]) {
+    showLoading();
+    try {
+      const r = await fetch(`${API}/data/${qid}/history.json`);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+      cache[qid] = parseHistory(qid, d.history || []);
+    } catch (e) {
+      hideLoading();
+      showError(e.message);
+      return;
+    }
+    hideLoading();
+    renderQuests();
+  }
+  renderGrid();
+  renderTable();
+}
+
+function showLoading() {
+  const lg = document.getElementById('loading-grid');
+  lg.innerHTML = Array(16).fill(0).map(() => `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:3px;overflow:hidden;">
+      <div class="shimmer" style="aspect-ratio:1;"></div>
+      <div style="padding:7px 8px;display:flex;flex-direction:column;gap:4px;">
+        <div class="shimmer" style="height:11px;width:68%;"></div>
+        <div class="shimmer" style="height:9px;width:44%;"></div>
+      </div>
+    </div>`).join('');
+  lg.classList.add('show');
+  document.getElementById('species-grid').classList.remove('show');
+}
+
+function hideLoading() {
+  document.getElementById('loading-grid').classList.remove('show');
+}
+
+function showError(msg) {
+  const g = document.getElementById('species-grid');
+  g.innerHTML = `<div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--dim);">
+    Failed to load<br><span style="color:#2e3828;font-size:9px;">${msg}</span></div>`;
+  g.classList.add('show');
+}
+
+// ─ Species Grid ──────────────────────────────────────────────────────────────
+
+function renderGrid() {
+  if (!activeQ || !cache[activeQ]) return;
+
+  const species    = cache[activeQ];
+  const companions = new Set(COMPANIONS[activeQ] || []);
+  const q          = query.toLowerCase();
+
+  const filtered = q
+    ? species.filter(s =>
+        (s.name || '').toLowerCase().includes(q) ||
+        (s.what || '').toLowerCase().includes(q))
+    : species;
+
+  document.getElementById('stats').innerHTML =
+    `<span>${species.length} species</span>` +
+    `<span style="color:var(--amber);">${companions.size} companion${companions.size !== 1 ? 's' : ''}</span>`;
+
+  const grid = document.getElementById('species-grid');
+  grid.classList.add('show');
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--dim);">No results for "${query}"</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((s, idx) => {
+    const on    = companions.has(s.i);
+    const empty = !s.name;
+    const img   = `${API}/images/${s.qid}/${s.i}_image.jpg?res=medium`;
+    return `
+      <div class="card${on ? ' on' : ''}"
+           style="animation-delay:${Math.min(idx * 12, 240)}ms"
+           onclick="toggle('${s.qid}',${s.i})"
+           title="${on ? 'Remove from companions' : 'Add to companions'}">
+        <div class="card-img">
+          <img src="${img}" alt=""
+               onload="this.classList.add('vis')"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="card-fallback">?</div>
+          <div class="card-num">#${s.i}</div>
+          <div class="card-dot"></div>
+        </div>
+        <div class="card-body">
+          ${empty ? '<div class="card-empty-bdg">EMPTY</div>' : ''}
+          <div class="card-name${empty ? ' unk' : ''}">${s.name || 'Unknown'}</div>
+          ${s.what ? `<div class="card-type" title="${s.what}">${s.what}</div>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ─ Companions Table ───────────────────────────────────────────────────────────
+
+const SKIP_KEYS = new Set(['name', 'what_is_it']);
+
+function renderTable() {
+  const panel = document.getElementById('table-panel');
+  if (!activeQ || !cache[activeQ]) { panel.classList.remove('show'); return; }
+
+  panel.classList.add('show');
+
+  const companions = new Set(COMPANIONS[activeQ] || []);
+  const species    = cache[activeQ];
+  const selected   = [...companions].sort((a, b) => a - b)
+    .map(idx => species[idx]).filter(Boolean);
+
+  document.getElementById('tp-count').textContent = selected.length;
+
+  if (!selected.length) {
+    document.getElementById('tp-body').innerHTML =
+      '<div class="tp-empty">No companions<br>selected</div>';
+    return;
+  }
+
+  const rows = selected.map(s => {
+    const extraParts = s.si
+      ? Object.entries(s.si)
+          .filter(([k, v]) => !SKIP_KEYS.has(k) && v && typeof v === 'string' && v.trim())
+          .map(([k, v]) => `<span class="info-key">${k.replace(/_/g,' ')}:</span> ${v}`)
+      : [];
+    const extra = extraParts.join('<br>') || '<span style="color:#2a3226;">—</span>';
+
+    return `<tr onclick="toggle('${s.qid}',${s.i})" title="Click to remove">
+      <td class="tp-name${!s.name ? ' unk' : ''}">${s.name || 'Unknown'}</td>
+      <td class="tp-desc">${s.what || '<span style="color:#2a3226;">—</span>'}</td>
+      <td class="tp-info">${extra}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('tp-body').innerHTML = `
+    <table class="tp-table">
+      <thead><tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>More Info</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// ─ Toggle ────────────────────────────────────────────────────────────────────
+
+function toggle(qid, idx) {
+  if (!COMPANIONS[qid]) COMPANIONS[qid] = [];
+  const arr = COMPANIONS[qid];
+  const pos = arr.indexOf(idx);
+  if (pos === -1) arr.push(idx);
+  else arr.splice(pos, 1);
+  arr.sort((a, b) => a - b);
+  renderGrid();
+  renderTable();
+  renderQuests();
+}
+
+// ─ Search ────────────────────────────────────────────────────────────────────
+
+function handleSearch() {
+  query = document.getElementById('search').value.trim();
+  if (activeQ && cache[activeQ]) renderGrid();
+}
+
+// ─ Export ────────────────────────────────────────────────────────────────────
+
+function gdscript() {
+  const lines = [
+    'extends Node',
+    'class_name CompanionList',
+    '',
+    'static var companions: Dictionary = {}',
+    '',
+    'static func get_companions() -> Dictionary:',
+    '\tif companions.is_empty():',
+    '\t\tcompanions = {',
+  ];
+  for (const [id, arr] of Object.entries(COMPANIONS)) {
+    const sorted = [...arr].sort((a, b) => a - b);
+    lines.push(`\t\t\t"${id}": [${sorted.join(', ')}],`);
+  }
+  lines.push('\t\t}', '\t\t', '\treturn companions');
+  return lines.join('\n');
+}
+
+function openModal() {
+  document.getElementById('export-ta').value = gdscript();
+  const total = Object.values(COMPANIONS).reduce((s, a) => s + a.length, 0);
+  document.getElementById('exp-stats').textContent =
+    `${Object.keys(COMPANIONS).length} quests · ${total} companions total`;
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+async function doCopy() {
+  const btn = document.getElementById('copy-btn');
+  try {
+    await navigator.clipboard.writeText(document.getElementById('export-ta').value);
+    btn.textContent = 'Copied!';
+    btn.classList.add('success');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('success'); }, 1500);
+  } catch (_) {
+    document.getElementById('export-ta').select();
+  }
+}
+
+// ─ Init ──────────────────────────────────────────────────────────────────────
+renderQuests();
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SPECIES DATA TAB
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─ Embedded species data (from godot/data/species_data.json) ─────────────────
+let speciesDB = {"010f83c9-b710-420f-9cf3-b78cab3f680c":{"6":{"name":"Tradescantia fluminensis","what_is_it":"Also known as small-leaf spiderwort, this lovely plant features white flowers and succulent stems.","information":"Tradescantia fluminensis thrives in a variety of conditions, often forming a lovely ground cover. It is known for its adaptability and resilience, often seen in gardens and bordering wetlands. Besides its ornamental value, it has been used in traditional medicine and can be quite popular among butterfly gardeners as it attracts pollinators.","species_interactions":"This species may interact with various pollinators, such as bees and butterflies, that visit its flowers, and may coexist with other plants like Zea mays."},"9":{"name":"Sonchus sp. (Sowthistle)","what_is_it":"Sowthistle is a plant characterized by its yellow, dandelion-like flowers and lobed leaves.","information":"Often found in disturbed areas, sowthistles are quick to colonize and can produce a significant number of seeds. They serve as an important food source for pollinators, particularly bees. Sowthistles can also play a role in ecological restoration by providing cover and habitat for various insects.","species_interactions":"Sowthistles attract pollinators such as bees, which may also be drawn to the nearby wild radish's flowers."}},"96a85349-cb5c-46f6-a920-292e6126b6e5":{"3":{"name":"Unknown","what_is_it":"No species identified in the image.","information":"Looks like we're starting fresh! We have an opportunity to seek out unique biodiversity in the surrounding area.","species_interactions":"No interactions noted, as there are no species identified yet."},"11":{"name":"Unknown","what_is_it":"No species identified in the image.","information":"Looks like we still have a blank slate! It's a chance for us to dive into exploring the surrounding flora and fauna.","species_interactions":"No interactions noted due to the absence of identified species."},"12":{"name":"Unknown","what_is_it":"No species identified in the image.","information":"It appears we're still at the beginning of our biodiversity adventure! The ecosystem has many secrets to unveil, just waiting for our exploration.","species_interactions":"No interactions to note, as no species have been identified yet."},"15":{"name":"Ant (Formicidae)","what_is_it":"Ants are small, social insects known for their cooperative behavior and complex colonies.","information":"Ants play crucial roles in ecosystems, including soil aeration, seed dispersal, and decomposition. They are found on every continent except Antarctica and interact with a variety of species, including plants and other insects. Many ants have mutualistic relationships with plants, often protecting them from herbivores in exchange for nectar.","species_interactions":"The ants may interact with the oleander and other plants by protecting them from herbivores or scavenging on fallen fruits."},"16":{"name":"Oxalis triangularis","what_is_it":"Also known as the purple shamrock, this plant is recognized for its unique triangular leaves and vibrant purple color.","information":"Oxalis triangularis is often grown as an ornamental plant due to its striking foliage and flowers. It typically thrives in well-drained soil and can be grown indoors or outdoors. This species is known to exhibit a behavior known as nyctinasty, where its leaves fold up at night and reopen during the day. It is part of a family that has various species which can be edible, but caution is advised as some may contain oxalic acid, which can be harmful in large quantities.","species_interactions":"The purple shamrock may attract pollinators such as bees or butterflies, especially when in flower."},"25":{"name":"Fragaria \u00d7 ananassa (Garden Strawberry)","what_is_it":"A cultivated strawberry plant recognized by its tri-foliate, serrated leaves and lovely white flowers adorned with yellow centers.","information":"This plant prefers well-drained soil and is often found in gardens. The strawberries it produces are not only a popular fruit but also play a role in pollinator attraction. Interestingly, they are also known for their ability to spread via runners, creating a vibrant patch in favorable conditions.","species_interactions":"The garden strawberry may attract various pollinators, such as bees, which can be beneficial to the surrounding flora."},"48":{"name":"Parsley (Petroselinum crispum)","what_is_it":"A biennial herb with lush green leaves, often used in culinary dishes.","information":"Parsley is a common culinary herb, prized for its aromatic leaves. It's often found in gardens and as a cultivated plant due to its popularity in cooking. Parsley is known for its high vitamin C content and potential health benefits, including antioxidant properties. The plant can be used fresh or dried and is commonly seen as a garnish. In its second year, it produces small, umbrella-like clusters of yellow-green flowers which attract various pollinators, including bees.","species_interactions":"Parsley provides a food source for pollinators, which may come to visit its flowers when they bloom."},"50":{"name":"Wild Cabbage (Brassica oleracea)","what_is_it":"A wild variant of cabbage, known for its large glaucous leaves and flowering capabilities.","information":"Wild cabbage is the ancestor of many cultivated vegetables and thrives in various habitats. Its leaves are distinctive with prominent veins, and it's an important source of food for numerous insects and herbivores. This plant can develop striking yellow flowers, promoting interactions with various pollinators. Besides its ecological role, it has culinary applications as well.","species_interactions":"The wild cabbage may attract herbivores that feed on its leaves, while the surrounding grasses, although competing for resources, provide habitat and food for other species."},"54":{"name":"Unknown","what_is_it":"No species identified in the image.","information":"It looks like we're still on the lookout for unique biodiversity! There are endless opportunities to explore the environment around us.","species_interactions":"No interactions noted, as no species have been identified yet."},"61":{"name":"Common Foxglove (Digitalis purpurea)","what_is_it":"A tall perennial plant known for its bell-shaped flowers, which can be purple, white, or yellow.","information":"The common foxglove is often found in woodland clearings and along roadsides, thriving in well-drained soil. While its flowers are iconic for attracting pollinators, the leaves contain compounds that are toxic if ingested. This plant has significant historical uses in herbal medicine, primarily for heart conditions due to its digitalis content. Additionally, it can be an indicator of nutrient-rich soils.","species_interactions":"The foxglove may attract various pollinators including bees and hummingbirds when it blooms, contributing to the health of the local ecosystem."},"65":{"name":"Unknown","what_is_it":"No species identified in the image.","information":"It appears we're still at the starting point of identifying species! The environment is ripe for exploration.","species_interactions":"No interactions to report since there are no identified species."},"67":{"name":"Golden Saxifrage (Chrysosplenium sp.)","what_is_it":"A low-growing herbaceous perennial with scalloped, rounded leaves and small yellow flowers.","information":"Golden saxifrage typically thrives in moist, shaded areas and is often found in woodlands and among rocks. Its unique foliage makes it a distinctive presence in the understory where it can spread briskly. The plant produces small yellow flowers that bloom in spring and are primarily insect-pollinated. The bright green leaves and contrasting yellow flowers create a vibrant display when in bloom. Given its growth pattern, it can play a significant role in soil stabilization in its natural habitats.","species_interactions":"Golden saxifrage can attract various pollinators, including bees, which might also be found visiting surrounding plants like grasses."},"68":{"name":"Creeping Jenny (Lysimachia nummularia)","what_is_it":"A perennial ground cover plant known for its vibrant yellow flowers and round, scalloped leaves.","information":"Creeping Jenny thrives in moist, shaded areas, often used to stabilize soil and prevent erosion. Its bright yellow flowers bloom in late spring to early summer, attracting various pollinators. The plant spreads rapidly and is known for its vibrant foliage, turning golden in fall. Creeping Jenny can also be used in culinary applications, particularly for its young leaves, which can be added to salads. However, it can outcompete native species if not managed properly.","species_interactions":"Creeping Jenny may shelter small insects while providing nectar for pollinators; it coexists with nearby grasses."},"70":{"name":"Unknown","what_is_it":"No species identified in the image.","information":"We\u2019re starting fresh again! Let's dive into the environment to uncover hidden biodiversity just waiting to be discovered.","species_interactions":"No interactions noted, as no species have been identified yet."},"72":{"name":"Plum or Cherry Tree (Prunus sp.)","what_is_it":"A woody tree known for its stunning white blossoms that are vibrant in spring.","information":"The Prunus genus includes both plums and cherries, which are often cultivated for their delicious fruit. These trees bloom with beautiful white flowers, attracting pollinators when in full bloom. They can tolerate various soil types but prefer well-drained conditions. Beyond their culinary uses, these trees are also valued for their ornamental beauty. The fruit is often enjoyed fresh, in jams, or used in desserts.","species_interactions":"The Prunus species may attract bees and other pollinators, providing a vital food source during blossoming."},"76":{"name":"Coccinella septempunctata - Seven-spotted ladybird","what_is_it":"A small beetle with distinctive red elytra featuring seven black spots.","information":"The Seven-spotted ladybird is commonly found in gardens and fields, primarily feeding on aphids, which makes it a beneficial insect for gardeners. Adults are characterized by their bright red shell and spotted pattern, though the number and visibility of spots can vary. They play a critical role in controlling pest populations and are known for their remarkable lifecycle, which includes several larval stages before emerging as adults.","species_interactions":"This ladybird species preys on soft-bodied insects, which may be found near the bramble and grasses, helping to maintain the balance in the ecosystem."},"81":{"name":"Quercus sp. (Oak)","what_is_it":"A diverse genus of trees characterized by lobed leaves and acorns, commonly found in various habitats.","information":"Oaks are long-lived and can grow quite large, forming important ecosystems that support numerous organisms. They produce acorns which serve as food for various wildlife, and their leaves turn brilliant colors in autumn. Oaks also play a vital role in carbon storage and soil health.","species_interactions":"Oaks may support various insects, birds, and mammals by providing food and shelter, while interacting with nearby Trifolium and Scleroderma species."}},"4914a7b9-044f-4677-abf1-04c0566e0829":{"0":{"name":"Unknown Species","what_is_it":"Unfortunately, there are no species identified in the image.","information":"Without any identifiable species, it may be beneficial to explore surrounding areas to look for signs of biodiversity.","species_interactions":"No interactions can be established without identified species."}},"8323c860-51e2-4453-88ee-89684a531c39":{"0":{"name":"Not Applicable","what_is_it":"No species identified in the image.","information":"No additional information can be provided.","species_interactions":"No interactions to report."},"4":{"name":"N/A","what_is_it":"No species identified yet.","information":"No additional information available at this moment.","species_interactions":"No interactions found."}},"82a95a52-0dc0-4932-8fdd-3645133808fb":{"2":{"name":"Oxeye Daisy (Leucanthemum vulgare)","what_is_it":"A bright white flower with a yellow center, the Oxeye Daisy is commonly found in fields and gardens.","information":"Known for its classic daisy shape, the Oxeye Daisy thrives in a variety of soils and is often associated with grassland habitats. This perennial plant is not only aesthetically pleasing but also serves as a food source for various pollinators, including bees and butterflies. The flowers are also used in traditional medicine, and their cheerful appearance adds a pop of color to landscapes.","species_interactions":"Oxeye Daisies attract pollinators that feed on the nectar, helping in their life cycle while concurrently supporting the health of the ecosystem."}},"0c3cb7a4-0693-4ef7-9aef-eba1ed32a466":{"2":{"name":"Suillus luteus","what_is_it":"Slippery Jack is a type of porcini mushroom that is known for its distinctive slimy cap and is often found in association with pine trees.","information":"Suillus luteus can be recognized by its dark yellow to brown cap and the slimy texture that helps in dispersing spores. These fungi primarily form mycorrhizal relationships with coniferous trees, enhancing nutrient uptake for their host trees while benefiting from the carbohydrates produced by them. They are edible but should be properly cleaned due to their slimy texture. Its presence indicates a healthy forest ecosystem and can sometimes be seen peeking through leaf litter in coniferous forests.","species_interactions":"Slippery Jack interacts with various species in the forest ecosystem, particularly forming beneficial relationships with pine trees and potentially being a food source for woodland creatures."}},"102dad33-bbbf-4701-93d1-5eebf9f5286c":{"0":{"name":"Hydrangea macrophylla","what_is_it":"Bigleaf hydrangea is a popular ornamental shrub known for its large, showy flowers.","information":"This species is particularly notable for its hydrangea color variations, which are influenced by soil pH; acidic soils yield blue flowers while alkaline soils produce pink. Historically utilized in Asian gardens, its ornamental appeal also led to hybrids that boast unusual flower shapes and sizes.","species_interactions":"Hydrangea macrophylla attracts various pollinators and can interact with soil microbes through its extensive root system, enhancing nutrient cycling."},"5":{"name":"No species identified","what_is_it":"There are no species present in the image.","information":"It seems the image does not capture any identifiable species. You might want to explore another area to find more biodiversity.","species_interactions":"No interactions can be assessed due to the absence of species."}},"3611fe10-b560-480d-94bd-06577633f61f":{"0":{"name":"Wild Mustard and Grasses","what_is_it":"Wild mustard is a plant characterized by its red/purple stems and crinkled, toothed leaves. Grasses form a varied backdrop, contributing to the overall biodiversity of the area.","information":"Wild mustard (Brassica sp.) has been used in traditional medicine and culinary practices by various cultures. In Roman cuisine, for example, mustard seeds were ground and mixed with wine to create sauces. Grass species in Poaceae have long been symbolically linked to abundance and fertility, often present in agrarian rituals across cultures.","species_interactions":"Wild mustard may serve as a host plant for various insects, while the grasses can provide ground cover and habitat for numerous small organisms."},"4":{"name":"Swiss chard (Beta vulgaris subsp. vulgaris)","what_is_it":"A cultivated leafy beet variety known for its colorful petioles and nutrient-rich leaves.","information":"Swiss chard has been cultivated since antiquity, often used in Mediterranean cuisine. In ancient Rome, its leaves were admired for their taste and health benefits. The bright colors have also made it a symbol of vibrancy in many gardens, representing prosperity and health."},"8":{"name":"Unknown Species","what_is_it":"An unidentified species observed in the area.","information":"As it remains unidentified, there is no specific cultural or historical significance to note. Typically, unclassified species can represent unexplored biodiversity with potential ecological roles.","species_interactions":"N/A"}},"dc23a859-8819-4c30-8cd1-97d83baf7d31":{"0":{"name":"Hyles euphorbiae (Spurge Hawk-moth caterpillar)","what_is_it":"A caterpillar known for its striking appearance and its diet that consists mainly of spurge plants.","information":"The Spurge Hawk-moth caterpillar can be a brilliant green or have a spiky appearance, mimicking parts of the plants it feeds on for camouflage. Adults are often seen fluttering around during dusk or at night, and they play an important role in the ecosystem as pollinators. These caterpillars are mainly found in gardens and areas with plenty of spurge plants. Interestingly, they are also known to feed on other species of plants, showcasing their adaptability.","species_interactions":"The Spurge Hawk-moth caterpillar interacts with grass, as it may be found in the same habitats and can potentially be predated upon by insects that occupy similar ecological niches."}},"3f0417ba-12ad-49bb-af4e-3dee43268be9":{"0":{"name":"Hawkweed (Hieracium spp.)","what_is_it":"Hawkweed is a group of flowering plants known for their vibrant dandelion-like flowers. They are typically found in meadows and grasslands.","information":"Hawkweed species can often be recognized by their bright yellow flowers that bloom in clusters. They are perennial plants that thrive in open areas and can grow in various soil types. Interestingly, Hawkweeds can also reproduce through vegetative means, allowing them to spread quickly across suitable habitats. Some species may have medicinal uses, as they were traditionally used to treat ailments like coughs and wounds."},"1":{"name":"White Clover (Trifolium repens)","what_is_it":"A low-growing perennial herb commonly found in grasslands.","information":"White clover is known for its trifoliate leaves and round clusters of white flowers. It often thrives in well-drained soils and can act as a natural fertilizer by fixing nitrogen in the ground. This species is attractive to many pollinators, particularly bees, and is used in pastures and lawns for its durability and lush greenery."}},"bd333070-8010-454b-876d-d094fe285dca":{"3":{"name":"Fumaria officinalis","what_is_it":"Common fumitory is a clambering annual plant, known for its delicate, fern-like leaves and small, tubular flowers.","information":"Common fumitory is often found in disturbed soils and along roadsides. It has a unique pink to purplish flower that attracts various pollinators. Historically, it has been used in herbal medicine for its purported detoxifying properties. The plant is a biennial that completes its life cycle quickly, often thriving in a range of soil types, making it quite resilient."}},"c2a481de-3a11-4289-be3f-3b00d1ac8dff":{"0":{"name":"Bee (Hymenoptera sp.)","what_is_it":"A flying insect known for its role in pollination and for producing honey.","information":"Bees are integral pollinators, playing a key role in the pollination of many plants, including agricultural crops. They have a hairy body that aids in collecting pollen, and they communicate through dances to share information about food sources. Some species of bees are solitary, while others, like honeybees, live in colonies. Their populations have been declining due to habitat loss, pesticide use, and diseases."}},"b790c8b7-44af-421e-b2cd-21ec0511fd00":{"1":{"name":"Gazania rigens","what_is_it":"A cultivated plant known for its bright and vibrant flowers, often used in gardens.","information":"Gazania rigens, commonly known as Treasure Flower, is a perennial flowering plant native to South Africa. It thrives in full sun and is drought-resistant, making it a popular choice for garden beds and borders. The flowers come in a range of colors, attracting pollinators such as bees and butterflies. Its unique ability to close its flowers in response to temperature changes is a notable adaptation."}},"3bd42395-eea0-43aa-a9a9-6cd5d975c6b5":{"0":{"name":"Purple Toadflax (Linaria purpurea)","what_is_it":"A perennial plant with striking purple flowers resembling snapdragons, often found in gardens and disturbed areas.","information":"Purple Toadflax can adapt to various soil conditions and is known for its ability to thrive in poor soils. Its flowers are particularly attractive to a range of pollinators, making it an excellent species for supporting local biodiversity. This plant is native to Europe and has been used in traditional herbal medicine for its potential diuretic properties."},"1":{"name":"Ulex europaeus (Gorse)","what_is_it":"Gorse, also known as furze or whin, is a flowering shrub recognized for its spiny branches and vibrant yellow flowers.","information":"Gorse is known for its unique adaptation to dry, sandy habitats, thriving in poor soils due to its ability to fix nitrogen in the soil with the help of symbiotic bacteria. Its flowers are a crucial source of nectar for various pollinators during winter and spring, offering important sustenance when other food sources are scarce. Interestingly, the plant can be considered invasive in many regions, particularly in New Zealand and parts of Australia, where it outcompetes local flora and forms dense thickets."}},"f7eb6983-2c10-47c7-bad4-b45d4a7f2d6c":{"0":{"name":"Pelargonium graveolens","what_is_it":"Rose geranium is a perennial flowering plant known for its fragrant leaves and beautiful blooms.","information":"In the Victorian era, rose geranium was often included in potpourris, symbolizing love and passion. It is also used in aromatherapy and perfumery, with its essential oil containing compounds like geraniol and citronellol, which have been recognized for their antibacterial properties. This plant has been celebrated in various cultural contexts, notably in 19th-century literature where the scent of rose geranium invoked nostalgia and longing."},"2":{"name":"Wild Cherry (Prunus avium)","what_is_it":"Wild Cherry is a deciduous tree known for its beautiful spring blossoms and small, edible cherries. It can grow up to 25 meters tall and is often found in forests and woodlands.","information":"The Wild Cherry has been significant in various cultures, symbolizing prosperity and renewal, especially evident in Japanese culture during Hanami, the cherry blossom festival. Historically, its wood has been used in fine furniture and cabinetry, showcasing its value beyond its fruit. Native American tribes utilized the fruit medicinally, while in European folklore, the tree often represented love and fertility."},"3":{"name":"English Oak (Quercus robur)","what_is_it":"A majestic deciduous tree known for its strength and longevity, the English Oak can grow up to 40 meters tall and is a vital part of many ecosystems.","information":"The English Oak has been a symbol of strength and endurance in various cultures, often associated with gods of the sky and war, such as Zeus in Greek mythology. Its wood was historically used in shipbuilding during the Age of Sail, notably for the British Navy in the 18th century. In folklore, it is often connected to wisdom and protection, with its leaves used in traditional medicine to treat various ailments."},"4":{"name":"Pinus sylvestris","what_is_it":"Scots Pine is a tall coniferous tree native to Europe and Asia, known for its distinctive orange-brown bark and long needles.","information":"The Scots Pine has been a symbol of resilience and endurance in various cultures, often associated with strength in folklore. Used for timber in construction and shipbuilding, it was crucial during the Age of Sail in the 17th century. Its resin is traditionally tapped for turpentine, adding a historical dimension to its ecological and economic significance."},"5":{"name":"Tree Aeonium (Aeonium arboreum)","what_is_it":"Tree Aeonium is a perennial succulent characterized by its distinctive rosette formation atop a tall stem, often seen in gardens and arid landscapes.","information":"Originally from the Canary Islands, Tree Aeonium has been cultivated for its ornamental beauty and drought resistance. In traditional herbal practices, it has been associated with various medicinal uses, often linked to soothing skin irritations. The species has also inspired various artists and photographers, who capture its unique structure and vibrant colors, making it a popular subject in succulent-themed artworks."},"6":{"name":"Aloe arborescens","what_is_it":"Torch Aloe is a succulent plant known for its striking, tall red flower spikes that resemble torches.","information":"In traditional medicine, especially within the Zulu culture of South Africa, Aloe arborescens is revered for its healing properties, often used in remedies for skin ailments and internal health. Its vibrant flowers are not only ornamental but have been celebrated in botanical illustrations from the 19th century, symbolizing resilience in arid environments. The plant also features in modern holistic medicine, emphasizing its role in alternative health practices."},"8":{"name":"Bumblebee (Bombus spp.)","what_is_it":"Bumblebees are large, fuzzy insects known for their distinctive buzzing sound as they pollinate flowers. They play a crucial role in the pollination of many plants.","information":"In various cultures, bumblebees symbolize community and hard work, particularly among agricultural societies where they are recognized for their essential role in pollination. In ancient Rome, they were associated with the goddess Flora, representing fertility and the vitality of life. Their presence in gardens is often linked to abundance and the turning of seasons."},"9":{"name":"Geranium robertianum (Herb Robert)","what_is_it":"Herb Robert is a perennial plant known for its small pink flowers and finely divided leaves. It often thrives in shady or woodland areas.","information":"Herb Robert holds a place in folk medicine, particularly in Europe, where it has been used to treat wounds due to its astringent properties. It was believed by some cultures to ward off evil spirits, and its presence was thought to bring good fortune. The plant's chemical constituents include geraniin, an acylated phenolic compound, which has been studied for its antioxidant properties."},"10":{"name":"Housefly (Musca domestica)","what_is_it":"The Housefly is a common insect known for its ability to thrive in human environments. They are often found in homes and can be recognized by their buzzing sound and rapid movements.","information":"Houseflies have been significant in various cultures, symbolizing decay and pestilence due to their association with waste and filth. Interestingly, they are utilized in research, especially in genetics and behavior studies, dating back to the early 20th century. Their rapid lifecycle makes them ideal subjects for understanding population dynamics and disease transmission."},"14":{"name":"Common Sunflower (Helianthus annuus)","what_is_it":"The Common Sunflower is an annual plant known for its large, bright yellow flowers that track the sun. It's a staple in gardens and agriculture, valued for its seeds and oil.","information":"Common Sunflowers have deep roots in Indigenous cultures across North America, where they are celebrated as a symbol of harvest and sustenance. The plant was cultivated by Native Americans long before European contact for its nutritious seeds, which are rich in oil and protein. Moreover, they played a role in various ceremonies and were often seen as a representation of positivity and warmth."},"16":{"name":"Stinking Iris (Iris foetidissima)","what_is_it":"A perennial plant known for its distinctive, sword-shaped leaves and striking red berries, the Stinking Iris has a strong odor that deters herbivores.","information":"In folklore, the Stinking Iris has been linked to a variety of cultural beliefs, often associated with protection against evil spirits due to its potent scent. It has been used in traditional medicine for its purported anti-inflammatory properties, especially in Europe. Historically, the plant's striking berries have also been utilized in crafting dyes, showcasing its multifaceted role in both natural and cultural contexts."},"18":{"name":"Prunus laurocerasus","what_is_it":"Cherry Laurel is an evergreen shrub known for its glossy leaves and dense growth, often used as a hedge or ornamental plant.","information":"Historically, Cherry Laurel has been associated with protection and immortality; it was used in Ancient Rome for laurel wreaths, symbolizing victory and honor. Folklore often ties this plant to bridal traditions, where its leaves signify fidelity. Additionally, the plant contains compounds like cyanogenic glycosides, which have implications in traditional medicinal practices, although caution is advised due to its toxicity in certain parts."},"19":{"name":"Swiss Chard (Beta vulgaris subsp. vulgaris)","what_is_it":"Swiss Chard is a leafy green vegetable known for its vibrant red stems and large, broad leaves, often used in salads and cooked dishes.","information":"Swiss Chard has historical significance in Mediterranean cuisines, particularly in Italy and Greece, where it has been cultivated since antiquity. It symbolizes healthy eating and biodiversity, as it comes in various colors, each representing different nutritional benefits. Traditionally, it also featured in folk medicine, where it was valued for its high vitamin content and purported health benefits."},"20":{"name":"Bugle Lily (Watsonia borbonica)","what_is_it":"A perennial plant native to South Africa, the Bugle Lily features tall spikes of trumpet-shaped flowers in vibrant colors, attracting various pollinators.","information":"Bugle Lilies are celebrated in South African culture for their beauty, often symbolizing hope and renewal in gardens. In traditional medicine, their bulb has been employed, with caution, for its potential medicinal properties, while their striking appearance makes them a favorite among florists and landscape designers alike."},"23":{"name":"Lettuce (Lactuca sativa)","what_is_it":"Lettuce is a leafy green vegetable commonly used in salads and sandwiches, featuring crisp leaves that can vary in color and texture.","information":"Lettuce has been cultivated since at least the 5th century BCE, with ancient Egyptians valuing it as a food source and symbol of fertility. It has appeared in ancient art, literature, and offerings, and is noted in the writings of Roman author Pliny the Elder for its medicinal properties. Various cultures have developed numerous varieties, highlighting lettuce's versatility in cuisine."}},"e089a595-122c-46f2-bcc9-9351f352d902":{"2":{"name":"Pot Marigold (Calendula officinalis)","what_is_it":"Pot Marigold is an annual flowering plant known for its vibrant orange and yellow blooms.","information":"This plant is well-regarded not only for its beauty in gardens but also for its medicinal properties. Traditionally, Pot Marigold has been used for its anti-inflammatory effects, and its petals are often used in herbal remedies and cosmetics. The flowers attract pollinators such as bees and butterflies, making it a beneficial addition to any garden."},"11":{"name":"Bermuda Buttercup (Oxalis pes-caprae)","what_is_it":"A perennial herb with bright yellow flowers and clover-like leaves.","information":"Native to South Africa, the Bermuda Buttercup is often found in lawns and gardens. It can form dense mats, spreading rapidly through underground bulbs. While its flowers are charming, this species can be invasive in some areas, competing with native plants."}},"dc287647-4c08-41e0-940a-6c431d95d732":{"1":{"name":"Hedera helix (English Ivy)","what_is_it":"English Ivy is a perennial climbing plant known for its ability to cling to surfaces with aerial rootlets.","information":"Throughout history, English Ivy has been associated with fidelity and friendship in various cultures, often used in wedding decorations as a symbol of eternal love. In ancient Rome, ivy was linked to Bacchus, the god of wine, representing rebirth and celebration. The plant is also used in traditional medicine, known for its potential to treat respiratory ailments through its saponins."},"4":{"name":"Field Gladiolus (Gladiolus italicus)","what_is_it":"A perennial plant characterized by its sword-shaped leaves and spike of colorful flowers, typically blooming in the wild during the summer.","information":"In Roman times, Gladiolus was associated with the gladiators or \u2018sword bearers\u2019 because of the sword-like shape of its leaves. The flowers served as symbols of strength, integrity, and honor in various cultures. In Italy, its blooms are also celebrated during festivals, signifying the arrival of summer."},"10":{"name":"Strawberry (Fragaria \u00d7 ananassa)","what_is_it":"A cultivated, perennial ground cover plant known for its sweet, red edible fruits, often used in desserts and jams.","information":"Strawberries have held cultural significance since ancient times, especially in Europe, where they were associated with Venus, the goddess of love, symbolizing beauty and abundance. In 17th century France, strawberries were used in medicinal concoctions, believed to be a cure for various ailments. Their vibrant red color and sweet flavor have inspired numerous poems and artworks, making them a beloved motif in still-life paintings during the Renaissance. The fruit\u2019s rich Vitamin C content has also made it a staple in traditional medicine."}},"d8d027d0-cce9-4e03-89ad-2969f4413015":{"21":{"name":"Agapanthus spp. (Lily of the Nile)","what_is_it":"Agapanthus, commonly known as Lily of the Nile, features striking clusters of blue or white flowers atop tall stems and is often found in gardens and cultivated landscapes.","information":"Originally from South Africa, the Agapanthus has been embraced in various cultures for its ornamental beauty. In Victorian England, it was celebrated for its striking appearance and was often used in floral arrangements. The flowers symbolize love and unity, and they have been featured in art promoting the splendor of garden design throughout the 19th and 20th centuries."}},"3c91ae94-8fe2-40cc-86e9-774ce67bf05d":{"2":{"name":"Crown Daisy (Glebionis coronaria)","what_is_it":"Crown Daisy is a flowering plant commonly known for its vibrant yellow flowers and distinctive foliage.","information":"This plant thrives in sunny areas and is often found in gardens and along roadsides. It's known for its edible leaves and flowers, often used in culinary dishes. In addition to its uses in cooking, Crown Daisy attracts various pollinators, making it a beneficial plant for overall biodiversity."},"4":{"name":"Stemless Gentian (Gentiana acaulis)","what_is_it":"A low-growing perennial with striking blue flowers, often found in alpine regions. It blooms in early spring and prefers limestone-rich soils.","information":"In Alpine folklore, the stemless gentian symbolizes hope and is associated with good fortune. The flowers have been used in traditional medicine for their digestive benefits and frequently appear in landscape paintings from the Romantic period, particularly in works by Swiss artists like Caspar Wolf around the 18th century."},"11":{"name":"Jumping Spider (Salticidae)","what_is_it":"A small, agile spider known for its remarkable jumping ability and excellent vision.","information":"Jumping spiders are characterized by their vibrant colors and large front eyes, which aid in their hunting prowess. Unlike webs, these spiders actively stalk and pounce on their prey, predominantly insects. They have a unique courtship display, involving intricate movements and gestures to attract mates. Many species are found in diverse habitats, from gardens to forests, showcasing a wide distribution.","species_interactions":"Jumping spiders may hunt insects found near the Oak tree or flowers like the Crown Daisy and Dandelion. Their vibrant appearance and agile movement make them both predators and prey in this ecosystem."},"12":{"name":"Lavender (Lavandula)","what_is_it":"An aromatic flowering plant known for its beautiful purple spikes and soothing scent.","information":"Lavender thrives in well-drained soil and requires full sun, making it a favorite in gardens. Its fragrant oils are widely used for relaxation and culinary purposes. Lavender attracts a variety of pollinators, particularly bees, and is also known for its pest-repelling properties. It can adapt to various climates, showcasing its resilience across different environments.","species_interactions":"Lavender's fragrant flowers attract pollinators such as bees and butterflies, which may also be observed visiting nearby plants like the Dandelion or the Crown Daisy."},"14":{"name":"Firebug (Pyrrhocoris apterus)","what_is_it":"The Firebug is a striking insect known for its vivid black and red coloration.","information":"Native to Europe, the Firebug is commonly found in gardens and near deciduous trees. It feeds on the seeds of certain plants, particularly members of the mallow family. This insect plays a role in controlling plant populations and is often seen in large groups, basking in the sun. Firebugs are non-aggressive and can sometimes be mistaken for harmful pests due to their bright colors.","species_interactions":"The Firebug may interact with pollinators like Bumblebees, often sharing habitats in gardens or among flowering plants. It might also coexist with the Jumping Spider, as both inhabit similar areas."}},"dd9fc895-30d0-4b83-a9f0-13cb869afa1a":{"2":{"name":"Flowering Maple (Abutilon pictum)","what_is_it":"Flowering Maple is a versatile, ornamental flowering plant native to tropical regions, distinguished by its vibrant, bell-shaped flowers and maple-like leaves. It grows well in gardens and indoors, thriving in warmer climates.","information":"Admired in the Victorian era, Flowering Maple was favored in gardens for its ornamental qualities, representing connection and warmth. Its flowers symbolize the beauty of transience and are often celebrated in floral arrangements. The plant is used in traditional medicine, leveraging its anti-inflammatory properties in some cultures."}},"3be47c5e-92f0-4906-aa57-cbbca0ad533c":{"1":{"name":"Corn Marigold (Glebionis segetum)","what_is_it":"A cheerful wildflower that often graces the meadows and fields with its bright yellow blooms.","information":"Corn Marigold typically thrives in disturbed soils, particularly in agricultural fields. It features bright yellow, daisy-like flowers that attract various pollinators. Uniquely, it's known to occur in large, vibrant patches, making it a delightful sight for both humans and wildlife. The plant has been historically recognized for its medicinal properties and ecological role in supporting pollinator populations."},"2":{"name":"Berlandier's Sundrops (Calylophus berlandieri)","what_is_it":"Berlandier's Sundrops is a flowering plant known for its bright yellow blooms that open during the day.","information":"This perennial herb thrives in well-drained soils and is often found in open fields and grasslands. Its flowers attract a range of pollinators, and it is known for its ability to adapt to various soil conditions."},"3":{"name":"California Goldfields (Lasthenia californica)","what_is_it":"A bright yellow wildflower native to California's grasslands, commonly found in meadows and open areas.","information":"California Goldfields is known for its vibrant yellow flowers which bloom in spring. This annual plant thrives in nutrient-poor soils and is often found in large colonies, creating a golden carpet effect. It plays a vital role in local ecosystems as a nectar source for various pollinators, especially bees."}},"2a89203e-9beb-4d23-8df5-f5e0b4a8f720":{"0":{"name":"Unknown Species","what_is_it":"No species identified in the image.","information":"No specific details about species are available."},"1":{"name":"Garden Strawberry / Fragaria \u00d7 ananassa","what_is_it":"A popular cultivated plant known for its sweet, red fruit.","information":"Garden strawberries thrive in temperate climates and are grown worldwide for their delicious berries. They are perennials that produce runners, enabling them to spread and colonize new areas. Strawberries are rich in vitamins and antioxidants, making them not only delightful in desserts but also a healthy choice. Their flowers are a source of attraction for pollinators, playing a crucial role in the ecosystem."}},"8bd3e700-80a3-41d8-80e3-902d641ba169":{"3":{"name":"Butcher's broom (Ruscus aculeatus)","what_is_it":"Butcher's broom is an evergreen plant, known for its spiky leaves that resemble a broom. Traditionally, it has been used for its medicinal properties.","information":"In ancient Greece, the butcher's broom was linked to the goddess of love, Aphrodite, believed to have protective qualities against the evil eye. Its strong, woody stems were historically used by butchers to sweep their shops, hence its name. The plant has been used in herbal medicine to treat circulatory disorders since at least the 19th century, showcasing its enduring significance in both culture and medicine."},"8":{"name":"Tagetes tenuifolia (Signet Marigold)","what_is_it":"A low-growing, bushy annual plant notable for its feathery leaves and vibrant, often orange or yellow flowers.","information":"Indigenous to Central America, the Signet Marigold has been revered in various cultures for its vibrant color and medicinal properties. In traditional Aztec culture, it was used not only for ornamental purposes but also in rituals to honor the dead, believed to guide spirits. Known for its culinary uses, the flowers are edible and have a citrusy flavor."},"10":{"name":"Corn Marigold (Glebionis segetum)","what_is_it":"Corn Marigold is a bright, yellow flowering plant commonly found in fields and meadows.","information":"This cheerful flower is often associated with agricultural landscapes, blooming beautifully in the summer. The Corn Marigold is not just pleasing to the eye; it plays a vital role in ecosystems by providing nectar for pollinators like bees and butterflies. Interestingly, it's known to tolerate poor soil conditions, making it a resilient addition to wildflower mixes. Despite its beauty, it's classified as a species of conservation concern in some areas due to habitat loss."}},"2bf38e96-7ea1-4692-825e-02416d1bbbb8":{"12":{"name":"No species found","what_is_it":"There are currently no identified species in this image.","information":"This could be an opportunity to explore the environment for hidden biodiversity, as many small organisms and plants are often overlooked."}},"68a82d2a-5357-4c54-b420-93985c0197bf":{"3":{"name":"Tropaeolum majus (Nasturtium)","what_is_it":"A cultivated plant known for its vibrant red flowers and round leaves.","information":"Nasturtium is not only visually appealing but also edible! Its leaves and flowers have a peppery flavor, making them a delightful addition to salads. This plant is also a great companion for vegetables as it attracts beneficial insects and repels pests. Originally from South America, Nasturtium thrives in well-drained soil and can be found in gardens around the world."}},"ea098515-5b40-4edf-a529-eb6049093975":{"0":{"name":"Meadow Buttercup (Ranunculus acris)","what_is_it":"A vibrant yellow flower with five petals often found in meadows.","information":"Meadow Buttercup typically thrives in wet, grassy habitats and can produce toxic compounds known as ranunculin which can cause skin irritation. The species is known to be a pioneer in disturbed soils, often colonizing areas after events such as grazing or human activity."}},"ef854f14-e01d-4662-af11-fca6b4e38c78":{"3":{"name":"Snail Shell","what_is_it":"A spiral shell commonly left behind by snails, often smooth and glossy, can vary in size and color depending on the species.","information":"Empty snail shells symbolize transition and resilience in many cultures, often used in folklore to represent a journey or protective sanctuary. In art, they have been featured as symbols of slow movement and introspection, as seen in various naturalist paintings from the 17th century. Shells are also significant in the study of mollusk ecology, reflecting the environmental conditions in which they thrived."}},"684b6a4f-5f48-41c4-bdce-ea2606e21810":{"3":{"name":"Nasturtium (Tropaeolum majus)","what_is_it":"Nasturtium is a vibrant, edible flowering plant known for its peppery leaves and bright flowers, often seen in gardens and salads.","information":"Nasturtium is native to South America and is well-loved for its striking flowers and ability to thrive in poor soil. The flowers and leaves are not just beautiful but also edible, often used to add flavor to dishes. This plant attracts pollinators like bees and butterflies, playing an essential role in the garden ecosystem."},"4":{"name":"Corn Marigold (Glebionis segetum)","what_is_it":"A bright yellow flower often found in fields and along roadsides.","information":"Corn Marigold is known for its vibrant, daisy-like flowers that typically bloom in the summer. It thrives in disturbed soils, often seen alongside crops like corn, which is how it got its name. Interestingly, it can be an indicator of rich biodiversity, as its presence can attract various pollinators and insects."}},"fb689419-f92d-4b43-8202-b3a29787ce58":{"2":{"name":"Chives (Allium schoenoprasum)","what_is_it":"Chives are a perennial herb with long, thin green leaves and purple flowers. They belong to the onion family and are commonly used in culinary preparations.","information":"Chives thrive in well-drained soil and are often found in gardens and vegetable patches. They are known for their mild onion flavor and are often used as a garnish or in recipes. Beyond their culinary uses, chives can attract pollinators like bees and butterflies, playing an essential role in supporting local ecosystems."},"7":{"name":"Pine (Pinus sp.)","what_is_it":"Pines are coniferous trees known for their long needles and distinctive cones. They are prevalent in various habitats and are easily recognizable by their needle-like leaves.","information":"Pine trees are found in diverse environments, from mountainous regions to coastal areas. They play an essential role in forest ecosystems, providing habitat for numerous species, acting as carbon sinks, and supplying timber and resin for human use. The cones that develop on pine trees are vital for reproduction and can remain on the tree for several years before dispersing seeds."}},"08f434d0-fb5b-4344-a881-b1f6ed5bc576":{"1":{"name":"Chives (Allium schoenoprasum)","what_is_it":"Chives are a perennial herb known for their mild onion flavor and bright purple flowers, commonly used in cooking.","information":"In Chinese culture, chives are celebrated for their ability to promote health and longevity. They are traditionally included in dumplings and stir-fries, symbolizing prosperity. Ancient Romans valued them as a seasoning, believing their aroma could ward off illness."},"10":{"name":"Corn Marigold (Glebionis segetum)","what_is_it":"A bright yellow flowering plant found in fields and disturbed areas, known for its cheerful appearance and importance in agriculture.","information":"Corn Marigold has been used historically as a symbol of happiness and joy in various European cultures. In some folk beliefs, it was thought to protect crops from evil spirits. This plant is also a favored habitat for pollinators, contributing to local ecosystems and agricultural biodiversity."},"14":{"name":"Dandelion (Taraxacum officinale)","what_is_it":"A flowering plant known for its bright yellow flowers and fluffy seed heads, commonly found in lawns and gardens.","information":"Dandelions have a rich history in European herbal medicine, often used for their diuretic properties. In folklore, the seeds are believed to carry wishes when blown. The plant features prominently in art, symbolizing resilience and springtime."}},"2551dfa0-477d-4084-ab73-9d628393f662":{"16":{"name":"Armadillidiidae (Pill Bug)","what_is_it":"A terrestrial crustacean known for its ability to roll into a ball when threatened, commonly found under leaves and stones.","information":"Pill bugs, or roly-polies, are unique among crustaceans because they have adapted to terrestrial life. They are important decomposers in the soil ecosystem, helping to break down organic material. Pill bugs prefer damp environments to prevent desiccation."},"17":{"name":"Desert Marigold (Baileya multiradiata)","what_is_it":"A perennial flowering plant native to the deserts of the southwestern United States.","information":"Desert Marigold thrives in arid environments, producing bright yellow flowers that can bloom year-round depending on rainfall. The plant is well-adapted to dry conditions and acts as an important source of nectar for bees, butterflies, and other pollinators. Its leaves are gray-green, which helps reduce water loss, making it a resilient species in its ecosystem."}},"1ba4202a-1ab7-4575-b24c-b2c8072eea90":{"3":{"name":"Giant Hogweed (Heracleum mantegazzianum)","what_is_it":"A towering plant known for its large white flowers and immense size, often found near water sources.","information":"Giant Hogweed, native to the Caucasus region, has become an invasive species in many parts of the world. In folklore, it has been associated with mystical properties, being named in British literature during the Victorian period as a plant that conjures awe. Its sap can cause severe skin reactions, making it both fascinating and dangerous, highlighting its duality in culture as both a natural wonder and a cautionary tale."},"11":{"name":"Small-leaf Spiderwort (Tradescantia fluminensis)","what_is_it":"A perennial plant with small, ovate leaves and delicate white flowers that bloom in clusters. Often found in tropical and subtropical regions, it's appreciated for its ornamental qualities.","information":"Originating from South America, Small-leaf Spiderwort has made its way into various gardens around the world, celebrated not only for its beauty but also for its hardy nature. The plant is linked to colorful legends in some cultures where it symbolizes resilience, able to thrive in different conditions. Folklore often highlights its adaptability and the lush habitats it creates, making it a favorite among gardeners seeking low-maintenance greenery."}},"3a71666b-7c5f-4b98-971b-1cd5d778232e":{"6":{"name":"Grove Snail (Cepaea nemoralis)","what_is_it":"The Grove Snail is a small land snail with a distinctive shell that exhibits a variety of color patterns. It's commonly found in woodlands, gardens, and grassy areas.","information":"In folklore, the Grove Snail symbolizes patience and persistence due to its slow movement, and it has been mentioned in various literary works. The shell's color variations have been used in studies of animal adaptation and camouflage, illustrating its importance in ecological research."}},"ee2b5c86-3450-4ed1-aa54-b6470a8ff91b":{"0":{"name":"Tagetes patula (French Marigold)","what_is_it":"A vibrant, hardy annual flower known for its bright yellow, orange, or red blooms.","information":"French Marigolds are often cultivated in gardens for their ornamental beauty and ability to repel certain pests. They thrive in well-drained soil and can bloom from spring to frost. Additionally, they attract pollinators such as bees and butterflies, making them a valuable addition to any garden ecosystem."},"7":{"name":"Pteridium aquilinum (Bracken Fern)","what_is_it":"A large, robust fern known for its triangular fronds and widespread occurrence.","information":"Bracken Fern is often found in both sunny and shaded areas across a variety of habitats. Its fronds can reach up to a meter in length and are known for their delicate texture. Despite being common, it contains toxins that can affect wildlife and is often considered invasive in some regions, playing a complex role in its ecosystems."}},"63ad4ec3-1857-462c-8809-62a070069e47":{"0":{"name":"Chrysanthemum coronarium (Crown Daisy)","what_is_it":"An herbaceous plant known for its bright yellow flowers and unique, feathery leaves.","information":"Crown Daisy is often found in gardens and disturbed areas. It thrives in sunny conditions and is known for its culinary uses, particularly in Asian cuisine, where the leaves are added to salads and stir-fries. This plant has a robust life cycle and can be seen flowering from spring to fall, attracting various pollinators during its blooming period."}},"9b2a85d8-6f7e-4629-bf4c-c50e579ff051":{"0":{"name":"Chives (Allium schoenoprasum) and Marigold (Tagetes spp.)","what_is_it":"Chives are herbaceous plants known for their tall, slender green leaves and purple flowers. Marigolds are vibrant flowering plants that are often bright yellow or orange.","information":"Chives are part of the onion family and are prized for their culinary uses, adding a mild onion flavor to dishes. They thrive in well-drained soil and can be found in gardens or meadow-like environments. Marigolds are often planted in gardens not only for their beauty but also for their ability to deter pests. Both species offer visual appeal and have roles in supporting biodiversity within the garden ecosystem."}},"3f178658-ae36-417c-8f5f-f9f1f9e19d91":{"0":{"name":"Brassica juncea (Mustard Greens)","what_is_it":"Mustard greens are leafy vegetables characterized by their dark green to dark red leaves. They are commonly used in culinary dishes.","information":"Brassica juncea is known for its spicy flavor, which can be more intense when uncooked. This plant thrives in cooler climates and is often grown for its nutritious leaves. Beyond human consumption, it provides food for various insects and can improve soil health through its deep root system."},"4":{"name":"Meadow Buttercup (Ranunculus acris) and Herb Robert (Geranium robertianum)","what_is_it":"Meadow Buttercup is a vibrant yellow flower found in fields and meadows, while Herb Robert is a small pink-flowered plant known for its delicate appearance.","information":"Meadow Buttercup prefers wet grasslands and meadows, characterized by its cup-shaped yellow flowers that attract various pollinators. Herb Robert typically grows in shaded or disturbed areas; its leaves have a distinct reddish tint and are reputed for their medicinal properties, often used in traditional remedies."},"10":{"name":"Allium schoenoprasum (Chives)","what_is_it":"Chives are a herbaceous perennial plant with slender green leaves and attractively purple flowers.","information":"Chives are part of the onion family and are known for their mild onion flavor, making them a popular culinary herb. They thrive in a variety of soil types and climates and are often grown in gardens. Beyond their culinary uses, chives also attract pollinators, such as bees, due to their vibrant flowers."}},"997aceb0-3994-4aaf-9a44-23beee94106b":{"1":{"name":"Trifolium repens (White clover)","what_is_it":"A low-growing perennial plant with trifoliate leaves and white flower heads.","information":"White clover is commonly found in lawns, fields, and meadows. It is known for its ability to fix nitrogen in the soil, enhancing soil fertility. This species often attracts pollinators like bees, and its leaves can have a distinct three-leaflet appearance, sometimes associated with good luck. It has a wide distribution and is used in pasture management and erosion control."},"2":{"name":"Apis mellifera (Western honey bee)","what_is_it":"A social insect known for its role in pollination and honey production.","information":"The Western honey bee is a highly social insect that lives in hives and communicates through dances. They play a crucial role in pollinating flowers, including many crops, making them vital for agriculture. Honey bees are recognized for their ability to produce and store honey, which they use as food during winter months."},"10":{"name":"Lichen","what_is_it":"A symbiotic organism composed of fungi and algae or cyanobacteria.","information":"Lichens are fascinating organisms that can grow on various surfaces, including rocks, trees, and soil. They play a crucial role in ecosystems by helping to break down rocks to form soil and providing food for various herbivores. Their presence can indicate a healthy environment, and they come in a variety of shapes and colors."}},"d8f4d3e7-40cf-4e9d-ace7-5a69338ca599":{"0":{"name":"Brassica juncea (Mustard Greens)","what_is_it":"A leafy vegetable known for its distinctive purple leaves, often used in salads and Asian cuisines.","information":"In traditional Chinese medicine, Mustard greens are valued for their ability to invigorate the spleen and support digestion. Artists like Pierre-Auguste Renoir depicted similar leafy greens in his still-life paintings, capturing the vibrancy and texture of the plant world."}},"351b27fd-a883-40c4-8049-3afd18954769":{"1":{"name":"Strawberry (Fragaria \u00d7 ananassa)","what_is_it":"A widely cultivated hybrid plant known for its sweet, red fruits.","information":"Strawberries are not only delicious but also highly nutritious, packed with vitamin C, manganese, and antioxidants. They are unique as they are one of the only fruits that have their seeds on the outside. In 2017, California produced over 1.5 billion pounds of strawberries, making it the leading state in strawberry production in the United States."}},"73c96822-1bf6-4ea9-b109-e8e14c3cf459":{"2":{"name":"Asiatic Dayflower (Commelina communis)","what_is_it":"Asiatic Dayflower is a perennial herb featuring striking blue flowers that bloom in the morning and close by evening. Its broad, sword-like leaves are distinctive.","information":"Culturally, the Asiatic Dayflower is celebrated in various Asian traditions, often symbolizing transient beauty and the fleeting nature of life. It's used in traditional Korean cuisine, where the petals are edible and sometimes included in salads. An artist's muse, its delicate features remind us of the ephemerality reflected in poetry, evocative of moments captured in the words of Matsuo Bash\u014d, emphasizing nature's beauty."},"3":{"name":"Cornu aspersum (Garden snail)","what_is_it":"The Garden snail is a land snail known for its coiled shell and slow-paced life. It is often found in gardens and damp environments, where it feeds on a variety of plant material.","information":"In ancient Rome, the Garden snail was not only a food source but also featured in art and literature, symbolizing slow and steady progress. The Roman poet Horace mentioned them in his works, referring to their lethargic pace as a metaphor for indulgence and patience. These snails are also associated with biodiversity efforts and are used in studies to understand ecological impacts on land mollusks."},"6":{"name":"Wolf Spider (Lycosidae)","what_is_it":"Wolf spiders are agile hunters that do not spin webs; instead, they rely on their speed and excellent eyesight to chase down prey.","information":"In various cultures, wolf spiders symbolize intuition and power due to their predatory skills and solitary nature. They are often featured in folklore, representing cunning and adaptability. Some indigenous tribes have used their imagery to teach lessons about resilience and survival, embedding these arachnids in local mythology."},"9":{"name":"Silene latifolia (White Campion)","what_is_it":"White Campion is a flowering plant known for its delicate white flowers and broad leaves, commonly found in meadows and grasslands. It blooms from late spring to early summer, attracting various pollinators.","information":"In traditional herbal medicine, Silene latifolia has been used for its potential soothing properties. It has historical associations with fertility and love, often referenced in folk tales and rituals in European cultures. The plant's prominence in poetic imagery illustrates its beauty and resilience, making it a favorite among poets like John Keats, who appreciated its ethereal qualities."},"12":{"name":"Common Yellow Wildflower","what_is_it":"A bright yellow wildflower characterized by a dark center, often found in meadows and grasslands.","information":"This wildflower is often associated with resilience and cheerfulness in various cultures. In folklore, it\u2019s believed to bring good luck and is sometimes used in traditional remedies for its soothing properties. It\u2019s a crucial part of ecosystems, attracting pollinators and contributing to biodiversity."},"14":{"name":"Echium vulgare (Viper's Bugloss)","what_is_it":"Viper's Bugloss is a biennial plant known for its striking purple flowers and hairy stems. It thrives in dry, sandy soils and is a favorite among bees and other pollinators.","information":"Historically, Viper's Bugloss has been associated with various medicinal properties, especially in European herbal remedies. The plant was often linked to protection against snakebites due to its name, as the flowers were thought to resemble the head of a viper. Its vibrant colors are often celebrated in folklore, representing resilience and natural beauty."},"15":{"name":"Broad-leaved Dock (Rumex obtusifolius)","what_is_it":"A perennial herb characterized by broad, wavy-edged leaves and reddish stems. It often grows in disturbed habitats and is recognized for its distinctive seed spikes.","information":"Rumex obtusifolius has been used in traditional medicine for its astringent properties and is mentioned in various herbal texts. In the culinary world, its leaves can be consumed, though it is often considered a weed in agricultural settings, reflecting the tension between utility and nuisance."}},"5b72018d-8628-4c81-84f6-1a4d7fe56fbb":{"0":{"name":"Borage (Borago officinalis)","what_is_it":"Borage is an herb that features vibrant blue flowers and fuzzy leaves. It's often found in gardens and has a unique, cucumber-like flavor.","information":"Borage is not just a pretty face in the garden; it's also known for its medicinal properties, including anti-inflammatory effects. Its flowers are edible and can attract pollinators, making it a great companion plant for attracting bees. Native to the Mediterranean region, Borage can thrive in a variety of soils and is often used in salads and beverages for its refreshing taste."}},"05e75062-8f06-4d26-9d1b-8b92463e44f8":{"1":{"name":"Royal Blue Potato Bush (Solanum rantonnetii)","what_is_it":"A striking shrub known for its vibrant blue flowers and attractive foliage.","information":"The Royal Blue Potato Bush is native to South America but is commonly cultivated for ornamental purposes. It's a perennial shrub that can grow up to 6 feet tall and thrives in well-drained soil with full sun. Its flowers not only provide a pop of color but also attract various pollinators, making it a wonderful addition to gardens. Additionally, this plant can produce berries that may be edible, though caution is advised."}},"ca8db078-500a-4061-9c2e-e24c637f8780":{"1":{"name":"Comfrey (Symphytum officinale)","what_is_it":"Comfrey is a perennial herb known for its broad leaves and small, bell-shaped flowers.","information":"Comfrey has been used historically in herbal medicine for its alleged wound-healing properties, attributed to the presence of allantoin, a compound that promotes cell regeneration. It thrives in moist, nitrogen-rich soils and is often grown as a companion plant for its ability to accumulate nutrients."},"4":{"name":"White Clover (Trifolium repens)","what_is_it":"White Clover is a low-growing perennial plant known for its trifoliate leaves and clusters of white flowers.","information":"White Clover is often utilized in agricultural settings for its ability to fix nitrogen in the soil, contributing to soil fertility. The plant produces a symbiotic relationship with Rhizobia bacteria that enables this nitrogen fixation, making it beneficial for grazing and forage."},"7":{"name":"Corn Marigold (Glebionis segetum)","what_is_it":"A bright yellow flowering plant commonly found in fields and disturbed areas.","information":"Glebionis segetum is known for its ecological role as a pioneer species, often colonizing bare ground and contributing to soil stabilization. It has been historically significant in agriculture, providing benefits such as attracting pollinators and serving as a marker for soil fertility."}},"36be59a7-a0e9-4ec6-8d4c-d9049074cf9d":{"3":{"name":"Eclipta prostrata","what_is_it":"Commonly known as False Daisy, Eclipta prostrata is a creeping herb found in wet areas, characterized by its small white flowers and distinct elongated leaves.","information":"In traditional medicine, particularly within Ayurveda, Eclipta prostrata is esteemed for its ability to promote hair growth and enhance liver function. It has been used since ancient times in India, with references found in texts from the 6th century AD. Additionally, the plant holds cultural significance in various regions of Asia, where its extracts are used in cosmetics and herbal therapies."},"4":{"name":"Ribwort Plantain (Plantago lanceolata)","what_is_it":"Ribwort Plantain is a perennial herb characterized by its long, lance-shaped leaves and dense flower spikes that bloom in the summer.","information":"Historically, Ribwort Plantain has been utilized since ancient times, with references to its medicinal properties found in texts dating back to the 1st century AD. It was often used by North American indigenous cultures for treating wounds and respiratory issues. The leaves contain compounds known as aucubin, which have antibacterial properties, making it significant in traditional herbal remedies."},"5":{"name":"Borage (Borago officinalis)","what_is_it":"Borage is a herbaceous plant known for its star-shaped, blue blooms and hairy leaves. It's often associated with culinary uses and medicinal properties.","information":"Historically, borage has been valued since the Roman Empire for its purported ability to lift spirits and provide courage. In the Middle Ages, it was used in brews and wines, celebrated by herbalists like Nicholas Culpeper, who noted its cooling properties and use in treatments for fevers. Interestingly, its flowers have been used in both cuisine for garnish and in traditional medicine for treating various ailments, including skin conditions."},"6":{"name":"Brassica juncea (Mustard plant)","what_is_it":"The Mustard plant is a leafy green cruciferous vegetable known for its pungent flavor, often used in cooking and for its seeds, which are ground into mustard condiment.","information":"Mustard plants have been cultivated for thousands of years, with historical references dating back to Ancient Rome, where they were used not only in culinary practices but also in traditional medicine. In many cultures, mustard seeds symbolize prosperity and are used in rituals for their believed protective properties. The seeds were integral to the spice trade and have been mentioned by poets, such as Homer, underpinning their long-standing cultural significance."},"7":{"name":"Silene latifolia (White Campion)","what_is_it":"White Campion is a perennial plant known for its delicate white flowers and lush green foliage. Typically found in meadows and grasslands, it blooms between late spring and summer.","information":"In European folk medicine, Silene latifolia has been used for its purported ability to soothe stomach ailments and promote healing. Notably, during the medieval period, it was often associated with love and beauty, appearing in various poetic texts as a symbol of romantic affection. The plant's silken flowers also inspired artists like the 17th-century botanist Ernest de L\u00e9pici, who illustrated them in detailed botanical works."}},"f1b320c6-f642-4385-88ab-8ad0c77fef02":{"1":{"name":"White Clover (Trifolium repens)","what_is_it":"A low-growing perennial plant with distinct trifoliate leaves.","information":"White Clover is often found in lawns and meadows, characterized by its small white flower heads. This plant is beneficial for soil health as it fixes nitrogen, enhancing soil fertility. It also serves as an important food source for bees and other pollinators, fostering biodiversity."},"3":{"name":"Nasturtium (Tropaeolum majus)","what_is_it":"A vibrant annual plant with round leaves and bright, colorful flowers.","information":"Nasturtium is known for its peppery-tasting leaves and edible flowers, often used in salads and as garnishes. This plant thrives in poor soil and is a great companion for other garden plants, repelling pests while attracting beneficial insects like pollinators."},"6":{"name":"Digitalis purpurea (Common Foxglove)","what_is_it":"Common Foxglove is a tall, biennial plant that produces striking bell-shaped flowers, typically in shades of purple.","information":"Common Foxglove is known for its beautiful flowers and is a source of the heart medication digoxin. While it is often found in woodlands and grassy areas, it's important to note that the entire plant is toxic if ingested. The plant's flowers attract various pollinators, including bees and butterflies."},"8":{"name":"Rubus fruticosus (Blackberry), Pteridium aquilinum (Bracken Fern)","what_is_it":"Blackberry is a thorny shrub that produces delicious fruit, while Bracken Fern is a large, feathery fern commonly found in wild areas.","information":"Blackberry plants are known for their tasty black fruits, providing food for both humans and wildlife. The thorny stems serve as a defense mechanism against herbivores. Bracken Fern, on the other hand, has a robust rhizome system and can often dominate areas, playing an important role in forest ecosystems as a ground cover that provides habitat for various organisms."}},"3e19d3ed-8f24-5bc5-8016-621a18fb0735":{"20":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Leucanthemum vulgare (Oxeye Daisy)', 'what_is_it': 'Leucanthemum vulgare, commonly known as oxeye daisy, is a perennial flowering plant characterized by its bright yellow petals surrounding a central disc. It thrives in grasslands and disturbed areas.', 'information': 'Oxeye daisy symbolizes resilience and is often associated with natural beauty. It attracts various pollinators, notably bees and butterflies, contributing to local biodiversity. Historically, this flower has been used in traditional remedies for its calming effects and represents the vitality of meadow ecosystems.'}, 'sampling_guidance': {'question': 'Do you see any pollinators, like bees or butterflies, visiting these flowers?', 'yes_action': 'Capture a photo of any pollinators interacting with the flowers to explore their role in the ecosystem.', 'no_action': 'Look for nearby flowering plants that may attract additional pollinators.'}, 'next_target': {'focus': 'Pollinators or other flowering plants', 'location': 'Among the flowers of the Leucanthemum vulgare or in the surrounding meadow.'}}"},"30":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Hieracium spp. (Hawkweed)', 'what_is_it': 'Hieracium is a genus of flowering plants known as hawkweeds. These plants typically have bright yellow flowers and are commonly found in grasslands and disturbed areas.', 'information': 'Hawkweed symbolizes resilience and adaptation, thriving in various environments including meadows and grasslands. These plants are known for attracting pollinators such as bees and butterflies, contributing to local biodiversity. In traditional medicine, some hawkweed species have been used for their potential healing properties.'}, 'sampling_guidance': {'question': 'Do you see any insects or pollinators near the hawkweed flowers?', 'yes_action': 'Capture a photo of any insects interacting with the flowers to explore their role in pollination.', 'no_action': 'Look for nearby flowering plants that might attract more pollinators.'}, 'next_target': {'focus': 'Pollinators or beneficial insects', 'location': 'Among the flowers of the Hieracium spp. or in the surrounding grassy area.'}}"},"48":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Caltha palustris (Marsh Marigold)', 'what_is_it': 'Caltha palustris, commonly known as marsh marigold, is a perennial herb found in wet, boggy areas. It has bright green, rounded leaves that can reach substantial sizes, often emerging in early spring, accompanied by clusters of yellow flowers.', 'information': 'Marsh marigold symbolizes renewal and vitality in wetland ecosystems. It is important for attracting pollinators early in the spring, providing them a vital food source. Additionally, its presence improves habitat quality for a variety of amphibians and insects.'}, 'sampling_guidance': {'question': 'Do you notice any insects or pollinators near the marsh marigold leaves?', 'yes_action': 'Capture a photo of any insects or pollinators interacting with the plant to explore their role in the ecosystem.', 'no_action': 'Look for nearby flowers that may also attract more pollinators.'}, 'next_target': {'focus': 'Pollinators or beneficial insects', 'location': 'Among the leaves of the Caltha palustris or in the surrounding wetland area.'}}"}},"c920f7ee-db6e-58f0-a906-51c55b7a8982":{"0":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Culicoides (Biting Midge)', 'what_is_it': 'Culicoides, commonly known as biting midges, are small flying insects recognized for their painful bites. They often inhabit damp environments and are most active during dusk and dawn.', 'information': 'In various cultures, biting midges are seen as symbols of annoyance and are often associated with tales of summer and wilderness adventure. Their bites are not only irritating but can also transmit diseases, making them significant in public health discussions. These insects play an ecological role as both pollinators and as prey for various bird species. Despite their size, their impact on ecosystems and human activities can be considerable.'}, 'sampling_guidance': {'question': 'Do you notice any other flying insects near the midge?', 'yes_action': 'Capture a photo of any other flying insects you see nearby for further identification and understanding of the local ecosystem.', 'no_action': 'Look further around the area for different types of insects or plants that might attract more wildlife.'}, 'next_target': {'focus': 'Other flying insects or plants attracting them', 'location': 'Near the window or other potential entry points for insects.'}}"},"1":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Araneae (Spider)', 'what_is_it': 'Araneae, commonly known as spiders, are air-breathing arthropods that have eight legs and are known for their silk-spinning capabilities. They play vital roles in controlling insect populations.', 'information': 'In many cultures, spiders symbolize creativity and patience, often seen as builders of webs that catch both food and light. They are integral to various ecosystems, serving as both predators and prey. In traditional medicine, some spider venoms are explored for their potential medicinal properties. The diverse species of spiders also play significant roles in pest control in gardens and agricultural systems.'}, 'sampling_guidance': {'question': \"Do you see any other insects or pests near the spider's web?\", 'yes_action': 'Capture a photo of any insects caught in the web or nearby to help identify their interactions within the ecosystem.', 'no_action': 'Look around the area for other hidden spiders or insects dwelling in similar habitats.'}, 'next_target': {'focus': 'Insects or other spider species', 'location': \"Near the spider's web or in the surrounding area of the structure.\"}}"},"2":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Fragaria \u00d7 ananassa (Common Strawberry)', 'what_is_it': 'Fragaria \u00d7 ananassa, commonly known as the common strawberry, is a widely cultivated hybrid species known for its sweet, red fruits. The plant features trifoliate leaves and produces white flowers that develop into fleshy berries.', 'information': 'Strawberries have cultural significance in various traditions, symbolizing love and purity. They are often associated with fertility in folklore and are a popular fruit in desserts and salads. Additionally, strawberries are rich in vitamins and antioxidants, leading to their use in traditional medicine for promoting overall health. They play a vital role in the economy of many agricultural regions, symbolizing summer and sweetness.'}, 'sampling_guidance': {'question': 'Do you notice any insects or pests on these strawberry leaves?', 'yes_action': \"Take a close-up photo of any observed insects or damage to help identify potential pest issues affecting the plant's growth.\", 'no_action': 'Check nearby plants or the soil for signs of beneficial insects that may help with pollination or pest control.'}, 'next_target': {'focus': 'Insects or pollinators', 'location': 'Among the leaves of the Fragaria \u00d7 ananassa plants or nearby flowering plants.'}}"},"14":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Cucurbita pepo (Zucchini)', 'what_is_it': 'Cucurbita pepo, commonly known as zucchini, is a summer squash that can be harvested when immature. It has broad leaves and produces yellow flowers, known for its culinary versatility.', 'information': 'Zucchini symbolizes abundance and is often associated with summer harvests in various cultures. It is rich in vitamins and low in calories, making it a staple in health-conscious diets. Traditionally, it is used in various dishes, ranging from salads to baked goods. Its role in sustainable gardening is also noteworthy, as it can be a companion plant, enhancing the growth of other crops.'}, 'sampling_guidance': {'question': 'Do you notice any pests or insects on the zucchini leaves?', 'yes_action': \"Take a close-up photo of any observed insects or damage to help identify potential threats to the plant's health.\", 'no_action': 'Look for signs of beneficial insects nearby that could assist with pollination.'}, 'next_target': {'focus': 'Insects or beneficial organisms', 'location': 'Among the leaves of the Cucurbita pepo or surrounding vegetation.'}}"},"17":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Lactuca sativa (Lettuce)', 'what_is_it': 'Lactuca sativa, commonly known as lettuce, is a leafy green vegetable valued for its crisp texture and mild flavor. It typically features a rosette of broad leaves and is often used in salads.', 'information': 'Lettuce is historically associated with health and nourishment in various cultures, symbolizing fresh beginnings in the growing season. It is rich in vitamins and minerals, making it a staple in healthy diets worldwide. Traditionally, lettuce has been used in folk remedies for its calming properties, highlighting its connection to wellness. Its high water content also plays a crucial role in hydrating the body, especially during warm seasons.'}, 'sampling_guidance': {'question': 'Do you notice any insects or pests on the lettuce leaves?', 'yes_action': \"Take a close-up photo of any observed insects or signs of damage to help assess the plant's health.\", 'no_action': 'Look around the area for small beneficial insects that may assist with pest control.'}, 'next_target': {'focus': 'Insects or beneficial organisms', 'location': 'Among the leaves of the Lactuca sativa plants or in the surrounding garden area.'}}"}},"00000000-0000-0000-0000-000000000000":{"1":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Jasminum polyanthum (Pink Jasmine)', 'what_is_it': 'A climbing vine known for its clusters of fragrant pink buds that bloom into white flowers.', 'information': 'Jasmine holds cultural significance in many parts of the world, often symbolizing love and beauty. It is commonly used in perfumes and has traditional medicinal uses. In some cultures, Jasmine is associated with spiritual practices and celebrations, symbolizing purity and gentleness.'}, 'sampling_guidance': {'question': 'Do you notice any insects or pollinators around these flower buds?', 'yes_action': 'Capture a photo of any insects interacting with the Jasmine flowers or buds.', 'no_action': 'Look for other flowering plants nearby that may attract pollinators.'}, 'next_target': {'focus': 'Pollinators like bees or butterflies', 'location': 'Nearby flowering plants or bushes'}}"},"2":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Lippia alba (Bushy Plantain)', 'what_is_it': 'Lippia alba is a perennial, herbaceous plant native to Central and South America. It features aromatic leaves that vary in shape, typically lanceolate or elliptical, and blooms small white or purple flowers.', 'information': \"Lippia alba has been traditionally used in herbal medicine for its calming properties, often being brewed as tea. In some cultures, it's associated with purification rituals and is a symbol of resilience due to its vigorous growth. Its leaves are also utilized in various cuisines, enhancing dishes with a distinctive citrus flavor. The plant is seen as a symbol of holistic healing.\"}, 'sampling_guidance': {'question': 'Do you notice any insects or pollinators around this plant?', 'yes_action': 'Take a photo of the insects interacting with the plant to help identify their role in pollination.', 'no_action': 'Look closely among the leaves or nearby flowers for small insects that might be hiding.'}, 'next_target': {'focus': 'Insects or pollinators', 'location': 'Near the Lippia alba plant or nearby flowering plants.'}}"},"10":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Culicidae (Mosquito)', 'what_is_it': 'Culicidae, commonly known as mosquitoes, are small flying insects known for their ability to bite and extract blood. They have slender bodies, long legs, and are typically found in warm, humid environments.', 'information': 'Mosquitoes symbolize both annoyance and disease due to their role as vectors for various illnesses such as malaria and dengue fever. They contribute to the food web, serving as prey for numerous species, including birds and bats. The larvae live in water, playing a role in aquatic ecosystems and nutrient cycling.'}, 'sampling_guidance': {'question': 'Do you see any other insects or organisms near the mosquito?', 'yes_action': 'Capture a photo of any other insects or organisms to explore their interactions within the ecosystem.', 'no_action': 'Check nearby plants for additional insects or water sources that might attract more mosquitoes.'}, 'next_target': {'focus': 'Other insects or aquatic organisms', 'location': 'Around the area where the mosquito was found or in nearby water sources.'}}"},"11":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Limax maximus (Great Black Slug)', 'what_is_it': 'Limax maximus, commonly known as the great black slug, is a large gastropod found in damp environments. They have long, slimy bodies and are usually dark in color.', 'information': 'Great black slugs symbolize adaptability and are often associated with decomposition processes in ecosystems. They play a vital role in breaking down organic matter and recycling nutrients back into the soil. Historically, they have been used in traditional medicine for their supposed healing properties, showcasing their multifaceted role in the environment.'}, 'sampling_guidance': {'question': 'Do you notice any other small insects or organisms nearby?', 'yes_action': 'Capture a photo of any other small insects or organisms to explore their roles in the ecosystem around the slug.', 'no_action': 'Look for decomposing organic matter or moist areas where other organisms may be found.'}, 'next_target': {'focus': 'Other small decomposers or insects', 'location': 'In the surrounding damp environment where the Limax maximus is located.'}}"},"13":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Tropaeolum majus (Nasturtium)', 'what_is_it': 'Tropaeolum majus, commonly known as nasturtium, is an annual flowering plant characterized by its vibrant round leaves and bright, saucer-shaped flowers. It is often grown for ornamental purposes and culinary uses.', 'information': 'Nasturtium symbolizes creativity and is known for attracting beneficial insects and pollinators. Its flowers and leaves are edible, offering nutritional benefits, and are often used in salads for their peppery flavor. In traditional gardening, nasturtiums are viewed as companion plants that deters pests and improve the health of surrounding plants.'}, 'sampling_guidance': {'question': 'Do you notice any insects or pests on the nasturtium leaves?', 'yes_action': \"Take a close-up photo of any insects present to assess their impact on the plant's health.\", 'no_action': 'Check nearby flowers or plants for beneficial insects that help with pollination.'}, 'next_target': {'focus': 'Insects or beneficial organisms', 'location': 'Among the leaves of the Tropaeolum majus or nearby flowering plants.'}}"},"18":{"name":null,"what_is_it":null,"information":"{'species_identification': {'name': 'Undetermined Leaf', 'what_is_it': 'This is a leaf from an undetermined plant, characterized by a wavy or slightly serrated edge.', 'information': 'Leaves often hold significant meaning in various cultures, sometimes representing growth, renewal, or even a cycle of life. In some traditions, leaves are used in rituals or as symbols of peace and harmony. Their diverse forms and patterns can be seen as a metaphor for the complexity and beauty of nature.'}, 'sampling_guidance': {'question': 'Do you see any flowers or fruits accompanying this plant?', 'yes_action': \"Take a photo of the flowers or fruits, they may provide clues about the plant's identity.\", 'no_action': 'Look around for nearby plants that may have blooming flowers or developing fruits.'}, 'next_target': {'focus': 'Flowers or fruits', 'location': 'Check nearby plants or bushes for any signs of flowers or fruits.'}}"}},"ff518a8d-2524-5d68-8557-95d2df04fc94":{"6":{"name":null,"what_is_it":null,"information":"This lovely flower looks like a Wild Rose, specifically the Dog Rose. In European folklore, the Dog Rose is often associated with protection and is sometimes used in herbal remedies. Would you like to explore other flowers or perhaps look for interesting leaves nearby? \ud83c\udf39\ud83c\udf43"}},"538cf4ae-2205-508f-944a-74697f02e24a":{"11":{"name":null,"what_is_it":null,"information":"This image shows a teasel, likely Dipsacus fullonum. Historically, teasels were used in textile processing to raise the nap on fabrics. They are often associated with resilience and resourcefulness due to their hardy nature and practical uses.\n\nWould you like to explore more about wildflowers, or perhaps switch to discovering insects or birds? \ud83c\udf3c\ud83d\udc1d\ud83e\udd89"}},"129fbb80-99e4-5b32-afaa-4d783bc561b7":{"4":{"name":null,"what_is_it":null,"information":"This leaf looks like it belongs to a currant plant, possibly a blackcurrant (Ribes nigrum) or redcurrant (Ribes rubrum). These plants are common in gardens and produce edible berries. The leaves are distinct with a rounded shape and serrated edges, often with a slightly lobed appearance."}},"8f32e0a4-e5d3-4e57-804b-2c2d1ae7f11f":{"0":{"name":"Rosemary (Salvia rosmarinus)","what_is_it":"A popular culinary herb with aromatic, needle-like leaves.","information":"Rosemary is native to the Mediterranean region and prefers well-drained soils with plenty of sunlight. It can grow as a small shrub and is known for its fragrant foliage. Often used in cooking, it also has medicinal properties and is believed to enhance memory. Rosemary attracts various pollinators, such as bees.","species_interactions":"Rosemary may serve as a food source for pollinators and can repel certain pests, thereby supporting the health of nearby plants."},"3":{"name":"Artemisia spp. and Salvia officinalis","what_is_it":"Artemisia, commonly known as wormwood, is a diverse genus of plants known for their aromatic leaves. Salvia officinalis, or sage, is a culinary herb with grayish-green leaves and purple flowers.","information":"Artemisia species are often found in temperate climates and have a range of uses, including culinary and medicinal. Salvia officinalis has a long history of use in cooking and traditional medicine, particularly for digestive health. Both species can attract pollinators, providing essential resources in their ecosystems.","species_interactions":"Artemisia and Salvia officinalis can provide habitat and food for various insects and pollinators, enhancing local biodiversity. Their aromatic leaves may also deter certain herbivores."},"5":{"name":"Rubus fruticosus","what_is_it":"Commonly known as the blackberry, Rubus fruticosus is a thorny shrub that produces sweet, dark berries. It has serrated leaves and stems covered in spines, making it a distinctive plant.","information":"Blackberries have been a part of human culture since ancient times, often used in cooking and traditional medicine. In Celtic traditions, blackberries symbolize abundance and fertility, and in British folk culture, they are often associated with harvest festivals. Additionally, the berries contain anthocyanins, which have been studied for their antioxidant properties.","species_interactions":"Blackberry bushes provide vital habitats for various birds and insects, while also serving as a food source for many small mammals."}},"75bececa-2dc7-4ebb-a3c8-8d37367128a2":{"4":{"name":"Asian Lady Beetle (Harmonia axyridis)","what_is_it":"A small, round beetle that can vary in color from yellow to orange and has black spots.","information":"The Asian lady beetle is known for its beneficial role in controlling aphid populations, making it a valuable ally in gardens. They are also known to enter homes in large numbers during the winter months and can secrete a fluid that can stain walls and fabrics.","species_interactions":"The Asian lady beetle interacts with the Scarlet sage by feeding on pests that may harm the plant, promoting its health."},"5":{"name":"Lettuce (Lactuca sativa)","what_is_it":"A leafy green vegetable commonly used in salads, known for its crisp texture and refreshing taste.","information":"Lettuce thrives in cooler months and can be grown in various soil types. It's full of water, making it hydrating and low in calories. Lettuce is often harvested before it flowers, as flowering can make the leaves bitter. This plant can attract various insects, including common garden pests, and is known to have been cultivated since ancient times.","species_interactions":"Lettuce can attract aphids and other insects that feed on its sap, while also providing a habitat for beneficial insects like ladybugs."},"6":{"name":"Salvia officinalis (Common Sage)","what_is_it":"An aromatic herb known for its culinary uses and medicinal properties.","information":"Common sage is a perennial herb with grayish-green leaves and lilac flowers, often cultivated in gardens. It can grow up to 60 cm tall. Its leaves are highly aromatic and are used in cooking, particularly in Mediterranean cuisine. Sage has a long history of use in traditional medicine for its anti-inflammatory and antimicrobial properties. It attracts various pollinators, including bees, and plays a role in sustainable garden ecosystems.","species_interactions":"Common sage can attract a variety of pollinators, creating a vibrant ecosystem where insects help with pollination."},"8":{"name":"Lavender Cotton (Santolina chamaecyparissus)","what_is_it":"A perennial shrub characterized by its aromatic, grayish-green foliage and yellow button-like flowers.","information":"Lavender Cotton is well-known for its drought resistance and is often used in gardens for its pleasant fragrance and aesthetic appeal. It thrives in well-drained soils and can attract various pollinators. Historically, it has been used for its medicinal properties and as an insect repellent.","species_interactions":"This plant can attract bees and butterflies searching for nectar, while also potentially harboring other insects that may feed on its leaves."}},"93bf7859-64a2-4c40-b9ce-51012bb11de4":{"1":{"name":"Hedge Bindweed (Calystegia sepium)","what_is_it":"A twining perennial vine with large, trumpet-shaped white to pale pink flowers.","information":"Hedge Bindweed prefers sunny areas and can be found climbing over bushes and fences. Its flowers can attract various pollinators, and its extensive root system helps prevent soil erosion. It also has a history of use in traditional medicine. However, it can be invasive in some regions, outcompeting native flora.","species_interactions":"Hedge Bindweed may share pollinators with Rosebay Willowherb, creating an ecosystem where both plants can benefit from the presence of bees and butterflies."},"2":{"name":"Seven-spot Ladybird (Coccinella septempunctata)","what_is_it":"A small beetle known for its distinctive seven black spots on a red background.","information":"The Seven-spot Ladybird is a beneficial insect, primarily known for its appetite for aphids, making it a natural pest controller in gardens and agriculture. They are often found on plants like rapeseed and prefer sunny areas for optimal warmth and activity.","species_interactions":"The Seven-spot Ladybird may be found near both the Rosebay Willowherb and Hedge Bindweed, as they can be attracted to these plants for potential prey."},"8":{"name":"Bumblebee (Bombus spp.)","what_is_it":"Bumblebees are large, fuzzy insects known for their distinctive black and yellow stripes. They are essential pollinators for many flowering plants.","information":"Bumblebees thrive in various habitats including gardens, meadows, and forests. They are social insects living in colonies, with a queen, workers, and drones. Unlike honeybees, bumblebees can buzz pollinate, vibrating their bodies to release pollen. They play a crucial role in pollinating crops and wildflowers and are capable of foraging in cooler weather.","species_interactions":"Bumblebees interact with Oregano (Origanum vulgare) by pollinating its flowers, which in turn facilitates the plant's reproduction. They are also part of a larger network involving the other species previously identified, depending on floral proximity and habitat overlap."},"9":{"name":"Oregano (Origanum vulgare)","what_is_it":"Oregano is a perennial herb that is well-loved for its aromatic leaves and culinary uses.","information":"Native to the Mediterranean region, Oregano thrives in sunny and well-drained soils. Its leaves are rich in essential oils and are a key ingredient in many dishes. The plant also attracts a variety of beneficial insects, including pollinators and predatory insects that help control pests. Interestingly, Oregano has been noted for its antimicrobial properties, making it not just delicious but also beneficial for health.","species_interactions":"Oregano can provide shelter and food for various insects, such as bees and ladybirds, which may help control aphids feeding on neighboring plants."},"10":{"name":"Sunflower (Helianthus annuus)","what_is_it":"A tall, vibrant annual plant with large, round flower heads that are known to follow the sun throughout the day.","information":"Sunflowers are important both aesthetically and ecologically, providing food for birds, insects, and humans. They are rich in seeds that are a source of oil and protein. Sunflowers can also improve soil health and attract various pollinators, making them a crucial part of the ecosystem.","species_interactions":"Sunflowers can attract pollinators like Bumblebees, and provide a habitat for insects such as ladybirds by promoting biodiversity in the area."},"11":{"name":"Broad-leaved Dock (Rumex obtusifolius)","what_is_it":"A perennial plant with broad, arrow-shaped leaves and small greenish flowers, often found in disturbed areas and along roadways.","information":"Broad-leaved Dock has a distinctive rosette of broad leaves and can grow up to 1.2 meters tall. It produces small flower spikes that attract various insects. This plant is often seen as a weed but plays an important role in providing habitat and food for various species. The leaves are edible and have been used in traditional medicine, although they can be slightly bitter due to high oxalic acid content.","species_interactions":"Broad-leaved Dock may provide shelter and nectar for pollinators like Bumblebees, while also serving as a food source for certain insects such as aphids and caterpillars."},"12":{"name":"Common Evening Primrose (Oenothera biennis)","what_is_it":"A biennial plant known for its yellow flowers that bloom in the evening and attract nocturnal pollinators.","information":"Common Evening Primrose has a rosette of lanceolate leaves in its first year, and in the second year, it produces tall spikes adorned with yellow flowers. These flowers open in the evening and can attract moths and other night-flying visitors. The plant is also known for its seeds, which have been used for their oil, believed to contain beneficial fatty acids.","species_interactions":"Common Evening Primrose may attract nocturnal pollinators like moths, while also providing a food source for ladybirds by hosting aphids on its foliage."}},"1d458f8c-b00d-4601-9b7b-d3728ac43d44":{"0":{"name":"Common Groundsel (Senecio vulgaris)","what_is_it":"A low-growing annual plant that usually has bright yellow flowers.","information":"Common Groundsel often grows in disturbed areas, such as roadsides and gardens. It has a rosette of leaves that can be serrated and produces small, dandelion-like flowers. This plant is known for its rapid growth and the ability to thrive in poor soils. It can reproduce both sexually and asexually, making it quite resilient in various habitats.","species_interactions":"Common Groundsel may attract various pollinators such as bees and butterflies, while also serving as a food source for some herbivorous insects."}},"c0255b39-922c-4ee5-bcef-38f3dc132b2c":{"0":{"name":"Sunflower (Helianthus annuus)","what_is_it":"A tall, vibrant plant that produces large yellow flowers that turn to face the sun.","information":"Sunflowers are not just known for their beauty; they can grow up to 10 feet tall and are cultivated for their seeds and oil. They thrive in sunny conditions and are often seen in agricultural fields. These plants also play a role in attracting pollinators like bees and butterflies, contributing positively to local biodiversity."}},"bca9add2-6147-47c0-a8cf-ae223399aceb":{"4":{"name":"Red Currant (Ribes rubrum)","what_is_it":"A deciduous shrub producing small, tart red berries, often used in jams and jellies.","information":"Red currants are known for their vibrant hue and tangy flavor. They grow in clusters and are rich in vitamins, making them popular in culinary uses. The plant thrives in well-drained soil and is often found in temperate regions. Red currants can also support wildlife, providing food for birds."}},"ded6c6ef-c5d8-41b8-999d-4150c18ac5ff":{"9":{"name":"Highbush Blueberry (Vaccinium corymbosum)","what_is_it":"Highbush Blueberry is a deciduous shrub known for its sweet, nutritious blue berries and attractive white or pink flowers. It typically grows in acidic, well-drained soils and is commonly cultivated for its fruit.","information":"This species holds significant cultural value, especially among Native American tribes, who traditionally harvested blueberries for their nutritional and medicinal properties. Moreover, Highbush Blueberries are referenced in various literature as symbols of abundance and health, particularly noted in the work of poet William Carlos Williams, who conveys their symbolic association with the essence of summer."},"13":{"name":"Drone Fly (Eristalis tenax)","what_is_it":"Eristalis tenax, commonly known as the drone fly, resembles a honeybee and is known for its hovering behavior. They are often found near flowers where they feed on nectar.","information":"The drone fly plays a crucial role in pollination, and is often referenced in literature as a symbol of industriousness and the importance of cooperation among species. Interestingly, the larvae of this species are aquatic and decompose organic matter, linking them to both terrestrial and aquatic ecosystems. In folk medicine, some cultures believed that drone flies brought good luck, especially for crops."},"20":{"name":"Black-eyed Susan (Rudbeckia hirta)","what_is_it":"Black-eyed Susan is a perennial wildflower characterized by its yellow petals and dark central cone, attracting pollinators in gardens and meadows.","information":"In North America, Black-eyed Susan has deep cultural significance, often symbolizing encouragement and inspiration. It is frequently featured in folk art and as a motif in literature, representing the beauty of wildflowers. Additionally, Native American tribes utilized its roots and leaves for medicinal purposes, showcasing its role in traditional medicine."}},"cf5eff9d-d059-4853-a804-995bb7117ad2":{"0":{"name":"Common Dandelion (Taraxacum officinale)","what_is_it":"A bright yellow flower that transforms into a fluffy seed head, commonly seen in lawns and fields.","information":"The Common Dandelion is known for its high nutritional value and medicinal properties, often used in salads or as herbal remedies. Its deep taproot allows it to thrive in varied soils, and it plays a role in supporting pollinators like bees and butterflies. The seeds are dispersed by wind, leading to its widespread presence, sometimes considered a weed."},"3":{"name":"Umbilicus rupestris or Navelwort","what_is_it":"A hardy perennial plant with fleshy, rounded leaves that resemble a navel.","information":"Navelwort is often found clinging to rocky surfaces and walls, making it a resilient choice for gardens in challenging conditions. Its unique, cup-shaped leaves store water, allowing it to thrive in dry areas. This plant produces small, bell-shaped flowers that attract various pollinators, highlighting its role in supporting local biodiversity."},"6":{"name":"Azalea (Rhododendron spp.)","what_is_it":"Azaleas are flowering shrubs known for their beautiful blooms and vibrant colors, commonly found in temperate regions.","information":"Azaleas belong to the Rhododendron genus and can thrive in a variety of climates, typically preferring acidic soils. They bloom in spring and can come in a multitude of colors, attracting a variety of pollinators like bees and butterflies. Azaleas are also popular in landscaping, often planted for their ornamental value."},"9":{"name":"Ulex europaeus (Common Gorse)","what_is_it":"Common Gorse is a spiny evergreen shrub known for its bright yellow flowers and dense bushy habit.","information":"Gorse thrives in poor, sandy soil and is often found in coastal areas. It is notorious for its sharp spines and can create dense thickets that provide habitat for various birds. The flowers produce a coconut-like scent and bloom year-round in mild climates, attracting numerous pollinators."},"10":{"name":"Prosopis spp. (Mesquite)","what_is_it":"Mesquite is a hardy tree or shrub that thrives in arid regions, known for its distinctive seed pods and leathery leaves.","information":"Mesquite trees have deep root systems that allow them to access underground moisture, making them vital in desert ecosystems. They produce long, twisted seed pods that are edible and have been used for centuries as a food source by indigenous people. Mesquite wood is also prized for its durability and is commonly used for cooking."}},"e316ea2b-43c6-4184-91f1-264b3dee8ab9":{"2":{"name":"Common Foxglove (Digitalis purpurea)","what_is_it":"A tall herbaceous plant known for its striking tubular flowers, often found in gardens.","information":"Digitalis purpurea is well known for its cardiac glycosides, which have medicinal properties primarily affecting the heart. Historically, it has been used in the treatment of heart conditions. However, all parts of the plant are toxic if ingested improperly. In the wild, it typically thrives in woodlands or on disturbed ground."}},"51253f62-8d1b-4da5-9526-e3e7881e7da1":{"0":{"name":"Crown Daisy (Chrysanthemum coronarium)","what_is_it":"Crown Daisy is an annual plant known for its leafy greens and vibrant yellow flowers, often found in Mediterranean regions. It is cultivated as a vegetable and ornamental plant, appreciated for its unique flavor and aesthetic appeal.","information":"In East Asian cuisine, especially Korean and Japanese, Crown Daisy is used in various dishes such as soups and salads, where its leaves contribute a peppery, aromatic taste. Additionally, it symbolizes resilience and adaptability, often depicted in traditional artwork celebrating the transition between seasons. Historically, this plant featured in floral motifs during the Edo period in Japan (1603-1868) and was celebrated in poetry for its blooming nature, signifying renewal."}},"cc9e2dde-6c9e-472c-b8b8-f5e1fb021495":{"0":{"name":"Garden Strawberry (Fragaria \u00d7 ananassa)","what_is_it":"A popular cultivated plant known for its sweet, red fruit, often grown in gardens.","information":"Garden strawberries are a hybrid species cultivated for their delicious berries. They thrive in temperate regions and are often grown in gardens or as ground cover. These plants produce white flowers that attract pollinators such as bees and butterflies, playing a vital role in their reproduction. Strawberries are rich in vitamins and are widely consumed fresh or used in various culinary dishes. Additionally, they have a unique way of spreading through runners, forming new plants around them, creating a lush strawberry patch."}}};
+
+// ─ Tab switching ─────────────────────────────────────────────────────────────
+
+let activeTab = 'companions';
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.tab-btn[onclick*="${tab}"]`).classList.add('active');
+
+  const isCompanions = tab === 'companions';
+  document.getElementById('body').style.display   = isCompanions ? 'flex' : 'none';
+  document.getElementById('sp-panel').classList.toggle('show', !isCompanions);
+  document.getElementById('hdr-companions-ctrl').style.display = isCompanions ? 'flex' : 'none';
+  document.getElementById('hdr-sub').textContent =
+    isCompanions ? 'Companion Management' : 'Species Data';
+
+  if (tab === 'species' && speciesDB) renderSpTable();
+}
+
+
+// ─ Species tab state ──────────────────────────────────────────────────────────
+
+let spFilter = 'all';
+let spApiKey = localStorage.getItem('gemini_api_key') || '';
+if (spApiKey) {
+  document.getElementById('sp-apikey').value = spApiKey;
+  document.getElementById('sp-keystatus').textContent = 'key saved';
+}
+const savedModel = localStorage.getItem('gemini_model');
+if (savedModel) {
+  const sel = document.getElementById('sp-model');
+  const opt = [...sel.options].find(o => o.value === savedModel);
+  if (opt) sel.value = savedModel;
+}
+
+// Build flat list of all companion entries across all quests
+function buildSpRows() {
+  const rows = [];
+  for (const [qid, indices] of Object.entries(COMPANIONS)) {
+    for (const idx of indices) {
+      const entry = (speciesDB[qid] || {})[String(idx)] || null;
+      const name  = entry?.name || null;
+      let status;
+      if (!entry)                               status = 'missing';
+      else if (!name || name === 'Unknown')     status = 'unknown';
+      else                                      status = 'complete';
+      rows.push({ qid, idx, entry, name, status });
+    }
+  }
+  return rows;
+}
+
+// ─ Render species table ───────────────────────────────────────────────────────
+
+function renderSpTable() {
+  if (!speciesDB) return;
+  const rows = buildSpRows();
+
+  const filtered = spFilter === 'all' ? rows : rows.filter(r => r.status === spFilter);
+
+  const counts = { complete: 0, unknown: 0, missing: 0 };
+  rows.forEach(r => counts[r.status]++);
+  document.getElementById('sp-stats').textContent =
+    `${rows.length} entries · ${counts.complete} complete · ${counts.unknown} unknown · ${counts.missing} missing`;
+
+  document.getElementById('sp-tbody').innerHTML = filtered.map(r => {
+    const imgUrl = `${API}/images/${r.qid}/${r.idx}_image.jpg?res=medium`;
+    const statusHtml = {
+      complete: '<span class="st-complete">✓ complete</span>',
+      unknown:  '<span class="st-unknown">⚠ unknown</span>',
+      missing:  '<span class="st-missing">✗ missing</span>',
+    }[r.status];
+
+    const nameHtml = r.name && r.name !== 'Unknown'
+      ? `<span class="real">${r.name}</span>`
+      : `<span class="unknown">${r.name || '—'}</span>`;
+
+    const desc = r.entry?.what_is_it || '';
+    const descPreview = desc.length > 80 ? desc.slice(0, 80) + '…' : desc;
+
+    return `<tr id="sp-row-${r.qid}-${r.idx}">
+      <td class="td-thumb">
+        <img class="sp-thumb" src="${imgUrl}" alt=""
+             onerror="this.outerHTML='<div class=\\'sp-thumb-placeholder\\'>?</div>'">
+      </td>
+      <td class="td-quest" title="${r.qid}">${r.qid.slice(0,8)}…</td>
+      <td class="td-idx">#${r.idx}</td>
+      <td class="td-name">${nameHtml}</td>
+      <td class="td-desc">${descPreview || '<span style="color:#2a3226;">—</span>'}</td>
+      <td class="td-status" id="sp-status-${r.qid}-${r.idx}">${statusHtml}</td>
+      <td class="td-action">
+        <button class="regen-btn" id="sp-btn-${r.qid}-${r.idx}"
+                onclick="regenOne('${r.qid}',${r.idx})">Regenerate</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ─ Filter ────────────────────────────────────────────────────────────────────
+
+function setFilter(f, el) {
+  spFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderSpTable();
+}
+
+// ─ API Key ───────────────────────────────────────────────────────────────────
+
+async function fetchModels() {
+  const key = document.getElementById('sp-apikey').value.trim() || localStorage.getItem('gemini_api_key');
+  if (!key) { alert('Enter your API key first.'); return; }
+  const statusEl = document.getElementById('sp-keystatus');
+  statusEl.textContent = 'fetching…'; statusEl.style.color = 'var(--amber)';
+  try {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?pageSize=100&key=${key}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    const models = [...new Set(
+      (data.models || [])
+        .filter(m => (m.supportedGenerationMethods || []).includes('generateContent'))
+        .map(m => m.name.replace('models/', '').replace(/-\d{3}$/, ''))
+        .sort()
+    )];
+    const sel = document.getElementById('sp-model');
+    const current = sel.value;
+    sel.innerHTML = models.map(m =>
+      `<option value="${m}"${m === current ? ' selected' : ''}>${m}</option>`
+    ).join('');
+    statusEl.textContent = `${models.length} models loaded`;
+    statusEl.style.color = 'var(--green)';
+    setTimeout(() => { statusEl.textContent = 'key saved'; statusEl.style.color = '#2e3828'; }, 3000);
+  } catch(e) {
+    statusEl.textContent = `Error: ${e.message}`;
+    statusEl.style.color = 'var(--red)';
+  }
+}
+
+function saveApiKey() {
+  spApiKey = document.getElementById('sp-apikey').value.trim();
+  localStorage.setItem('gemini_api_key', spApiKey);
+  const model = document.getElementById('sp-model').value;
+  localStorage.setItem('gemini_model', model);
+  const el = document.getElementById('sp-keystatus');
+  el.textContent = spApiKey ? 'saved ✓' : 'cleared';
+  el.style.color = spApiKey ? 'var(--green)' : 'var(--dim)';
+  setTimeout(() => { el.textContent = spApiKey ? 'key saved' : ''; el.style.color = '#2e3828'; }, 2000);
+}
+
+// ─ Gemini call ───────────────────────────────────────────────────────────────
+
+let _genAI = null;
+async function getGenAI(key) {
+  const { GoogleGenAI } = await import('https://esm.sh/@google/genai');
+  return new GoogleGenAI({ apiKey: key });
+}
+
+async function callGemini(qid, idx) {
+  const key = spApiKey || localStorage.getItem('gemini_api_key');
+  if (!key) throw new Error('No API key set');
+
+  // Fetch image as base64
+  const imgUrl = `${API}/images/${qid}/${idx}_image.jpg?res=medium`;
+  const imgRes = await fetch(imgUrl);
+  if (!imgRes.ok) throw new Error(`Image fetch failed: ${imgRes.status}`);
+  const blob    = await imgRes.blob();
+  const b64     = await new Promise(res => {
+    const reader = new FileReader();
+    reader.onload = () => res(reader.result.split(',')[1]);
+    reader.readAsDataURL(blob);
+  });
+
+  const prompt = `You are a naturalist biologist. Analyze this species photograph and identify what is in it.
+Return ONLY a valid JSON object with exactly these four fields, no markdown, no code block:
+{
+  "name": "Scientific name (Common name) — use the most specific identification possible",
+  "what_is_it": "One concise sentence describing what this species is.",
+  "information": "2-3 sentences of natural history, ecology, habitat, and interesting facts.",
+  "species_interactions": "One sentence about how this species interacts with other organisms."
+}
+If the image is unclear or the species cannot be identified, use "Unknown" for name and explain in what_is_it.`;
+
+  const model = document.getElementById('sp-model')?.value || localStorage.getItem('gemini_model') || 'gemini-3-flash-preview';
+  const ai = await getGenAI(key);
+  const response = await ai.models.generateContent({
+    model,
+    contents: [{
+      parts: [
+        { text: prompt },
+        { inlineData: { mimeType: 'image/jpeg', data: b64 } }
+      ]
+    }],
+    config: { temperature: 0.3, maxOutputTokens: 2048 }
+  });
+
+  const text = response.text;
+
+  // Strip markdown code blocks if model wraps in them
+  const cleaned = text.replace(/```(?:json)?\n?/g, '').replace(/```/g, '').trim();
+  const parsed  = JSON.parse(cleaned);
+
+  // Validate required fields
+  const required = ['name', 'what_is_it', 'information', 'species_interactions'];
+  for (const f of required) if (!parsed[f]) throw new Error(`Missing field: ${f}`);
+
+  return parsed;
+}
+
+// ─ Regen one ────────────────────────────────────────────────────────────────
+
+async function regenOne(qid, idx) {
+  const rowId    = `sp-row-${qid}-${idx}`;
+  const statusEl = document.getElementById(`sp-status-${qid}-${idx}`);
+  const btn      = document.getElementById(`sp-btn-${qid}-${idx}`);
+
+  statusEl.innerHTML = '<span class="st-working">⟳ working…</span>';
+  btn.disabled = true;
+
+  try {
+    const result = await callGemini(qid, idx);
+
+    // Update in-memory DB
+    if (!speciesDB[qid]) speciesDB[qid] = {};
+    speciesDB[qid][String(idx)] = result;
+
+    // Update row in place
+    const row = document.getElementById(rowId);
+    if (row) {
+      const nameCell = row.querySelector('.td-name');
+      nameCell.innerHTML = `<span class="real">${result.name}</span>`;
+      const descCell = row.querySelector('.td-desc');
+      const preview  = (result.what_is_it || '').slice(0, 80) + (result.what_is_it?.length > 80 ? '…' : '');
+      descCell.textContent = preview;
+      statusEl.innerHTML = result.name === 'Unknown'
+        ? '<span class="st-unknown">⚠ unknown</span>'
+        : '<span class="st-done">✓ done</span>';
+    }
+  } catch (e) {
+    statusEl.innerHTML = `<span class="st-error" title="${e.message}">✗ error</span>`;
+  }
+  btn.disabled = false;
+}
+
+// ─ Regen all missing / unknown ───────────────────────────────────────────────
+
+async function regenAll() {
+  const rows = buildSpRows().filter(r => r.status !== 'complete');
+  if (!rows.length) { alert('Nothing to regenerate.'); return; }
+
+  const progressEl  = document.getElementById('sp-progress');
+  const progressBar = document.getElementById('sp-progress-bar');
+  const statusEl    = document.getElementById('sp-regen-status');
+  const btn         = document.getElementById('sp-regen-all-btn');
+
+  progressEl.classList.add('show');
+  btn.disabled = true;
+
+  for (let i = 0; i < rows.length; i++) {
+    const r = rows[i];
+    statusEl.textContent = `${i + 1}/${rows.length} — ${r.qid.slice(0,8)} #${r.idx}`;
+    progressBar.style.width = `${((i) / rows.length) * 100}%`;
+    await regenOne(r.qid, r.idx);
+    progressBar.style.width = `${((i + 1) / rows.length) * 100}%`;
+    // small delay to avoid rate limiting
+    await new Promise(res => setTimeout(res, 400));
+  }
+
+  btn.disabled = false;
+  progressEl.classList.remove('show');
+  statusEl.textContent = `Done — ${rows.length} regenerated`;
+  setTimeout(() => { statusEl.textContent = ''; }, 4000);
+}
+
+// ─ Load JSON ─────────────────────────────────────────────────────────────────
+
+function loadSpJSON(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      speciesDB = data;
+      renderSpTable();
+      const btn = document.querySelector('button[onclick*="sp-load-input"]');
+      const orig = btn.textContent;
+      btn.textContent = 'Loaded!';
+      btn.classList.add('success');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('success'); }, 1500);
+    } catch (err) {
+      alert(`Invalid JSON: ${err.message}`);
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ─ Copy JSON ─────────────────────────────────────────────────────────────────
+
+async function copySpJSON() {
+  const json = JSON.stringify(speciesDB, null, 2);
+  try {
+    await navigator.clipboard.writeText(json);
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('success');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('success'); }, 1500);
+  } catch (_) {}
+}
+</script>
+</body>
+</html>

@@ -147,6 +147,14 @@ func _ready() -> void:
 	credits_backdrop.gui_input.connect(_on_credits_backdrop_input)
 	en_button.pressed.connect(func(): _set_locale("en"))
 	pt_button.pressed.connect(func(): _set_locale("pt"))
+	var uk_flag: Texture2D = load("res://Assets/Flags/uk.svg")
+	var pt_flag: Texture2D = load("res://Assets/Flags/pt.svg")
+	en_button.text = ""
+	pt_button.text = ""
+	en_button.icon = uk_flag
+	pt_button.icon = pt_flag
+	en_button.expand_icon = true
+	pt_button.expand_icon = true
 	blur_background.visible = false
 	closeup.visible = false
 	reticle.visible = false
@@ -192,8 +200,6 @@ func _update_language_buttons(locale: String) -> void:
 	var en_selected := locale == "en"
 	en_button.add_theme_stylebox_override("normal", _lang_selected_style if en_selected else _lang_unselected_style)
 	pt_button.add_theme_stylebox_override("normal", _lang_unselected_style if en_selected else _lang_selected_style)
-	en_button.add_theme_color_override("font_color", Color.BLACK if en_selected else Color.WHITE)
-	pt_button.add_theme_color_override("font_color", Color.WHITE if en_selected else Color.BLACK)
 
 func _on_explore_button_pressed() -> void:
 	_exploring = true
