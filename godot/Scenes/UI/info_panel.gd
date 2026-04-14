@@ -21,10 +21,8 @@ var _tween: Tween
 
 signal opened
 signal closed
-signal change_language(language: String)
 signal focused(object: Node3D)
 
-var current_language = "en"
 var _current_ingredient: Ingredient3D = null
 
 var portrait_mode: bool = false:
@@ -59,7 +57,11 @@ func _on_species_data(qid: String, sid: int, species_info: Dictionary):
 	print("[InfoPanel] species info loaded: ", species_info)
 	if qid != quest_id or sid != species_id:
 		return
-	%SpeciesName.text = species_info.get("name", "Unknown").split("(")[0].split("/")[0]
+	var common = species_info.get("common_name", "")
+	if common.is_empty():
+		common = species_info.get("name", "Unknown").split("(")[0].split("/")[0].strip_edges()
+	%SpeciesName.text = common
+	%ScientificName.text = species_info.get("scientific_name", "")
 	%Description.text = species_info.get("what_is_it", "")
 	%AdditionalInfo.text = species_info.get("information", "")
 
@@ -79,7 +81,8 @@ func _update_ingredient_text():
 	)
 
 func set_manual(species_name: String, description: String, additional_info: String, texture: Texture2D = null):
-	%SpeciesName.text = species_name.split("(")[0].split("/")[0]
+	%SpeciesName.text = species_name.split("(")[0].split("/")[0].strip_edges()
+	%ScientificName.text = ""
 	%Description.text = description
 	%AdditionalInfo.text = additional_info
 	if texture:
@@ -160,6 +163,7 @@ func _reset():
 	quest_id = ""
 	species_id = 0
 	%SpeciesName.text = ""
+	%ScientificName.text = ""
 	%Description.text = ""
 	%AdditionalInfo.text = ""
 	%TextureRect.texture = null
@@ -170,9 +174,5 @@ func _kill_tween():
 		_tween.kill()
 
 
-func _on_language_button_pressed() -> void:
-	current_language = "en" if current_language == "pt" else "pt"
-	%LanguageButton.text = "EN" if current_language == "pt" else "PT"
-	change_language.emit(current_language)
-	TranslationServer.set_locale(current_language)
+func sync_language(_locale: String) -> void:
 	_update_ingredient_text()

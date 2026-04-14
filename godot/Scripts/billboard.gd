@@ -16,6 +16,7 @@ extends Node3D
 
 @export var billboard_camera: bool = true:
 	set(value):
+		billboard_camera = value
 		self.rotation = Vector3.ZERO
 
 var accumulated_time: float = 0.0
@@ -67,10 +68,10 @@ func _set_max_side():
 	highlighting.max_side = self.max_side
 
 func _point_towards_target():
-	if not target:
+	var camera = get_viewport().get_camera_3d()
+	if not camera:
 		return
-	
-	var direction = global_position - target.global_position
+	var direction = global_position - camera.global_position
 	if direction.length() > 0.001:
 		look_at(global_position + direction, Vector3.UP)
 

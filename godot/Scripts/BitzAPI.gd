@@ -8,6 +8,8 @@ signal species_data_loaded(quest_id: String, species_id: int, data: Dictionary)
 signal request_failed(url: String, response_code: int)
 
 var _pending_requests: Dictionary = {}
+var _local_data: Dictionary = {}
+var _local_data_loaded: bool = false
 
 func fetch_species_image(quest_id: String, species_id: int, quality: String = "medium") -> void:
 	var url = api_url + "/explore/images/" + quest_id + "/" + str(species_id) + "_image.jpg?res=" + quality
@@ -19,15 +21,13 @@ func fetch_species_image(quest_id: String, species_id: int, quality: String = "m
 	http.request(url)
 
 func fetch_history(quest_id: String, species_id: int) -> void:
-	var url = api_url + "/explore/data/" + quest_id + "/history.json"
-	var http = HTTPRequest.new()
-	add_child(http)
-	var key = "json_%s_%d" % [quest_id, species_id]
-	_pending_requests[key] = {"quest_id": quest_id, "species_id": species_id, "node": http}
-	http.request_completed.connect(_on_json_received.bind(key))
-	http.request(url)
+	var local = _get_local_species(quest_id, species_id)
+	if not local.is_empty():
+		species_data_loaded.emit(quest_id, species_id, local)
+	else:
+		request_failed.emit(quest_id, 0)
 
-func _on_image_received(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, key: String) -> void:
+func _on_image_received(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray, key: String) -> void:
 	var info = _pending_requests.get(key, {})
 	_cleanup_request(key)
 	if response_code != 200:
@@ -43,30 +43,25 @@ func _on_image_received(result: int, response_code: int, headers: PackedStringAr
 	var texture = ImageTexture.create_from_image(image)
 	image_loaded.emit(info.get("quest_id", ""), info.get("species_id", ""), texture)
 
-func _on_json_received(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, key: String) -> void:
-	var info = _pending_requests.get(key, {})
-	_cleanup_request(key)
-	if response_code != 200:
-		request_failed.emit(info.get("quest_id", ""), response_code)
+
+func _load_local_data() -> void:
+	if _local_data_loaded:
+		return
+	_local_data_loaded = true
+	var file = FileAccess.open("res://data/species_data.json", FileAccess.READ)
+	if not file:
+		push_error("BitzAPI: local species_data.json not found")
 		return
 	var json = JSON.new()
-	var err = json.parse(body.get_string_from_utf8())
-	if err != OK:
-		push_error("BitzAPI: Failed to parse JSON: %s" % json.get_error_message())
-		return
-	var history: Array = json.data.get("history", [])
-	var sid: int = info.get("species_id", 0)
-	if sid >= history.size():
-		push_error("BitzAPI: species_id %d out of range (%d entries)" % [sid, history.size()])
-		return
-	var entry = history[sid]
-	var assistant_raw = entry.get("assistant", "{}")
-	print("assistant_raw:", assistant_raw)
-	var parsed = _fixup_string(assistant_raw)
-	if parsed == null:
-		parsed = {}
-	var species_info = parsed.get("species_identification", {})
-	species_data_loaded.emit(info.get("quest_id", {}), info.get("species_id", {}), species_info)
+	if json.parse(file.get_as_text()) == OK:
+		_local_data = json.data
+	else:
+		push_error("BitzAPI: failed to parse local species_data.json")
+
+func _get_local_species(quest_id: String, species_id: int) -> Dictionary:
+	_load_local_data()
+	var quest_data = _local_data.get(quest_id, {})
+	return quest_data.get(str(species_id), {})
 
 func _cleanup_request(key: String) -> void:
 	if _pending_requests.has(key):
@@ -75,25 +70,3 @@ func _cleanup_request(key: String) -> void:
 			node.queue_free()
 		_pending_requests.erase(key)
 
-func _fixup_string(assistant_data: String) -> Variant:
-	var inner = JSON.new()
-	if inner.parse(assistant_data) == OK:
-		return inner.data
-
-	var fixed = ""
-	for i in assistant_data.length():
-		var c = assistant_data[i]
-		if c == "'":
-			var prev_is_letter = i > 0 and assistant_data[i - 1].to_lower() != assistant_data[i - 1].to_upper()
-			var next_is_letter = i < assistant_data.length() - 1 and assistant_data[i + 1].to_lower() != assistant_data[i + 1].to_upper()
-			if prev_is_letter and next_is_letter:
-				fixed += "'"
-			else:
-				fixed += "\""
-		else:
-			fixed += c
-	var parse_err = inner.parse(fixed)
-	if parse_err != OK:
-		push_error("BitzAPI: Failed to parse fixup string: %s" % inner.get_error_message())
-		return null
-	return inner.data

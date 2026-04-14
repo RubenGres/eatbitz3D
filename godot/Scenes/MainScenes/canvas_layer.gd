@@ -19,6 +19,10 @@ extends CanvasLayer
 @onready var credits_panel: PanelContainer = $WelcomeOverlay/CreditsOverlay/PanelContainer
 @onready var controls_label: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel3
 @onready var cta_label: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel4
+@onready var welcome_desc: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel
+@onready var en_button: Button = %EnButton
+@onready var pt_button: Button = %PtButton
+@onready var credits_label: RichTextLabel = $WelcomeOverlay/CreditsOverlay/PanelContainer/VBoxContainer/ScrollContainer/RichTextLabel
 @onready var _fps_player = $"../Basic FPS Player"
 
 var _prev_reticle_visible: bool
@@ -32,6 +36,100 @@ var _smooth_edge_intensity := 0.0
 
 var _cursor_texture = preload("res://Assets/Particles/halo_small.png")
 var _edge_shader = preload("res://Shaders/edge_rotation.gdshader")
+
+var _lang_selected_style: StyleBoxFlat
+var _lang_unselected_style: StyleBoxFlat
+
+const _WELCOME_DESC := {
+	"en": "[center]An interactive visualization of the biodiversity behind [b]Venn Canteen[/b] in Porto, Portugal, exploring the regenerative farms and foragers who supply the restaurant.[/center]",
+	"pt": "[center]Uma visualização interativa da biodiversidade por detrás do [b]Venn Canteen[/b] no Porto, Portugal, explorando as quintas regenerativas e catadores que abastecem o restaurante.[/center]"
+}
+const _WELCOME_CONTROLS_MOUSE := {
+	"en": "[center][b]Controls[/b]\nMove your mouse to look around  ·  Click a species to learn more[/center]",
+	"pt": "[center][b]Controlos[/b]\nMova o rato para explorar  ·  Clique numa espécie para saber mais[/center]"
+}
+const _WELCOME_CONTROLS_TOUCH := {
+	"en": "[center][b]Controls[/b]\nDrag to look around  ·  Hold a species to learn more[/center]",
+	"pt": "[center][b]Controlos[/b]\nArraste para explorar  ·  Segure numa espécie para saber mais[/center]"
+}
+const _WELCOME_CTA_MOUSE := {
+	"en": "[center]— Click anywhere to explore —[/center]",
+	"pt": "[center]— Clique em qualquer lado para explorar —[/center]"
+}
+const _WELCOME_CTA_TOUCH := {
+	"en": "[center]— Tap anywhere to explore —[/center]",
+	"pt": "[center]— Toque em qualquer lado para explorar —[/center]"
+}
+const _ABOUT_LABEL := {"en": "About", "pt": "Sobre"}
+const _CLOSE_LABEL := {"en": "Close", "pt": "Fechar"}
+const _CREDITS_TEXT := {
+"en": """[center][font_size=20][b]About EAT.BITZ[/b][/font_size][/center]
+
+EAT.BITZ is a three-part artistic experience for exploring biodiversity of the kitchen.
+
+Through an ingredient oracle reading, a kaleidoscope viewer, and an interactive digital platform, visitors get an intimate view of the ecological multitudes behind various dishes served in the restaurant.
+
+EAT.BITZ uses data collected by the [b]BITZ[/b] (Biodiversity in Transition Zones) digital tool — a participatory platform for place-based species quests that explore and document biodiversity in various landscapes.
+
+For EAT.BITZ: Venn Canteen, BITZ data was collected from local regenerative farms and foragers who supply the restaurant. This data was translated into an interactive datascape and set of bespoke oracle cards that illustrate the biodiversity behind Venn Canteen's menu and mission. Through EAT.BITZ: Venn Canteen, visitors can learn about key ingredients and feel connected to the wild species that support the agroecological systems of Northern Portugal.
+
+
+[center][color=#666666]────────────────────[/color][/center]
+
+
+[center][font_size=20][b]Credits[/b][/font_size][/center]
+
+[b]Bernat Cuní[/b]
+[color=#aaaaaa]Artist and digital craftsman working with emerging technologies from a post-capitalist lens.[/color]
+
+[b]Ruben Gres[/b]
+[color=#aaaaaa]Machine learning engineer turned creative technologist. Specializes in generative AI and interactive systems, focused on bringing high-level concepts to everyone through playful experiences.[/color]
+
+[b]Genomic Gastronomy[/b]
+[color=#aaaaaa]Artist-led think tank examining the biotechnologies and biodiversity of human food systems. Their mission: map food controversies, prototype alternative culinary futures, and imagine a more just, biodiverse & beautiful food system.[/color]
+
+[b]Venn Canteen[/b]
+[color=#aaaaaa]100% plant-based restaurant in Porto's Baixa district. Founded in 2023 by Monika Bloch, Snider Rodrigues, and Julian Fernandes. Works closely with small-scale regenerative farms and foragers across Portugal.[/color]
+
+[b]ST3ER[/b]
+[color=#aaaaaa]Scaling Twin Transition in Tourism by harnessing the Experience Economy for greater Resilience.
+
+This Project has indirectly received funding from the European Union's COSME - SMP programme, via an Open Call issued and executed under project ST3ER (grant agreement No 101121592)[/color]
+""",
+"pt": """[center][font_size=20][b]Sobre o EAT.BITZ[/b][/font_size][/center]
+
+EAT.BITZ é uma experiência artística em três partes para explorar a biodiversidade da cozinha.
+
+Através de uma leitura oracular de ingredientes, um visualizador caleidoscópico e uma plataforma digital interativa, os visitantes têm uma visão íntima das multidões ecológicas por detrás de vários pratos servidos no restaurante.
+
+EAT.BITZ usa dados recolhidos pela ferramenta digital [b]BITZ[/b] (Biodiversidade em Zonas de Transição) — uma plataforma participativa para missões de espécies baseadas no lugar que exploram e documentam a biodiversidade em várias paisagens.
+
+Para o EAT.BITZ: Venn Canteen, os dados BITZ foram recolhidos em quintas regenerativas locais e catadores que abastecem o restaurante. Estes dados foram traduzidos num datascape interativo e num conjunto de cartas oraculares feitas à medida que ilustram a biodiversidade por detrás do menu e da missão do Venn Canteen. Através do EAT.BITZ: Venn Canteen, os visitantes podem conhecer ingredientes-chave e sentir-se ligados às espécies selvagens que suportam os sistemas agroecológicos do norte de Portugal.
+
+
+[center][color=#666666]────────────────────[/color][/center]
+
+
+[center][font_size=20][b]Créditos[/b][/font_size][/center]
+
+[b]Bernat Cuní[/b]
+[color=#aaaaaa]Artista e artesão digital que trabalha com tecnologias emergentes a partir de uma perspetiva pós-capitalista.[/color]
+
+[b]Ruben Gres[/b]
+[color=#aaaaaa]Engenheiro de machine learning reconvertido em tecnólogo criativo. Especializa-se em IA generativa e sistemas interativos, focado em trazer conceitos de alto nível a todos através de experiências lúdicas.[/color]
+
+[b]Genomic Gastronomy[/b]
+[color=#aaaaaa]Think tank liderado por artistas que examina as biotecnologias e a biodiversidade dos sistemas alimentares humanos. A sua missão: mapear controvérsias alimentares, prototipar futuros culinários alternativos e imaginar um sistema alimentar mais justo, biodiverso e belo.[/color]
+
+[b]Venn Canteen[/b]
+[color=#aaaaaa]Restaurante 100% plant-based no bairro da Baixa do Porto. Fundado em 2023 por Monika Bloch, Snider Rodrigues e Julian Fernandes. Trabalha de perto com pequenas quintas regenerativas e catadores em todo Portugal.[/color]
+
+[b]ST3ER[/b]
+[color=#aaaaaa]Escalando a Dupla Transição no Turismo aproveitando a Economia da Experiência para maior Resiliência.
+
+Este Projeto recebeu indiretamente financiamento do programa COSME - SMP da União Europeia, através de um Open Call emitido e executado no âmbito do projeto ST3ER (acordo de subvenção n.º 101121592)[/color]
+"""
+}
 
 const INSPECT_MAX_TILT_X_DEG := 15.0
 const INSPECT_MAX_TILT_Y_DEG := 15.0
@@ -47,20 +145,55 @@ func _ready() -> void:
 	credits_button.pressed.connect(_on_credits_button_pressed)
 	back_button.pressed.connect(_on_back_button_pressed)
 	credits_backdrop.gui_input.connect(_on_credits_backdrop_input)
+	en_button.pressed.connect(func(): _set_locale("en"))
+	pt_button.pressed.connect(func(): _set_locale("pt"))
 	blur_background.visible = false
 	closeup.visible = false
 	reticle.visible = false
 	welcome_overlay.visible = true
 
-	TranslationServer.set_locale("en")
-	_setup_edge_overlay()
+	_lang_selected_style = StyleBoxFlat.new()
+	_lang_selected_style.bg_color = Color(1, 1, 1, 1)
+	_lang_selected_style.set_border_width_all(2)
+	_lang_selected_style.border_color = Color(1, 1, 1, 1)
+	_lang_selected_style.set_corner_radius_all(6)
 
-	if _touch_device:
-		controls_label.text = "[center][b]Controls[/b]\nDrag to look around  ·  Hold a species to learn more[/center]"
-		cta_label.text = "[center]— Tap anywhere to explore —[/center]"
+	_lang_unselected_style = StyleBoxFlat.new()
+	_lang_unselected_style.bg_color = Color(0, 0, 0, 0.92)
+	_lang_unselected_style.set_border_width_all(2)
+	_lang_unselected_style.border_color = Color(1, 1, 1, 1)
+	_lang_unselected_style.set_corner_radius_all(6)
+
+	_setup_edge_overlay()
+	_set_locale("en")
 
 	get_viewport().size_changed.connect(_update_layout)
 	_update_layout.call_deferred()
+
+func _set_locale(locale: String) -> void:
+	TranslationServer.set_locale(locale)
+	_update_welcome_texts(locale)
+	_update_language_buttons(locale)
+	info_panel.sync_language(locale)
+
+func _update_welcome_texts(locale: String) -> void:
+	welcome_desc.text = _WELCOME_DESC[locale]
+	if _touch_device:
+		controls_label.text = _WELCOME_CONTROLS_TOUCH[locale]
+		cta_label.text = _WELCOME_CTA_TOUCH[locale]
+	else:
+		controls_label.text = _WELCOME_CONTROLS_MOUSE[locale]
+		cta_label.text = _WELCOME_CTA_MOUSE[locale]
+	credits_button.text = _ABOUT_LABEL[locale]
+	back_button.text = _CLOSE_LABEL[locale]
+	credits_label.text = _CREDITS_TEXT[locale]
+
+func _update_language_buttons(locale: String) -> void:
+	var en_selected := locale == "en"
+	en_button.add_theme_stylebox_override("normal", _lang_selected_style if en_selected else _lang_unselected_style)
+	pt_button.add_theme_stylebox_override("normal", _lang_unselected_style if en_selected else _lang_selected_style)
+	en_button.add_theme_color_override("font_color", Color.BLACK if en_selected else Color.WHITE)
+	pt_button.add_theme_color_override("font_color", Color.WHITE if en_selected else Color.BLACK)
 
 func _on_explore_button_pressed() -> void:
 	_exploring = true
@@ -195,6 +328,15 @@ func _update_edge_overlay(delta: float) -> void:
 	_edge_material.set_shader_parameter("edge_input", _smooth_edge_dir)
 	_edge_material.set_shader_parameter("intensity", _smooth_edge_intensity)
 
+func _return_to_landing() -> void:
+	_exploring = false
+	if not _touch_device:
+		_exit_explore_mode()
+	else:
+		_fps_player.set_gyro_active(false)
+	reticle.visible = false
+	welcome_overlay.visible = true
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if credits_overlay.visible:
@@ -202,6 +344,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		elif closeup.visible:
 			info_panel.slide_out()
+			get_viewport().set_input_as_handled()
+		elif _exploring:
+			_return_to_landing()
 			get_viewport().set_input_as_handled()
 
 func _process(delta: float) -> void:

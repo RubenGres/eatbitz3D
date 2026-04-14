@@ -70,22 +70,30 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="SidePanel/VBoxContainer" unique_id=923301670]
 layout_mode = 2
 
-[node name="LanguageButton" type="Button" parent="SidePanel/VBoxContainer/HBoxContainer" unique_id=1896985733]
-unique_name_in_owner = true
+[node name="NameContainer" type="VBoxContainer" parent="SidePanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = " PT "
+size_flags_horizontal = 3
 
-[node name="SpeciesName" type="Label" parent="SidePanel/VBoxContainer/HBoxContainer" unique_id=482828297]
+[node name="SpeciesName" type="Label" parent="SidePanel/VBoxContainer/HBoxContainer/NameContainer" unique_id=482828297]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Ribwort Plantain "
+text = "Ribwort Plantain"
 horizontal_alignment = 1
-vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 6
+
+[node name="ScientificName" type="Label" parent="SidePanel/VBoxContainer/HBoxContainer/NameContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+theme_override_font_sizes/font_size = 11
+text = "Plantago lanceolata"
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Button" type="Button" parent="SidePanel/VBoxContainer/HBoxContainer" unique_id=2018630079]
 custom_minimum_size = Vector2(20, 0)
@@ -163,5 +171,4 @@ theme_override_font_sizes/font_size = 12
 text = "In traditional herbal medicine, Ribwort Plantain has been utilized for its anti-inflammatory properties, particularly during the Middle Ages in Europe. It was often used topically for skin irritations and is mentioned in 'The Herbal' by Nicholas Culpeper in 1653. Cultural references highlight its role as a natural remedy, and its resilience symbolizes perseverance in adverse conditions."
 autowrap_mode = 3
 
-[connection signal="pressed" from="SidePanel/VBoxContainer/HBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
 [connection signal="pressed" from="SidePanel/VBoxContainer/HBoxContainer/Button" to="." method="slide_out"]
