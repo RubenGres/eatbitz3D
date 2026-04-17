@@ -123,7 +123,7 @@ func _input(event):
 		return
 
 	if event is InputEventScreenDrag:
-		set_rotation_target(event.relative)
+		set_rotation_target(-event.relative)
 		return
 
 	if edge_rotation_active:
