@@ -191,9 +191,10 @@ theme_override_font_sizes/normal_font_size = 54
 bbcode_enabled = true
 text = "[center][b]EAT.BITZ[/b][/center]"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=1183909980]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
@@ -201,7 +202,7 @@ text = "[center]An interactive visualization of the biodiversity behind [b]Venn 
 horizontal_alignment = 1
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=1164453504]
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 15
@@ -209,9 +210,10 @@ bbcode_enabled = true
 text = "[center][b]Controls[/b]
 Move your mouse to look around  ·  Click a species to learn more[/center]"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=847622633]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/normal_font_size = 13
@@ -219,22 +221,25 @@ bbcode_enabled = true
 text = "[center]Created by Bernat Cuní, Ruben Gres, and Genomic Gastronomy
 in partnership with Venn Canteen and with support from ST3ER.[/center]"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/MarginContainer/VBoxContainer" unique_id=1718489252]
-custom_minimum_size = Vector2(0, 55)
+custom_minimum_size = Vector2(0, 78.65)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
 text = "[center]— Click anywhere to explore —[/center]"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ExploreButton" type="Button" parent="CanvasLayer/WelcomeOverlay" unique_id=483066619]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = -15.0
-offset_top = -14.0
-offset_right = 1162.0
-offset_bottom = 657.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -270,31 +275,26 @@ text = "About"
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
-anchor_left = 0.0
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
 offset_left = 20.0
 offset_top = -58.0
 offset_right = 144.0
 offset_bottom = -18.0
-grow_horizontal = 1
 grow_vertical = 0
 theme_override_constants/separation = 8
 
 [node name="EnButton" type="Button" parent="CanvasLayer/WelcomeOverlay/LanguageToggle" unique_id=777888002]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(54, 0)
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = ""
 
 [node name="PtButton" type="Button" parent="CanvasLayer/WelcomeOverlay/LanguageToggle" unique_id=777888003]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(54, 0)
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = ""
 
 [node name="CreditsOverlay" type="Control" parent="CanvasLayer/WelcomeOverlay" unique_id=1703306714]
 visible = false

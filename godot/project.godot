@@ -18,7 +18,7 @@ config/name="BITZ"
 run/main_scene="uid://b706tei6c7ce6"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/image="uid://dcem6cphwx0nl"
-config/icon="res://icon.svg"
+config/icon="res://bitz_bicolor.svg"
 
 [display]
 

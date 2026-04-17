@@ -135,6 +135,16 @@ const INSPECT_MAX_TILT_X_DEG := 15.0
 const INSPECT_MAX_TILT_Y_DEG := 15.0
 const INSPECT_TILT_SMOOTH_SPEED := 6.0
 
+const _BASE_FONT_TITLE := 54
+const _BASE_FONT_DESC := 17
+const _BASE_FONT_CONTROLS := 15
+const _BASE_FONT_CTA := 22
+const _BASE_FONT_FOOTER := 13
+const _BASE_FONT_BUTTON := 16
+const _BASE_FONT_LANG := 18
+const _BASE_FONT_CLOSE := 15
+const _BASE_FONT_CREDITS := 14
+
 func _ready() -> void:
 	_touch_device = DisplayServer.is_touchscreen_available()
 
@@ -253,9 +263,10 @@ func _update_welcome_layout(vp_size: Vector2) -> void:
 	var margin_v_bottom: float
 
 	if _portrait:
+		var portrait_scale = clamp(vp_size.x / 420.0, 1.4, 2.4)
 		margin_h = vp_size.x * 0.05
 		margin_v_top = vp_size.y * 0.03
-		margin_v_bottom = vp_size.y * 0.10
+		margin_v_bottom = max(vp_size.y * 0.10, 80.0 * portrait_scale)
 	else:
 		var max_content_width := 560.0
 		margin_h = max((vp_size.x - max_content_width) / 2.0, vp_size.x * 0.05)
@@ -291,6 +302,54 @@ func _update_welcome_layout(vp_size: Vector2) -> void:
 		credits_panel.offset_top = -ph
 		credits_panel.offset_right = pw
 		credits_panel.offset_bottom = ph
+
+	_update_font_scale(vp_size)
+
+func _apply_rtl_font_size(rtl: RichTextLabel, base_size: int, scale: float) -> void:
+	var size := int(base_size * scale)
+	rtl.add_theme_font_size_override("normal_font_size", size)
+	rtl.add_theme_font_size_override("bold_font_size", size)
+	rtl.add_theme_font_size_override("italics_font_size", size)
+	rtl.add_theme_font_size_override("bold_italics_font_size", size)
+	rtl.add_theme_font_size_override("mono_font_size", size)
+	rtl.fit_content = true
+
+func _update_font_scale(vp_size: Vector2) -> void:
+	var scale := 1.0
+	if _portrait:
+		scale = clamp(vp_size.x / 420.0, 1.4, 2.4)
+
+	var title: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/Title
+	_apply_rtl_font_size(title, _BASE_FONT_TITLE, scale)
+	_apply_rtl_font_size(welcome_desc, _BASE_FONT_DESC, scale)
+	_apply_rtl_font_size(controls_label, _BASE_FONT_CONTROLS, scale)
+	_apply_rtl_font_size(cta_label, _BASE_FONT_CTA, scale)
+
+	var footer: RichTextLabel = $WelcomeOverlay/MarginContainer/VBoxContainer/RichTextLabel2
+	_apply_rtl_font_size(footer, _BASE_FONT_FOOTER, scale)
+
+	credits_button.add_theme_font_size_override("font_size", int(_BASE_FONT_BUTTON * scale))
+	back_button.add_theme_font_size_override("font_size", int(_BASE_FONT_CLOSE * scale))
+	en_button.add_theme_font_size_override("font_size", int(_BASE_FONT_LANG * scale))
+	pt_button.add_theme_font_size_override("font_size", int(_BASE_FONT_LANG * scale))
+	_apply_rtl_font_size(credits_label, _BASE_FONT_CREDITS, scale)
+
+	var lang_toggle: HBoxContainer = $WelcomeOverlay/LanguageToggle
+	var bottom_margin := -18.0 * scale
+	var btn_h := 40.0 * scale
+	var lang_w := 54.0 * scale
+	en_button.custom_minimum_size = Vector2(lang_w, btn_h)
+	pt_button.custom_minimum_size = Vector2(lang_w, btn_h)
+	lang_toggle.offset_left = 20.0 * scale
+	lang_toggle.offset_top = bottom_margin - btn_h
+	lang_toggle.offset_right = lang_toggle.offset_left + (lang_w * 2 + 8 * scale)
+	lang_toggle.offset_bottom = bottom_margin
+
+	var about_w := 150.0 * scale
+	credits_button.offset_left = -about_w - 20.0 * scale
+	credits_button.offset_top = bottom_margin - btn_h
+	credits_button.offset_right = -20.0 * scale
+	credits_button.offset_bottom = bottom_margin
 
 func _setup_edge_overlay() -> void:
 	_edge_material = ShaderMaterial.new()
