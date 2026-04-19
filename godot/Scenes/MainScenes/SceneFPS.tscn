@@ -340,6 +340,7 @@ horizontal_scroll_mode = 0
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/WelcomeOverlay/CreditsOverlay/PanelContainer/VBoxContainer/ScrollContainer" unique_id=232913837]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
 text = "[center][font_size=20][b]About EAT.BITZ[/b][/font_size][/center]

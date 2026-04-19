@@ -123,7 +123,7 @@ func _input(event):
 		return
 
 	if event is InputEventScreenDrag:
-		set_rotation_target(-event.relative)
+		set_rotation_target(-event.relative / 5.0)
 		return
 
 	if edge_rotation_active:
@@ -134,7 +134,10 @@ func _input(event):
 		return
 
 	if event is InputEventMouseMotion:
-		set_rotation_target(event.relative)
+		var motion = event.relative
+		if _touch_device:
+			motion = -motion / 5.0
+		set_rotation_target(motion)
 
 func set_rotation_target(mouse_motion : Vector2):
 	# Add player target to the mouse -x input

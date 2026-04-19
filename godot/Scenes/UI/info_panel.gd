@@ -75,7 +75,11 @@ func _apply_font_scale() -> void:
 	close_btn.add_theme_font_size_override("font_size", int(_BASE_FONT_CLOSE * _font_scale))
 
 	var tex_rect: TextureRect = %TextureRect
-	tex_rect.custom_minimum_size.x = int(_BASE_TEXTURE_MIN_WIDTH * _font_scale)
+	var vp_w := get_viewport_rect().size.x
+	var target_w := int(_BASE_TEXTURE_MIN_WIDTH * _font_scale)
+	if portrait_mode:
+		target_w = int(min(float(target_w), vp_w * 0.7))
+	tex_rect.custom_minimum_size.x = target_w
 
 func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -169,6 +173,7 @@ func _apply_layout():
 		side_panel.offset_bottom = 0
 
 	_move_offscreen()
+	_apply_font_scale()
 
 func slide_in():
 	_kill_tween()

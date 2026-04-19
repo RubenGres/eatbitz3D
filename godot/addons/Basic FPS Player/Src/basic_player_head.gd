@@ -1,8 +1,11 @@
 extends Node3D
 
-@onready var info_panel: InfoPanel = $"../../CanvasLayer/InfoPanel"
+const HoldIndicatorScript = preload("res://Scenes/UI/hold_indicator.gd")
 
-const HOLD_DURATION := 0.5
+@onready var info_panel: InfoPanel = $"../../CanvasLayer/InfoPanel"
+@onready var _canvas_layer: CanvasLayer = $"../../CanvasLayer"
+
+const HOLD_DURATION := 0.2
 const HOLD_MAX_DRIFT := 20.0
 
 var _hovered_ingredient = null
@@ -11,15 +14,37 @@ var _touch_device := false
 var _touch_start_time := 0.0
 var _touch_start_pos := Vector2.ZERO
 var _touch_held := false
+var _hold_indicator: Control = null
 
 func _ready() -> void:
 	_touch_device = DisplayServer.is_touchscreen_available()
 	info_panel.opened.connect(_on_info_panel_opened)
 	info_panel.closed.connect(_on_info_panel_closed)
+	if _touch_device:
+		_hold_indicator = HoldIndicatorScript.new()
+		_canvas_layer.add_child(_hold_indicator)
 
 func _process(_delta: float) -> void:
 	if _panel_open:
 		return
+
+	if _touch_held:
+		var elapsed = Time.get_ticks_msec() / 1000.0 - _touch_start_time
+		if _hold_indicator:
+			if _hovered_ingredient:
+				if not _hold_indicator.visible:
+					_hold_indicator.show_at(_touch_start_pos)
+				_hold_indicator.progress = clamp(elapsed / HOLD_DURATION, 0.0, 1.0)
+			else:
+				_hold_indicator.hide_indicator()
+		if elapsed >= HOLD_DURATION and _hovered_ingredient:
+			_touch_held = false
+			var ingredient = _hovered_ingredient
+			if _hold_indicator:
+				_hold_indicator.hide_indicator()
+			info_panel.slide_in()
+			info_panel.focus_on(ingredient)
+			return
 
 	var camera = get_viewport().get_camera_3d()
 	if not camera:
@@ -54,17 +79,17 @@ func _unhandled_input(event: InputEvent) -> void:
 				_touch_start_time = Time.get_ticks_msec() / 1000.0
 				_touch_start_pos = event.position
 				_touch_held = true
+				if _hold_indicator and _hovered_ingredient:
+					_hold_indicator.show_at(event.position)
 			else:
-				if _touch_held:
-					var elapsed = Time.get_ticks_msec() / 1000.0 - _touch_start_time
-					var drift = event.position.distance_to(_touch_start_pos)
-					if elapsed >= HOLD_DURATION and drift <= HOLD_MAX_DRIFT and _hovered_ingredient:
-						info_panel.slide_in()
-						info_panel.focus_on(_hovered_ingredient)
 				_touch_held = false
+				if _hold_indicator:
+					_hold_indicator.hide_indicator()
 		elif event is InputEventScreenDrag:
 			if _touch_held and event.position.distance_to(_touch_start_pos) > HOLD_MAX_DRIFT:
 				_touch_held = false
+				if _hold_indicator:
+					_hold_indicator.hide_indicator()
 		return
 
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -88,6 +113,9 @@ func _get_ingredient(collider: Node):
 
 func _on_info_panel_opened() -> void:
 	_panel_open = true
+	_touch_held = false
+	if _hold_indicator:
+		_hold_indicator.hide_indicator()
 	_clear_highlight()
 
 func _on_info_panel_closed() -> void:
