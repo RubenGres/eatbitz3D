@@ -16,8 +16,16 @@ class_name InfoPanel
 			
 @export var slide_duration: float = 0.4
 
+const _BASE_FONT_SPECIES_NAME := 20
+const _BASE_FONT_SCIENTIFIC := 11
+const _BASE_FONT_DESCRIPTION := 12
+const _BASE_FONT_SECTION_TITLE := 17
+const _BASE_FONT_CLOSE := 20
+const _BASE_TEXTURE_MIN_WIDTH := 250
+
 var _api: BitzAPI
 var _tween: Tween
+var _font_scale: float = 1.0
 
 signal opened
 signal closed
@@ -37,9 +45,37 @@ func _ready():
 	_api = BitzAPI.new()
 	add_child(_api)
 	_apply_layout()
+	_apply_font_scale()
 	_move_offscreen()
 	_api.species_data_loaded.connect(_on_species_data)
 	_api.image_loaded.connect(_on_image)
+
+func set_font_scale(scale: float) -> void:
+	if is_equal_approx(_font_scale, scale):
+		return
+	_font_scale = scale
+	if is_node_ready():
+		_apply_font_scale()
+
+func _apply_font_scale() -> void:
+	var name_label: Label = %SpeciesName
+	var sci_label: Label = %ScientificName
+	var desc_label: Label = %Description
+	var extra_label: Label = %AdditionalInfo
+	var desc_title: Label = $SidePanel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2/VBoxContainer/DescriptionTitle
+	var extra_title: Label = $SidePanel/VBoxContainer/ScrollContainer/MarginContainer2/VBoxContainer/MarginContainer2/VBoxContainer/AdditonalInfoTitle
+	var close_btn: Button = $SidePanel/VBoxContainer/HBoxContainer/Button
+
+	name_label.add_theme_font_size_override("font_size", int(_BASE_FONT_SPECIES_NAME * _font_scale))
+	sci_label.add_theme_font_size_override("font_size", int(_BASE_FONT_SCIENTIFIC * _font_scale))
+	desc_label.add_theme_font_size_override("font_size", int(_BASE_FONT_DESCRIPTION * _font_scale))
+	extra_label.add_theme_font_size_override("font_size", int(_BASE_FONT_DESCRIPTION * _font_scale))
+	desc_title.add_theme_font_size_override("font_size", int(_BASE_FONT_SECTION_TITLE * _font_scale))
+	extra_title.add_theme_font_size_override("font_size", int(_BASE_FONT_SECTION_TITLE * _font_scale))
+	close_btn.add_theme_font_size_override("font_size", int(_BASE_FONT_CLOSE * _font_scale))
+
+	var tex_rect: TextureRect = %TextureRect
+	tex_rect.custom_minimum_size.x = int(_BASE_TEXTURE_MIN_WIDTH * _font_scale)
 
 func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -50,7 +86,8 @@ func _request_data():
 	if quest_id.is_empty():
 		return
 	_api.fetch_history(quest_id, species_id)
-	_api.fetch_species_image(quest_id, species_id, "medium")
+	var is_mobile_web := OS.has_feature("web_android") or OS.has_feature("web_ios")
+	_api.fetch_species_image(quest_id, species_id, "small" if is_mobile_web else "medium")
 	slide_in()
 
 func _on_species_data(qid: String, sid: int, species_info: Dictionary):

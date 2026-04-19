@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="BITZ"
 run/main_scene="uid://b706tei6c7ce6"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/image="uid://dcem6cphwx0nl"
 config/icon="res://bitz_bicolor.svg"
 
@@ -41,4 +41,6 @@ locale/translations=PackedStringArray("res://translations.en.translation", "res:
 
 [rendering]
 
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

@@ -28,6 +28,7 @@ extends CanvasLayer
 var _prev_reticle_visible: bool
 var _portrait := false
 var _touch_device := false
+var _is_mobile_web := false
 var _exploring := false
 var _edge_overlay: ColorRect
 var _edge_material: ShaderMaterial
@@ -147,6 +148,10 @@ const _BASE_FONT_CREDITS := 14
 
 func _ready() -> void:
 	_touch_device = DisplayServer.is_touchscreen_available()
+	_is_mobile_web = OS.has_feature("web_android") or OS.has_feature("web_ios")
+
+	if _is_mobile_web:
+		_apply_mobile_perf_tweaks()
 
 	info_panel.focused.connect(_on_node_focused)
 	info_panel.closed.connect(_on_closed)
@@ -233,8 +238,16 @@ func _update_layout() -> void:
 
 	_update_inspection_layout(vp_size)
 	_update_welcome_layout(vp_size)
+	_update_info_panel_scale(vp_size)
+
+func _update_info_panel_scale(vp_size: Vector2) -> void:
+	var scale := 1.0
+	if _portrait:
+		scale = clamp(vp_size.x / 300.0, 1.8, 3.0)
+	info_panel.set_font_scale(scale)
 
 func _update_inspection_layout(vp_size: Vector2) -> void:
+	var render_scale := 0.7 if _is_mobile_web else 1.0
 	if _portrait:
 		closeup.anchor_left = 0.0
 		closeup.anchor_top = 0.0
@@ -244,7 +257,7 @@ func _update_inspection_layout(vp_size: Vector2) -> void:
 		closeup.offset_top = 0
 		closeup.offset_right = 0
 		closeup.offset_bottom = 0
-		sub_viewport.size = Vector2i(int(vp_size.x), int(vp_size.y * 0.4))
+		sub_viewport.size = Vector2i(int(vp_size.x * render_scale), int(vp_size.y * 0.4 * render_scale))
 	else:
 		var closeup_width = min(813.0, vp_size.x * 0.6)
 		closeup.anchor_left = 0.0
@@ -255,7 +268,7 @@ func _update_inspection_layout(vp_size: Vector2) -> void:
 		closeup.offset_top = 0
 		closeup.offset_right = closeup_width
 		closeup.offset_bottom = 0
-		sub_viewport.size = Vector2i(int(closeup_width), int(vp_size.y))
+		sub_viewport.size = Vector2i(int(closeup_width * render_scale), int(vp_size.y * render_scale))
 
 func _update_welcome_layout(vp_size: Vector2) -> void:
 	var margin_h: float
@@ -350,6 +363,13 @@ func _update_font_scale(vp_size: Vector2) -> void:
 	credits_button.offset_top = bottom_margin - btn_h
 	credits_button.offset_right = -20.0 * scale
 	credits_button.offset_bottom = bottom_margin
+
+func _apply_mobile_perf_tweaks() -> void:
+	get_tree().root.scaling_3d_scale = 0.7
+	var env: Environment = camera3D.environment
+	if env:
+		env.glow_enabled = false
+		env.ssao_enabled = false
 
 func _setup_edge_overlay() -> void:
 	_edge_material = ShaderMaterial.new()
@@ -460,7 +480,7 @@ func _on_node_focused(object: Node3D):
 		object3D_parent.add_child(duplicated_object)
 		duplicated_object.billboard_camera = false
 		duplicated_object.lifetime = 99999
-		duplicated_object.texture_res = "large"
+		duplicated_object.texture_res = "medium" if _is_mobile_web else "large"
 		duplicated_object._fetch()
 	else:
 		particle_parent.add_child(duplicated_object)
