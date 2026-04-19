@@ -43,4 +43,5 @@ locale/translations=PackedStringArray("res://translations.en.translation", "res:
 
 renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="mobile"
+renderer/rendering_method.web="gl_compatibility"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
