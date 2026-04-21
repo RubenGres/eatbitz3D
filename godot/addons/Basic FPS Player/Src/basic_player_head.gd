@@ -5,15 +5,15 @@ const HoldIndicatorScript = preload("res://Scenes/UI/hold_indicator.gd")
 @onready var info_panel: InfoPanel = $"../../CanvasLayer/InfoPanel"
 @onready var _canvas_layer: CanvasLayer = $"../../CanvasLayer"
 
-const HOLD_DURATION := 0.2
-const HOLD_MAX_DRIFT := 20.0
+const HOLD_DURATION = 0.2
+const HOLD_MAX_DRIFT = 20.0
 
 var _hovered_ingredient = null
-var _panel_open := false
-var _touch_device := false
-var _touch_start_time := 0.0
-var _touch_start_pos := Vector2.ZERO
-var _touch_held := false
+var _panel_open = false
+var _touch_device = false
+var _touch_start_time = 0.0
+var _touch_start_pos = Vector2.ZERO
+var _touch_held = false
 var _hold_indicator: Control = null
 
 func _ready() -> void:

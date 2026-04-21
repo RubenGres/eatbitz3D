@@ -80,8 +80,8 @@ func spawn_companions():
 	for quest_id in data.keys():
 		var image_numbers: Array = data[quest_id]
 		for image_number in image_numbers:
-			var qid := str(quest_id)
-			var sid := int(image_number)
+			var qid = str(quest_id)
+			var sid = int(image_number)
 
 			_spawn_queue.append({
 				"quest_id":    qid,
@@ -108,11 +108,11 @@ func _spawn_one(entry_data: Dictionary) -> void:
 	if target:
 		companion.target = target
 
-	var index     := _spawned.size()
-	var ring_slot := _ring_for_index(index)
+	var index     = _spawned.size()
+	var ring_slot = _ring_for_index(index)
 
 	# Set orbit radius from ring before _ready() fires
-	var radius := ring_radii[ring_slot.x] if ring_slot.x < ring_radii.size() else ring_radii[-1]
+	var radius = ring_radii[ring_slot.x] if ring_slot.x < ring_radii.size() else ring_radii[-1]
 	companion.orbit_radius = radius
 
 	add_child(companion)  # _ready() fires here, reads orbit_radius
@@ -137,22 +137,22 @@ func _on_companion_loaded(_texture) -> void:
 # ── Layout ────────────────────────────────────────────────────────────────
 
 func _ring_for_index(index: int) -> Vector2i:
-	var remaining := index
+	var remaining = index
 	for ring in ring_capacities.size():
-		var capacity := ring_capacities[ring]
+		var capacity = ring_capacities[ring]
 		if remaining < capacity:
 			return Vector2i(ring, remaining)
 		remaining -= capacity
 	# Overflow: pack into last ring
-	var last := ring_capacities.size() - 1
+	var last = ring_capacities.size() - 1
 	return Vector2i(last, remaining % max(ring_capacities[last], 1))
 
 func _ring_point(ring: int, slot: int) -> Vector3:
-	var radius   := ring_radii[ring] if ring < ring_radii.size() else ring_radii[-1]
-	var capacity := ring_capacities[ring] if ring < ring_capacities.size() else ring_capacities[-1]
-	var golden_ratio := (1.0 + sqrt(5.0)) / 2.0
-	var theta        := acos(1.0 - 2.0 * (slot + 0.5) / max(capacity, 1))
-	var phi          := TAU * slot / golden_ratio
+	var radius   = ring_radii[ring] if ring < ring_radii.size() else ring_radii[-1]
+	var capacity = ring_capacities[ring] if ring < ring_capacities.size() else ring_capacities[-1]
+	var golden_ratio = (1.0 + sqrt(5.0)) / 2.0
+	var theta        = acos(1.0 - 2.0 * (slot + 0.5) / max(capacity, 1))
+	var phi          = TAU * slot / golden_ratio
 	return Vector3(
 		sin(theta) * cos(phi) * radius,
 		cos(theta)            * radius,

@@ -86,7 +86,7 @@ func _set_mesh():
 		await get_tree().process_frame
 
 		# Create and add outline mesh
-		var outline_mesh := MeshInstance3D.new()
+		var outline_mesh = MeshInstance3D.new()
 		outline_mesh.name = "OutlineMesh"
 		outline_mesh.mesh = model_3d.mesh.duplicate()
 		outline_mesh.scale = Vector3.ONE * 1.05

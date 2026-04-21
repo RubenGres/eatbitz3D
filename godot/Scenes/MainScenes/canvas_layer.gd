@@ -26,14 +26,14 @@ extends CanvasLayer
 @onready var _fps_player = $"../Basic FPS Player"
 
 var _prev_reticle_visible: bool
-var _portrait := false
-var _touch_device := false
-var _is_mobile_web := false
-var _exploring := false
+var _portrait = false
+var _touch_device = false
+var _is_mobile_web = false
+var _exploring = false
 var _edge_overlay: ColorRect
 var _edge_material: ShaderMaterial
-var _smooth_edge_dir := Vector2.ZERO
-var _smooth_edge_intensity := 0.0
+var _smooth_edge_dir = Vector2.ZERO
+var _smooth_edge_intensity = 0.0
 
 var _cursor_texture = preload("res://Assets/Particles/halo_small.png")
 var _edge_shader = preload("res://Shaders/edge_rotation.gdshader")
@@ -41,29 +41,29 @@ var _edge_shader = preload("res://Shaders/edge_rotation.gdshader")
 var _lang_selected_style: StyleBoxFlat
 var _lang_unselected_style: StyleBoxFlat
 
-const _WELCOME_DESC := {
+const _WELCOME_DESC = {
 	"en": "[center]An interactive visualization of the biodiversity behind [b]Venn Canteen[/b] in Porto, Portugal, exploring the regenerative farms and foragers who supply the restaurant.[/center]",
 	"pt": "[center]Uma visualização interativa da biodiversidade por detrás do [b]Venn Canteen[/b] no Porto, Portugal, explorando as quintas regenerativas e catadores que abastecem o restaurante.[/center]"
 }
-const _WELCOME_CONTROLS_MOUSE := {
+const _WELCOME_CONTROLS_MOUSE = {
 	"en": "[center][b]Controls[/b]\nMove your mouse to look around  ·  Click a species to learn more[/center]",
 	"pt": "[center][b]Controlos[/b]\nMova o rato para explorar  ·  Clique numa espécie para saber mais[/center]"
 }
-const _WELCOME_CONTROLS_TOUCH := {
+const _WELCOME_CONTROLS_TOUCH = {
 	"en": "[center][b]Controls[/b]\nDrag to look around  ·  Hold a species to learn more[/center]",
 	"pt": "[center][b]Controlos[/b]\nArraste para explorar  ·  Segure numa espécie para saber mais[/center]"
 }
-const _WELCOME_CTA_MOUSE := {
+const _WELCOME_CTA_MOUSE = {
 	"en": "[center]— Click anywhere to explore —[/center]",
 	"pt": "[center]— Clique em qualquer lado para explorar —[/center]"
 }
-const _WELCOME_CTA_TOUCH := {
+const _WELCOME_CTA_TOUCH = {
 	"en": "[center]— Tap anywhere to explore —[/center]",
 	"pt": "[center]— Toque em qualquer lado para explorar —[/center]"
 }
-const _ABOUT_LABEL := {"en": "About", "pt": "Sobre"}
-const _CLOSE_LABEL := {"en": "Close", "pt": "Fechar"}
-const _CREDITS_TEXT := {
+const _ABOUT_LABEL = {"en": "About", "pt": "Sobre"}
+const _CLOSE_LABEL = {"en": "Close", "pt": "Fechar"}
+const _CREDITS_TEXT = {
 "en": """[center][font_size=20][b]About EAT.BITZ[/b][/font_size][/center]
 
 EAT.BITZ is a three-part artistic experience for exploring biodiversity of the kitchen.
@@ -132,19 +132,19 @@ Este Projeto recebeu indiretamente financiamento do programa COSME - SMP da Uni�
 """
 }
 
-const INSPECT_MAX_TILT_X_DEG := 15.0
-const INSPECT_MAX_TILT_Y_DEG := 15.0
-const INSPECT_TILT_SMOOTH_SPEED := 6.0
+const INSPECT_MAX_TILT_X_DEG = 15.0
+const INSPECT_MAX_TILT_Y_DEG = 15.0
+const INSPECT_TILT_SMOOTH_SPEED = 6.0
 
-const _BASE_FONT_TITLE := 54
-const _BASE_FONT_DESC := 17
-const _BASE_FONT_CONTROLS := 15
-const _BASE_FONT_CTA := 22
-const _BASE_FONT_FOOTER := 13
-const _BASE_FONT_BUTTON := 16
-const _BASE_FONT_LANG := 18
-const _BASE_FONT_CLOSE := 15
-const _BASE_FONT_CREDITS := 14
+const _BASE_FONT_TITLE = 54
+const _BASE_FONT_DESC = 17
+const _BASE_FONT_CONTROLS = 15
+const _BASE_FONT_CTA = 22
+const _BASE_FONT_FOOTER = 13
+const _BASE_FONT_BUTTON = 16
+const _BASE_FONT_LANG = 18
+const _BASE_FONT_CLOSE = 15
+const _BASE_FONT_CREDITS = 14
 
 func _ready() -> void:
 	_touch_device = DisplayServer.is_touchscreen_available()
@@ -212,7 +212,7 @@ func _update_welcome_texts(locale: String) -> void:
 	credits_label.text = _CREDITS_TEXT[locale]
 
 func _update_language_buttons(locale: String) -> void:
-	var en_selected := locale == "en"
+	var en_selected = locale == "en"
 	en_button.add_theme_stylebox_override("normal", _lang_selected_style if en_selected else _lang_unselected_style)
 	pt_button.add_theme_stylebox_override("normal", _lang_unselected_style if en_selected else _lang_selected_style)
 
@@ -241,13 +241,13 @@ func _update_layout() -> void:
 	_update_info_panel_scale(vp_size)
 
 func _update_info_panel_scale(vp_size: Vector2) -> void:
-	var scale := 1.0
+	var scale = 1.0
 	if _portrait:
 		scale = clamp(vp_size.x / 300.0, 1.8, 3.0)
 	info_panel.set_font_scale(scale)
 
 func _update_inspection_layout(vp_size: Vector2) -> void:
-	var render_scale := 0.7 if _is_mobile_web else 1.0
+	var render_scale = 0.7 if _is_mobile_web else 1.0
 	if _portrait:
 		closeup.anchor_left = 0.0
 		closeup.anchor_top = 0.0
@@ -281,7 +281,7 @@ func _update_welcome_layout(vp_size: Vector2) -> void:
 		margin_v_top = vp_size.y * 0.03
 		margin_v_bottom = max(vp_size.y * 0.10, 80.0 * portrait_scale)
 	else:
-		var max_content_width := 560.0
+		var max_content_width = 560.0
 		margin_h = max((vp_size.x - max_content_width) / 2.0, vp_size.x * 0.05)
 		margin_v_top = vp_size.y * 0.05
 		margin_v_bottom = vp_size.y * 0.10
@@ -319,7 +319,7 @@ func _update_welcome_layout(vp_size: Vector2) -> void:
 	_update_font_scale(vp_size)
 
 func _apply_rtl_font_size(rtl: RichTextLabel, base_size: int, scale: float) -> void:
-	var size := int(base_size * scale)
+	var size = int(base_size * scale)
 	rtl.add_theme_font_size_override("normal_font_size", size)
 	rtl.add_theme_font_size_override("bold_font_size", size)
 	rtl.add_theme_font_size_override("italics_font_size", size)
@@ -328,7 +328,7 @@ func _apply_rtl_font_size(rtl: RichTextLabel, base_size: int, scale: float) -> v
 	rtl.fit_content = true
 
 func _update_font_scale(vp_size: Vector2) -> void:
-	var scale := 1.0
+	var scale = 1.0
 	if _portrait:
 		scale = clamp(vp_size.x / 420.0, 1.4, 2.4)
 
@@ -348,9 +348,9 @@ func _update_font_scale(vp_size: Vector2) -> void:
 	_apply_rtl_font_size(credits_label, _BASE_FONT_CREDITS, scale)
 
 	var lang_toggle: HBoxContainer = $WelcomeOverlay/LanguageToggle
-	var bottom_margin := -18.0 * scale
-	var btn_h := 40.0 * scale
-	var lang_w := 54.0 * scale
+	var bottom_margin = -18.0 * scale
+	var btn_h = 40.0 * scale
+	var lang_w = 54.0 * scale
 	en_button.custom_minimum_size = Vector2(lang_w, btn_h)
 	pt_button.custom_minimum_size = Vector2(lang_w, btn_h)
 	lang_toggle.offset_left = 20.0 * scale
@@ -358,7 +358,7 @@ func _update_font_scale(vp_size: Vector2) -> void:
 	lang_toggle.offset_right = lang_toggle.offset_left + (lang_w * 2 + 8 * scale)
 	lang_toggle.offset_bottom = bottom_margin
 
-	var about_w := 150.0 * scale
+	var about_w = 150.0 * scale
 	credits_button.offset_left = -about_w - 20.0 * scale
 	credits_button.offset_top = bottom_margin - btn_h
 	credits_button.offset_right = -20.0 * scale
@@ -438,11 +438,11 @@ func _process(delta: float) -> void:
 	_update_edge_overlay(delta)
 
 	var closeup_rect = closeup.get_global_rect()
-	var mouse_pos := get_viewport().get_mouse_position()
+	var mouse_pos = get_viewport().get_mouse_position()
 	var is_hovering_closeup = closeup.visible and closeup_rect.has_point(mouse_pos)
 
-	var target_tilt_x_deg := 0.0
-	var target_tilt_y_deg := 0.0
+	var target_tilt_x_deg = 0.0
+	var target_tilt_y_deg = 0.0
 
 	if is_hovering_closeup:
 		var normalized_x = (
@@ -461,7 +461,7 @@ func _process(delta: float) -> void:
 	var current_quat = inspect_node_parent.global_transform.basis.get_rotation_quaternion()
 	var target_quat = target_basis.orthonormalized().get_rotation_quaternion()
 	var blend = clamp(delta * INSPECT_TILT_SMOOTH_SPEED, 0.0, 1.0)
-	var next_quat := current_quat.slerp(target_quat, blend)
+	var next_quat = current_quat.slerp(target_quat, blend)
 	inspect_node_parent.global_transform.basis = Basis(next_quat)
 
 func _on_node_focused(object: Node3D):

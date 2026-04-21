@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck1b87u2hub6f"
 path.s3tc="res://.godot/imported/Meshy_AI_Fava_bean_0210153636_texture.jpg-65397d50bca2115c24e150cecccd5917.s3tc.ctex"
+path.etc2="res://.godot/imported/Meshy_AI_Fava_bean_0210153636_texture.jpg-65397d50bca2115c24e150cecccd5917.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/3D/Fava_bean/Meshy_AI_Fava_bean_0210153636_texture.jpg"
-dest_files=["res://.godot/imported/Meshy_AI_Fava_bean_0210153636_texture.jpg-65397d50bca2115c24e150cecccd5917.s3tc.ctex"]
+dest_files=["res://.godot/imported/Meshy_AI_Fava_bean_0210153636_texture.jpg-65397d50bca2115c24e150cecccd5917.s3tc.ctex", "res://.godot/imported/Meshy_AI_Fava_bean_0210153636_texture.jpg-65397d50bca2115c24e150cecccd5917.etc2.ctex"]
 
 [params]
 

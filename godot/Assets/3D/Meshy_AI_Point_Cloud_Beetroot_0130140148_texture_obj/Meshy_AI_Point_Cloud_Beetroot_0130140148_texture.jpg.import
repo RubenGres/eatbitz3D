@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdxt2vt1crney"
 path.s3tc="res://.godot/imported/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg-1044ba10a9eaf00321caabb0f2aa75b9.s3tc.ctex"
+path.etc2="res://.godot/imported/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg-1044ba10a9eaf00321caabb0f2aa75b9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/3D/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture_obj/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg"
-dest_files=["res://.godot/imported/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg-1044ba10a9eaf00321caabb0f2aa75b9.s3tc.ctex"]
+dest_files=["res://.godot/imported/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg-1044ba10a9eaf00321caabb0f2aa75b9.s3tc.ctex", "res://.godot/imported/Meshy_AI_Point_Cloud_Beetroot_0130140148_texture.jpg-1044ba10a9eaf00321caabb0f2aa75b9.etc2.ctex"]
 
 [params]
 

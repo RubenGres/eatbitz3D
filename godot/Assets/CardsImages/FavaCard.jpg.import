@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dsra0in77mb41"
 path.s3tc="res://.godot/imported/FavaCard.jpg-e293214d3094004cdfd54bd4002d158e.s3tc.ctex"
+path.etc2="res://.godot/imported/FavaCard.jpg-e293214d3094004cdfd54bd4002d158e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/CardsImages/FavaCard.jpg"
-dest_files=["res://.godot/imported/FavaCard.jpg-e293214d3094004cdfd54bd4002d158e.s3tc.ctex"]
+dest_files=["res://.godot/imported/FavaCard.jpg-e293214d3094004cdfd54bd4002d158e.s3tc.ctex", "res://.godot/imported/FavaCard.jpg-e293214d3094004cdfd54bd4002d158e.etc2.ctex"]
 
 [params]
 

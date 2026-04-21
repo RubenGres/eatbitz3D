@@ -54,8 +54,8 @@ const referenceFPS : float = 120.0
 
 
 #region State Initialization
-@onready var zoom_goal := camera.zoom
-@onready var position_goal := camera.position
+@onready var zoom_goal = camera.zoom
+@onready var position_goal = camera.position
 
 var fallback_mouse_pan : bool
 var fallback_mouse_zoom_in : bool
@@ -89,14 +89,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# Calculate FIR / invExp kernels for smoothing
-	var k_pan := pow(panSmoothing, referenceFPS * delta)
-	var k_zoom := pow(zoomSmoothing, referenceFPS * delta)
+	var k_pan = pow(panSmoothing, referenceFPS * delta)
+	var k_zoom = pow(zoomSmoothing, referenceFPS * delta)
 
-	var mouse_pre_zoom := to_local(get_canvas_transform().affine_inverse().basis_xform(zoom_mouse))
+	var mouse_pre_zoom = to_local(get_canvas_transform().affine_inverse().basis_xform(zoom_mouse))
 	camera.zoom = camera.zoom * k_zoom + (1.0-k_zoom) * zoom_goal
-	var mouse_post_zoom := to_local(get_canvas_transform().affine_inverse().basis_xform(zoom_mouse))
+	var mouse_post_zoom = to_local(get_canvas_transform().affine_inverse().basis_xform(zoom_mouse))
 
-	var zoom_position_offset := (mouse_pre_zoom - mouse_post_zoom) if zoomToCursor else Vector2.ZERO
+	var zoom_position_offset = (mouse_pre_zoom - mouse_post_zoom) if zoomToCursor else Vector2.ZERO
 
 	position_goal += zoom_position_offset
 	camera.position = camera.position * k_pan + (1.0-k_pan) * position_goal + zoom_position_offset
@@ -107,7 +107,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventMouse and not event is InputEventAction:
 		return
 
-	var current_mouse := get_local_mouse_position()
+	var current_mouse = get_local_mouse_position()
 	if Input.is_action_pressed(panAction) or (fallback_mouse_pan and Input.is_mouse_button_pressed(panButton)):
 		position_goal += (last_mouse - current_mouse)
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dplhdawgp4dmo"
 path.s3tc="res://.godot/imported/AcornCard.jpg-0a3860c3a2ecc2aff95356070da85f9f.s3tc.ctex"
+path.etc2="res://.godot/imported/AcornCard.jpg-0a3860c3a2ecc2aff95356070da85f9f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/CardsImages/AcornCard.jpg"
-dest_files=["res://.godot/imported/AcornCard.jpg-0a3860c3a2ecc2aff95356070da85f9f.s3tc.ctex"]
+dest_files=["res://.godot/imported/AcornCard.jpg-0a3860c3a2ecc2aff95356070da85f9f.s3tc.ctex", "res://.godot/imported/AcornCard.jpg-0a3860c3a2ecc2aff95356070da85f9f.etc2.ctex"]
 
 [params]
 

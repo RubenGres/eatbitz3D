@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bufav0s3n1k44"
 path.s3tc="res://.godot/imported/FigCard.jpg-0b506834f97943f4691cdc1426cb8a61.s3tc.ctex"
+path.etc2="res://.godot/imported/FigCard.jpg-0b506834f97943f4691cdc1426cb8a61.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/CardsImages/FigCard.jpg"
-dest_files=["res://.godot/imported/FigCard.jpg-0b506834f97943f4691cdc1426cb8a61.s3tc.ctex"]
+dest_files=["res://.godot/imported/FigCard.jpg-0b506834f97943f4691cdc1426cb8a61.s3tc.ctex", "res://.godot/imported/FigCard.jpg-0b506834f97943f4691cdc1426cb8a61.etc2.ctex"]
 
 [params]
 

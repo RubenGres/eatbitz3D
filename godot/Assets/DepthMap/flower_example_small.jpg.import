@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://m6he357ykf8s"
 path.s3tc="res://.godot/imported/flower_example_small.jpg-fbf1dec5fa49cc86bcafd3e2fda9c3bd.s3tc.ctex"
+path.etc2="res://.godot/imported/flower_example_small.jpg-fbf1dec5fa49cc86bcafd3e2fda9c3bd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/DepthMap/flower_example_small.jpg"
-dest_files=["res://.godot/imported/flower_example_small.jpg-fbf1dec5fa49cc86bcafd3e2fda9c3bd.s3tc.ctex"]
+dest_files=["res://.godot/imported/flower_example_small.jpg-fbf1dec5fa49cc86bcafd3e2fda9c3bd.s3tc.ctex", "res://.godot/imported/flower_example_small.jpg-fbf1dec5fa49cc86bcafd3e2fda9c3bd.etc2.ctex"]
 
 [params]
 

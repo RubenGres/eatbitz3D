@@ -1,0 +1,107 @@
+// Translations for ingredient names, descriptions, and welcome/credits text.
+// Sourced from godot/translations.csv and godot/Scenes/MainScenes/canvas_layer.gd.
+
+export const INGREDIENT_STRINGS = {
+  en: {
+    ACORN_NAME: "Acorn",
+    ACORN_DESC: "Acorn flour is one of the most versatile ingredients in our kitchen.\n\nOur chef Monika uses it across menus as a gluten-free base for mushroom dishes, in pasta doughs alongside khorasan wheat, and in savoury polenta cakes.\n\nIt has an earthy, nutty depth that pairs naturally with umami.\n\nWe source our acorn flour through Landratech, a startup we partner with alongside Associação Verde, an organisation dedicated to ecological restoration and sustainable land management in Portugal.\n\nOnce a staple of rural Portuguese cooking, acorn connects our menu to agroforestry systems and to a deep, overlooked food history.",
+    CHANTERELLE_NAME: "Chanterelle",
+    CHANTERELLE_DESC: "Mushrooms are a cornerstone of our menu, changing with each season.\n\nWhen wild chanterelles are available, they come to us through Gustavo Bruver, who forages in the areas around Albergaria-a-Velha and also supplies our cultivated varieties (pleurotus, shimeji, shiitake) through his Nuances Frescas project.\n\nChanterelles fruit only where woodland ecosystems are healthy, making their appearance a quiet indicator of fungal networks and root partnerships working underground.\n\nIn the kitchen, their delicate, peppery flavour pairs well with acorn flour and woody kukicha tea.",
+    PENNYWORT_NAME: "Pennywort",
+    PENNYWORT_DESC: "Pennywort grows wild on stone walls, shaded rock faces, and in rocky crevices.\n\nWe forage it ourselves, finding it on walls near Tiago Fonteboa's Formiga Gloriosa project in Muro, Trofa, and in similar spots across the region.\n\nIt stores water in its round, fleshy leaves and holds soil together where little else takes root.\n\nIn the kitchen, its mild, slightly succulent texture works well in raw preparations, salads, and as a fresh accent alongside richer dishes.\n\nPennywort is the kind of ingredient we are drawn to at VENN: overlooked, adapted to unlikely places, and full of quiet potential.",
+    BORAGE_NAME: "Borage",
+    BORAGE_DESC: "Borage is one of the wild species we source from our partner farms, including Maria Prada's Sweet Green project in Castelo de Paiva and Tiago Fonteboa's Formiga Gloriosa in Trofa.\n\nOn the plate, it brings a bright, cucumber-like freshness.\n\nWe use it in salads and as edible flowers, where its vivid blue blooms add colour alongside herbs and seasonal greens.\n\nIn the field, borage attracts pollinators, lifts minerals to the surface, and supports the crops growing around it.\n\nIt represents the kind of ingredient where beauty and ecological function turn out to be the same thing.",
+    FAVA_NAME: "Fava",
+    FAVA_DESC: "Fava has appeared across our menus in different forms, from marinated broad beans with mint oil and corn crackers to seasonal preparations that change with what our partner farms have available.\n\nWe source fava from the same regenerative farms that supply much of our produce, including Maria Prada's Sweet Green in Castelo de Paiva and Tiago Fonteboa's Formiga Gloriosa in Trofa.\n\nIts flavour is gentle but grounding.\n\nIn the field, fava plays a structural role: its roots collaborate with soil bacteria to fix nitrogen, enriching the ground for whatever crop comes next.\n\nAt VENN, we value fava as much for its agricultural importance as for what it brings to the plate.",
+    DANDELION_NAME: "Dandelion",
+    DANDELION_DESC: "Dandelion is one of the wild species we use regularly, sourced from Maria Prada at Sweet Green in Castelo de Paiva and Tiago at Formiga Gloriosa in Trofa.\n\nIts leaves bring a slight bitterness and peppery kick that our chef Monika puts to work in dishes like our homemade gnocchi, where a creamy dandelion sauce becomes the main character alongside nettle oil.\n\nEcologically, dandelion breaks compacted ground, feeds early pollinators, and grows where most cultivated plants will not.\n\nIt is one of several so-called weeds we work with at VENN.",
+    PURPLE_BASIL_NAME: "Purple Basil",
+    PURPLE_BASIL_DESC: "Purple basil has featured across our menus as both a garnish and an aromatic ingredient, sourced from Maria Prada's Sweet Green project in Castelo de Paiva.\n\nIts deep colour comes from anthocyanins, pigments the plant produces in response to stress, which also protect it from UV light and pests.\n\nThe volatile oils that make it so expressive on the plate serve a similar dual purpose in the field: deterring insects while attracting pollinators when it flowers.\n\nAt VENN, purple basil helps tell a story about flavour as adaptation.\n\nThe compounds that make it delicious are the same ones keeping it alive.",
+    FIG_NAME: "Fig",
+    FIG_DESC: "Fig appears across our menus in several forms.\n\nIn winter, our chef Monika makes a fried fig jam to accompany poached turnip, and uses dried fig infusions, drawn from Polish Christmas tradition, to bring sweetness and digestive warmth.\n\nFig jam also accompanies our milk bun interlude.\n\nOur figs are sourced in Trás-os-Montes.\n\nThe fruit's sweetness depends on an ancient partnership with the fig wasp, which pollinates the enclosed flowers in an exchange that has lasted millions of years.\n\nIt is one of the clearest examples on our menu of flavour produced through ecological partnership.",
+    ELDERFLOWER_NAME: "Elderflower",
+    ELDERFLOWER_DESC: "Elder grows at the edges of Portugal's agricultural landscapes, marking the boundary between managed fields and wilder ground.\n\nAt VENN, our chef Monika uses elderflower to make syrup infusions and it has featured in our homemade ice cream, where its delicate, floral character brings a gentle sweetness without weight.\n\nIts blossoms feed insects, its berries feed birds, and its hollow stems shelter small creatures.\n\nIt is an ingredient that speaks to our interest in threshold species: organisms that thrive in the transitions between cultivated and uncultivated land, offering generosity across the boundaries they inhabit.",
+  },
+  pt: {
+    ACORN_NAME: "Bolota",
+    ACORN_DESC: "A farinha de bolota é um dos ingredientes mais versáteis da nossa cozinha.\n\nA nossa chef Monika usa-a em vários menus como base sem glúten para pratos de cogumelos, em massas com trigo khorasan e em bolos salgados de polenta.\n\nTem uma profundidade terrosa e amendoada que combina naturalmente com sabores umami.\n\nA nossa farinha de bolota é fornecida pela Landratech, uma startup com a qual trabalhamos em parceria com a Associação Verde, uma organização dedicada à restauração ecológica e à gestão sustentável do território em Portugal.\n\nOutrora um alimento base na cozinha rural portuguesa, a bolota liga o nosso menu a sistemas agroflorestais e a uma história alimentar profunda e esquecida.",
+    CHANTERELLE_NAME: "Cantarelo",
+    CHANTERELLE_DESC: "Os cogumelos são um pilar do nosso menu e mudam a cada estação.\n\nQuando há cantarelos selvagens disponíveis, chegam-nos através do Gustavo Bruver, que faz recolha nas zonas em redor de Albergaria-a-Velha e também nos fornece variedades cultivadas (pleurotus, shimeji, shiitake) através do seu projecto Nuances Frescas.\n\nOs cantarelos só frutificam onde os ecossistemas florestais são saudáveis, o que faz da sua presença um indicador discreto de redes fúngicas e parcerias radiculares a trabalhar no subsolo.\n\nNa cozinha, o seu sabor delicado e apimentado combina bem com farinha de bolota e chá kukicha.",
+    PENNYWORT_NAME: "Umbigo-de-Vénus",
+    PENNYWORT_DESC: "O umbigo-de-vênus cresce de forma selvagem em muros de pedra, superfícies rochosas sombreadas e fendas.\n\nRecolhemo-lo nós próprios, encontrando-o em muros perto do projecto Formiga Gloriosa do Tiago Fonteboa em Muro, Trofa, e em locais semelhantes pela região.\n\nArmazena água nas suas folhas redondas e carnudas e segura o solo onde quase nada mais se enraíza.\n\nNa cozinha, a sua textura suave e ligeiramente suculenta funciona bem em preparações cruas, saladas e como apontamento fresco ao lado de pratos mais ricos.\n\nO umbigo-de-vênus é o tipo de ingrediente que nos atrai na VENN: esquecido, adaptado a lugares improváveis e cheio de potencial discreto.",
+    BORAGE_NAME: "Borragem",
+    BORAGE_DESC: "A borragem é uma das espécies selvagens que obtemos das nossas quintas parceiras, incluindo o projecto Sweet Green da Maria Prada em Castelo de Paiva e a Formiga Gloriosa do Tiago Fonteboa na Trofa.\n\nNo prato, traz uma frescura viva, semelhante a pepino.\n\nUsamo-la em saladas e como flores comestíveis, onde as suas flores azuis vibrantes acrescentam cor ao lado de ervas e verdes da estação.\n\nNo campo, a borragem atrai polinizadores, traz minerais à superfície e apoia as culturas que crescem à sua volta.\n\nRepresenta o tipo de ingrediente em que beleza e função ecológica acabam por ser a mesma coisa.",
+    FAVA_NAME: "Fava",
+    FAVA_DESC: "A fava tem aparecido nos nossos menus em diferentes formas: marinada com óleo de hortelã e crackers de milho, ou em preparações sazonais que mudam conforme o que as nossas quintas parceiras têm disponível.\n\nA fava vem das mesmas quintas regenerativas que nos fornecem grande parte dos nossos produtos, incluindo o projecto Sweet Green da Maria Prada em Castelo de Paiva e a Formiga Gloriosa do Tiago Fonteboa na Trofa.\n\nO seu sabor é suave mas reconfortante.\n\nNo campo, a fava desempenha um papel estrutural: as suas raízes colaboram com bactérias do solo para fixar azoto, enriquecendo a terra para a cultura seguinte.\n\nNa VENN, valorizamos a fava tanto pela sua importância agrícola como pelo que traz ao prato.",
+    DANDELION_NAME: "Dente-de-Leão",
+    DANDELION_DESC: "O dente-de-leão é uma das espécies selvagens que usamos regularmente, fornecida pela Maria Prada do projecto Sweet Green em Castelo de Paiva e pelo Tiago da Formiga Gloriosa na Trofa.\n\nAs suas folhas trazem um amargor subtil e um toque apimentado que a nossa chef Monika aproveita em pratos como o nosso gnocchi caseiro, onde um molho cremoso de dente-de-leão se torna o protagonista ao lado de óleo de urtiga.\n\nEcologicamente, o dente-de-leão rompe solo compactado, alimenta polinizadores precoces e cresce onde a maioria das plantas cultivadas não sobrevive.\n\nÉ uma das várias chamadas ervas daninhas com que trabalhamos na VENN.",
+    PURPLE_BASIL_NAME: "Manjericão Roxo",
+    PURPLE_BASIL_DESC: "O manjericão roxo tem estado presente nos nossos menus como guarnição e como ingrediente aromático, fornecido pelo projecto Sweet Green da Maria Prada em Castelo de Paiva.\n\nA sua cor profunda vem das antocianinas, pigmentos que a planta produz em resposta ao stress, e que também a protegem da luz UV e de pragas.\n\nOs óleos voláteis que o tornam tão expressivo no prato cumprem uma função dupla semelhante no campo: afastam insectos enquanto atraem polinizadores quando floresce.\n\nNa VENN, o manjericão roxo ajuda a contar uma história sobre o sabor como adaptação.\n\nOs compostos que o tornam delicioso são os mesmos que o mantêm vivo.",
+    FIG_NAME: "Figo",
+    FIG_DESC: "O figo aparece nos nossos menus de várias formas.\n\nNo inverno, a nossa chef Monika prepara uma compota de figo frita para acompanhar o nabo escalfado, e usa infusões de figo seco, inspiradas na tradição natalina polaca, para trazer doçura e calor digestivo.\n\nA compota de figo também acompanha o nosso interlúdio de pão de leite.\n\nOs nossos figos são de Trás-os-Montes.\n\nA doçura do fruto depende de uma parceria ancestral com a vespa-do-figo, que poliniza as flores internas numa troca que dura há milhões de anos.\n\nÉ um dos exemplos mais claros no nosso menu de sabor produzido através de parceria ecológica.",
+    ELDERFLOWER_NAME: "Flor de Sabugeiro",
+    ELDERFLOWER_DESC: "O sabugueiro cresce nas margens das paisagens agrícolas portuguesas, marcando a fronteira entre campos geridos e terreno mais selvagem.\n\nNa VENN, a nossa chef Monika usa a flor para fazer xaropes e infusões, e já apareceu no nosso gelado caseiro, onde o seu carácter delicado e floral traz uma doçura suave sem peso.\n\nAs suas flores alimentam insectos, os seus frutos alimentam pássaros, e os seus caules ocos abrigam pequenas criaturas.\n\nÉ um ingrediente que fala do nosso interesse por espécies de fronteira: organismos que prosperam nas transições entre terreno cultivado e não cultivado, oferecendo generosidade ao longo dos limites que habitam.",
+  },
+};
+
+export const UI_STRINGS = {
+  en: {
+    welcome_desc:
+      "An interactive visualization of the biodiversity behind <b>Venn Canteen</b> in Porto, Portugal, exploring the regenerative farms and foragers who supply the restaurant.",
+    controls_mouse:
+      "<b>Controls</b>\nMove your mouse to look around  ·  Click a species to learn more",
+    controls_touch:
+      "<b>Controls</b>\nDrag to look around  ·  Hold a species to learn more",
+    cta_mouse: "— Click anywhere to explore —",
+    cta_touch: "— Tap anywhere to explore —",
+    footer:
+      "Created by Bernat Cuní, Ruben Gres, and Genomic Gastronomy\nin partnership with Venn Canteen and with support from ST3ER.",
+    about: "About",
+    close: "Close",
+  },
+  pt: {
+    welcome_desc:
+      "Uma visualização interativa da biodiversidade por detrás do <b>Venn Canteen</b> no Porto, Portugal, explorando as quintas regenerativas e catadores que abastecem o restaurante.",
+    controls_mouse:
+      "<b>Controlos</b>\nMova o rato para explorar  ·  Clique numa espécie para saber mais",
+    controls_touch:
+      "<b>Controlos</b>\nArraste para explorar  ·  Segure numa espécie para saber mais",
+    cta_mouse: "— Clique em qualquer lado para explorar —",
+    cta_touch: "— Toque em qualquer lado para explorar —",
+    footer:
+      "Criado por Bernat Cuní, Ruben Gres, e Genomic Gastronomy\nem parceria com Venn Canteen e com o apoio do ST3ER.",
+    about: "Sobre",
+    close: "Fechar",
+  },
+};
+
+export const CREDITS_HTML = {
+  en: `
+    <h2>About EAT.BITZ</h2>
+    <p>EAT.BITZ is a three-part artistic experience for exploring biodiversity of the kitchen.</p>
+    <p>Through an ingredient oracle reading, a kaleidoscope viewer, and an interactive digital platform, visitors get an intimate view of the ecological multitudes behind various dishes served in the restaurant.</p>
+    <p>EAT.BITZ uses data collected by the <b>BITZ</b> (Biodiversity in Transition Zones) digital tool — a participatory platform for place-based species quests that explore and document biodiversity in various landscapes.</p>
+    <p>For EAT.BITZ: Venn Canteen, BITZ data was collected from local regenerative farms and foragers who supply the restaurant. This data was translated into an interactive datascape and set of bespoke oracle cards that illustrate the biodiversity behind Venn Canteen's menu and mission.</p>
+    <div class="divider">────────────────────</div>
+    <h3>Credits</h3>
+    <div class="person"><strong>Bernat Cuní</strong><span>Artist and digital craftsman working with emerging technologies from a post-capitalist lens.</span></div>
+    <div class="person"><strong>Ruben Gres</strong><span>Machine learning engineer turned creative technologist. Specializes in generative AI and interactive systems, focused on bringing high-level concepts to everyone through playful experiences.</span></div>
+    <div class="person"><strong>Genomic Gastronomy</strong><span>Artist-led think tank examining the biotechnologies and biodiversity of human food systems. Their mission: map food controversies, prototype alternative culinary futures, and imagine a more just, biodiverse & beautiful food system.</span></div>
+    <div class="person"><strong>Venn Canteen</strong><span>100% plant-based restaurant in Porto's Baixa district. Founded in 2023 by Monika Bloch, Snider Rodrigues, and Julian Fernandes. Works closely with small-scale regenerative farms and foragers across Portugal.</span></div>
+    <div class="person"><strong>ST3ER</strong><span>Scaling Twin Transition in Tourism by harnessing the Experience Economy for greater Resilience. This Project has indirectly received funding from the European Union's COSME - SMP programme, via an Open Call issued and executed under project ST3ER (grant agreement No 101121592).</span></div>
+  `,
+  pt: `
+    <h2>Sobre o EAT.BITZ</h2>
+    <p>EAT.BITZ é uma experiência artística em três partes para explorar a biodiversidade da cozinha.</p>
+    <p>Através de uma leitura oracular de ingredientes, um visualizador caleidoscópico e uma plataforma digital interativa, os visitantes têm uma visão íntima das multidões ecológicas por detrás de vários pratos servidos no restaurante.</p>
+    <p>EAT.BITZ usa dados recolhidos pela ferramenta digital <b>BITZ</b> (Biodiversidade em Zonas de Transição) — uma plataforma participativa para missões de espécies baseadas no lugar que exploram e documentam a biodiversidade em várias paisagens.</p>
+    <p>Para o EAT.BITZ: Venn Canteen, os dados BITZ foram recolhidos em quintas regenerativas locais e catadores que abastecem o restaurante. Estes dados foram traduzidos num datascape interativo e num conjunto de cartas oraculares feitas à medida que ilustram a biodiversidade por detrás do menu e da missão do Venn Canteen.</p>
+    <div class="divider">────────────────────</div>
+    <h3>Créditos</h3>
+    <div class="person"><strong>Bernat Cuní</strong><span>Artista e artesão digital que trabalha com tecnologias emergentes a partir de uma perspetiva pós-capitalista.</span></div>
+    <div class="person"><strong>Ruben Gres</strong><span>Engenheiro de machine learning reconvertido em tecnólogo criativo. Especializa-se em IA generativa e sistemas interativos, focado em trazer conceitos de alto nível a todos através de experiências lúdicas.</span></div>
+    <div class="person"><strong>Genomic Gastronomy</strong><span>Think tank liderado por artistas que examina as biotecnologias e a biodiversidade dos sistemas alimentares humanos.</span></div>
+    <div class="person"><strong>Venn Canteen</strong><span>Restaurante 100% plant-based no bairro da Baixa do Porto. Fundado em 2023 por Monika Bloch, Snider Rodrigues e Julian Fernandes. Trabalha de perto com pequenas quintas regenerativas e catadores em todo Portugal.</span></div>
+    <div class="person"><strong>ST3ER</strong><span>Escalando a Dupla Transição no Turismo aproveitando a Economia da Experiência para maior Resiliência. Este Projeto recebeu indiretamente financiamento do programa COSME - SMP da União Europeia, através de um Open Call emitido e executado no âmbito do projeto ST3ER (acordo de subvenção n.º 101121592).</span></div>
+  `,
+};

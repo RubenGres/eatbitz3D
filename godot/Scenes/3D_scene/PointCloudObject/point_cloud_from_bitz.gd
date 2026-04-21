@@ -135,7 +135,7 @@ func _ready():
 	_effective_radius = orbit_radius + randf_range(-orbit_radius_variance, orbit_radius_variance)
 	_effective_speed  = drift_speed  + randf_range(-drift_speed_variance,  drift_speed_variance)
 
-	var rand_axis := Vector3(
+	var rand_axis = Vector3(
 		randf_range(-1.0, 1.0),
 		randf_range(-1.0, 1.0),
 		randf_range(-1.0, 1.0)
@@ -174,15 +174,15 @@ func _update_position(delta: float) -> void:
 		return
 	_time += delta * _effective_speed
 
-	var t := _time + phase_offset
+	var t = _time + phase_offset
 
-	var local_pos := Vector3(
+	var local_pos = Vector3(
 		cos(t) * _effective_radius,
 		sin(t * 0.71) * _effective_radius * 0.3,
 		sin(t) * _effective_radius
 	)
 
-	var wander := Vector3(
+	var wander = Vector3(
 		sin(t * wander_frequency * 0.91) * wander_strength,
 		cos(t * wander_frequency * 0.67) * wander_strength,
 		sin(t * wander_frequency * 1.13) * wander_strength
@@ -195,14 +195,14 @@ func _update_proximity_scale() -> void:
 		_proximity_scale = 1.0
 		return
 
-	var dist    := global_position.distance_to(target.global_position)
-	var t_scale := inverse_lerp(scale_min_distance, scale_max_distance, dist)
+	var dist    = global_position.distance_to(target.global_position)
+	var t_scale = inverse_lerp(scale_min_distance, scale_max_distance, dist)
 	t_scale = clamp(t_scale, 0.0, 1.0)
 
 	_proximity_scale = scale_curve.sample_baked(t_scale) if scale_curve else t_scale
 	_proximity_scale = maxf(_proximity_scale, 0.001)
 
-const SCALE_EPSILON := 0.0001
+const SCALE_EPSILON = 0.0001
 
 func _update_lifecycle(delta: float) -> void:
 	match _lifecycle_state:
@@ -213,8 +213,8 @@ func _update_lifecycle(delta: float) -> void:
 		LifecycleState.FADE_IN:
 			_lifecycle_timer += delta
 			var t = clamp(_lifecycle_timer / max(fade_in_duration, 0.001), 0.0, 1.0)
-			var eased := 1.0 - pow(1.0 - t, 3.0)
-			var s := maxf(_proximity_scale * eased, SCALE_EPSILON)
+			var eased = 1.0 - pow(1.0 - t, 3.0)
+			var s = maxf(_proximity_scale * eased, SCALE_EPSILON)
 			scale = _safe_scale(s)
 			if _lifecycle_timer >= fade_in_duration:
 				_lifecycle_state = LifecycleState.ALIVE
@@ -231,8 +231,8 @@ func _update_lifecycle(delta: float) -> void:
 		LifecycleState.FADE_OUT:
 			_lifecycle_timer += delta
 			var t = clamp(_lifecycle_timer / max(fade_out_duration, 0.001), 0.0, 1.0)
-			var eased := pow(t, 3.0)
-			var s := maxf(_proximity_scale * (1.0 - eased), SCALE_EPSILON)
+			var eased = pow(t, 3.0)
+			var s = maxf(_proximity_scale * (1.0 - eased), SCALE_EPSILON)
 			scale = _safe_scale(s)
 			if _lifecycle_timer >= fade_out_duration:
 				_lifecycle_state = LifecycleState.SLEEPING
@@ -285,9 +285,9 @@ func _fetch() -> void:
 		return
 	if _http_rembg.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
 		_http_rembg.cancel_request()
-	var url := "%s/%s/%d?res=%s" % [_normalized_base_url(), quest_id, species_id, texture_res]
+	var url = "%s/%s/%d?res=%s" % [_normalized_base_url(), quest_id, species_id, texture_res]
 	print("[BitzCompanion] Requesting %s" % url)
-	var err := _http_rembg.request(url)
+	var err = _http_rembg.request(url)
 	if err != OK:
 		push_error("[BitzCompanion] Failed to start rembg request: %d" % err)
 
@@ -310,15 +310,15 @@ func _on_rembg_received(result: int, response_code: int, _headers: PackedStringA
 	_decode_thread.start(_decode_image_thread)
 
 func _decode_image_thread() -> void:
-	var image := Image.new()
-	var err := image.load_png_from_buffer(_pending_body)
+	var image = Image.new()
+	var err = image.load_png_from_buffer(_pending_body)
 	if err != OK:
 		push_error("[BitzCompanion] PNG decode failed in thread")
 		return
 	call_deferred("_apply_texture", image)
 
 func _apply_texture(image: Image) -> void:
-	var texture := ImageTexture.create_from_image(image)
+	var texture = ImageTexture.create_from_image(image)
 	point_cloud_object.texture = texture
 	print("[BitzCompanion] Texture applied (%dx%d)" % [image.get_width(), image.get_height()])
 	bitz_image_loaded = true
@@ -332,7 +332,7 @@ func _reload() -> void:
 	phase_offset      = randf() * TAU
 	_effective_radius = orbit_radius + randf_range(-orbit_radius_variance, orbit_radius_variance)
 	_effective_speed  = drift_speed  + randf_range(-drift_speed_variance,  drift_speed_variance)
-	var rand_axis := Vector3(
+	var rand_axis = Vector3(
 		randf_range(-1.0, 1.0),
 		randf_range(-1.0, 1.0),
 		randf_range(-1.0, 1.0)

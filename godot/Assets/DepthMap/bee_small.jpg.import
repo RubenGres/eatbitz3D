@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnpi0tuswp8jc"
 path.s3tc="res://.godot/imported/bee_small.jpg-7d2e32ce25bbc006e2a9a95bb1c9a790.s3tc.ctex"
+path.etc2="res://.godot/imported/bee_small.jpg-7d2e32ce25bbc006e2a9a95bb1c9a790.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/DepthMap/bee_small.jpg"
-dest_files=["res://.godot/imported/bee_small.jpg-7d2e32ce25bbc006e2a9a95bb1c9a790.s3tc.ctex"]
+dest_files=["res://.godot/imported/bee_small.jpg-7d2e32ce25bbc006e2a9a95bb1c9a790.s3tc.ctex", "res://.godot/imported/bee_small.jpg-7d2e32ce25bbc006e2a9a95bb1c9a790.etc2.ctex"]
 
 [params]
 

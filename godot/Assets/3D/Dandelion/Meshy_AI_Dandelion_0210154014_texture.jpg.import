@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6qiq6avylgce"
 path.s3tc="res://.godot/imported/Meshy_AI_Dandelion_0210154014_texture.jpg-0530a873bb146508d0454de1b1dba123.s3tc.ctex"
+path.etc2="res://.godot/imported/Meshy_AI_Dandelion_0210154014_texture.jpg-0530a873bb146508d0454de1b1dba123.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/3D/Dandelion/Meshy_AI_Dandelion_0210154014_texture.jpg"
-dest_files=["res://.godot/imported/Meshy_AI_Dandelion_0210154014_texture.jpg-0530a873bb146508d0454de1b1dba123.s3tc.ctex"]
+dest_files=["res://.godot/imported/Meshy_AI_Dandelion_0210154014_texture.jpg-0530a873bb146508d0454de1b1dba123.s3tc.ctex", "res://.godot/imported/Meshy_AI_Dandelion_0210154014_texture.jpg-0530a873bb146508d0454de1b1dba123.etc2.ctex"]
 
 [params]
 

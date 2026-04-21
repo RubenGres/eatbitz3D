@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://damdiwu5fahse"
 path.s3tc="res://.godot/imported/Meshy_AI_Elderflower_0210154048_texture.jpg-88cfc04037184327929938d6da9217ae.s3tc.ctex"
+path.etc2="res://.godot/imported/Meshy_AI_Elderflower_0210154048_texture.jpg-88cfc04037184327929938d6da9217ae.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/3D/Elderflower/Meshy_AI_Elderflower_0210154048_texture.jpg"
-dest_files=["res://.godot/imported/Meshy_AI_Elderflower_0210154048_texture.jpg-88cfc04037184327929938d6da9217ae.s3tc.ctex"]
+dest_files=["res://.godot/imported/Meshy_AI_Elderflower_0210154048_texture.jpg-88cfc04037184327929938d6da9217ae.s3tc.ctex", "res://.godot/imported/Meshy_AI_Elderflower_0210154048_texture.jpg-88cfc04037184327929938d6da9217ae.etc2.ctex"]
 
 [params]
 

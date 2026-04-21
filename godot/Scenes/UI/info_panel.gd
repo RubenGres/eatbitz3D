@@ -16,12 +16,12 @@ class_name InfoPanel
 			
 @export var slide_duration: float = 0.4
 
-const _BASE_FONT_SPECIES_NAME := 20
-const _BASE_FONT_SCIENTIFIC := 11
-const _BASE_FONT_DESCRIPTION := 12
-const _BASE_FONT_SECTION_TITLE := 17
-const _BASE_FONT_CLOSE := 20
-const _BASE_TEXTURE_MIN_WIDTH := 250
+const _BASE_FONT_SPECIES_NAME = 20
+const _BASE_FONT_SCIENTIFIC = 11
+const _BASE_FONT_DESCRIPTION = 12
+const _BASE_FONT_SECTION_TITLE = 17
+const _BASE_FONT_CLOSE = 20
+const _BASE_TEXTURE_MIN_WIDTH = 250
 
 var _api: BitzAPI
 var _tween: Tween
@@ -75,8 +75,8 @@ func _apply_font_scale() -> void:
 	close_btn.add_theme_font_size_override("font_size", int(_BASE_FONT_CLOSE * _font_scale))
 
 	var tex_rect: TextureRect = %TextureRect
-	var vp_w := get_viewport_rect().size.x
-	var target_w := int(_BASE_TEXTURE_MIN_WIDTH * _font_scale)
+	var vp_w = get_viewport_rect().size.x
+	var target_w = int(_BASE_TEXTURE_MIN_WIDTH * _font_scale)
 	if portrait_mode:
 		target_w = int(min(float(target_w), vp_w * 0.7))
 	tex_rect.custom_minimum_size.x = target_w
@@ -90,7 +90,7 @@ func _request_data():
 	if quest_id.is_empty():
 		return
 	_api.fetch_history(quest_id, species_id)
-	var is_mobile_web := OS.has_feature("web_android") or OS.has_feature("web_ios")
+	var is_mobile_web = OS.has_feature("web_android") or OS.has_feature("web_ios")
 	_api.fetch_species_image(quest_id, species_id, "small" if is_mobile_web else "medium")
 	slide_in()
 

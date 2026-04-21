@@ -17,27 +17,27 @@ class_name Freecam3D
 @export var overlay_text: bool = true
 
 ## Pivot node for camera looking around
-@onready var pivot := Node3D.new()
+@onready var pivot = Node3D.new()
 ## Main parent for camera overlay.
-@onready var screen_overlay := VBoxContainer.new()
+@onready var screen_overlay = VBoxContainer.new()
 ## Container for the chat-like event log.
-@onready var event_log := VBoxContainer.new()
+@onready var event_log = VBoxContainer.new()
 
-const MAX_SPEED := 4
-const MIN_SPEED := 0.1
-const ACCELERATION := 0.1
-const MOUSE_SENSITIVITY := 0.002
+const MAX_SPEED = 4
+const MIN_SPEED = 0.1
+const ACCELERATION = 0.1
+const MOUSE_SENSITIVITY = 0.002
 
 ## Whether or not the camera can move.
-var movement_active := true:
+var movement_active = true:
 	set(val):
 		movement_active = val
 		display_message("[Movement ON]" if movement_active else "[Movement OFF]")
 
 ## The current maximum speed. Lower or higher it by scrolling the mouse wheel.
-var target_speed := MIN_SPEED
+var target_speed = MIN_SPEED
 ## Movement velocity.
-var velocity := Vector3.ZERO
+var velocity = Vector3.ZERO
 
 
 ## Sets up pivot and UI overlay elements.

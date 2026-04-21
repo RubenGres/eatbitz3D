@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://3m0be5vssf7t"
 path.s3tc="res://.godot/imported/halo_largel.jpg-0d6307a5464af3a60b8e8f87bd25655f.s3tc.ctex"
+path.etc2="res://.godot/imported/halo_largel.jpg-0d6307a5464af3a60b8e8f87bd25655f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Particles/halo_largel.jpg"
-dest_files=["res://.godot/imported/halo_largel.jpg-0d6307a5464af3a60b8e8f87bd25655f.s3tc.ctex"]
+dest_files=["res://.godot/imported/halo_largel.jpg-0d6307a5464af3a60b8e8f87bd25655f.s3tc.ctex", "res://.godot/imported/halo_largel.jpg-0d6307a5464af3a60b8e8f87bd25655f.etc2.ctex"]
 
 [params]
 

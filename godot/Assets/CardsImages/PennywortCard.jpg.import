@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://jmkk8w055t3i"
 path.s3tc="res://.godot/imported/PennywortCard.jpg-fd76501cfd3fa353899b0407684201a8.s3tc.ctex"
+path.etc2="res://.godot/imported/PennywortCard.jpg-fd76501cfd3fa353899b0407684201a8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/CardsImages/PennywortCard.jpg"
-dest_files=["res://.godot/imported/PennywortCard.jpg-fd76501cfd3fa353899b0407684201a8.s3tc.ctex"]
+dest_files=["res://.godot/imported/PennywortCard.jpg-fd76501cfd3fa353899b0407684201a8.s3tc.ctex", "res://.godot/imported/PennywortCard.jpg-fd76501cfd3fa353899b0407684201a8.etc2.ctex"]
 
 [params]
 

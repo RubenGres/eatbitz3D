@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<title>EAT.BITZ</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="styles.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.min.js",
+    "three/addons/": "./vendor/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="scene"></canvas>
+
+<div id="reticle" hidden>
+  <img src="assets/particles/halo_small.png" alt="" />
+</div>
+
+<div id="hold-indicator" hidden>
+  <svg viewBox="0 0 40 40" width="40" height="40">
+    <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="3" />
+    <circle id="hold-progress" cx="20" cy="20" r="16" fill="none" stroke="#fff" stroke-width="3"
+            stroke-dasharray="100.53" stroke-dashoffset="100.53"
+            transform="rotate(-90 20 20)" stroke-linecap="round" />
+  </svg>
+</div>
+
+<aside id="info-panel" aria-hidden="true">
+  <div class="info-inner">
+    <header class="info-header">
+      <div class="info-names">
+        <h2 id="info-name">—</h2>
+        <p id="info-scientific"></p>
+      </div>
+      <button id="info-close" aria-label="Close">×</button>
+    </header>
+    <hr />
+    <div class="info-scroll">
+      <div class="info-image-wrap">
+        <img id="info-image" src="" alt="" />
+      </div>
+      <div class="info-text">
+        <h3 id="info-desc-title" hidden></h3>
+        <p id="info-desc"></p>
+        <h3 id="info-extra-title" hidden></h3>
+        <p id="info-extra"></p>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div id="welcome" class="overlay">
+  <button id="explore-btn" class="overlay-click-area" aria-label="Explore"></button>
+  <div class="welcome-content">
+    <h1>EAT.BITZ</h1>
+    <p id="welcome-desc"></p>
+    <p id="welcome-controls" class="muted"></p>
+    <p class="footer-credits" id="welcome-footer"></p>
+    <p id="welcome-cta" class="cta"></p>
+  </div>
+  <div class="language-toggle">
+    <button id="lang-en" class="lang-btn" aria-label="English">
+      <img src="assets/flags/uk.svg" alt="" />
+    </button>
+    <button id="lang-pt" class="lang-btn" aria-label="Português">
+      <img src="assets/flags/pt.svg" alt="" />
+    </button>
+  </div>
+  <button id="credits-btn" class="about-btn">About</button>
+</div>
+
+<div id="credits-overlay" class="overlay" hidden>
+  <div class="credits-backdrop"></div>
+  <div class="credits-panel">
+    <div class="credits-scroll" id="credits-content"></div>
+    <hr />
+    <button id="credits-close" class="close-btn">Close</button>
+  </div>
+</div>
+
+<div id="edge-overlay"></div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

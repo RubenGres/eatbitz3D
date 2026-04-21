@@ -23,7 +23,7 @@ enum Lens {
 
 ## The horizontal FoV of the camera, in degrees.[br]
 ## [b]Warning:[/b] This value is not accurate for most lenses.
-@export_range(10, 360) var fovx := 150.0:
+@export_range(10, 360) var fovx = 150.0:
 	set(value):
 		fovx = value
 		if fovx < 10:
@@ -33,18 +33,18 @@ enum Lens {
 		mat.set_shader_parameter("fovx", fovx)
 ## The current lens, which governs how each of the cameras are assembled and deformed
 ## to produce the final image.
-@export var lens := Lens.RECTILINEAR: set = set_lens
+@export var lens = Lens.RECTILINEAR: set = set_lens
 ## Near clip plane distance for subcameras.
-@export_range(0.001, 10) var clip_near := 0.1
+@export_range(0.001, 10) var clip_near = 0.1
 ## Far clip plane distance for subcameras.
-@export_range(0.01, 10000) var clip_far := 1000.0
+@export_range(0.01, 10000) var clip_far = 1000.0
 ## The number of subcameras to use for rendering.
-@export_range(1, 6) var num_cameras := 6
+@export_range(1, 6) var num_cameras = 6
 ## The FoV of all subcameras, in degrees. Values above 90 are more expensive to render,
 ## but can alleviate rendering artifacts near subviewport seams caused by screenspace effects.
-@export_range(90, 120) var camera_fov := 100
+@export_range(90, 120) var camera_fov = 100
 ## The render layer used for rendering of the final image.
-@export_range(1, 20) var render_layer := 11
+@export_range(1, 20) var render_layer = 11
 ## The [Environment] to use for the subcameras.
 @export var camera_environment: Environment = null
 ## The [SubViewport] to use for all subcameras. Use this to set viewport settings such as
@@ -57,7 +57,7 @@ var cameras : Array[Camera3D] = []
 ## The fullscreen quad mesh where the final image is drawn.
 var render_quad: MeshInstance3D = null
 ## The material used to produce the final image.
-var mat := ShaderMaterial.new()
+var mat = ShaderMaterial.new()
 
 
 func _ready() -> void:
@@ -67,7 +67,7 @@ func _ready() -> void:
 	render_quad = MeshInstance3D.new()
 	add_child(render_quad)
 	render_quad.translate_object_local(Vector3.FORWARD * (near + 0.1 * (far - near)))
-	var quad_mesh := QuadMesh.new()
+	var quad_mesh = QuadMesh.new()
 	quad_mesh.size = Vector2(2, 2)
 	render_quad.mesh = quad_mesh
 	render_quad.layers = render_layer
@@ -81,12 +81,12 @@ func _ready() -> void:
 	mat.set_shader_parameter("subcamera_fov", camera_fov)
 
 	for i in num_cameras:
-		var viewport := subviewport.duplicate() as SubViewport
+		var viewport = subviewport.duplicate() as SubViewport
 		add_child(viewport)
 		viewports.append(viewport)
 		mat.set_shader_parameter("Texture%d" % [i], viewport.get_texture())
 
-		var camera := Camera3D.new()
+		var camera = Camera3D.new()
 		viewport.add_child(camera)
 		camera.fov = camera_fov
 		camera.near = clip_near

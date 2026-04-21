@@ -20,45 +20,45 @@ func _enter_tree():
 
 @export_category("Movement")
 @export_subgroup("Settings")
-@export var SPEED := 5.0
-@export var ACCEL := 50.0
-@export var IN_AIR_SPEED := 3.0
-@export var IN_AIR_ACCEL := 5.0
-@export var JUMP_VELOCITY := 4.5
+@export var SPEED = 5.0
+@export var ACCEL = 50.0
+@export var IN_AIR_SPEED = 3.0
+@export var IN_AIR_ACCEL = 5.0
+@export var JUMP_VELOCITY = 4.5
 @export_subgroup("Head Bob")
-@export var HEAD_BOB := true
-@export var HEAD_BOB_FREQUENCY := 0.3
-@export var HEAD_BOB_AMPLITUDE := 0.01
+@export var HEAD_BOB = true
+@export var HEAD_BOB_FREQUENCY = 0.3
+@export var HEAD_BOB_AMPLITUDE = 0.01
 @export_subgroup("Clamp Head Rotation")
-@export var CLAMP_HEAD_ROTATION := true
-@export var CLAMP_HEAD_ROTATION_MIN := -90.0
-@export var CLAMP_HEAD_ROTATION_MAX := 90.0
+@export var CLAMP_HEAD_ROTATION = true
+@export var CLAMP_HEAD_ROTATION_MIN = -90.0
+@export var CLAMP_HEAD_ROTATION_MAX = 90.0
 
 @export_category("Key Binds")
 @export_subgroup("Mouse")
-@export var MOUSE_ACCEL := true
-@export var KEY_BIND_MOUSE_SENS := 0.005
-@export var KEY_BIND_MOUSE_ACCEL := 50
+@export var MOUSE_ACCEL = true
+@export var KEY_BIND_MOUSE_SENS = 0.005
+@export var KEY_BIND_MOUSE_ACCEL = 50
 @export_subgroup("Movement")
-@export var KEY_BIND_UP := "ui_up"
-@export var KEY_BIND_LEFT := "ui_left"
-@export var KEY_BIND_RIGHT := "ui_right"
-@export var KEY_BIND_DOWN := "ui_down"
-@export var KEY_BIND_JUMP := "ui_accept"
+@export var KEY_BIND_UP = "ui_up"
+@export var KEY_BIND_LEFT = "ui_left"
+@export var KEY_BIND_RIGHT = "ui_right"
+@export var KEY_BIND_DOWN = "ui_down"
+@export var KEY_BIND_JUMP = "ui_accept"
 
 @export_category("Gyroscope (Mobile)")
-@export var GYRO_ENABLED := true
-@export var GYRO_SENSITIVITY := 1.0
+@export var GYRO_ENABLED = true
+@export var GYRO_SENSITIVITY = 1.0
 ## Minimum angular velocity (rad/s) to register as intentional movement
-@export var GYRO_DEADZONE := 0.05
+@export var GYRO_DEADZONE = 0.05
 
 @export_category("Advanced")
-@export var UPDATE_PLAYER_ON_PHYS_STEP := true	# When check player is moved and rotated in _physics_process (fixed fps)
+@export var UPDATE_PLAYER_ON_PHYS_STEP = true	# When check player is moved and rotated in _physics_process (fixed fps)
 												# Otherwise player is updated in _process (uncapped)
 
 @export_category("Edge Rotation")
-@export var EDGE_ZONE := 0.40
-@export var EDGE_ROTATION_SPEED := 1.0
+@export var EDGE_ZONE = 0.40
+@export var EDGE_ROTATION_SPEED = 1.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -70,15 +70,15 @@ var accel = ACCEL
 var rotation_target_player : float
 var rotation_target_head : float
 
-var drag_look_active := false
-var _touch_device := false
-var _gyro_active := false
-var sensitivity_scale := 0.12
+var drag_look_active = false
+var _touch_device = false
+var _gyro_active = false
+var sensitivity_scale = 0.12
 
-var edge_rotation_active := false
-var edge_direction := Vector2.ZERO
-var edge_intensity := 0.0
-var _mouse_in_window := true
+var edge_rotation_active = false
+var edge_direction = Vector2.ZERO
+var edge_intensity = 0.0
+var _mouse_in_window = true
 
 # Used when bobing head
 var head_start_pos : Vector3
@@ -161,7 +161,7 @@ func set_gyro_active(active: bool) -> void:
 	#active and _touch_device and GYRO_ENABLED
 
 func _apply_gyroscope(delta: float) -> void:
-	var gyro := Input.get_gyroscope()
+	var gyro = Input.get_gyroscope()
 	if gyro.length_squared() < GYRO_DEADZONE * GYRO_DEADZONE:
 		return
 
@@ -199,8 +199,8 @@ func _apply_edge_rotation(delta: float) -> void:
 
 	var norm_x = mouse_pos.x / vp_size.x
 	var norm_y = mouse_pos.y / vp_size.y
-	var ex := 0.0
-	var ey := 0.0
+	var ex = 0.0
+	var ey = 0.0
 
 	if norm_x < EDGE_ZONE:
 		ex = -smoothstep(EDGE_ZONE, 0.0, norm_x)
