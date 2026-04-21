@@ -16,9 +16,9 @@ services:
       - web                  # <-- added
 
   eatbitz3d:
-    container_name: eatbitz_three_web
+    container_name: godot_web_export
     build:
-      context: ./three
+      context: ./godot
       dockerfile: Dockerfile
     expose:
       - "80"
