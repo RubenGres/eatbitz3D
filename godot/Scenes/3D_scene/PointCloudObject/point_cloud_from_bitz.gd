@@ -106,8 +106,6 @@ var auto_fetch: bool = true
 
 # ── Private ───────────────────────────────────────────────────────────────────
 var _http_rembg: HTTPRequest
-var _decode_thread: Thread
-var _pending_body: PackedByteArray
 var _fetch_dirty: bool = false
 var bitz_image_loaded: bool = false
 var _effective_radius: float
@@ -146,8 +144,6 @@ func _ready():
 	add_child(_http_rembg)
 	_http_rembg.request_completed.connect(_on_rembg_received)
 
-	_decode_thread = Thread.new()
-
 	point_cloud_object.target = self.target
 
 	if not bitz_image_loaded:
@@ -157,10 +153,6 @@ func _ready():
 		_fetch_dirty = false
 		if auto_fetch:
 			_fetch()
-
-func _exit_tree() -> void:
-	if _decode_thread and _decode_thread.is_started():
-		_decode_thread.wait_to_finish()
 
 # ── Process ───────────────────────────────────────────────────────────────────
 
@@ -297,25 +289,21 @@ func _on_rembg_received(result: int, response_code: int, _headers: PackedStringA
 	print("[BitzCompanion] response - result: %d, code: %d, size: %d bytes" % [result, response_code, body.size()])
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error("[BitzCompanion] Network error: %d" % result)
+		_fail_load()
 		return
 	if response_code != 200:
 		push_error("[BitzCompanion] HTTP %d" % response_code)
 		print("[BitzCompanion] Body: %s" % body.get_string_from_utf8().substr(0, 500))
+		_fail_load()
 		return
 
-	if _decode_thread.is_started():
-		_decode_thread.wait_to_finish()
-
-	_pending_body = body
-	_decode_thread.start(_decode_image_thread)
-
-func _decode_image_thread() -> void:
 	var image = Image.new()
-	var err = image.load_png_from_buffer(_pending_body)
+	var err = image.load_png_from_buffer(body)
 	if err != OK:
-		push_error("[BitzCompanion] PNG decode failed in thread")
+		push_error("[BitzCompanion] PNG decode failed")
+		_fail_load()
 		return
-	call_deferred("_apply_texture", image)
+	_apply_texture(image)
 
 func _apply_texture(image: Image) -> void:
 	var texture = ImageTexture.create_from_image(image)
@@ -325,6 +313,12 @@ func _apply_texture(image: Image) -> void:
 	rembg_texture_loaded.emit(texture)
 	if _lifecycle_state == LifecycleState.LOADING:
 		_begin_fade_in()
+
+# Notify spawner of a terminal failure so it releases its concurrency slot,
+# and hide this companion so it doesn't sit invisible-but-loading forever.
+func _fail_load() -> void:
+	self.hide()
+	rembg_texture_loaded.emit(null)
 
 # ── Misc ──────────────────────────────────────────────────────────────────────
 
