@@ -50,8 +50,8 @@ const _WELCOME_CONTROLS_MOUSE = {
 	"pt": "[center][b]Controlos[/b]\nMova o rato para explorar  ·  Clique numa espécie para saber mais[/center]"
 }
 const _WELCOME_CONTROLS_TOUCH = {
-	"en": "[center][b]Controls[/b]\nDrag to look around  ·  Hold a species to learn more[/center]",
-	"pt": "[center][b]Controlos[/b]\nArraste para explorar  ·  Segure numa espécie para saber mais[/center]"
+	"en": "[center][b]Controls[/b]\nDrag to look around  ·  Tap a species to learn more[/center]",
+	"pt": "[center][b]Controlos[/b]\nArraste para explorar  ·  Toque numa espécie para saber mais[/center]"
 }
 const _WELCOME_CTA_MOUSE = {
 	"en": "[center]— Click anywhere to explore —[/center]",
