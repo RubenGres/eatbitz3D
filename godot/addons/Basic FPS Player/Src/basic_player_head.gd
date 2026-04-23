@@ -60,10 +60,13 @@ func _unhandled_input(event: InputEvent) -> void:
 				_touch_is_tap = true
 			else:
 				var elapsed = Time.get_ticks_msec() / 1000.0 - _touch_start_time
-				if _touch_active and _touch_is_tap and elapsed <= TAP_MAX_DURATION and _hovered_ingredient:
-					var ingredient = _hovered_ingredient
-					info_panel.slide_in()
-					info_panel.focus_on(ingredient)
+				if _touch_active and _touch_is_tap and elapsed <= TAP_MAX_DURATION:
+					# Raycast at the release position — _hovered_ingredient from _process
+					# isn't reliable on touch (get_mouse_position() isn't updated by touches).
+					var ingredient = _pick_ingredient_at(event.position)
+					if ingredient:
+						info_panel.slide_in()
+						info_panel.focus_on(ingredient)
 				_touch_active = false
 				_touch_is_tap = false
 		elif event is InputEventScreenDrag:
@@ -81,6 +84,18 @@ func _clear_highlight() -> void:
 	if _hovered_ingredient:
 		_hovered_ingredient.is_highlighted = false
 		_hovered_ingredient = null
+
+func _pick_ingredient_at(screen_pos: Vector2):
+	var camera = get_viewport().get_camera_3d()
+	if not camera:
+		return null
+	var ray_origin = camera.project_ray_origin(screen_pos)
+	var ray_end = ray_origin + camera.project_ray_normal(screen_pos) * 100.0
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	var result = get_world_3d().direct_space_state.intersect_ray(query)
+	if result:
+		return _get_ingredient(result["collider"])
+	return null
 
 func _get_ingredient(collider: Node):
 	var node = collider
